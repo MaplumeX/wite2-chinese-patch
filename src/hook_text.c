@@ -1,28 +1,33 @@
 /*
- * WITE2 中文化 v4 —— 内存内改写 .rdata 字符串
- * ===========================================
+ * WITE2 中文化 v4.1 —— 纯内存改写 .rdata 字符串（零运行时开销）
+ * ============================================================
  *
- * 为什么换方案:
- *   v3 只 hook 了 DrawText, 主菜单标签成功, 但工具提示(Set to human
- *   controlled Axis player. 等)走另一条绘制路径, 完全没翻译。
- *   游戏里至少有三个文本绘制函数 (DrawText / DrawTextScaled / Render3DText),
- *   逐个逆向定位代价高且容易漏。
+ * 演进过程:
+ *   v1-v3  hook DrawText 绘制函数
+ *          → 主菜单标签成功, 但工具提示走另一条绘制路径, 没翻译
+ *          → 游戏里至少有三个文本绘制函数 (DrawText / DrawTextScaled /
+ *            Render3DText), 逐个逆向定位代价高且容易漏
  *
- * v4 思路:
+ *   v4    改为直接改写内存里的字符串
+ *          → 任何代码路径读到的都是中文, 不管它用哪个绘制函数
+ *          → 调用方测量宽度时读的也是中文, 排版自动正确
+ *
+ *   v4.1  移除 v4 里那个 DrawText 兜底 hook
+ *          → 它每次绘制都调 VirtualQuery 检查可读性, 每字符一次,
+ *            一帧几千次系统调用, 导致明显掉帧
+ *          → 实测兜底 hook 零命中 (.rdata 改写已覆盖全部文本),
+ *            纯属白跑, 直接删掉
+ *          → 现在运行时零开销: 只在启动时改一次内存
+ *
+ * 原理:
  *   所有界面文本都以 UTF-16 明文存放在 .rdata 中, 且是只读常量。
- *   启动时直接在内存里把英文改写成中文 —— 之后任何代码路径读到的都是中文,
- *   不管它用哪个绘制函数。
- *
- *   额外好处: 调用方测量宽度时读的也是中文, 排版自动正确,
- *   不再需要 v3 里那套 x 坐标修正。
- *
- *   中文比英文短得多 (UTF-16 下 "Game Options" 26 字节 vs "游戏选项" 10 字节),
- *   因此可以原地覆盖, 不需要移动任何数据。
+ *   启动时把英文原地覆盖成中文。中文在 UTF-16 下远比英文短
+ *   ("Game Options" 26 字节 vs "游戏选项" 10 字节), 空间充足。
  *
  * 安全约束:
  *   1. 只在译文不超长时改写 (len(zh) <= len(en)), 绝不越界
- *   2. 只匹配完整字符串 (前一个字符是 NUL, 后一个字符是 NUL),
- *      避免把 "Show Game Options screen" 里的 "Game Options" 当成独立串改写
+ *   2. 只匹配完整字符串 (前后都是 NUL 边界),
+ *      避免把 "Show Game Options screen" 里的 "Game Options" 当成独立串
  *   3. 只改 .rdata (只读常量区), 不碰 .data 里的运行时状态
  *
  * 抗更新: 只改运行时内存, 磁盘上的 exe 不动。
@@ -200,131 +205,10 @@ static void patch_all(HMODULE exe)
     }
 }
 
-/* ================= 兜底: DrawText hook ================= */
-/* 用于 .rdata 里找不到的串 (运行时拼接的文本) */
-typedef struct { wchar_t *key; wchar_t *val; unsigned hash; } Entry;
-static Entry *g_tab = NULL;
-static int g_cap = 0, g_cnt = 0;
-
-static unsigned fnv1w(const wchar_t *s, int n)
-{
-    unsigned h = 2166136261u;
-    for (int i = 0; i < n; i++) { h ^= (unsigned)(unsigned short)s[i]; h *= 16777619u; }
-    return h;
-}
-static void tab_put(wchar_t *k, wchar_t *v)
-{
-    int len = (int)wcslen(k);
-    unsigned h = fnv1w(k, len);
-    int mask = g_cap - 1, i = (int)(h & mask);
-    while (g_tab[i].key) {
-        if (g_tab[i].hash == h && wcscmp(g_tab[i].key, k) == 0) {
-            free(g_tab[i].val); g_tab[i].val = v; free(k); return;
-        }
-        i = (i + 1) & mask;
-    }
-    g_tab[i].key = k; g_tab[i].val = v; g_tab[i].hash = h; g_cnt++;
-}
-static const wchar_t *tab_get(const wchar_t *s, int len)
-{
-    if (!g_tab || !g_cnt) return NULL;
-    unsigned h = fnv1w(s, len);
-    int mask = g_cap - 1, i = (int)(h & mask);
-    while (g_tab[i].key) {
-        if (g_tab[i].hash == h && (int)wcslen(g_tab[i].key) == len
-            && memcmp(g_tab[i].key, s, len * sizeof(wchar_t)) == 0)
-            return g_tab[i].val;
-        i = (i + 1) & mask;
-    }
-    return NULL;
-}
-static void tab_build(void)
-{
-    g_cap = 65536;
-    g_tab = (Entry *)calloc(g_cap, sizeof(Entry));
-    if (!g_tab) return;
-    for (int d = 0; d < g_ndic; d++) {
-        int n = (int)wcslen(g_dic[d].key);
-        wchar_t *k = (wchar_t *)malloc((n + 1) * sizeof(wchar_t));
-        if (!k) continue;
-        memcpy(k, g_dic[d].key, (n + 1) * sizeof(wchar_t));
-        tab_put(k, g_dic[d].val);
-    }
-}
-
-static int readable(const void *p, int bytes)
-{
-    if (!p || (ULONG_PTR)p < 0x10000) return 0;
-    MEMORY_BASIC_INFORMATION mbi;
-    if (VirtualQuery(p, &mbi, sizeof(mbi)) != sizeof(mbi)) return 0;
-    if (mbi.State != MEM_COMMIT) return 0;
-    if (mbi.Protect & (PAGE_NOACCESS | PAGE_GUARD)) return 0;
-    return (ULONG_PTR)p + bytes <= (ULONG_PTR)mbi.BaseAddress + mbi.RegionSize;
-}
-
-static DWORD g_resume = 0;
-static int   g_hits = 0, g_logged = 0;
-
-static void __cdecl process_params(DWORD *params)
-{
-    const wchar_t *p = (const wchar_t *)params[3];
-    if (!readable(p, 4)) return;
-    int n = 0;
-    while (n < 512 && readable(p + n, 2) && p[n]) n++;
-    if (n < 2 || n >= 512) return;
-    const wchar_t *zh = tab_get(p, n);
-    if (zh) {
-        params[3] = (DWORD)zh;
-        g_hits++;
-        if (g_logged < 10) {
-            logfmt("[hook] 兜底替换 #%d\n", g_hits);
-            g_logged++;
-        }
-    }
-}
-
-__declspec(naked) static void hook_entry(void)
-{
-    __asm {
-        pushad
-        lea  eax, [esp + 0x24]
-        push eax
-        call process_params
-        add  esp, 4
-        popad
-        sub  esp, 0x38
-        push esi
-        mov  esi, ecx
-        mov  eax, g_resume
-        jmp  eax
-    }
-}
-
-static void install_hook(HMODULE exe, DWORD rva)
-{
-    BYTE *fn = (BYTE *)exe + rva;
-    const BYTE sig[6] = { 0x83, 0xEC, 0x38, 0x56, 0x8B, 0xF1 };
-    if (memcmp(fn, sig, 6) != 0) {
-        logfmt("[hook] 特征不匹配, 跳过兜底 hook\n");
-        return;
-    }
-    g_resume = (DWORD)(ULONG_PTR)(fn + 6);
-    DWORD old;
-    if (!VirtualProtect(fn, 16, PAGE_EXECUTE_READWRITE, &old)) return;
-    DWORD rel = (DWORD)((BYTE *)hook_entry - (fn + 5));
-    fn[0] = 0xE9;
-    memcpy(fn + 1, &rel, 4);
-    fn[5] = 0x90;
-    VirtualProtect(fn, 16, old, &old);
-    FlushInstructionCache(GetCurrentProcess(), fn, 6);
-    logfmt("[hook] 兜底 hook 已安装\n");
-}
-
 /* ================= 入口 ================= */
 static DWORD WINAPI init_thread(LPVOID param)
 {
     dict_load();
-    tab_build();
     logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条\n", g_ndic);
 
     Sleep(2000);
@@ -337,7 +221,6 @@ static DWORD WINAPI init_thread(LPVOID param)
     logfmt("\n改写 %d 处, 译文过长跳过 %d 条, 未找到 %d 条\n",
            g_patched, g_tooLong, g_notFound);
 
-    install_hook(exe, 0x45CE60);
     return 0;
 }
 
