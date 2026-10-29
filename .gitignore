@@ -22,6 +22,15 @@ wite2_dump.txt
 wite2_diag.txt
 wite2_text.bin
 wite2_bind.bin
+wite2_strings.txt
+wite2_scan.ini
+wite2_collect.ini
+wite2_dryrun.ini
+
+# 校对产物
+review.csv
+coverage.csv
+todo_translate.csv
 
 # Python
 __pycache__/

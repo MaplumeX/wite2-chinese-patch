@@ -1,5 +1,5 @@
 # WITE2 中英对照表  UTF-8  TAB 分隔
-# 英文<TAB>中文   以 # 开头为注释
+# 英文<TAB>中文
 Game Options	游戏选项
 Set the game options.	设置游戏选项。
 Multiplayer	多人游戏
@@ -65,3 +65,121 @@ ACTIVE	激活
 INACTIVE	未激活
 Reinforcement	增援
 Reinforcements & Transfers	增援与调动
+Army Group Center	中央集团军群
+Army Group South	南方集团军群
+Army Group North	北方集团军群
+Panzer Army	装甲集团军
+Panzer Group	装甲集群
+Panzer Corps	装甲军
+Army Group A	A集团军群
+Army Group B	B集团军群
+Carpathian Army Group	喀尔巴阡集团军群
+Carpathian Hun. Army	喀尔巴阡匈牙利集团军
+1st Panzer Group	第1装甲集群
+2nd Panzer Group	第2装甲集群
+3rd Panzer Group	第3装甲集群
+4th Panzer Group	第4装甲集群
+1st Panzer Army	第1装甲集团军
+2nd Panzer Army	第2装甲集团军
+3rd Panzer Army	第3装甲集团军
+4th Panzer Army	第4装甲集团军
+6th Army	第6集团军
+11th Army	第11集团军
+17th Army	第17集团军
+18th Army	第18集团军
+2nd Army	第2集团军
+9th Army	第9集团军
+16th Army	第16集团军
+4th Army	第4集团军
+XXXIV Corps	第34军
+LI Corps	第51军
+XIV Mot. Corps	第14摩托化军
+XXXXVIII Mot. Corps	第48摩托化军
+III Mot. Corps	第3摩托化军
+XXXXVI Mot. Corps	第46摩托化军
+XXIV Mot. Corps	第24摩托化军
+XLI Mot. Corps	第41摩托化军
+LVI Mot. Corps	第56摩托化军
+VII Corps	第7军
+IX Corps	第9军
+XII Corps	第12军
+XX Corps	第20军
+XXIX Corps	第29军
+9th Panzer Division	第9装甲师
+99th Light Division	第99轻装师
+113th Infantry Division	第113步兵师
+16th Motorized Division	第16摩托化师
+79th Infantry Division	第79步兵师
+103rd RHG Command	第103后方卫戍区
+OKH	国防军陆军总司令部
+OKL	空军总司令部
+OHQ	上级司令部
+HHQ	战区司令部
+Army Group HQ	集团军群司令部
+Army HQ	集团军司令部
+Corp HQ	军司令部
+Find HQ Unit.	查找司令部。
+Show Unit Detail.	显示部队详情。
+MERGE UNIT	合并部队
+RELOCATE UNIT	转移部队
+MOTORIZE UNIT	摩托化部队
+ASSIGN SUPPORT UNITS	指派支援单位
+SHOW SUBORDINATES	显示下属
+Combat Value	战斗力
+Support Level	支援等级
+Organic Support	建制内支援
+Total Support Need	支援需求总计
+Total Support	支援总计
+Total On Map	地图上总计
+MAX TOE	最大编制
+Ground Elements	地面单位
+ground elements	地面单位
+Unready	未就绪
+Isolated	被围
+In Supply	补给中
+In Transfer	转移中
+Depleted	损耗
+Understrength	缺编
+Low Supply	低补给
+Critical Supply	危急补给
+READY	就绪
+LOCKED	锁定
+STRENGTH ALERTS	兵力警报
+SUPPLY ALERTS	补给警报
+COMBAT UNIT ALERTS	作战部队警报
+SUPPLY DETAILS	补给详情
+SUPPLY PRIORITY	补给优先级
+GROUND ELEMENT	地面单位
+Elements	单位
+TOE	编制
+FAT	疲劳
+DAM	损伤
+EXP	经验
+Morale	士气
+Support	支援
+Pool	储备池
+Repair	修理
+Total	总计
+Nation	国家
+Scenario	剧本
+Scenario Overview	剧本概览
+Historical Overview	历史背景
+Load Scenario	载入剧本
+Start	开始
+End	结束
+Yes	是
+Map	地图
+MAP INFO	地图信息
+Turn Summary	回合总结
+TURN SUMMARY	回合总结
+LOGISTICS	后勤
+ADMIN	行政
+INFO SCREENS	信息界面
+OB CHANGES	战斗序列变更
+COM REPORT	通讯报告
+FRIENDLY LOSSES	我方损失
+SET COLOR	设置颜色
+Axis Control	轴心控制
+Soviet	苏联
+Axis	轴心
+Germany	德国

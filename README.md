@@ -1,6 +1,6 @@
 # War in the East 2 中文化补丁
 
-给《Gary Grigsby's War in the East 2》游戏界面加中文显示的注入式补丁。
+给《Gary Grigsby's War in the East 2》加中文显示的注入式补丁。
 
 **不改游戏 exe**，只放一个代理 DLL 到游戏目录，随时可删除还原。
 
@@ -11,122 +11,196 @@
 | 项目 | 状态 |
 |---|---|
 | 中文字形显示 | ✅ 可用 |
-| 界面文本替换 | ✅ 可用（含工具提示） |
-| 排版对齐 | ✅ 自动正确 |
+| 界面文本（主菜单/按钮/提示） | ✅ 可用 |
+| 部队番号：OOB | ✅ 可用 |
+| 部队番号：详情面板 | ✅ 可用 |
+| 部队番号：部队列表 | ✅ 可用 |
+| 部队番号：简略信息面板 | ✅ 可用（缩写/截断自动匹配） |
 | 抗游戏更新 | ✅ 只需补翻新增条目 |
-| 翻译进度 | ⚠️ 仅 65 条（主菜单 + 常用术语） |
+| 翻译进度 | ⚠️ 183 条 |
 
-**这是一个技术验证可用的框架，不是完整汉化。** 翻译量还很小，欢迎补充词条。
+**技术框架已完整跑通，缺的是翻译量。** 欢迎补词条。
 
 ---
 
 ## 原理
 
-### 难点一：字形
+### 难点一：字形 —— 必须字体子集化
 
-游戏引擎用 GDI 把字光栅化进 D3D9 纹理图集，走的是：
+游戏引擎用 GDI 把字光栅化进 D3D9 纹理图集：
 
 ```
 CreateFontW → GetFontUnicodeRanges → 逐字符 ExtTextOutW → 上传纹理
 ```
 
-直接用系统里装的中文字体会卡死：微软雅黑声明了 **29905 个码位**，引擎会试图全部光栅化，
-47 个字体实例 × 上万字形 → 图集爆掉。
+直接用系统里装的中文字体会**卡死**：微软雅黑声明了 29905 个码位，
+引擎会试图全部光栅化，47 个字体实例 × 上万字形 → 图集爆掉。
 
-**解法：字体子集化。**
-
-用 `fontTools` 只生成包含"实际用到的字"的字体，并把内部 family name 改成唯一名
-（`WITE2ZH`），避免引擎去加载系统里那份完整字体。
+**解法：** 用 `fontTools` 只生成包含"实际用到的字"的字体，并把内部
+family name 改成唯一名（`WITE2ZH`），避免引擎去加载系统里那份完整字体。
 
 ```
-29905 码位 → 187~256 码位
-19 MB      → 65~110 KB
+29905 码位 → 343 码位
+19 MB      → 173 KB
 ```
-
-日志验证：
 
 ```
 FONT WITE2ZH size -19 : 256 glyphs, 1 pages (512x512), 512 KB atlas
-FONT TOTAL : 62 fonts, 8448 glyphs, 37 pages, ~18 MB atlas
 ```
 
-### 难点二：文本在哪
+### 难点二：exe 代码段在磁盘上是加密的
 
-游戏 exe 的 `.text` 段在磁盘上是**加密的**（熵 8.000），静态分析找不到任何函数。
-但运行时内存中是解密的（熵 6.77），可以 dump 出来分析。
+`.text` 段磁盘熵 8.000，静态分析找不到任何函数。运行时内存中解密（熵 6.77），
+可以 dump 出来分析。
 
-界面文本本身是 **UTF-16 明文**，全部躺在 `.rdata` 里，例如：
+界面文本本身是 **UTF-16 明文**，躺在 `.rdata` 里，启动时原地覆盖即可：
 
 ```
-0x5bb3f0  "Game Options"
-0x5bb9b8  "Set to human controlled Axis player."
+"Game Options"                          26 字节 → "游戏选项"      10 字节
+"Set to human controlled Axis player."  72 字节 → "设为玩家控制轴心" 18 字节
 ```
 
-### 难点三：只 hook 一个函数不够
+中文在 UTF-16 下远比英文短，原地覆盖空间充足。这条路径**运行时零开销**。
 
-游戏里至少有 **三个** 文本绘制函数：
+### 难点三：部队名不在 `.rdata` 里
 
-| 函数 | RVA | 用途 |
+部队番号、将领名、装备名存在 `Dat/GenData/*.dat`，是**自研流密码加密**的。
+
+逆向出的加载链（基于运行时 dump 的 5.2MB 解密代码）：
+
+```
+0x371210 / 0x371280   遍历所有 .dat 的加载分发器
+  └─ 0x1bb750         .dat 对象 Load()
+       └─ 0x37fdc0    按文件名加载
+            └─ 0x1ba400   真正读取（先读 0x404 字节）
+                 ├─ 0x45f5f0   自定义 fopen
+                 └─ 0x45eb80   自定义 fread ← 解密在这里
+```
+
+证据：读 0x404 字节后立即 `strcmp(buf, "_2by3 WITE2_")` 成功，说明 fread 返回时已是明文。
+
+密码学分析确认这是**自研强流密码**：无 AES S-box、无 ChaCha 常量、密钥流不复用、
+非块对齐。静态破解不可行。
+
+### 难点四：五条失败路线（都是坑）
+
+| 尝试 | 结果 |
+|---|---|
+| 改 `.dat` 解密后的 ASCII 缓冲 | 显示源是后来的 UTF-16 副本，改了没效果 |
+| hook `MultiByteToWideChar` | 部队名不走它，日志里全是文件路径 |
+| hook `0x1B3EB0`（逐字节扩宽） | 全程只 7 次调用，len 468~2MB，是整文件转换 |
+| 扫描堆 + 原地改写 UTF-16 | **崩溃**：游戏用字符串做查找比较，改了导致 NULL |
+| 改 `.rdata` 里的 ASCII 部队名表 | 2903 个名字，改了 53 处零效果 |
+
+**关键教训：绝不能在数据层改字符串。** 游戏内部会拿这些字符串做查找、比较、
+哈希，内容一变就查找失败。
+
+### 最终方案：在绘制层换指针
+
+部队名以 UTF-16 存在堆上（内存扫描确认：`PRIVATE` + `PAGE_READWRITE`，
+容量 = 原 ASCII 长度，`Army Group Center` 有 17 个宽字符空间）。
+
+绘制函数 `0x45CE60` 的第 4 个栈参数就是 `wchar_t*`：
+
+```asm
+0045cf20  mov  ebx, dword ptr [esp + 0x50]   ; ebx = wchar_t* 文本
+0045cf3e  movzx eax, word ptr [ebx]          ; 读第一个宽字符
+0045cf51  lea  edx, [edx + 2]                ; 逐宽字符遍历
+```
+
+序言 `83 EC 38 56 8B F1` 正好 6 字节，可完整替换：
+
+```asm
+pushfd / push eax / push ecx / push edx      ; 保存现场（16 字节）
+mov  eax, [esp + 0x20]                       ; 取文本指针（原 [esp+0x10]）
+push eax / call dt_check / add esp, 4
+mov  [esp + 0x20], eax                       ; 换掉栈上的指针
+pop edx / pop ecx / pop eax / popfd          ; 还原
+jmp  [trampoline]                            ; 跳回原函数
+```
+
+**游戏数据一个字节都不改**，只在这一次绘制调用里换指针。零副作用。
+
+### 三层匹配策略
+
+部队名在不同位置有不同的显示形式：
+
+```
+完整名                     简略信息面板
+113th Infantry Division →  113th ID          (游戏主动缩写)
+16th Motorized Division →  16th MD
+Army Group South        →  Army Grp. Sout    (缩写 + 截断)
+1st Panzer Group        →  1st Panzer Grou    (截断)
+```
+
+对应三层策略：
+
+**策略 1 — 数字 + 兵种缩写**（自动覆盖所有编号部队）
+
+```
+"113th ID" → "第113步兵师"
+"16th MD"  → "第16摩托化师"
+```
+
+| 缩写 | 含义 | 中文 |
 |---|---|---|
-| `DrawText` | `0x45CE60` | 主菜单标签 |
-| `MeasureText` | `0x45D720` | 只测宽度 |
-| 其他 | 未定位 | 工具提示、报告表格等 |
+| `ID` | Infantry Division | 步兵师 |
+| `MD` | Motorized Division | 摩托化师 |
+| `PD` | Panzer Division | 装甲师 |
+| `CD` | Cavalry Division | 骑兵师 |
+| `SD` | Security Division | 警备师 |
+| `TD` | Tank Division | 坦克师 |
+| `MGD` | Mechanized Division | 机械化师 |
+| `GD` | Guards Division | 近卫师 |
 
-只 hook `DrawText` 的结果是：主菜单变中文了，但鼠标悬停的工具提示还是英文。
-
-**最终解法：直接改写内存里的 `.rdata` 字符串。**
-
-启动时把英文原地覆盖成中文，之后**任何**代码路径读到的都是中文，不用管它用哪个绘制函数。
-
-额外好处：调用方测量宽度时读到的也是中文，**排版自动正确**，不需要修 x 坐标。
-
-### 难点四：性能
-
-v4 最初还在 `DrawText` 上挂了一个兜底 hook，用来处理运行时拼接的文本。
-它每次绘制都对每个字符调一次 `VirtualQuery` 检查可读性 —— 一帧几千次系统调用，
-导致明显掉帧。
-
-而日志显示这个兜底 hook **零命中**（`.rdata` 改写已覆盖全部文本），纯属白跑。
-v4.1 直接删掉，现在**运行时零开销**：只在启动时改一次内存，之后不拦截任何调用。
-
-中文在 UTF-16 下远比英文短，原地覆盖空间充足：
+**策略 2 — 缩写展开 + 前缀匹配**
 
 ```
-"Game Options"                          26 字节  →  "游戏选项"      10 字节
-"Set to human controlled Axis player."  72 字节  →  "设为玩家控制轴心"  18 字节
+绘制: "Army Grp. Sout"
+  ↓ Grp. → Group，去标点转小写
+"armygroupsout"
+  ↓ 和 key "Army Group South" 的归一化形式比
+"armygroupsouth"
+  ↓ 前缀匹配成功
+显示: "南方集团军群"
+```
+
+**策略 3 — 子串匹配**（处理带后缀的复合串）
+
+```
+"LI Corps (1/5)"                      → "第51军 (1/5)"
+"1st Panzer Group   CU 1, SU 11, MP 50" → "第1装甲集群   CU 1, SU 11, MP 50"
 ```
 
 ---
 
 ## 使用方法
 
-### 1. 安装
+### 1. 编译
 
 ```bash
-# 编译（需要 Visual Studio 2019/2022 + C++ 桌面开发）
 build.bat
+```
 
-# 生成字体和翻译表，并部署到游戏目录
+需要 Visual Studio 2019/2022 + C++ 桌面开发。游戏是 x86，必须 `-MACHINE:X86`。
+
+### 2. 部署
+
+```bash
 python scripts/build_all.py
 ```
 
-或者手动：
+它会生成翻译表和字体子集，并部署到游戏目录。
 
-1. 把 `build/version.dll` 复制到游戏根目录
-2. 把 `wite2_zh.tsv` 复制到游戏根目录
-3. 运行 `python scripts/build_all.py` 生成 `Dat/Fonts/wite2_zh.ttf` 并改好 `Dat/GuiFonts.json`
+手动方式：
 
-### 2. 卸载
+1. `build/version.dll` → 游戏根目录
+2. `wite2_zh.tsv` → 游戏根目录
+3. 生成 `Dat/Fonts/wite2_zh.ttf`，改好 `Dat/GuiFonts.json`（指向 `WITE2ZH`）
 
-删除游戏目录下的：
+### 3. 卸载
 
-```
-version.dll
-wite2_zh.tsv
-wite2_cfg.ini
-```
-
-然后运行：
+删除游戏目录下的 `version.dll`、`wite2_zh.tsv`，然后：
 
 ```bash
 python scripts/build_all.py --restore
@@ -136,20 +210,58 @@ python scripts/build_all.py --restore
 
 ---
 
+## 翻译校对流程
+
+```bash
+python tools/review.py export     # 生成 review.csv，Excel 直接打开
+# 改"中文"列
+python tools/review.py import     # 导回 zh_dict.json
+python tools/review.py todo       # 生成待翻译清单 todo_translate.csv
+python tools/review.py coverage   # 覆盖率报告 coverage.csv
+python tools/review.py stats      # 统计
+```
+
+三个 CSV 都是 UTF-8 带 BOM，Excel 双击打开不乱码。
+
+### 收集游戏实际绘制的文本
+
+游戏目录放一个空的 `wite2_collect.ini`，跑游戏，会生成 `wite2_strings.txt`。
+
+收集的是**游戏真正画出来的字符串**，比从 CSV 猜准确得多——CSV 里 `Units.csv`
+的 `Name` 列有 4603 个唯一值，但很多是 `1st`、`2nd` 这种纯序号，
+根本不知道是装甲军还是步兵师。绘制文本则是完整的 `1st Panzer Group`。
+
+### 关于"译文过长"
+
+绘制层是整体换指针，文字**不会被截断**。但界面布局按原文长度排版，
+中文太长会视觉溢出或挤压相邻元素。
+
+```
+"Army Group Center"  17 字符 → "中央集团军群"   6 字   OK
+"OKH"                 3 字符 → "国防军陆军总司令部" 9 字  过长
+```
+
+经验值：译文控制在原文的 **1.5 倍**以内。`review.py` 会自动标出超长条目。
+
+### 改完必须重新生成字体
+
+新增汉字如果不在字体子集里，游戏会显示空白或方块。`scripts/build_all.py`
+会重新生成。
+
+---
+
 ## 为什么用 `version.dll`
 
 游戏 exe 静态导入 `VERSION.dll` 的 3 个函数：
 
 ```
-VerQueryValueA
-GetFileVersionInfoA
-GetFileVersionInfoSizeA
+VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 ```
 
-而 `version.dll` **不在** Windows KnownDLLs 列表里，所以应用目录优先。
+`version.dll` **不在** Windows KnownDLLs 列表里，所以应用目录优先。
 系统 `version.dll` 只有 17 个导出，全部转发很干净。
 
-（`d3d9.dll` 也可以，但要转发 30+ 个导出；`winmm.dll` 导出更多。）
+（`d3d9.dll` 也可以，但要转发 30+ 个导出；`winmm.dll` 更多。）
 
 ---
 
@@ -158,65 +270,29 @@ GetFileVersionInfoSizeA
 | 游戏更新时 | 结果 |
 |---|---|
 | exe 被 Steam 覆盖 | 无影响，补丁没改过它 |
-| `version.dll` 是我们的 | Steam 清单里没这个文件，不会动 |
+| `version.dll` | Steam 清单里没这个文件，不会动 |
 | `wite2_zh.tsv` | 独立文件，不会动 |
 | 需要重做吗 | **不需要**，只需补翻新增文本 |
 
-更新后跑一次：
+但有两个前提：
 
-```bash
-python scripts/build_all.py --diff
-```
-
-它会对比最新提取的英文表和已有译文，列出待翻的增量条目。
-
----
-
-## 翻译词条
-
-`zh_dict.json` 是翻译源文件，格式：
-
-```json
-{
-  "Game Options": "游戏选项",
-  "Supply": "补给",
-  "End Turn": "结束回合"
-}
-```
-
-英文 Key 必须与游戏里的字符串**完全一致**（区分大小写，包含标点）。
-改完运行 `python scripts/build_all.py` 重新生成 `.tsv` 和字体。
-
-### 已翻译（65 条）
-
-- 主菜单全部条目
-- 对战方设置
-- 常用术语（补给、战斗、移动、补给站、空军、回合…）
-
-### 待翻译
-
-```
-python scripts/build_all.py --diff
-```
-
-会生成 `todo.txt`。注意里面混有大量**玩家看不到的内部日志**
-（`at DrawText Lock failure`、`InitDeviceObjects()` 等），不必全翻。
+1. **绘制函数 RVA `0x45CE60` 可能变**。补丁启动时会校验序言签名
+   `83 EC 38 56 8B F1`，不匹配就打印 `[dt] sig mismatch` 并跳过 hook——
+   游戏照常运行，只是没汉化。这时需要重新定位。
+2. **`GuiFonts.json` 可能被覆盖**，重跑 `build_all.py` 即可。
 
 ---
 
 ## 已知限制
 
-1. **译文不能比原文长**
-   内存改写是原地覆盖，中文字数超过英文字符数时会跳过该条（保留英文）。
-   实际很少遇到，因为中文普遍更短。
+1. **部队名只覆盖绘制层**
+   界面上显示的是中文，但游戏内部数据仍是英文。存档、导出 CSV 都是英文。
 
-2. **数据文本走另一条路**
-   部队番号、将领名、装备名等在 `Dat/GenData/*.dat` 里，是**加密**的。
-   游戏自带 CSV 导出/导入，理论上可以走编辑器流程，但未验证。
+2. **`.dat` 文件无法静态修改**
+   自研流密码，已确认不可静态破解。补丁走的是运行时绘制层。
 
-3. **可能影响内部逻辑**
-   像 `None`、`Auto`、`ACTIVE` 这类短词如果被用于程序内部判断，
-   改写后可能出问题。发现异常就把该条从 `zh_dict.json` 删掉。
+3. **不处理历史描述文本**
+   `unitInfo.csv` 里 1168 段历史描述（含 `<cr>` `<i>` `<b>` `<url>` 标记）尚未处理。
 
 4. **需要 32 位编译器**
    游戏是 x86 程序，DLL 必须 `-MACHINE:X86`。
@@ -226,34 +302,45 @@ python scripts/build_all.py --diff
 ## 目录结构
 
 ```
-src/hook_text.c        注入 DLL 源码（代理 + 内存改写 + 兜底 hook）
-src/version.def        17 个导出转发
-tools/dump_code.c      诊断工具：dump 解密后的代码段（逆向用）
-tools/extract_strings.py  从 exe 提取 UTF-16 界面文本
+src/hook_text.c          注入 DLL 源码（代理 + .rdata 改写 + 绘制层 hook）
+src/version.def          17 个导出转发
+tools/review.py          翻译校对工具（导出/导入/覆盖率/待译清单）
+tools/dump_code.c        诊断工具：dump 解密后的代码段（逆向用）
+tools/extract_strings.py 从 exe 提取 UTF-16 界面文本
 tools/make_subset_font.py 字体子集化
-scripts/build_all.py   一键构建
-zh_dict.json           翻译源文件
-wite2_zh.tsv           生成的翻译表（部署到游戏目录）
-build.bat              编译脚本
+scripts/build_all.py     一键构建
+zh_dict.json             翻译源文件（权威数据）
+wite2_zh.tsv             生成的翻译表（部署到游戏目录）
+校对流程.md              校对流程详细说明
+build.bat                编译脚本
 ```
 
 ---
 
 ## 调试
 
-`wite2_hook.txt` 会记录改写情况：
+`wite2_hook.txt` 记录运行情况：
 
 ```
 === WITE2 中文化 v4 (内存改写) ===
-词典: 65 条
+词典: 183 条
 [patch] .rdata: 改写 281 处
-改写 281 处, 译文过长跳过 0 条, 未找到 0 条
-[hook] 兜底 hook 已安装
+改写 281 处, 译文过长跳过 0 条, 未找到 3 条
+[zh] 183 entries ready
+[dt] hooked at 00C5CE60 tramp=...
+[dt-hit] pos=0 "Army Group Center" -> 6 wchars
+[dt-num] "113th ID" -> 7 wchars
+[dt-abbr] "Army Group South" (norm=armygroupsout) -> 南方集团军群
 ```
 
-- **改写 281 处** —— 65 条译文在游戏里被多处复用
-- **未找到 N 条** —— 该字符串不在 `.rdata`，可能是运行时拼接的
-- **译文过长跳过 N 条** —— 中文比英文长，需要缩短译文
+| 日志 | 含义 |
+|---|---|
+| `[dt-hit]` | 子串匹配命中 |
+| `[dt-num]` | 数字+兵种缩写命中 |
+| `[dt-abbr]` | 缩写展开+前缀匹配命中 |
+| `[dt-trunc]` | 截断前缀命中 |
+| `[dt-mil]` | 含军事关键词但未命中（补词条的线索） |
+| `[dt] sig mismatch` | 绘制函数地址变了，需要重新定位 |
 
 ---
 
