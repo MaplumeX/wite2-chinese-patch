@@ -1,0 +1,20 @@
+; version.dll 的 17 个导出，全部转发到系统 version.dll
+LIBRARY version
+EXPORTS
+    GetFileVersionInfoA            = fwd_GetFileVersionInfoA
+    GetFileVersionInfoByHandle     = fwd_GetFileVersionInfoByHandle
+    GetFileVersionInfoExA          = fwd_GetFileVersionInfoExA
+    GetFileVersionInfoExW          = fwd_GetFileVersionInfoExW
+    GetFileVersionInfoSizeA        = fwd_GetFileVersionInfoSizeA
+    GetFileVersionInfoSizeExA      = fwd_GetFileVersionInfoSizeExA
+    GetFileVersionInfoSizeExW      = fwd_GetFileVersionInfoSizeExW
+    GetFileVersionInfoSizeW        = fwd_GetFileVersionInfoSizeW
+    GetFileVersionInfoW            = fwd_GetFileVersionInfoW
+    VerFindFileA                   = fwd_VerFindFileA
+    VerFindFileW                   = fwd_VerFindFileW
+    VerInstallFileA                = fwd_VerInstallFileA
+    VerInstallFileW                = fwd_VerInstallFileW
+    VerLanguageNameA               = fwd_VerLanguageNameA
+    VerLanguageNameW               = fwd_VerLanguageNameW
+    VerQueryValueA                 = fwd_VerQueryValueA
+    VerQueryValueW                 = fwd_VerQueryValueW

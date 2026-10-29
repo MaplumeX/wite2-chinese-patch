@@ -1,0 +1,28 @@
+# 构建产物
+build/
+*.obj
+*.lib
+*.exp
+*.pdb
+*.ilk
+
+# 从游戏提取的数据（不随仓库分发）
+translation.english.csv
+todo.txt
+translated_list.txt
+
+# 备份与本地配置
+_backup/
+game_dir.txt
+*.bak
+
+# 运行时生成
+wite2_hook.txt
+wite2_dump.txt
+wite2_diag.txt
+wite2_text.bin
+wite2_bind.bin
+
+# Python
+__pycache__/
+*.pyc
