@@ -174,6 +174,9 @@ def cmd_coverage():
     keys = [k for k in d if not k.startswith("_")]
 
     def covered(s):
+        # 已含中文 = 已经翻译过了(游戏绘制的是我们的译文)
+        if any("一" <= c <= "鿿" for c in s):
+            return True
         for k in keys:
             if k in s:
                 return True
@@ -226,6 +229,9 @@ def cmd_todo():
     keys = [k for k in d if not k.startswith("_")]
 
     def covered(s):
+        # 已含中文 = 已经翻译过了(游戏绘制的是我们的译文)
+        if any("一" <= c <= "鿿" for c in s):
+            return True
         for k in keys:
             if k in s:
                 return True

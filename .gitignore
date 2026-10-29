@@ -31,6 +31,17 @@ wite2_dryrun.ini
 review.csv
 coverage.csv
 todo_translate.csv
+term_review.csv
+_add_batch*.py
+_ui_cand*.json
+_ui_cand*.txt
+_rem*.txt
+_rdata_strings.json
+_ui_good.txt
+_ui_todo.txt
+_prose_todo.txt
+_term_dump.txt
+todo_dump.txt
 
 # Python
 __pycache__/

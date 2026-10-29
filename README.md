@@ -17,9 +17,24 @@
 | 部队番号：部队列表 | ✅ 可用 |
 | 部队番号：简略信息面板 | ✅ 可用（缩写/截断自动匹配） |
 | 抗游戏更新 | ✅ 只需补翻新增条目 |
-| 翻译进度 | ⚠️ 183 条 |
+| 翻译进度 | ⚠️ 1041 条（玩家可见界面基本覆盖） |
 
-**技术框架已完整跑通，缺的是翻译量。** 欢迎补词条。
+**技术框架已完整跑通。** 界面文本从 exe 的 `.rdata` 完整挖出，
+玩家实际能看到的文本基本都翻了；剩余主要是编辑器专用指令和内部调试串。
+
+### 词边界匹配
+
+早期版本有过一个典型的子串误伤 bug：词典里有 `Start` → `开始`，
+绘制 `Starting player` 时在位置 0 命中 `Start`，替换后剩下 `ing player`，
+最终显示 `开始ing player`。
+
+修法两条：
+
+1. **词边界检查** —— key 前后都不能紧贴字母数字，`Starting` 里的 `Start` 不再匹配
+2. **最长优先** —— 词典按 key 长度降序排序，`Army Group Center` 先于 `Army` 命中
+
+同类问题还有 `National` → `国家al`、`Ending` → `结束ing`、`Mapping` → `地图ping`，
+都被同一条规则解决了。`tools/test_match.py` 里有对应的回归用例。
 
 ---
 
@@ -223,6 +238,29 @@ python tools/review.py stats      # 统计
 
 三个 CSV 都是 UTF-8 带 BOM，Excel 双击打开不乱码。
 
+### 离线验证匹配逻辑
+
+```bash
+python tools/test_match.py          # 跑内置回归用例
+python tools/test_match.py --risky  # 列出有断章取义风险的词条
+```
+
+用 Python 复刻了 C 代码的三层匹配逻辑，**不跑游戏就能验证翻译效果**。
+改完词典先跑这个，能立刻发现词边界、最长匹配、缩写展开的问题。
+
+### 术语审校
+
+```bash
+python tools/term_review.py export   # 生成 term_review.csv
+python tools/term_review.py import   # 导回修改
+python tools/term_review.py check    # 检查词根译法一致性
+```
+
+把成体系的术语（编制单位、兵种、补给后勤、空军、生产、游戏选项）
+抽成一张表，按类别排序，方便一次过审。`check` 会列出同一英文词根
+的不同译法，用来发现单复数不一致之类的问题（例如 `Air Group` 和
+`Air Groups` 曾经分别译成「飞行队」和「航空队」）。
+
 ### 收集游戏实际绘制的文本
 
 游戏目录放一个空的 `wite2_collect.ini`，跑游戏，会生成 `wite2_strings.txt`。
@@ -305,6 +343,8 @@ VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 src/hook_text.c          注入 DLL 源码（代理 + .rdata 改写 + 绘制层 hook）
 src/version.def          17 个导出转发
 tools/review.py          翻译校对工具（导出/导入/覆盖率/待译清单）
+tools/test_match.py      离线验证三层匹配逻辑（不跑游戏）
+tools/term_review.py     术语审校表（按类别导出/导入/一致性检查）
 tools/dump_code.c        诊断工具：dump 解密后的代码段（逆向用）
 tools/extract_strings.py 从 exe 提取 UTF-16 界面文本
 tools/make_subset_font.py 字体子集化
@@ -323,7 +363,7 @@ build.bat                编译脚本
 
 ```
 === WITE2 中文化 v4 (内存改写) ===
-词典: 183 条
+词典: 1041 条
 [patch] .rdata: 改写 281 处
 改写 281 处, 译文过长跳过 0 条, 未找到 3 条
 [zh] 183 entries ready

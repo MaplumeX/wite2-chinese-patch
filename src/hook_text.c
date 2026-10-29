@@ -280,7 +280,27 @@ static void dict_build(void)
         g_zh[g_nzh].wlen = wlen;
         g_nzh++;
     }
+
+    /* 按 key 长度降序: 保证 "Army Group Center" 先于 "Army" 命中,
+     * 避免短词抢走长词的匹配机会 */
+    for (int a = 1; a < g_nzh; a++) {
+        ZhEntry t = g_zh[a];
+        int b = a - 1;
+        while (b >= 0 && g_zh[b].klen < t.klen) {
+            g_zh[b + 1] = g_zh[b];
+            b--;
+        }
+        g_zh[b + 1] = t;
+    }
     logfmt("[zh] %d entries ready\n", g_nzh);
+}
+
+/* 词字符: 字母数字。子串匹配必须在词边界上, 否则 "Start" 会吃掉
+ * "Starting" 的前半截, 变成 "开始ing"。 */
+static int is_word_ch(wchar_t c)
+{
+    return (c >= L'A' && c <= L'Z') || (c >= L'a' && c <= L'z') ||
+           (c >= L'0' && c <= L'9');
 }
 
 /* ================= 文本收集器 =================
@@ -488,6 +508,10 @@ static wchar_t *dt_check(wchar_t *text)
             int kl = g_zh[i].klen;
             if (kl < 3 || pos + kl > len) continue;
 
+            /* 词边界: key 前后都不能紧贴字母数字 */
+            if (pos > 0 && is_word_ch(text[pos - 1])) continue;
+            if (pos + kl < len && is_word_ch(text[pos + kl])) continue;
+
             int ok = 1;
             for (int z = 0; z < kl; z++) {
                 if (text[pos + z] != (wchar_t)(unsigned char)g_zh[i].key[z]) { ok = 0; break; }
@@ -582,6 +606,9 @@ static wchar_t *dt_check(wchar_t *text)
                 char nk[400];
                 int nkl = norm_expand(wk, wkl, nk, sizeof(nk));
                 if (nkl < nl) continue;
+                /* 绘制文本太短时不要匹配长 key, 否则 "Army" 会变成
+                 * "中央集团军群"。要求覆盖 key 的一半以上。 */
+                if (nl * 2 < nkl) continue;
                 if (memcmp(nt, nk, nl) != 0) continue;
 
                 slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
