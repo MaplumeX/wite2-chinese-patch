@@ -1121,6 +1121,71 @@ __declspec(naked) static void drawtext_hook(void)
     }
 }
 
+
+/* ================= 布局诊断 =================
+ *
+ * 为什么需要: 「所有文本一起偏左」这类现象，光看字体文件判断不了
+ * 到底是坐标被改了，还是文本本身变窄。必须拿到真实的绘制坐标。
+ *
+ * 钩 GDI32 的两个函数:
+ *   GetTextExtentPoint32W  游戏量出多宽
+ *   ExtTextOutW            游戏画在哪个 x/y
+ *
+ * 打开方式: 游戏目录放一个空的 wite2_layout.ini
+ * 输出: wite2_layout.txt
+ */
+typedef BOOL (WINAPI *pExtTextOutW)(HDC, int, int, UINT, const RECT *,
+                                    LPCWSTR, UINT, const INT *);
+typedef BOOL (WINAPI *pGetTextExtent)(HDC, LPCWSTR, int, LPSIZE);
+
+static pExtTextOutW   g_origExtTextOut = NULL;
+static pGetTextExtent g_origGetExtent = NULL;
+static int g_layoutLog = 0;
+static int g_layoutCount = 0;
+
+static void layout_dump(const char *kind, int a, int b,
+                        const wchar_t *s, int n)
+{
+    if (!g_layoutLog || g_layoutCount > 4000) return;
+    if (n < 2 || n > 200) return;
+    g_layoutCount++;
+
+    char u8[1024];
+    int m = WideCharToMultiByte(CP_UTF8, 0, s, n, u8, sizeof(u8) - 1, NULL, NULL);
+    if (m <= 0) return;
+    u8[m] = 0;
+
+    FILE *f = fopen("wite2_layout.txt", "ab");
+    if (!f) return;
+    fprintf(f, "%-8s %5d %5d  n=%3d  %s\r\n", kind, a, b, n, u8);
+    fclose(f);
+}
+
+static BOOL WINAPI hook_ExtTextOutW(HDC hdc, int x, int y, UINT opt,
+                                    const RECT *rc, LPCWSTR s, UINT n,
+                                    const INT *dx)
+{
+    layout_dump("DRAW", x, y, s, (int)n);
+    return g_origExtTextOut(hdc, x, y, opt, rc, s, n, dx);
+}
+
+static BOOL WINAPI hook_GetTextExtent(HDC hdc, LPCWSTR s, int n, LPSIZE sz)
+{
+    BOOL r = g_origGetExtent(hdc, s, n, sz);
+    if (r) layout_dump("MEASURE", (int)sz->cx, (int)sz->cy, s, n);
+    return r;
+}
+
+static void install_iat_hook(HMODULE exe, DWORD iatRva, void *repl, void **orig)
+{
+    BYTE *p = (BYTE *)exe + iatRva;
+    DWORD oldProt;
+    if (!VirtualProtect(p, 4, PAGE_READWRITE, &oldProt)) return;
+    if (*orig == NULL) *orig = (void *)(*(DWORD *)p);
+    *(DWORD *)p = (DWORD)repl;
+    VirtualProtect(p, 4, oldProt, &oldProt);
+}
+
 static int install_drawtext_hook(HMODULE exe, DWORD rva)
 {
     BYTE *fn = (BYTE *)exe + rva;
@@ -1184,6 +1249,21 @@ static DWORD WINAPI init_thread(LPVOID param)
         }
     }
     install_drawtext_hook(exe, 0x45CE60);
+
+    /* 布局诊断: 需要游戏目录有 wite2_layout.ini 才启用 */
+    {
+        FILE *lf = fopen("wite2_layout.ini", "rb");
+        if (lf) {
+            fclose(lf);
+            g_layoutLog = 1;
+            remove("wite2_layout.txt");
+            install_iat_hook(exe, 0x50C094, (void *)hook_ExtTextOutW,
+                             (void **)&g_origExtTextOut);
+            install_iat_hook(exe, 0x50C04C, (void *)hook_GetTextExtent,
+                             (void **)&g_origGetExtent);
+            logfmt("[layout] 诊断开启 -> wite2_layout.txt\n");
+        }
+    }
 
     return 0;
 }
