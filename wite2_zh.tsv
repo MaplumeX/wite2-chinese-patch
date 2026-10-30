@@ -1,5 +1,5 @@
 # WITE2 中英对照表  UTF-8  TAB 分隔
-# 英文<TAB>中文[<TAB>d]   d = 只改 .data 段
+# 英文<TAB>中文[<TAB>d|r|b]  d=只改.data r=只改.rdata b=两段都改
 Game Options	游戏选项
 Set the game options.	设置游戏选项。
 Multiplayer	多人游戏
@@ -274,7 +274,7 @@ Computer Controlled	电脑控制
 Miscellaneous Leader Deaths	将领非战斗减员
 Reduced Retreat Attrition	降低撤退损耗
 Enhanced Player TB Control	增强玩家战区控制
-NORMAL	普通
+NORMAL	普通	b
 STANDARD	标准
 Author:  Randy Seger - rjs28023	作者：Randy Seger - rjs28023
 Author:  Miquel Ramirez - BletchleyGeek	作者：Miquel Ramirez - BletchleyGeek

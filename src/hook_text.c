@@ -127,6 +127,7 @@ static void dict_load(void)
             zl = strlen(zh);
             if (sp[1] == 'd') sec = 2;
             else if (sp[1] == 'r') sec = 1;
+            else if (sp[1] == 'b') sec = 3;   /* 两段都改 */
         }
 
         size_t el = strlen(en);
@@ -199,8 +200,10 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
          *
          * .rdata 跳过 dataOnly 词：这些词在 .rdata 有同名枚举副本，
          * 不能碰。 */
+        /* sec 3 = 两段都改。给"在 .data 是显示数组、在 .rdata 只是
+         * 安全界面标签"的词用，例如难度名 NORMAL。 */
         if (secId == 2) {
-            if (g_dic[d].sec != 2) continue;
+            if (g_dic[d].sec != 2 && g_dic[d].sec != 3) continue;
         } else {
             if (g_dic[d].sec == 2) continue;
         }
@@ -313,6 +316,11 @@ static int g_dtLog = 0;
 
 /* 布局诊断开关（见 dt_check2） */
 static int g_layoutLog = 0;
+
+/* 每 em 多少像素。由实测反解:
+ * 选项列表标签右边缘恒为 541，S = (x2-x1)/(w1-w2) 得到 17.3。
+ * 不同字号的界面这个值会不同，若某处过修/欠修就调这里。 */
+#define PX_PER_EM 17.3f
 static int g_layoutCount = 0;
 
 /* 替换用的缓冲池: 每次调用占一个槽, 调用返回后才复用 */
@@ -1171,12 +1179,9 @@ static wchar_t *dt_check_raw(wchar_t *text)
  * 中文宽度算的坐标，本来就是对的。 */
 static wchar_t *dt_check(wchar_t *text)
 {
-    wchar_t *rep = dt_check_raw(text);
-    if (!rep || rep == text) return rep;
-
-    int slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
-    pad_to_width(rep, text, g_pool[slot], 250);
-    return g_pool[slot];
+    /* 不再补尾随空格: 实测绘制时尾随空格不产生宽度，
+     * 补了也没用。宽度差改成直接调整 x 坐标，见 dt_check2。 */
+    return dt_check_raw(text);
 }
 
 /* ================= 绘制坐标诊断 =================
@@ -1199,24 +1204,60 @@ static wchar_t *dt_check(wchar_t *text)
 static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
 {
     wchar_t *r = dt_check(text);
-    if (!g_layoutLog || g_layoutCount > 4000 || !r) return r;
     if (!text || !stk) return r;
+
+    /* ===== 对齐修正 =====
+     *
+     * 游戏先按英文宽度算好 x，再调这个函数。选项列表是右对齐的:
+     * 实测所有标签的右边缘都落在 x=541 附近，S≈17.3 px/em:
+     *
+     *   战役结束条件   324 + 12.53em * 17.3 = 541
+     *   德国士气修正   360 + 10.45em * 17.3 = 541
+     *   恢复默认       411 +  7.56em * 17.3 = 541
+     *   将领非战斗减员 301 + 13.83em * 17.3 = 541
+     *
+     * 换成中文后宽度变窄，从同一个 x 开始画，右边缘就短一截，
+     * 视觉上整体偏左。补尾随空格无效（绘制时忽略空格），只能改坐标:
+     *
+     *   x' = x + (原宽 - 译宽) * S
+     *
+     * 这样右边缘回到原来的位置。居中排版的理论修正量是它的一半，
+     * 但实测数据明确是右对齐，故取全量。
+     */
+    float x0 = *(float *)&stk[1];
+    float dx = 0.0f;
+    if (r && r != text) {
+        int wo = text_w(text), wr = text_w(r);
+        if (wo > wr && x0 > -2000.0f && x0 < 6000.0f) {
+            dx = (float)(wo - wr) * (PX_PER_EM / 256.0f);
+            *(float *)&stk[1] = x0 + dx;
+        }
+    }
+
+    if (!g_layoutLog || g_layoutCount > 4000) return r;
 
     int n = 0;
     while (n < 200 && text[n]) n++;
     if (n < 2) return r;
 
     g_layoutCount++;
-    char u8[1024];
+    char u8[1024], u8r[1024];
     int m = WideCharToMultiByte(CP_UTF8, 0, text, n, u8, sizeof(u8) - 1,
                                 NULL, NULL);
     if (m <= 0) return r;
     u8[m] = 0;
 
+    int rn = 0;
+    while (rn < 200 && r[rn]) rn++;
+    int mr = WideCharToMultiByte(CP_UTF8, 0, r, rn, u8r,
+                                 sizeof(u8r) - 1, NULL, NULL);
+    if (mr < 0) mr = 0;
+    u8r[mr] = 0;
+
     FILE *f = fopen("wite2_layout.txt", "ab");
     if (!f) return r;
-    fprintf(f, "DRAW a1=%-6d a2=%-6d a3=%-6d a5=%-6d n=%-3d %s\r\n",
-            (int)stk[1], (int)stk[2], (int)stk[3], (int)stk[5], n, u8);
+    fprintf(f, "DRAW x0=%-7.1f dx=%-6.1f y=%-6.1f n=%-3d ow=%-5d rw=%-5d %s => %s\r\n",
+            x0, dx, *(float *)&stk[2], n, text_w(text), text_w(r), u8, u8r);
     fclose(f);
     return r;
 }

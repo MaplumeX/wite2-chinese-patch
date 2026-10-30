@@ -89,12 +89,19 @@ def build_tsv():
     # 在 .rdata 另有同名枚举副本（PORT 的邻居是 AIRFIELD/UNIT/RAILWAY/
     # FERRY/INTERDICT，属任务类型枚举）。改枚举会让地图渲染出错。
     data_only = set(raw.get("_dataOnly", []))
+    both = set(raw.get("_bothSections", []))
     zh = {k: v for k, v in raw.items()
           if not k.startswith("_") and not str(v).startswith("----")}
     lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",
-             "# 英文<TAB>中文[<TAB>d]   d = 只改 .data 段"]
+             "# 英文<TAB>中文[<TAB>d|r|b]  d=只改.data r=只改.rdata b=两段都改"]
     for k, v in zh.items():
-        lines.append("%s\t%s%s" % (k, v, "\td" if k in data_only else ""))
+        if k in both:
+            scope = "\tb"
+        elif k in data_only:
+            scope = "\td"
+        else:
+            scope = ""
+        lines.append("%s\t%s%s" % (k, v, scope))
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     print("翻译表 %d 条 -> %s" % (len(zh), os.path.basename(TSV)))
@@ -124,7 +131,7 @@ def verify_tsv():
                 bad.append((en.decode("utf-8", "replace"), "列数 %d" % len(cols)))
                 continue
             zh = cols[0]
-            if len(cols) == 2 and cols[1] not in (b"d", b"r"):
+            if len(cols) == 2 and cols[1] not in (b"d", b"r", b"b"):
                 bad.append((en.decode("utf-8", "replace"),
                             "作用域标记 %r" % cols[1]))
             if b"\t" in zh:
