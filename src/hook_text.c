@@ -972,8 +972,11 @@ static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
     if (i >= len || text[i] != L' ') return 0;
     i++;
 
+    /* 缩写可以是大小写混合："4th Mnt Div" 里的 Mnt。
+     * 原来只接受 A-Z，Mnt 直接判失败。这里放宽到字母，查表时转大写。 */
     int st = i;
-    while (i < len && text[i] >= L'A' && text[i] <= L'Z') i++;
+    while (i < len && ((text[i] >= L'A' && text[i] <= L'Z') ||
+                       (text[i] >= L'a' && text[i] <= L'z'))) i++;
     int sl = i - st;
     /* OOB 树形列表的列填充会在名字后留空格，剥掉再匹配，稍后补回 */
     int tailSp = 0;
@@ -981,7 +984,11 @@ static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
     if (sl < 1 || sl > 4 || i != len) return 0;
 
     char ab[8];
-    for (int z = 0; z < sl; z++) ab[z] = (char)text[st + z];
+    for (int z = 0; z < sl; z++) {
+        wchar_t c = text[st + z];
+        if (c >= L'a' && c <= L'z') c = (wchar_t)(c - 32);
+        ab[z] = (char)c;
+    }
     ab[sl] = 0;
 
     const wchar_t *zh = NULL;
@@ -1257,6 +1264,20 @@ static wchar_t *dt_check_raw(wchar_t *text)
             int slen = tn - cut - 1;
             if (slen < 2) continue;
 
+            /* 空格分隔、纯数字前缀、后缀是**单个单词** -> 数量不是番号。
+             * "12 turns" 会被翻成 "第12回合"。
+             * 后缀是多词短语就是兵种，要翻："1 Mot. Nebelwerfer Battalion"。
+             * 斜杠分隔不受此限："1/West Wall" 的 1 是意大利第1西墙师。 */
+            if (text[cut] == L' ') {
+                int onlyDigits = 1, sufHasSpace = 0;
+                for (int z = 0; z < cut; z++)
+                    if (text[z] != L' ' && (text[z] < L'0' || text[z] > L'9'))
+                        { onlyDigits = 0; break; }
+                for (int z = cut + 1; z < tn; z++)
+                    if (text[z] == L' ') { sufHasSpace = 1; break; }
+                if (onlyDigits && !sufHasSpace) continue;
+            }
+
             int found = -1;
             for (int i = 0; i < g_nzh; i++) {
                 if (g_zh[i].klen != slen) continue;
@@ -1481,6 +1502,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
             /* 截断匹配 + 番号部分一个词都没翻出来 -> 放弃这次切分 */
             if (viaPrefix && nTok > 0 && nMiss == nTok) continue;
 
+
             if (pn + g_zh[found].wlen + tail + 1 > 250) break;
             slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
             wchar_t *o2 = g_pool[slot];
@@ -1559,7 +1581,11 @@ static wchar_t *dt_check_raw(wchar_t *text)
 
     /* ---------- 策略 3.1: 斜杠分隔的双番号 ----------
      * "CCXVIII/43rd" "LXXXVIII/43rd"：两边都是番号（罗马或阿拉伯），
-     * 斜杠表示隶属或合并。两边都转成"第N"。 */
+     * 斜杠表示隶属或合并。两边都转成"第N"。
+     *
+     * 判据必须有至少一边带序数后缀或罗马数字，否则 "218/350"
+     * （飞机可用/总数）会被翻成 "第218/第350"。纯数字比值在界面上
+     * 到处都是：数量、百分比、坐标、回合。 */
     {
         int sl = -1;
         for (int z = 1; z < len - 1; z++)
@@ -1568,7 +1594,30 @@ static wchar_t *dt_check_raw(wchar_t *text)
             wchar_t a[32], b[32];
             int an = conv_num_prefix(text, sl, a, 32);
             int bn = conv_num_prefix(text + sl + 1, len - sl - 1, b, 32);
+            int isDual = 0;
             if (an > 0 && bn > 0) {
+                /* 左边是罗马数字（>=2 位）算番号 */
+                int romA = (sl >= 2);
+                for (int z = 0; z < sl && romA; z++) {
+                    wchar_t c = text[z];
+                    if (c != L'I' && c != L'V' && c != L'X' && c != L'L' &&
+                        c != L'C' && c != L'D' && c != L'M') romA = 0;
+                }
+                /* 任一边带序数后缀 */
+                int ordA = 0, ordB = 0;
+                if (sl >= 3) {
+                    wchar_t a2 = text[sl - 2], b2 = text[sl - 1];
+                    ordA = (a2==L't'&&b2==L'h') || (a2==L's'&&b2==L't') ||
+                           (a2==L'n'&&b2==L'd') || (a2==L'r'&&b2==L'd');
+                }
+                if (len - sl - 1 >= 3) {
+                    wchar_t a2 = text[len - 2], b2 = text[len - 1];
+                    ordB = (a2==L't'&&b2==L'h') || (a2==L's'&&b2==L't') ||
+                           (a2==L'n'&&b2==L'd') || (a2==L'r'&&b2==L'd');
+                }
+                isDual = (romA || ordA || ordB);
+            }
+            if (an > 0 && bn > 0 && isDual) {
                 slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
                 int o2 = 0;
                 for (int z = 0; z < an; z++) g_pool[slot][o2++] = a[z];
@@ -1582,12 +1631,32 @@ static wchar_t *dt_check_raw(wchar_t *text)
         }
     }
 
-    /* ---------- 策略 3.2: 纯数字番号 ----------
-     * 单位名只剩 "17th" "81st" "20th" 这种（OBs.csv 里没有 Suffix，
-     * 显示名就是裸番号）。策略 3 要求后面跟兵种缩写，这里单独处理。 */
+    /* ---------- 策略 3.2: 裸番号 ----------
+     * 单位名只剩 "17th" "81st" 这种（OBs.csv 里没有 Suffix，
+     * 显示名就是裸番号）。
+     *
+     * 必须带序数后缀。曾经这里直接用 conv_num_prefix，它接受纯数字，
+     * 结果界面上所有数字都变成了番号 —— 飞机数量 218 显示成 "第218"。
+     * 数量、回合数、坐标全是纯数字，一个都不能碰。 */
     {
         wchar_t ntmp[24];
-        int nn = conv_num_prefix(text, len, ntmp, 24);
+        int nn = 0, okBare = 0;
+        if (len >= 3) {
+            wchar_t a = text[len - 2], b = text[len - 1];
+            okBare = (a==L't'&&b==L'h') || (a==L's'&&b==L't') ||
+                     (a==L'n'&&b==L'd') || (a==L'r'&&b==L'd');
+        }
+        /* 裸罗马数字也算番号（"CCXXXII" "XXXVIII"） */
+        if (!okBare && len >= 2) {
+            int rom = 1;
+            for (int z = 0; z < len; z++) {
+                wchar_t c = text[z];
+                if (c != L'I' && c != L'V' && c != L'X' && c != L'L' &&
+                    c != L'C' && c != L'D' && c != L'M') { rom = 0; break; }
+            }
+            okBare = rom;
+        }
+        if (okBare) nn = conv_num_prefix(text, len, ntmp, 24);
         if (nn > 0) {
             slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
             memcpy(g_pool[slot], ntmp, (nn + 1) * sizeof(wchar_t));

@@ -22,6 +22,7 @@ DIVAB = {
     "ID": "步兵师", "MD": "摩托化师", "PD": "装甲师", "CD": "骑兵师",
     "SD": "警备师", "RD": "步兵师", "TD": "坦克师", "MGD": "机械化师",
     "ABD": "空降师", "GD": "近卫师",
+    "MNT": "山地师", "MTN": "山地师",
 }
 
 ABBR = {
@@ -172,10 +173,11 @@ def try_numbered(text):
     if m:
         pre = m.group(1) + "/"
         text = text[m.end():]
-    m = re.fullmatch(r"(\d{1,4})(st|nd|rd|th) ([A-Z]{1,4})( *)", text)
+    # 缩写可以是大小写混合："4th Mnt Div" 里的 Mnt。查表时转大写。
+    m = re.fullmatch(r"(\d{1,4})(st|nd|rd|th) ([A-Za-z]{1,4})( *)", text)
     if not m:
         return None
-    ab = m.group(3)
+    ab = m.group(3).upper()
     zh = DIVAB.get(ab)
     if not zh:
         return None
@@ -290,6 +292,13 @@ def dt_check(text, entries):
         if hit is None:
             continue
         head = text[lead:cut]
+        # 空格分隔、纯数字前缀、后缀是**单个单词** -> 数量不是番号。
+        # "12 turns" 会被翻成 "第12回合"。
+        # 后缀是多词短语就是兵种："1 Mot. Nebelwerfer Battalion" 要翻。
+        # 斜杠分隔不受此限："1/West Wall" 的 1 是意大利第1西墙师。
+        if (text[cut] == " " and head.replace(" ", "").isdigit()
+                and " " not in suf):
+            continue
         mark = ""
         while head and head[0] in "-+—":
             mark += head[0]
@@ -402,19 +411,28 @@ def dt_check(text, entries):
     if r:
         return r, "numbered"
 
-    # 策略 3.1: 斜杠分隔的双番号（"CCXVIII/43rd"），两边都是番号
+    # 策略 3.1: 斜杠分隔的双番号（"CCXVIII/43rd"），两边都是番号。
+    # 必须至少一边带序数后缀或是罗马数字，否则 "218/350"（飞机
+    # 可用/总数）会变成 "第218/第350"。纯数字比值到处都是。
     if "/" in text:
         a, b = text.split("/", 1)
         an, bn = conv_num_prefix(a), conv_num_prefix(b)
         if an is not None and bn is not None:
-            return an + "/" + bn, "dual"
+            rom_a = len(a) >= 2 and all(c in "IVXLCDM" for c in a)
+            ord_a = a[-2:] in ("th", "st", "nd", "rd")
+            ord_b = b[-2:] in ("th", "st", "nd", "rd")
+            if rom_a or ord_a or ord_b:
+                return an + "/" + bn, "dual"
 
-    # 策略 3.2: 纯数字番号
+    # 策略 3.2: 裸番号
     # 单位名只剩 "17th" "81st" 这种（OBs.csv 里没 Suffix，显示名就是
-    # 裸番号）。策略 3 要求后面跟兵种缩写，这里单独处理。
-    r = conv_num_prefix(text)
-    if r is not None:
-        return r, "bare"
+    # 裸番号）。必须带序数后缀 —— 纯数字是数量、回合数、坐标，
+    # 曾经不加判断导致飞机数量 218 显示成 "第218"。
+    if (re.fullmatch(r"\d{1,4}(?:st|nd|rd|th)", text)
+            or (len(text) >= 2 and all(c in "IVXLCDM" for c in text))):
+        r = conv_num_prefix(text)
+        if r is not None:
+            return r, "bare"
 
     # 策略 3.5: 缩写展开(仅当确实展开了缩写)
     st = [False]
@@ -544,6 +562,22 @@ CASES = [
     ("LXXXVIII/43rd", "第88/第43", "同上"),
     # 裸番号（OBs.csv 没 Suffix 时显示名就是番号）
     ("17th", "第17", "裸番号"),
+    # ===== 数字必须原样 =====
+    # 策略 3.2 曾经直接用 conv_num_prefix，它接受纯数字，结果界面上
+    # 所有数字都变成番号：飞机数量 218 显示成 "第218"。
+    # 策略 3.1 同样问题："218/350"（飞机可用/总数）→ "第218/第350"。
+    # 策略 1.7 同样问题："12 turns" → "第12回合"。
+    ("218", "218", "飞机数量"),
+    ("0", "0", "零"),
+    ("1939", "1939", "年份"),
+    ("218/350", "218/350", "可用/总数比值"),
+    ("12/45", "12/45", "纯数字比值"),
+    ("12 turns", "12 turns", "数量 + 单位"),
+    ("45%", "45%", "百分比"),
+    # 兵种缩写（窄控件里的缩写形式，数据里没有 Mnt 全拼）
+    ("4th Mnt Div", "第4山地师", "山地师缩写"),
+    ("4th Mtn Div", "第4山地师", "山地师缩写变体"),
+    ("4th Inf Div", "第4步兵师", "步兵师缩写"),
     ("255th Infantry Division", "第255步兵师", "阿拉伯数字照常转"),
     # 序数后缀 st/nd/rd/th 全部要能识别。C 里边界写成 i+2 < len 时
     # 只有 1st 侥幸通过，79th 会退回逐词翻译变成 "79th步兵师"。
