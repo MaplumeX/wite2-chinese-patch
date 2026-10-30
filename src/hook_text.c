@@ -1180,9 +1180,16 @@ static wchar_t *dt_check_raw(wchar_t *text)
      * 番号翻译: 纯数字/序数转"第N"，其余逐词查词典，查不到的保留原文。
      * 只在后缀确实命中词典时才生效，不会误伤普通句子。 */
     {
-        for (int cut = 1; cut < len - 1; cut++) {
+        /* OOB 树形列表的名字常带尾随空格（" XXIV Mot. Corps "），
+         * 直接拿整个串切分会让最后一段变成 "Corps " 而匹配不上。
+         * 先剥掉尾随空格，拼好之后再补回去。 */
+        int tn = len;
+        while (tn > 0 && text[tn - 1] == L' ') tn--;
+        int tail = len - tn;
+
+        for (int cut = 1; cut < tn - 1; cut++) {
             if (text[cut] != L' ' || text[cut - 1] == L' ') continue;
-            int slen = len - cut - 1;
+            int slen = tn - cut - 1;
             if (slen < 3) continue;
 
             int found = -1;
@@ -1199,12 +1206,36 @@ static wchar_t *dt_check_raw(wchar_t *text)
             }
             if (found < 0) continue;
 
-            /* 番号部分: 纯数字优先，否则逐词翻译 */
+            /* 番号部分: 纯数字优先，否则逐词翻译。
+             * 前导空格是 OOB 树形列表的缩进层级，必须原样保留，
+             * 否则 " XXIV Mot. Corps" 会被当成番号 "XXIV" 而丢掉缩进。 */
             wchar_t pre[128];
-            int pn = conv_num_prefix(text, cut, pre, 128);
+            int pn = 0;
+            while (pn < cut && pn < 8 && text[pn] == L' ') pre[pn] = L' ', pn++;
+            pre[pn] = 0;
+            {
+                wchar_t tmp[128];
+                int tn = conv_num_prefix(text + pn, cut - pn, tmp, 128);
+                if (tn > 0) {
+                    memcpy(pre + pn, tmp, (tn + 1) * sizeof(wchar_t));
+                    pn += tn;
+                } else {
+                    pn = 0;   /* 让下面的逐词分支重来 */
+                }
+            }
             if (pn == 0) {
-                pn = 0;
-                int st = 0;
+                /* 重来一次，这次保留缩进 */
+                while (pn < cut && pn < 8 && text[pn] == L' ')
+                    pre[pn] = L' ', pn++;
+                int st = pn;
+                /* 保留 "-" "—" 这类层级标记，它们在 OOB 里表示下属 */
+                while (st < cut && (text[st] == L'-' || text[st] == L'+' ||
+                                    text[st] == L'—')) {
+                    if (pn + 2 >= 128) break;
+                    pre[pn++] = text[st++];
+                    if (st < cut && text[st] == L' ') pre[pn++] = text[st++];
+                }
+                pre[pn] = 0;
                 while (st < cut) {
                     int en = st;
                     while (en < cut && text[en] != L' ') en++;
@@ -1245,12 +1276,14 @@ static wchar_t *dt_check_raw(wchar_t *text)
             }
             if (pn <= 0) continue;
 
-            if (pn + g_zh[found].wlen + 1 > 250) break;
+            if (pn + g_zh[found].wlen + tail + 1 > 250) break;
             slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
             wchar_t *o2 = g_pool[slot];
             memcpy(o2, pre, pn * sizeof(wchar_t));
             memcpy(o2 + pn, g_zh[found].wtext,
-                   (g_zh[found].wlen + 1) * sizeof(wchar_t));
+                   g_zh[found].wlen * sizeof(wchar_t));
+            for (int z = 0; z < tail; z++) o2[pn + g_zh[found].wlen + z] = L' ';
+            o2[pn + g_zh[found].wlen + tail] = 0;
             LONG h = InterlockedIncrement(&g_dtHits);
             if (h <= 40)
                 logfmt("[dt-unit] \"%s\" -> %d wchars\n",

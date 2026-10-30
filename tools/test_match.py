@@ -182,11 +182,17 @@ def dt_check(text, entries):
         break
 
     # 策略 1.7: 尾部兵种短语匹配
-    # 遍历每个空格，右边当兵种短语查词典，左边当番号翻译
-    for cut in range(1, n - 1):
+    # OOB 列表名带前导缩进和尾随空格，都要原样保留
+    lead = len(text) - len(text.lstrip(" "))
+    lead = min(lead, 8)
+    tn = n
+    while tn > 0 and text[tn - 1] == " ":
+        tn -= 1
+    tail = text[tn:]
+    for cut in range(lead + 1, tn - 1):
         if text[cut] != " " or text[cut - 1] == " ":
             continue
-        suf = text[cut + 1:]
+        suf = text[cut + 1:tn]
         if len(suf) < 3:
             continue
         sl = suf.lower()
@@ -197,10 +203,15 @@ def dt_check(text, entries):
                 break
         if hit is None:
             continue
-        pre = conv_num_prefix(text[:cut])
+        head = text[lead:cut]
+        mark = ""
+        while head and head[0] in "-+—":
+            mark += head[0]
+            head = head[1:].lstrip(" ") if len(head) > 1 else ""
+        pre = conv_num_prefix(head)
         if pre is None:
             parts = []
-            for tok in text[:cut].split():
+            for tok in head.split():
                 tl = tok.lower()
                 got = None
                 for k, v in entries:
@@ -211,7 +222,7 @@ def dt_check(text, entries):
                     got = SHORT_PRE.get(tok.upper())
                 parts.append(got if got is not None else tok)
             pre = "".join(parts)
-        return pre + hit, "unit"
+        return text[:lead] + mark + pre + hit + tail, "unit"
 
     # 策略 2: 剥离尾部后缀
     cut = -1
@@ -307,6 +318,12 @@ CASES = [
     ("5th Guards Airborne Corps", "第5近卫空降军", "近卫部队"),
     ("Rum. Mountain Division", "罗马尼亚山地师", "国籍 + 兵种"),
     ("Foo Bar Baz", "Foo Bar Baz", "无法识别的不动"),
+    # OOB 树形列表: 前导缩进 / 尾随空格 / 层级标记都必须原样保留
+    (" XXIV Mot. Corps ", " XXIV摩托化军 ", "前导缩进 + 尾随空格"),
+    (" 255th Infantry Division ", " 第255步兵师 ", "缩进 + 番号"),
+    ("  XII Corps ", "  XII军 ", "多空格缩进"),
+    ("- 602nd Army SP Light Flak Battalion ",
+     "-第602集团军属自行轻型高炮营 ", "层级标记 -"),
 ]
 
 
