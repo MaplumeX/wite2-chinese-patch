@@ -88,6 +88,26 @@ SHORT_PRE = {
 }
 
 
+ROMAN_VAL = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+
+
+def roman_to_int(t):
+    """罗马数字转数值。从右往左，当前值小于右边值时相减。
+    游戏里有非标准写法（XXXXVIII 表示 48），此算法同样正确。"""
+    total = 0
+    prev = 0
+    for c in reversed(t):
+        v = ROMAN_VAL.get(c)
+        if v is None:
+            return -1
+        if v < prev:
+            total -= v
+        else:
+            total += v
+            prev = v
+    return total
+
+
 def conv_num_prefix(t):
     """番号前缀，与 C 的 conv_num_prefix 逐行对应。
 
@@ -98,8 +118,11 @@ def conv_num_prefix(t):
     n = len(t)
     if n == 0:
         return None
-    # 罗马数字原样保留
+    # 罗马数字转阿拉伯并加"第"："XII Corps" -> 第12军
     if n >= 2 and all(c in "IVXLCDM" for c in t):
+        v = roman_to_int(t)
+        if 0 < v < 10000:
+            return "第" + str(v)
         return t
 
     i = 0
@@ -233,6 +256,10 @@ def dt_check(text, entries):
                 if tok == "/":
                     parts.append("/")
                     continue
+                num = conv_num_prefix(tok)
+                if num is not None:
+                    parts.append(num)
+                    continue
                 tl = tok.lower()
                 got = None
                 for k, v in entries:
@@ -332,23 +359,27 @@ CASES = [
     ("foo.scn", "foo.scn", "词典里没有的不能乱改"),
     # 部队名: 番号 + 兵种短语拆开处理
     ("3rd Panzer Division", "第3装甲师", "阿拉伯数字番号"),
-    ("XXIV Panzer Corps", "XXIV装甲军", "罗马数字番号原样保留"),
+    ("XXIV Panzer Corps", "第24装甲军", "罗马数字转阿拉伯"),
     ("HQ Panzer Corps", "司令部装甲军", "两字符前缀走小表"),
-    ("41 Tier 1a Panzer Division", "41型1a装甲师", "多词前缀逐词翻"),
+    ("41 Tier 1a Panzer Division", "第41型1a装甲师", "多词前缀逐词翻"),
     ("German City Fortress", "德国城市要塞", "非数字前缀"),
     ("5th Guards Airborne Corps", "第5近卫空降军", "近卫部队"),
     ("Rum. Mountain Division", "罗马尼亚山地师", "国籍 + 兵种"),
     ("Foo Bar Baz", "Foo Bar Baz", "无法识别的不动"),
     # OOB 树形列表: 前导缩进 / 尾随空格 / 层级标记都必须原样保留
-    (" XXIV Mot. Corps ", " XXIV摩托化军 ", "前导缩进 + 尾随空格"),
+    (" XXIV Mot. Corps ", " 第24摩托化军 ", "前导缩进 + 尾随空格"),
     (" 255th Infantry Division ", " 第255步兵师 ", "缩进 + 番号"),
-    ("  XII Corps ", "  XII军 ", "多空格缩进"),
+    ("  XII Corps ", "  第12军 ", "多空格缩进"),
     ("- 602nd Army SP Light Flak Battalion ",
      "-第602集团军属自行轻型高炮营 ", "层级标记 -"),
     # 罗马数字是部队正式番号，原样保留，不能换算成阿拉伯数字
-    ("XXIV Mot. Corps", "XXIV摩托化军", "罗马数字不转阿拉伯"),
-    ("XII Corps", "XII军", "短罗马数字"),
-    ("LI Corps", "LI军", "LI 是 51 但保留罗马"),
+    ("XXIV Mot. Corps", "第24摩托化军", "罗马数字转阿拉伯"),
+    ("XII Corps", "第12军", "短罗马数字"),
+    ("LI Corps", "第51军", "LI = 51"),
+    ("XXXXVIII Panzer Corps", "第48装甲军", "非标准罗马写法"),
+    # 逐词分支也要转数字，否则 "- 654th ..." 里的 654th 会原样保留
+    ("- 654th Mot. Panzerjaeger Battalion",
+     "-第654摩托化装甲猎兵营", "层级标记后的数字番号"),
     ("255th Infantry Division", "第255步兵师", "阿拉伯数字照常转"),
     # 序数后缀 st/nd/rd/th 全部要能识别。C 里边界写成 i+2 < len 时
     # 只有 1st 侥幸通过，79th 会退回逐词翻译变成 "79th步兵师"。

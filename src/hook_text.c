@@ -787,6 +787,35 @@ static const wchar_t *lookup_short(const wchar_t *t, int len)
     return NULL;
 }
 
+/* 罗马数字转数值。从右往左扫，当前值小于右边值时相减。
+ * 游戏里有非标准写法（"XXXXVIII" 表示 48，标准应写 XLVIII），
+ * 这个算法对两种写法都能得出正确结果。 */
+static int roman_val(wchar_t c)
+{
+    switch (c) {
+    case L'I': return 1;
+    case L'V': return 5;
+    case L'X': return 10;
+    case L'L': return 50;
+    case L'C': return 100;
+    case L'D': return 500;
+    case L'M': return 1000;
+    }
+    return 0;
+}
+
+static int roman_to_int(const wchar_t *t, int len)
+{
+    int total = 0, prev = 0;
+    for (int i = len - 1; i >= 0; i--) {
+        int v = roman_val(t[i]);
+        if (v == 0) return -1;
+        if (v < prev) total -= v;
+        else { total += v; prev = v; }
+    }
+    return total;
+}
+
 static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
 {
     int i = 0, o = 0;
@@ -801,10 +830,26 @@ static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
         if (c != L'I' && c != L'V' && c != L'X' && c != L'L' &&
             c != L'C' && c != L'D' && c != L'M') { allRoman = 0; break; }
     }
-    if (allRoman && len >= 2 && o + len < cap) {
-        for (i = 0; i < len; i++) out[o++] = t[i];
-        out[o] = 0;
-        return o;
+    /* 罗马数字番号转成阿拉伯并加"第"：
+     * "XII Corps" -> 第12军，而不是 XII军。
+     * 用户看到 "XII军" 会认为没翻完 —— 罗马数字对中文读者不是数字。 */
+    if (allRoman && len >= 2) {
+        int v = roman_to_int(t, len);
+        if (v > 0 && v < 10000) {
+            wchar_t num[8];
+            int nn = 0, x = v;
+            wchar_t rev[8];
+            while (x > 0 && nn < 8) { rev[nn++] = (wchar_t)(L'0' + x % 10); x /= 10; }
+            int k = 0;
+            if (o + 1 < cap) out[o++] = L'第';
+            for (int z = nn - 1; z >= 0; z--) {
+                if (o + 1 >= cap) break;
+                out[o++] = rev[z];
+            }
+            (void)num; (void)k;
+            out[o] = 0;
+            return o;
+        }
     }
 
     /* 阿拉伯数字，可带 st/nd/rd/th 后缀 */
@@ -1180,6 +1225,25 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     /* 分隔符可以是空格或斜杠（"I/Stettin Heimat"） */
                     while (en < cut && text[en] != L' ' && text[en] != L'/') en++;
                     int wl = en - st;
+                    /* 数字番号先转换。逐词分支原来只查词典，导致
+                     * "- 654th Mot. Panzerjaeger Battalion" 里的
+                     * 654th 查不到就原样保留，成了 "- 654th摩托化..."。 */
+                    {
+                        wchar_t ntmp[24];
+                        int nn = conv_num_prefix(text + st, wl, ntmp, 24);
+                        if (nn > 0) {
+                            if (pn + nn + 2 >= 128) { pn = 0; break; }
+                            memcpy(pre + pn, ntmp, nn * sizeof(wchar_t));
+                            pn += nn;
+                            pre[pn] = 0;
+                            if (en < cut && pn + 2 < 128) {
+                                pre[pn++] = text[en];
+                                pre[pn] = 0;
+                            }
+                            st = en + 1;
+                            continue;
+                        }
+                    }
                     int hit = -1;
                     for (int i = 0; i < g_nzh && wl >= 3; i++) {
                         if (g_zh[i].klen != wl) continue;

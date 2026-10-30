@@ -167,6 +167,8 @@ SAFE_LABELS = {
 }
 
 ROMAN = re.compile(r"^[IVXLCDM]+$")
+# 星号/罗马数字序列，常作为评级标记或分隔符出现，不能翻
+SEQUENCE = re.compile(r"^[XIV]+$")
 
 
 def roman_misread(k, v):
@@ -243,6 +245,11 @@ def analyze():
         r = roman_misread(k, dic[k])
         if r:
             reasons.append(r)
+
+        # 纯罗马/星号序列（"XXXX"、"XX"、"XXX"）是评级标记，
+        # 邻居里全是同类序列，翻了会破坏比对。
+        if len(k) >= 2 and SEQUENCE.match(k) and k not in ("IV", "VI", "IX", "XI"):
+            reasons.append("罗马/星号序列")
 
         if is_enum_name(k):
             reasons.append("地形/资源枚举")
