@@ -6541,7 +6541,7 @@ Air Fleet	航空队
 Ital. Air Fleet	意大利航空队
 Flieger Corps	航空军
 Jagd Corps	猎兵军
-RHG Command	陆军测绘司令部
+RHG Command	后方军区司令部
 X Commando	第10突击队
 Commando	突击队
 Ost	东方	t
@@ -9510,8 +9510,6 @@ Transcauc.	外高加索
 Transcauc	外高加索
 Cauc.	高加索	t
 Cauc	高加索	t
-Cent.	半人马	t
-Cent	半人马	t
 Lomb.	伦巴第	t
 Lomb	伦巴第	t
 Litt	利托里奥	t
@@ -9579,7 +9577,6 @@ Flt.	舰队	t
 Airbn.	空降	t
 Cauc..	高加索	t
 Crps.	军	t
-Cent..	半人马	t
 Lomb..	伦巴第	t
 Litt..	利托里奥	t
 Air Cmd..	航空司令部
@@ -9813,3 +9810,8 @@ RESIZING	调整大小
 RED	红	t
 GREEN	绿	t
 BLUE	蓝	t
+Army Grp. Cent	中央集团军群
+Army Grp. South	南方集团军群
+Army Grp. North	北方集团军群
+Army Grp. A	A集团军群
+Army Grp. B	B集团军群

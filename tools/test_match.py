@@ -165,6 +165,13 @@ CASES = [
     ("Range: 5", "射程: 5", "标签带冒号"),
     ("o.sav", "o.sav", "文件扩展名不能被当成萨伏依"),
     ("Show Production screen", "显示生产界面", "整句可译时才译"),
+    # 兵牌数值 / 缩写碰撞 / 句点 —— 用户实测报上来的
+    ("0-50", "0-50", "数值范围不是番号"),
+    ("21-16", "21-16", "数值范围不是番号"),
+    ("1-17th Rum. Mot. Anti-tank Company", "1-第17罗马尼亚摩托化反坦克连", "右边带序数才是番号"),
+    ("Army Grp. Cent", "中央集团军群", "Cent 是 Center 不是 Centauro"),
+    ("102nd RHG Command", "第102后方军区司令部", "RHG 是后方军区不是测绘"),
+    (" III Mot. Corps (2/5)", "第3摩托化军 (2/5)", "缩写点不能留在中文里"),
     # 数据文件里的显示文本（Nations/GroundTypes/AirProfiles）
     ("Soviet Union", "苏联", "国家名"),
     ("Rifle Squad", "步兵班", "地面单位类型（Rifle 统一译步兵）"),

@@ -1,0 +1,1390 @@
+XG%d
+Mo%d
+Wpn%d
+%s MP
+%d DL
+OB %d
+ch:%d
+Mo %d
+af:%d
+%d kg
+MR %d
+Qty%d
+ar:%d
+%d mi
+AP: %d
+%s Mod
+Year%d
+%d min
+GPU %s
+%d lbs
+OB: %d
+%s.jpg
+SqdU%d
+CSV\%s
+ID: %d
+%d kmh
+toe:%d
+mo[%d]
+avu: %d
+Blue %d
+%s item
+sqd[%d]
+Red: %d
+wpn[%d]
+  %dDis
+Subst%d
+max: %d
+%s NONE
+Edit %s
+air  %d
+Die(%d)
+%s PBEM
+TAG: %s
+  %dRem
+%s (WA)
+cup: %d
+grd  %d
+BCost%d
+%d m/min
+%s Depot
+in %s %d
+%s item?
+FacQty%d
+men:  %d
+fNum[%d]
+CV %d.%d
+Men:  %d
+WpnQty%d
+WpnAcc%d
+AOGs: %d
+Unit: %d
+Enter %s
+FV %d:%d
+%s Units
+%.38s-RR
+Green %d
+PICK: %s
+%s %d DL
+SqdNum%d
+FIND: %s
+City: %s
+BLimit%d
+Unit %d:
+%d UNITS
+SqdDis%d
+Next: %s
+AOG (%d)
+SqdDam%d
+OB#:  %d
+WpnRof%d
+delay %d
+Type: %s
+Line: %d
+%d/%d AD
+%s Value
+%s UNITS
+divn[%d]
+%s ports
+Turn %d  
+Factory%d
+subst[%d]
+Total: %d
+Corps: %d
+%d (auto)
+Auto (%d)
+Hold (%d)
+CSV\%s\%s
+WpnAmmo%d
+GrpType%d
+Fair (%d)
+%s Ftr %d
+Good (%d)
+Found: %s
+AUTO <%s>
+%d (Auto)
+rng %d |-
+sqd[%d].u
+.\save\%s
+Damage %d
+DELETE %d
+Poor (%d)
+WpnFace%d
+Points %d
+Size:  %d
+%s LOSSES
+ Ready %d
+TOTAL: %s
+Rout (%d)
+None (%d)
+Weapon %d
+Armor: %d
+%s Bmr %s
+Class: %s
+ CV %d.%d
+\events\%s
+Radius: %d
+Day %d / 7
+CUT - (%d)
+%s AIRDROP
+%d / %d km
+Follow: %s
+Type:   %d
+Element %d
+ %s bombed
+Target: %s
+Effect: %d
+%s_%4d.efi
+Speed:  %d
+%d / %d mi
+%s Details
+sqdNum[%d]
+Guards: %d
+GenData\%s
+PromoDay%d
+%s Losses:
+Nation: %s
+%s (%s CC)
+FacDelay%d
+%d Weapons
+ Morale %d
+Load:   %d
+BLimitMo%d
+%s: %d men
+NoFlyEsc%d
+WithDest%d
+Groups: %d
+Pool (%s):
+%s MP (%d)
+%s Turn %d
+Leader: %d
+%s (%s RC)
+WithTurn%d
+Stance: %s
+Device: %d
+%d Leaders
+Scout (%d)
+AF %s     
+A%s Editor
+B%d Battles
+Turn %d  %s
+PICK: %s %s
+COPY - (%d)
+%s (%s GRC)
+ Reserve %d
+Pilots (%d)
+Priority %d
+PromoRank%d
+FIND:    %s
+FacDamage%d
+PromoYear%d
+capacity:%d
+ Damaged %d
+Type:    %d
+%s (%s GCC)
+ %s Losses:
+Planes (%d)
+%s NONE ***
+factory[%d]
+FacRepair%d
+Text: %.20s
+Upgrade: %d
+ %s (base):
+%d Locations
+WITHDRAW: %d
+Maneuver: %d
+Shatter (%d)
+TRANSFER(%d)
+Fuel (%d%%):
+Loc (%.10s):
+%s %d items?
+B%d Aircraft
+Actions (%d)
+Average (%d)
+[%d freight]
+PromoMonth%d
+FIND:     %s
+Ammo (%d%%):
+BBuildFrom%d
+%s %d DL ***
+   %d pt. %s
+REMOVED (%d)
+BLimitYear%d
+%d.%d  to  1
+%4d+   Fluid
+Night %d / 7
+Retreat (%d)
+[penalty:%d]
+NoFlyFirst%d
+TOTAL:    %d
+%s PBEM (%d)
+MorGnd_Y2_Q%d
+MorAir_Y2_Q%d
+MorAir_Y0_Q%d
+%s %s. Rcn %s
+Paradrop (%d)
+%.20s crashes
+MorGnd_Y1_Q%d
+MaxNum_T1_S%d
+%s %s. Bmr %s
+MaxNum_T6_S%d
+MorAir_Y3_Q%d
+...damage x%d
+MorGnd_Y5_Q%d
+%s\%s MP (%d)
+...damage +%d
+ ~ %s Losses:
+PRIORITY (%d)
+MaxNum_T2_S%d
+Ceiling:   %d
+MaxNum_T4_S%d
+MaxNum_T3_S%d
+MaxNum_T0_S%d
+%d (scrap %d)
+Objective %d:
+%s : %d turns
+Found: %s, %s
+MorGnd_Y3_Q%d
+MorGnd_Y6_Q%d
+  %s: %d rows
+Param %d: %s,
+MorAir_Y4_Q%d
+TRANSFER (%d)
+( pilots %d )
+Accuracy:  %d
+MorGnd_Y4_Q%d
+MorGnd_Y0_Q%d
+%4d+   Stable
+Fort (%.10s):
+MorAir_Y6_Q%d
+MaxNum_T5_S%d
+MorAir_Y7_Q%d
+MorAir_Y5_Q%d
+MaxNum_T7_S%d
+MorAir_Y1_Q%d
+%d (base: %s)
+MorGnd_Y7_Q%d
+'%s' (tag %d)
+tag '%s' (%d)
+Die( %s (%d) )
+Loc:     %d,%d
+MorNavy_Y0_Q%d
+Durability: %d
+Supply (%d%%):
+Excellent (%d)
+DISBANDED (%d)
+MorNavy_Y4_Q%d
+ Withdraw:  %s
+MorNavy_Y7_Q%d
+MorNavy_Y3_Q%d
+ ~ %s Escaped:
+MorNavy_Y6_Q%d
+MOTORIZED (%s)
+Turn : %d / %d
+MorNavy_Y1_Q%d
+%s %s retreats
+Contains: '%s'
+PICK: %s  (%d)
+Factories (%d)
+Surrender (%d)
+Blast:      %d
+MorNavy_Y2_Q%d
+Scenario: '%s'
+MorNavy_Y5_Q%d
+Value %d > 100
+bBuildFrom[%d]
+ProdMult_Y5_P%d
+DIFFERENCE:  %d
+%s (%s) RENAMES
+       lost: %d
+ProdMult_Y7_P%d
+ProdMult_Y3_P%d
+Reliability: %d
+ProdMultMod_P%d
+ProdMult_Y1_P%d
+ProdMult_Y6_P%d
+%s\%s PBEM (%d)
+%s %s (support)
+Penetration: %d
+  %s: (missing)
+ProdMult_Y0_P%d
+ProdMult_Y4_P%d
+Location: %d,%d
+%4d-   Critical
+ProdMult_Y2_P%d
+Promotions (%d)
+Support (%d%%):
+Turn 1  %s %d %d
+%sValidation: %s
+       built: %d
+%s %.20s damaged
+Guards: %d %d %d
+%s  ( range %d )
+Vehicles (%d%%):
+Stacking %d / 100
+%s %s (Avg %d.%d)
+moraleAir[%d][%d]
+n%s %s SURRENDERS
+%d  %s  %d  => WA
+ %s damaged %d%% 
+%d  ( Auto %d %%)
+%-30s     captured
+moraleNavy[%d][%d]
+ Economy_______%d 
+%s %.20s destroyed
+%s %s RENAMES (%s)
+ Supply_________%d 
+%s %s    [delay %d]
+%-30s      photo %d
+%d  %s  %d  => Axis
+Conditions (%d) [%s]
+  %d x %s to %d x %s
+Transporting:  %s %s
+%s (%d) (AA:%d)     
+moraleGround[%d][%d]
+%d , %d ( radius %d)
+Shipping:  T:%d  C:%d
++++++ MOVING %s +++++
+%s %s location: %d,%d
+AI : %d %d   (%3d %%)
+y%s %s surrenders !!!
+%d  %s  %d  => Soviet
+(%d%% / manpower %d%%)
+Turn %3.3d %d-%d-%d %s
+Renames -> %.30s   T%d
+%d x %s [%s] built (%s)
+%d x %.20s strafing....
+%d x %.20s bombing %.20s
+%.20s intercepting %.20s
+%8d ___ %8d _____ Manpower
+__________ Day %d _________
+    CAPTURED            %8d
+    LOST                %8d
+    DAMAGED             %8d
+%d x %.20s  bombing %.20s %s
+(Turn %3.3d %d-%d-%d %.2s)%s
+__________ Night %d _________
+ Flak  L %d.%.1d :  H %d.%.1d
+Turn %d : %d-%s-%d %2.2d:%2.2d
+%s (%d) (AA:%d) - %s (%d)     
+%d x %.20s  bombing %.20s (%d, %d)
+%s      ***   %s   ***   Multiplayer
+%8d             %8d              TOTALS 
+     %d x  %s (%d)   '%s' <---> '%s' pool
+%s ~ (%s %s) ~ ~ %d/%d x %s ~ ~ Range: %d
+%8d   %8d   %8d   %8d   %8d   %8d        OKH
+%8d    %8d   %8d   %8d    %8d            TOTALS
+<pic=%d,%d,%d,%d,100>           %s - %s    %d%% 
+               TOTAL                  %3d           %3d         %4d
+                FLAK                  %3d           %3d         %4d               -
+G a r y   G r i g s b y's   W a r   I n   T h e   E a s t  -  II   E d i t o r   -   %s
+Go to %s
+Ws4_Acc%d
+Ws0_Wpn%d
+Ws3_Acc%d
+set to %s
+Ws1_Qty%d
+Ws2_Wpn%d
+Ws1_Acc%d
+New in %s
+Ws4_Wpn%d
+Ws3_Qty%d
+Ws3_Wpn%d
+Ws1_Wpn%d
+Ws0_Acc%d
+Ws2_Acc%d
+%d ft/min
+Ws2_Qty%d
+Ws0_Qty%d
+Ws4_Qty%d
+Ws3_Face%d
+Ws1_Face%d
+Ws4_Face%d
+Ws0_Face%d
+Ws2_Face%d
+Exit the %s
+AIR COM: %s
+pic\unit\%s
+sqd[%d].num
+GND COM: %s
+Go to %s %s
+AI turn: %s
+WPN SET #%d
+Move to:  %s
+OB Chain: %d
+SU LOST (%d)
+pic\group\%s
+Axis High %d
+Draw time %d
+Axis VP : %d
+Max Load: %d
+Logged as %s
+AX LOST (%d)
+starts in %s
+set %s to %s
+Sea Zone: %s
+ws[%d].month
+Air Base: %s
+Map Zoom: %d
+pic\pilot\%s
+\scen\%s.scn
+Bomb AF (%d)
+Weapon Set#%d
+Load cost: %d
+from %d to %d
+pic\ground\%s
+Fire Range %d
+Halt range %d
+%d Air Groups
+%s sent to %s
+pic\leader\%s
+Total: %d men
+Enter %s Name
+Fuel Use:  %d
+rdy %d dam %d
+- set ice: %s
+Total VP : %d
+Set Turn (%s)
+Last Year: %d
+Build From %d
+Weapon Set %d
+Ammo Use:  %d
+pic\device\%s
+AIR BASE (%d)
+%s AIR LOSSES
+GT Filter: %s
+Anti-Air:   %d
+Range Old:  %d
+Period %d Year
+Real Range: %d
+Build Cost: %d
+Load Cost:  %d
+Upgrade To: %s
+Bomb Rail (%d)
+Path Drawn: %d
+%s Recon Group
+Last Year:  %d
+In Supply (%d)
+Change %s Name
+Set Delay (%s)
+Bomb Unit (%d)
+Anti-Soft:  %d
+ws[%d].wpn[%d]
+Climb Rate: %d
+Sudden Loss %d
+Very Poor (%d)
+Last Month: %d
+Air Recon (%d)
+Anti-Armor: %d
+Show rails: %s
+First Year: %d
+Bomb City (%d)
+Soviet VP : %d
+ TOE(OB) %d % 
+Air Supply (%d)
+%d Admin Points
+Path length: %d
+Period %d Month
+rdy %d / tot %d
+Full report: %s
+Last Month:  %d
+HEAT Pen:    %d
+pic\aircraft\%s
+Map Region # %d
+Rename Unit: %d
+<Enter %s Name>
+HVAP Pen:    %d
+%d Unit Renames
+Plane count: %d
+Last Year:   %d
+Build Cost:  %d
+Build Limit: %d
+move to %d , %d
+Show %s Details
+Air Combat (%d)
+%d Total Pilots
+First Month: %d
+First Year:  %d
+ws[%d].lastMonth
+Exit %s Display.
+%s damaged by %s
+Top Armor:    %d
+Delete '%s' tag?
+Airborn prep: %d
+Side Armor:   %d
+Victory City %d:
+%s %s: GE swaps.
+Show battles: %s
+Cruise Speed: %d
+Max Altitude: %d
+File Version: %s
+Movement FOW: %s
+PICK:  City:  %s
+Front Armor:  %d
+AOG Renames (%d)
+Build Limit:  %d
+Area radius : %d
+Progress pct: %d
+Max Aircraft: %d
+.\Dat\GenData\%s
+TOTAL %s NEED %s
+Active player: %s
+Tagged Units (%d)
+Maximum Speed: %d
+//Sym//%s//%s.tga
+- set weather: %s
+%d Tiles Replaced
+Unit Renames (%d)
+ Theater Box - %s
+System scale : %d
+Naval Patrol (%d)
+ws[%d].wpnNum[%d]
+Lift Tonnage:  %d
+%s %s is isolated
+%d EVENT(S) FOUND
+Base Damage: %d%%
+AF %s (AA:%d)     
+AI TURN   (%3d %%)
+NON-MOTORIZED (%d)
+%s destroyed by %s
+Truck leak %d (%d)
+Sup %d%%,Ammo %d%%
+List %s Factories.
+Radius %d Raids %d
+ %d Air Directives
+%s  Air Directives
+Attached AOGs (%d)
+Unread Events (%d)
+Enter day (1 - %d)
+Division %d Number
+%s disrupted by %s
+%s airdrop mission
+%s Transport Group
+ACC %d :: Range %d
+%s Combat Details.
+Map size %d  x  %d
+%s %s is disbanded
+Expansion Rate: %d
+Tagged Events (%d)
+Units selected: %d
+Linked to: %s (%d)
+Transfer Turn (%s)
+%d Ground Elements
+NON-MOTORIZED (%s)
+Fuel %d%%,Veh %d%%
+%8d ___ Men Killed
+Air Interdict (%d)
+Air Group: %d  (%d)
+Dismissal Cost:  %d
+*** WPN SET #%d ***
+%s MANPOWER LOSSES 
+//Units//A%4.4d.tga
+ Economy Pct____%d 
+//Units//G%4.4d.tga
+  save ver. [%d] %d
+BUILD MULBERRY (%d)
+ATTACHED UNITS (%d)
+%d bad assignements
+W%s %s is disbanded
+existing units (%d)
+Tagged Leaders (%d)
+%.20s crash-landing
+       in units: %d
+Screen size %d x %d
+%s ATTRITION LOSSES
+Integrity Check: %s
+//Photo//A%4.4d.bmp
+Map corners: %d , %d
+//Sym//%s//%s %s.tga
+%s LOSSES (INACTIVE)
+       in depots: %d
+%d unit(s) available
+AIR BASE (%d : %d%%)
+//AirSym//%s//%s.tga
+%d good assignements
+%8d ___ Men Disabled
+%8d ___ Men Captured
+Scenario Name:    %s
+Load Cost__________%d
+%s %s is reorganizing
+%s [0] (don't change)
+ %s Ground Support:  
+Resource movement: %s
+   morale %d   toe %d
+Axis  %d   Soviet  %d
+ %s Forces Attacking:
+Nation: %s. Owner: %s
+Wins : %d  Losses: %d
+%s damaged by %s (%d)
+Units Attached %d / 10
+Axis Misc.__________%d
+Soviet Retreat______%d
+ATTACH '%s %s' to '%s'
+Axis Surrender______%d
+Divisions Required  %d
+Axis Combat_________%d
+Soviet Misc.________%d
+Soviet Potential    %d
+Soviet Surrender____%d
+Soviet Combat_______%d
+%s %s is destroyed !!!
+Axis Retreat________%d
+%.20s turning back !!!
+Transfer Selected (%d)
+%d x %s upgraded to %s
+%s. %s is canceled. %s
+Max Sorties_________%d
+Soviet Attrition____%d
+Screen size  : %d x %d
+aircraft %s   ready %s
+ ~ ftr  %d,  bmr  %d ~
+Axis Attrition______%d
+ ~ %s Forces Defending:
+ ~ ftr  %d,  rec  %d ~ 
+Enter target X1 (1..%d)
+Axis  %d   W Allies  %d
+Axis  %d     Soviet  %d
+Enter origin Y1 (1..%d)
+Sorties Required_____%d
+Enter target Y1 (1..%d)
+%.20s shoots down %.20s
+'%s' RENAMED TO '%s %s'
+ ~ %s Ground Support:  
+ ~ %s Forces Attacking:
+t%s %s is destroyed !!!
+Enter origin X1 (1..%d)
+Enter origin Y2 (%d..%d)
+Enter target Y2 (%d..%d)
+%s: pops %d, manpower %d
+Enter target X2 (%d..%d)
+Enter origin X2 (%d..%d)
+ Supply Pct______%d ~ ~ 
+ population damaged %d%% 
+in GetPilotName n=%d r=%d
+s%s renamed to %s (%s:%s)
+//Tiles//%s//%s_%3.3d.tga
+Axis  %d     W Allies  %d
+Rifle Divisions: %d %d %d
+%.20s requires maintenance
+ ~ Defending Forces %s  ~ 
+AIR EXECUTION   ( %3d %% )
+ ~ %s Fighter Intercept:  
+PICK:    %s, %s for '%s %s'
+Merge %s (%d) with %s (%d)?
+Currently commanding '%s %s'
+Starting Date:    %d  %d  %d
+-----> redesignated as %s %s
+%s      CP  %d / %d   Rng %d
+%s bombarding %s - range %d 
+turns  %d  Area  %d,%d,%d,%d
+Build %d x %s (%d). Pool - %d
+Save turn %3.3d %d-%d-%d %.2s
+%d - %s: pops %d, manpower %d
+'%s (%s)' RENAMED TO '%s (%s)'
+     -----> redesignated as %s
+%s %s renamed to %s %s (%s %s)
+-----> redesignated as %s (%s)
+HQs Required        %d : %d : %d
+...damage %d + %d. durability %d
+Total Strength     %dk : %dk : %d
+%s      CP  %d + %d / %d   Rng %d
+%s   GUARDS percentage:      %d %%
+   >>> experience changed %d -> %d
+City change (%d)  %s (%d) -> %s (%d)
+Fixing factory (%d - %s)  %s (%d) -> %s (%d)
+%8d   %8d   %8d   %8d   %8d   %8d        EAST TOTAL
+%8d   %8d   %8d   %8d   %8d   %8d        Norway Army
+%8d   %8d   %8d   %8d   %8d   %8d        Army Group F
+end of turn %d
+TOE(OB) of %s %d
+View this unit%s
+Click to edit %s
+Rate of Fire: %d
+Enter Year for %s
+In transfer to %s
+Rail Load MP:  %d
+Swicth to page %d
+Tile Draw time %d
+//Gui//frame%s.tga
+%s damaged by FLAK
+Unit TOE(OB)  (%d)
+Enter Month for %s
+Show path pref: %s
+Enter %s pilot pool
+Imported %d OB rows
+Air Supply Range %d
+Upgrade in %d turns
+Day %d out of 1..31
+Total add naval: %d
+i%s has been formed
+Expect path draw: %s
+German men killed %s
+//Photo//ld%4.4d.bmp
+Total add amphib: %d
+High Water Mark : %d
+%s Destroyed by FLAK
+depot %d out of 0..4
+%d Air Group Renames
+Soviet men killed %s
+//Photo//GP%4.4d.bmp
+String Too Long %32s
+Cargo ship leak (%d)
+Imported %d AOG rows
+Axis air sorties: %d
+EXPAND AIR BASE (%d)
+Allied men killed %s
+Build Chain (ID: %d)
+Month %d out of 1..12
+Enter %s Admin Points
+Transfer Unit to '%s'
+Enter %s Men Disabled
+Imported %d unit rows
+%s field has changed!
+maxCmd %d out of 0..2
+Month %d out of 0..12
+player %d out of 0..3
+month %d out of 0..12
+stance %d out of 0..3
+PARENT UNIT FOR (%d):
+Event #%d - Edit Text
+Set Turn Expires (%s)
+Soviet men disabled %s
+Turn %d Supply Details
+%s to %d (in %d turns)
+%d Town Tiles Replaced
+German men disabled %s
+Soviet air sorties: %d
+German men captured %s
+%d Road Tiles Replaced
+Allied men captured %s
+Air Group Renames (%d)
+No city found: %s (%d)
+Soviet men captured %s
+%d Rail Tiles Replaced
+special %d out of 0..4
+Imported %d event rows
+mtzType %d out of 0..4
+%s to %s (in %d turns)
+evMonth %d out of 0..12
+Pick Leader for '%s %s'
+Can't open a file. 2 %x
+City Owner Changes (%d)
+German manpower pool %s
+Overwrite '%s.scn' file
+Imported %d leader rows
+%d Coast Tiles Replaced
+%s Destroyed by BALLOON
+Enter top right X 1..%d
+Imported %d device rows
+Imported %d nation rows
+Password for %s player:
+Enter top right Y 0..%d
+AIR MORALE MODIFIER: %d
+German Front (MAP) (%d)
+%d River Tiles Replaced
+Allied manpower pool %s
+'%s' tag already exists
+Enter low left X %d..%d
+Soviet manpower pool %s
+Enter low left Y %d..%d
+%d Esc %d (fwd%d,ret%d)
+%d Custom Tiles Replaced
+3Can't open a file. 1 %x
+%s %.20s damaged by flak
+ %s Air Recon Mission:  
+%d Border Tiles Replaced
+Enter Day for %s (1..%d)
+Soviet manpower built %s
+Total Combat Value __ %d
+%d trucks were mobilized
+%s MANPOWER AT START  %d
+%.20s takes recon photos
+Soviet extra manpower %d
+Allied manpower built %s
+German manpower built %s
+References missing OB %d
+Strat Bomb Target (1-%d)
+Eastern Front (MAP) (%d)
+City %s (%d) was removed
+Axis planes repaired: %d
+NAVAL MORAL MODIFIER: %d
+%s disrupted by %s (air)
+Attached air groups (%d)
+%s depot is captured !!!
+Total Land Value ____ %d
+//Tiles//FACTORY//%s.tga
+Condition %d out of 0..3
+%s sends %d trucks to %s
+%s AIR LOSSES (INACTIVE)
+Can't create folder '%s'
+Imported %d aircraft rows
+Allowed Air Profiles (%d)
+References missing AOG %d
+lastMonth %d out of 0..12
+%d Air Operational Groups
+%s (%s) ARRIVED to the %s
+Factory Delay (online %s)
+%s ships %d freight to %s
+LastMonth %d out of 0..12
+Imported %d location rows
+Move %s factories from %s
+%s %s unit formed at %d,%d
+Empty unit %s %s DISBANDED
+%s ships %d resource to %s
+firstMonth %d out of 0..12
+Min window size  : %d x %d
+Exported %d %s row%s to~%s
+Enter value for %s (%d-%d)
+%d air unit(s) transferred
+Soviet planes repaired: %d
+%s %.20s destroyed by flak
+availMonth %d out of 0..12
+GROUND MORALE MODIFIER: %d
+Existing air profiles (%d)
+Air Weather Shift: %s (%s)
+Delete Victory City (%s) ?
+CSV Validation Report - %s
+References missing unit %d
+airProfile %d out of 0..%d
+Men: %d, Guns: %d, AFV: %d
+ %s Supply Drop Mission:  
+Damaged %s destroyed by %s
+Enter Starting Day (1..%d)
+%s %s  ftr %d bmr %d aux %d
+H%s %s is assigned to %s %s
+Detach "%s" unit form "%s".
+     TOE changed to %s (%d)
+PROCESS TURNS FROM %d-%s-%d
+Number of Divisions %d : %d
+Soviet pops %d, manpower %d
+Enter Starting Day (22..%d)
+%s %s  men %d gun %d afv %d
+%.20s breaks off attack !!!
+%s air group disbanded (%s)
+TOTAL %s STORE %s (POOL %s)
+//Units//Airfields-z0%d.tga
+Air Operational Group: %s  
+References unpopulated OB %d
+ ~ men %d,  art %d,  afv %d 
+Total Freight Losses      %d
+Enter new '%s' value (%d-%d)
+2%s air group disbanded (%s)
+ %s Air Transport Mission:  
+Damage %d Radius %d Raids %d
+%s already exists (unit #%d)
+ ~ ftr %d,  bmr %d,  utl %d 
+Axis Trucks Captured      %d
+ %s Airborne Drop Mission:  
+References missing leader %d
+%s %s takes command of %s %s
+Truck total changed: %d (%d)
+Enter %s Score Mod(1 - 1000)
+Initialized Engine Logger %s
+ %s Ground Attack Mission:  
+References missing device %d
+Unit Trucks Used          %d
+   men %d   guns %d   afv %d
+ ~ inf %d,  art %d,  afv %d 
+O%s air group disbanded (%s)
+SELECTED LOADOUT - AUTO <%s>
+ %.20s airfield under attack
+Soviet Trucks Captured    %d
+Move %d %s factories from %s
+ftr  %d,  bmr  %d   utl  %d ~
+%s %s %s has been KILLED !!! 
+Amphibious Path Attrition: %d
+ ~ ftr %d,  bmr %d,  utl %d ~ 
+Enter %s Pilot Pool (0..32767)
+Renamed on Turn %d          %s
+ ~ inf %d,  art %d,  afv %d ~ 
+%s zone. Naval: %d. Amphib: %d
+References missing aircraft %d
+ %s Airfield Attack Mission:  
+       in pools: %d  (all: %d)
+%d ISOLATED %s factories in %s
+%s (%s) upgrades to %s %s TOE 
+%s ships %d freight to %s *****
+%s %s %s takes command of %s %s
+     Motorization changed to %s
+       in repair: %d  (all: %d)
+%s population evacuates ~ to %s
+//Tiles//ROAD//%s//%s_%3.3d.tga
+%d Raids  %d Sorties  %d Losses
+ ~ men  %d,  art  %d,  afv  %d 
+%s ships %d freight to %s !!!!!
+City (%d) name change: %s -> %s
+//Tiles//RIVER//%sR%d_%3.3d.tga
+   cv %d.%d   morale %d   toe %d
+Number of HQs       %d : %d : %d
+ ~ men  %d,  art  %d,  afv  %d ~ 
+%s %s TRANSFERS from '%s' to '%s'
+%s %s %s (men %d, guns %d, afv %d)
+%s (%s) upgrades to %s %s TOE (%s)
+ %s Strategic Bombing Mission:  %s
+%d Unit Reinforcements & Transfers
+%s %s commander %s %s is dismissed
+Select units with ~ ~ %s (%s)~ ~%s
+Trucks in Reinforcements :     %d 
+ ~ ftr  %d,  bmr  %d ,  utl  %d ~ 
+%d - %.18s  ( %d map text entries )
+%s - %s TRANSFERS from '%s' to '%s'
+d%s %s commander %s %s is dismissed
+  rdy %d    ( tot %d )    morale %d
+%s %s ~ takes command of ~ %s %s !!!
+//units//InterdictionLevels-z0%d.tga
+ ~ Battle  %d  of  %d ~ ~ %s Losses:
+%.20s firing at %.20s (%s)  - range %d
+CreateFontW() - %s / size %d  - SUCCESS
+Soviet Supply Tons   %8d     %8d        
+Soviet Fuel Tons     %8d     %8d        
+Axis Fuel Tons       %8d     %8d        
+Axis Supply Tons     %8d     %8d        
+mtOffsetX_Z%d,mtOffsetY_Z%d,mtAngle_Z%d,
+City pop change (%d)  %s (%d) -> %s (%d)
+%d-%d-%d %d:%d:%d : Playing sound file %s 
+%s ( %s )~Ready %d~Participation pct %d %%
+%s %s commander ~ %s %s ~ is dismissed !!!
+City coordinate change (%d)  %s (%d) -> %s (%d)
+%8d   %8d   %8d   %8d   %8d   %8d     AIR COMMAND TOTALS  
+%8d   %8d   %8d   %8d   %8d   %8d        20th Mountain Army
+%8d   %8d   %8d   %8d   %8d   %8d     GROUND COMMAND TOTALS  
+air to air kills %d
+Set cargo ships in %s
+Set Amphib Prep to %d
+Set troop ships in %s
+//Gui//AOG-%s flag.tga
+German men in units %s
+Allied men in units %s
+Axis air FUEL used: %d
+Fort was reduced by %s
+Axis air AMMO used: %d
+Select %s From the List
+HSoviet men in units %d
+Migrated OB of %d units
+Axis flak AMMO used: %d
+Naval TF takes %d damage
+Soviet air AMMO used: %d
+%s damaged on the ground
+%d pilot crews were lost
+Input damage for item %d
+%s breaks down in combat
+Soviet air FUEL used: %d
+Enter %s index to replace
+Soviet flak AMMO used: %d
+Click to set '%s' filters
+gGround id# %d is corrupt
+Attack halted at range %d
+APPLY TO ALL '%s' in '%s'
+Input fatigue for item %d
+Planes in air group:    %d
+Enter %s Cargo Ships in %s
+Create new depot in %d, %d
+Enter AI Line Fortming X%d
+Enter AI Line Fortming Y%d
+Execute air transfer of %s
+Imported %d air group rows
+%s ~ ~Click to toggle sort
+Transfer Air Group to '%s'
+%s destroyed on the ground
+Enter game event day (1-%d)
+Build new airbase in %d, %d
+Click to clear '%s' filters
+%d pilot crews were wounded
+Soviet manpower buf pool %s
+German manpower buf pool %s
+Show %s Theater Box Details
+%d %s for ONE Victory Point
+Negative element in unit %d
+Allied manpower buf pool %s
+//Tiles//FACTORY//%s_DAM.tga
+%d tons of freight delivered
+Not enough admin points (%d)
+%s air group is forming (%s)
+ %s group assigned to %s AOG
+Trucks Lost in Freight    %d
+Ground Elements of '%s' type
+Input disruption for item %d
+Imported %d air profile rows
+%s air group transfers to %s
+Set Combat Preparation to %d
+Imported %d ground type rows
+//Tiles//TOWN//TOWN_%3.3d.tga
+Show "%s" unit detail screen.
+Cancel Air Base Build (%d %%)
+%d x %s in pool upgrade to %s
+//Tiles//FACTORY//%s_HDAM.tga
+%s discarded %d ton(s) of oil
+Enter %s Event Victory Points
+Enter scenario AI ID (0 - %d)
+Axis Generic manpower pool %s
+air %d   admin %d   max AD %d
+Pick Support Unit for '%s %s'
+Men lost: %d~Men disabled: %d
+%d admin points are required.
+2 SI_SCEN loaded (saveVer %d)
+Aircraft %d out of range 0..%d
+Nation %s set as 'surrendered'
+Axis Generic manpower built %s
+Soviet VP Advantage %d.%d to 1
+Enter %s Transport Ships in %s
+Axis VP Advantage %d . %d to 1
+Press 'ENTER' to exit (%d / %d)
+//Gui//wite2-splashscreen%d.jpg
+Switch %s region control to %s?
+     Special flag changed to %s
+INIT RAIL/PORT VALUES - %s (%d)
+//Tiles//RAIL//RAIL%d_%3.3d.tga
+References missing air group %d
+Enter %s MANPOWER starting pool
+Imported %d ground element rows
+NORWAY MANPOWER AT START      %d
+%s group: rdy %d, dmg %d, res %d
+TURN %d. RUN EVENT: %s. Success.
+BRITISH MANPOWER AT START     %d
+Air Operational Group %s ARRIVED
+FINLAND MANPOWER AT START     %d
+ALLIED MANPOWER AT START      %d
+Factories moving from %s ~ to %s
+%s air operational group ARRIVED
+//AirSym//%s//%s_air_default.tga
+OTHER MANPOWER AT START       %d
+Cancel Air Base Expansion (%d %%)
+Mobilize Static Unit ? ~ ~ -%d AP
+//Tiles//COAST//COAST%d_%3.3d.tga
+Ground Elements of '%s' type (%d)
+%d x AIRCRAFT set to profile '%s'
+//Tiles//DRAIL//DRAIL%d_%3.3d.tga
+%s Unit: men %d, guns %d, afvs %d
+Set factory to Aircraft:  %s (%d)
+//Tiles//CUSTOM//CUSTOM_%3.3d.tga
+References missing ground type %d
+%s air operational group DISBANDED
+%dK Soviet population has migrated
+Enter numeric TO value (%d ... %d)
+Enter new '%s' value in %s (%d-%d)
+%s %s %s air rating improves to %d
+//Tiles//PORT//PortSymbol-z0%d.tga
+ATTACHED UNITS (SU:%d U:%d AIR:%d)
+%s discarded %d ton(s) of resources
+Ladoga:   Cargo Ships Unused     %d
+Caspian:  Troop Ships Used       %d
+%s %s %s mech rating improves to %d
+Azov:     Cargo Ships Used       %d
+Black:    Troop Ships Unused     %d
+//Tiles//BORDER//BORDER%d_%3.3d.tga
+%d Pilots (with kills / historical)
+Ladoga:   Cargo Ships Used       %d
+Caspian:  Cargo Ships Unused     %d
+Ladoga:   Troop Ships Used       %d
+Caspian:  Cargo Ships Used       %d
+Black:    Cargo Ships Used       %d
+Ladoga:   Troop Ships Unused     %d
+Black:    Cargo Ships Unused     %d
+Azov:     Troop Ships Unused     %d
+Baltic:   Cargo Ships Used       %d
+Baltic:   Troop Ships Used       %d
+Caspian:  Troop Ships Unused     %d
+Baltic:   Troop Ships Unused     %d
+Black:    Troop Ships Used       %d
+Azov:     Cargo Ships Unused     %d
+Baltic:   Cargo Ships Unused     %d
+Azov:     Troop Ships Used       %d
+%s %s %s admin rating improves to %d
+//Tiles//RIVER//MINOR//R%d_%3.3d.tga
+Trucks in Reinforcements WF:     %d 
+Enter numeric FROM value (%d ... %d)
+%d x %s exported from %s to %s as %s
+Unit duplication: IDs %d and %d - %s
+References missing ground element %d
+Trucks in Reinforcements EF:     %d 
+Group duplication: IDs %d and %d - %s
+Atlantic:   Cargo Ships Unused     %d
+Atlantic:   Cargo Ships Used       %d
+%s %s %s morale rating improves to %d
+%s firing at %s - range %d - shots %d
+ *** Air Maintenance Phase. Day %d ***
+Enter Air Unit Morale %d Q%d (0...100)
+Select air groups with~ ~ %s (%s)~ ~%s
+Enter Naval Unit Morale %d Q%d(0...100)
+%s %s assigns %d bombers and %d escorts
+%d Air Group Reinforcements & Transfers
+%s %s %s infantry rating improves to %d
+W%s %s ARRIVED (men %d, guns %d, afv %d)
+%s %s %s political rating improves to %d
+Assigned Air Directives %d (%d) / MAX %d
+%s %s WITHDRAWS (men %d, guns %d, afv %d)
+%s %s %s initiative rating improves to %d
+Enter Ground Unit Morale %d Q%d (0...100)
+%s %s is destroyed - unit depleted (%d,%d)
+Mediterranean:   Cargo Ships Unused     %d
+alt: %d  Exp: %d  disrupt: %d   detect: %d
+Mediterranean:   Cargo Ships Used       %d
+%s air base (%d) damage repaired. %d -> %d.
+Moving location %s (%d) from %d,%d to %d,%d
+ ~ Battle  %d  of  %d ~ ~ %s Forces Attacking:
+Adding airbase to location %s (%d). %s %s (%d)
+%s %s commander ~ %s %s ~ is promoted to %s!!!
+%s ( %s )~Ready %d~Range %d~Participation pct %d %%
+%d x %s (%s %d) upgraded to %s (%s %d) in pool (%s)
+gameId=%d parseOk=%d scenDataVersion=%d scenInitialized=%d
+iCrossing disruption: %s (mc=%d)  disruption %d -> %d (+%d)%s
+Ends at Start of Turn %d
+End at Start of Turn: %d
+PICK TOE(OB) TO COPY (%d)
+Input device ID for item %d
+%s ships %d oil to the pool
+Build new air base in %d, %d
+air groups in transfer to %s
+Input data value for item %d
+%s ships %d fuel to the pool
+Assign AA/CONST Unit to '%s'
+Set loadout to all~%s in~%s?
+Air group %s (%d) sent to NR
+OB type %d out of range 0..%d
+Amphib Troop Ships in use  %d
+Show Next TOE(OB) Upgrade(%d)
+Amphib Cargo Ships in use  %d
+Input weapon ammo for item %d
+%d units set to transfer to %s
+Input weapon armor for item %d
+Enter %s index to replace with
+%s ships %d supply to the pool
+Enter Delay in seconds for %s:
+Enter %s Admin Points per Turn
+Input turret number for item %d
+Swap plane type ~ from %s to %s
+Pilot Crews in air group:    %d
+Moving air group %s (%d) to NR.
+%s unit in %s (TB) is destroyed
+WEST FRONT MANPOWER AT START  %d
+%s ships %d resource to the pool
+EAST FRONT MANPOWER AT START  %d
+Damaged plane was written off %s
+US ARMY MANPOWER AT START     %d
+%d free Mbytes of virtual memory
+%s ships %d fuel from pool to %s
+%s %s air rating is reduced to %d
+Enter new password for %s player:
+Axis Generic manpower buf pool %s
+Set to relocate %s~from %s to %s ?
+Planes in repair with 0 damage: %d
+%s ships %d supply from pool to %s
+%s %s mech rating is reduced to %d
+Mobilize static unit - cost %d AP.
+Enter game event expire day (1-%d)
+Execute planned air transfer of %s
+%s %s admin rating is reduced to %d
+%d damaged AFVs were not repairable
+%s field has changed! From %s to %s
+Normal planes added in phase %d: %d
+%d Partisan cadres formed in cities
+Flight %d switched to SWEEP mission
+%s field has changed! From %d to %d
+Can't build more than %d "%s" units
+Transfer ALL selected units to %s !
+P%d damaged planes were written off
+Transport #%d (out of %d) is HIT !!!
+%s ships %d resource from pool to %s
+This order requires %d admin points!
+%d pilot crews improved their skills
+%s %s morale rating is reduced to %d
+Send/rotate depleted air groups (%d)
+Enter %s target capture turn for '%s'
+//Tiles//RIVER//MAJOR//MR%d_%3.3d.tga
+Priority planes added in phase %d: %d
+//Tiles//RIVER//IMPASS//IR%d_%3.3d.tga
+//Tiles//PORT//PortSymbol-exp-z0%d.tga
+Not allowed - requires %d admin points
+Amphib Cargo Ships Lost  %d (total %d)
+Amphib Troop Ships Lost  %d (total %d)
+%s %s infantry rating is reduced to %d
+//Tiles//PORT//PortSymbol-imp-z0%d.tga
+Rail points AFTER moving resources:  %s
+Set factory to Ground Element:  %s (%d)
+-----> will return in %d weeks as %s %s
+Air superiority combat AD #%d => AD #%d
+%s %s Political rating is reduced to %d
+%s %s initiative rating is reduced to %d
+Rail points BEFORE moving resources:  %s
+,owner%d,year%d,month%d,day%d,estimate%d
+%s air operational group ARRIVED from %s
+PAir Operation Group '%s' RENAMED TO '%s'
+Unit %s %s (%d) attached to removed city 
+%d infantry squads repaired using support
+%d support squads converted in unit %s %s
+%s air operational group WITHDRAWN to %s 
+Unit duplication: IDs %d and %d (EFB) - %s
+Enter new '%s' value for %s player (%d-%d)
+Unit duplication: IDs %d (EFB) and %d - %s
+Recaptured air base %s (%d) in city %s (%d)
+Motorize Unit? ~ ~ Cost - %d AP, %d trucks 
+Damaged plane assigned. %s  dam %d  durab %d
+%s damaged by %s - pen %d - arm %d - range %d
+Strike AC: %d   Escorts: %d   Partial Esc: %d
+%s %s is destroyed - unable to retreat (%d,%d)
+%s depot is captured (%d fuel %d supplies) !!!
+%s %s commander %s %s is arrested and EXECUTED
+%s destroyed by %s - range %d - pen %d - arm %d
+s%s %s commander %s %s is arrested and EXECUTED
+%s %s ARRIVED to '%s' (men %d, guns %d, afv %d)
+%s %s ARRIVED (men %d, guns %d, afv %d) from %s
+Total Sorties %d. Aircraft Lost %d / Damaged %d
+%s %s %s has been KILLED !!! . Hits %d. Tot %d 
+%s %s ARRIVED at %d,%d (men %d, guns %d, afv %d)
+%d Air Operational Group Reinforcements & Transfers
+aircraft %s :   rdy %s   res %s   dmg %s    kills %s
+%s %s commander ~ %s %s ~ is arrested and EXECUTED !!!
+Strategic bombing event. %s factory %s damage %d -> %d
+Find this city on the map (%d)
+id=%d does not match array index
+Enter Number of Cargo Ships in %s
+Enter Number of Troop Ships in %s
+APPLY TO ALL '%s' in '%s' Air Base
+Can't build more than %d fort units
+Input Ice for Zone %d: from 0 to 10
+Resolving anti tank fire at range %d
+%s air group in %s (TB) is destroyed
+Resolving anti soft fire at range %d
+%d units moved out of reserve status
+Bring new air group from reserve (%d)
+AI Turn Execution Time: %d min %d sec
+Enter number of '%s' in starting pool
+Air phase execution time %d min %d sec
+Set Unit to Static ?~+ %d trucks/%d AP
+Bring new air groups from reserve (%d)
+OIL MOVED TO POOL: %s (from offmap %s)
+APPLY TO ALL '%s' in '%s' Air Directive
+FUEL MOVED TO POOL: %s (from offmap %s)
+%d Strategic MPs are required to unload
+%s unit in %s (TB) evacuated to %s (TB)
+%s will be created by a scheduled rename
+Requires %d APs to mobilize this unit !!
+%s %s is scheduled to WITHDRAW on turn %d
+%s air group changed planes from %s to %s
+SUPPLY MOVED TO POOL: %s (from offmap %s)
+Supply Phase Execution Time: %d min %d sec
+%s air group upgraded planes from %s to %s
+RESOURCE MOVED TO POOL: %s (from offmap %s)
+Enter Day for Initiative Switch End (1..%d)
+Enter new '%s' value for both player (%d-%d)
+Build Fortified Zone?~Cost - %d Admin Points
+%d Partisan cadres formed in the countryside
+  ...and %d more (see validation-report.txt)
+Enter Day for Initiative Switch Start (1..%d)
+  Air group changed planes from %s to %s (%d)
+Click to change~%s~Air Unit Morale~%d Q%d: %d
+%s: %s air group changed planes from %s to %s
+Batch export complete: %d files written to~%s
+RESERVE %s %s is committed to the attack (%d)
+Build Fortified Region?~Cost - %d Admin Points
+RESERVE %s %s is committed to the defense (%d)
+%s: %s air group upgraded planes from %s to %s
+ ~ No Admin points. Admin points: %d. Cost: %d
+Motorization conflict: flag %d vs OB mtzType %d
+G%s %s is ALREADY ASSIGNED to nearest HQ: %s %s
+%d Partisan squads recruited in cities (%d men)
+%s %s commander %s %s has been KILLED in action
+Click to change~%s~Naval Unit Morale~%d Q%d: %d
+Unit duplication: IDs %d (EFB) and %d (EFB) - %s
+Click to change~%s~Ground Unit Morale~%d Q%d: %d
+%d support squads used to repair 10 x %s in %s %s
+    Unit arrives on %d %s %d. OB available on %s %d
+%s damaged by %s - pen %d - arm %d - range %d (air)
+%s: %s (%d) sent excess to the pool  -  %d (MP %d) 
+~ Too many "%s" units exist. Current: %d. Limit: %d
+Unexpected owner %d (expected 1=Axis, 2=Soviet, 3=WA)
+%s destroyed by %s - range %d - pen %d - arm %d (air)
+%s TRANSFERRED (men %d, guns %d, afv %d) from %s to %s
+damaged %s destroyed by %s - range %d - pen %d - arm %d
+%s %s ARRIVED at %d,%d (men %d, guns %d, afv %d) from %s
+    Scenario starting date %d %s %d. OB available on %s %d
+%s (%s) TRANSFERRED (rdy %d, dam %d, res %d) from %s to %s
+Factory  %d x %s in %s. RESIZING to %d [damage %d delay %d].
+%s %s commander ~ %s %s ~ is promoted to %s (from %s to %s)!!!
+path='%s' MMFileSize=%d tagged=%d legacy=%d (-1 = not present)
+Factory '%s' %d x %s in %s. RESIZING to %d [damage %d delay %d].
+Input facing for item %d (0 - F, 1 - C, 2 - R,3 - RS, 4 - LS , 5 - A)
+Enter number of %s loss for ONE VP
+APPLY TO ALL '%s' in AXIS AIR FORCE
+APPLY TO ALL '%s' in SOVIET AIR FORCE
+Set loadout to all~%s in~%s air base?
+Set loadout to all~%s in~%s Air Force?
+Left click on map to set '%s' for '%s'
+Send unit to West Front ~ requires %d AP
+%d damaged AFVs were returned to the pool
+Set loadout to all~%s in~%s air directive?
+Filtered to %s (click any nation to clear)
+%d air unit(s) transferred to the East front
+%s air group in %s (TB) evacuated to %s (TB)
+Enter the day when leader was promoted (1-%d)
+Click to set delay.~Unit will arrive: ~%d %.3s %d
+Enemy Aircraft Lost in Air Combat %d / Damaged %d
+%d x %s captured from %s goes to pool for %s as %s
+%s : %d out of %d air groups have been transferred
+Fort was reduced by bombard attrition to %d (%d%%)
+yAmphibious Task Force %s is forced to withdraw !!!
+%d support elements were converted to infantry squads
+%d Partisan squads recruited from the countryside (%d men)
+Click to set withdraw.~Airgroup will withdraw: ~%d %.3s %d
+Naval patrol Soviet planes destroyed: %d. Axis intercepts: %d
+damaged %s destroyed by %s - range %d - pen %d - arm %d (air)
+Pilot with status %d flown a mission (group %s, plane %d-%d )
+Naval patrol Axis planes destroyed: %d. Soviet intercepts: %d
+Factory %d x %s in %s MOVED to %s [size %d damage %d delay %d].
+opt %d row0=%d would have overwritten rows 1/2 = %d/%d on 1.04.16
+Strategic bombing event. %s factory %s - Air Defense Success (#%d)
+Factory '%s' %d x %s in %s MOVED to %s [size %d damage %d delay %d].
+%d manpower added to hiwi pool from the cities
+must have %d admin points to remove this leader
+Set current and maximum MPs (unit maximum is %d)
+Enter Name for group type %d in Aircraft Profile
+Set supply priority to %d for the selected units?
+Axis max fuel %d used by air group %d (%d planes)
+%d tons of supply consumed to support ground units
+Close '%s' scenario?~All unsaved data will be lost
+%d Admin points are required to motorize this unit
+  Can't get required amount of aircraft. Num %d Min %d
+Not enough admin points (%d admin points are required)
+EAST FRONT: %s air group upgraded planes from %s to %s
+Click to set delay.~Air group will arrive: ~%d %.3s %d
+Left click on map to select '%s' map x , y coordinates
+<img %d> text after image~ ~<img %d><scl 50> another Line
+DInput Weather fo Zone %d: 0-Clear,1-Mud,2-Snow,3-Blizzard
+Soviet SUDDEN LOSS! High Water Mark %d : Victory Points %d
+Soviet player scores %d bonus points for uncaptured cities
+%s depot is captured (%d ton(s) fuel and %d ton(s) supplies) !!!
+Imported %d unit rows~%d column(s) not recognised and skipped: %s
+  %s resupplied from enemy depot: %d ton(s) fuel, %d ton(s) supplies
+Factory  %d x %s in %s. CHANGING TYPE to %s [size %d damage %d delay %d].
+Pilot (%d) with status %d (exp %d) flown a mission (group %s, plane %d-%d )
+Factory '%s' %d x %s in %s. CHANGING TYPE to %s [size %d damage %d delay %d].
+    Current OB (%d) %s %s (last month %s %d). Upgrade OB (%d) %s %s (first month %s %d)
+%d tons of fuel and %d tons of ammo were used
+%d FUEL were added to the pool from Lend-Lease
+%d SUPPLIES were added to the pool from Lend-Lease
+%d VEHICLES were added to the pool from Lend-Lease
+%d ARMAMENTS were added to the pool from Lend-Lease
+%d manpower added to hiwi pool from the captured pool
+Export %d selected data type(s) to CSV?~Files go to: %s
+%s %s units capture %d tons of supply and %d tons of fuel
+Soviet max fuel %d used by air group %d flight (%d planes)
+%d trucks were repaired and returned to the logistics pool
+Group %d: can't perform intercept due to the bad weather - %d
+  Can't get required amount of escorting aircraft. Num %d Min %d
+Air HQ: %s %s~Range to Base: %d ~Range to Target: %d ~%s radius: %d
+dRealocating %dx %s of %s air group to %s %s air base. %d planes lost
+Build Fortified Zone?~Current Units - %d  Limit - %d ~Cost - %d Admin Points
+Build Fortified Region?~Current Units - %d  Limit - %d ~Cost - %d Admin Points
+Cleared bad air group %s assignment to air directive %d. (gAirTask.size() - %d)
+%d trucks have been lost during the campaign due to unit movement
+Cities: %d tons of supply used to build %d level forts (%d fort points)
+Select this leader~ ~%s~%s %s~ ~Political:  %d~Morale:   %d~Initiative:   %d~Admin:    %d~ ~Mech:   %d~Infantry: %d~Air:    %d~ ~Victories:  %d~Defeats:  %d
+Ends at Start of Turn %d   OR   if AXIS Player Captures All VP Objectives
+Ends at Start of Turn %d   OR   if SOVIET Player Captures All VP Objectives
+Import %d selected data type(s) from CSV?~Reads from: %s~Existing data will be overwritten.
+Click to set delay.~Unit will arrive: ~%d %.3s %d (if %s moves first) ~%d %.3s %d (if %s moves second)
+Click to set delay.~Air group will arrive: ~%d %.3s %d (if %s moves first) ~%d %.3s %d (if %s moves second)
+Click to set withdraw.~Air group will withdraw: ~%d %.3s %d (if %s moves first) ~%d %.3s %d (if %s moves second)
+Date Available ~ From %d/%d~ to %d/%d____________~MODIFIERS~ ~Ammo Use: %d ~Fuel Use: %d ~Maneuver: %d  ~Endurance: %d ~Climb: %d ~Altitude: %d ~Max Speed: %d
+ Political %d ~ Morale %d ~ Initiative %d ~ Admin %d ~ Mech %d ~ Infantry %d ~ Air %d ~ Naval %d ~ ~ Victories %d ~ Defeats %d ~ ~ Display leader detail / dismiss leader
+MEM %s : private %u MB, image %u MB, reserved %u MB, in use %u/%u MB, largest free VA %u MB (%u holes), texmem avail %u MB

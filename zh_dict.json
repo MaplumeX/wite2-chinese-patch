@@ -6618,7 +6618,7 @@
  "Ital. Air Fleet": "意大利航空队",
  "Flieger Corps": "航空军",
  "Jagd Corps": "猎兵军",
- "RHG Command": "陆军测绘司令部",
+ "RHG Command": "后方军区司令部",
  "X Commando": "第10突击队",
  "Commando": "突击队",
  "Ost": "东方",
@@ -9587,8 +9587,6 @@
  "Transcauc": "外高加索",
  "Cauc.": "高加索",
  "Cauc": "高加索",
- "Cent.": "半人马",
- "Cent": "半人马",
  "Lomb.": "伦巴第",
  "Lomb": "伦巴第",
  "Litt": "利托里奥",
@@ -9656,7 +9654,6 @@
  "Airbn.": "空降",
  "Cauc..": "高加索",
  "Crps.": "军",
- "Cent..": "半人马",
  "Lomb..": "伦巴第",
  "Litt..": "利托里奥",
  "Air Cmd..": "航空司令部",
@@ -9899,5 +9896,10 @@
   "MAP",
   "NO RES",
   "RES"
- ]
+ ],
+ "Army Grp. Cent": "中央集团军群",
+ "Army Grp. South": "南方集团军群",
+ "Army Grp. North": "北方集团军群",
+ "Army Grp. A": "A集团军群",
+ "Army Grp. B": "B集团军群"
 }

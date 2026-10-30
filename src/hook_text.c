@@ -345,6 +345,7 @@ static int g_layoutLog = 0;
  * 完整清单，然后离线验证，不用再猜。
  */
 static int g_capture = 0;
+static int g_noSeg = 0;   /* selftest --nosseg: 禁用策略 9，量出靠猜的比例 */
 #define CAP_N 40000
 static unsigned *g_capHash = NULL;
 static FILE *g_capFile = NULL;
@@ -1039,8 +1040,10 @@ static int ztry_seg(const wchar_t *w, int n, wchar_t *out, int cap)
                 int l3 = (int)wcslen(t3), k;
                 if (l3 + (n - tb) < cap) {
                     memcpy(out, t3, l3 * sizeof(wchar_t));
-                    for (k = tb; k < n; k++) out[l3 + k - tb] = w[k];
-                    return l3 + (n - tb);
+                    int w2 = 0;
+                    for (k = tb; k < n; k++)
+                        if (w[k] != L'.') out[l3 + w2++] = w[k];
+                    return l3 + w2;
                 }
             }
         }
@@ -1087,7 +1090,11 @@ static int seg_end(const wchar_t *t, int p, int len)
             c == L',' || c == L':' || c == L';' || c == L'[' || c == L']' ||
             c == L'%')
             break;
-        if (c == L'.' && (p + 1 >= len || !is_alpha_w(t[p + 1])))
+        /* 只有小数点的 "27.6" 才把句点当分隔。缩写点（Mot. / Bde.）留在
+         * token 里，好让词典里的 "Mot." 条目整条命中 —— 否则会拼出
+         * "摩托化. 军"。 */
+        if (c == L'.' && p + 1 < len &&
+            t[p + 1] >= L'0' && t[p + 1] <= L'9')
             break;
         p++;
     }
@@ -1197,6 +1204,33 @@ static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
         int d = 0;
         while (d < len && t[d] >= L'0' && t[d] <= L'9') d++;
         if (d > 0 && d + 2 < len && t[d] == L'-') {
+            /* 右边必须真的是番号：数字+序数后缀，或者罗马数字。
+             * 光看"左边数字+连字符"太松，"0-50"、"21-16" 这些数值范围
+             * 会被当成番号变成 "0-第50" —— 兵牌上的数值就是这么坏的。*/
+            int r2 = d + 1, ok2 = 0;
+            if (r2 < len && t[r2] >= L'0' && t[r2] <= L'9') {
+                int e2 = r2;
+                while (e2 < len && t[e2] >= L'0' && t[e2] <= L'9') e2++;
+                if (e2 + 1 < len) {
+                    wchar_t a = t[e2], b = t[e2 + 1];
+                    if ((a == L't' && b == L'h') || (a == L's' && b == L't') ||
+                        (a == L'n' && b == L'd') || (a == L'r' && b == L'd'))
+                        ok2 = 1;
+                }
+                if (!ok2 && e2 + 1 == len &&
+                    (t[e2] == L'e' || t[e2] == L'E')) ok2 = 1;   /* 法语 5e */
+            } else if (r2 < len) {
+                int e2 = r2, rom = 1;
+                while (e2 < len) {
+                    wchar_t c = t[e2];
+                    if (c != L'I' && c != L'V' && c != L'X' && c != L'L' &&
+                        c != L'C' && c != L'D' && c != L'M') { rom = 0; break; }
+                    e2++;
+                }
+                if (rom && e2 > r2) ok2 = 1;
+            }
+            if (!ok2) goto no_hyphen_prefix;
+            {
             wchar_t rest[64];
             int rl = len - d - 1, r;
             if (rl > 0 && rl < 60) {
@@ -1210,7 +1244,9 @@ static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
                     return d + 1 + r;
                 }
             }
+            }
         }
+no_hyphen_prefix:;
     }
     /* 罗马数字: 原样保留，前面不加"第"（"XXIV Panzer Corps" -> "XXIV装甲军"） */
     /* 罗马数字只认 I V X L C D M 七个字母。
@@ -2230,6 +2266,8 @@ tok_ok:;
         }
     }
 
+    if (g_noSeg) return text;
+
     /* ---------- 策略 9: 分段兜底 ----------
      * 拼出来的串（OOB 树、统计行、国家(城市) - 质量）永远整串命中不了。
      * 全或无地逐段翻译，有任何一个 token 译不出就整串放弃。 */
@@ -2613,6 +2651,7 @@ int main(int argc, char **argv)
     dict_build();
     /* --capture: 打开捕获，用来验证管线能写文件（不用进游戏） */
     int wantCap = (argc > 1 && strcmp(argv[1], "--capture") == 0);
+    if (argc > 1 && strcmp(argv[1], "--nosseg") == 0) g_noSeg = 1;
     if (wantCap) {
         g_capHash = (unsigned *)calloc(CAP_N, sizeof(unsigned));
         g_capFile = fopen("selftest_capture.txt", "wb");
