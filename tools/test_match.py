@@ -97,7 +97,7 @@ CASES = [
     ("Panzer Divisio", "装甲师", "整串截断，走策略 4"),
     # 截断点必须落在词中间。"Armored" 是完整单词，配到 "Armored Cars"
     # 会得出 "第17装甲车"，那是误配，宁可保留英文。
-    ("XVII Armored", "XVII Armored", "截断点不在词中间，不配"),
+    ("XVII Armored", "第17装甲", "罗马番号 + 兵种词根"),
     # 后缀精确命中时，番号部分查不到是正常的（地名不翻），不能拦。
     # 这条曾经被"番号全未译就放弃切分"的判据误伤。
     ("Andrews Field", "安德鲁斯机场", "地名 + 精确命中后缀"),
@@ -172,6 +172,15 @@ CASES = [
     ("Army Grp. Cent", "中央集团军群", "Cent 是 Center 不是 Centauro"),
     ("102nd RHG Command", "第102后方军区司令部", "RHG 是后方军区不是测绘"),
     (" III Mot. Corps (2/5)", "第3摩托化军 (2/5)", "缩写点不能留在中文里"),
+    # 词典审计
+    ("No. 1 Group RAF", "第1群皇家空军", "No. 与后面的番号不能出两个第"),
+    ("XVII Armored Jaeger Division", "第17装甲猎兵师", "键值相同的垃圾条目会挡住整串"),
+    ("2e RD", "第2RD", "法语序数 + 未译缩写"),
+    ("1st Sep. Division", "第1独立师", "Sep. 是独立不是九月"),
+    ("Sep", "9月", "裸 Sep 才是月份"),
+    ("  小河： W ", "  小河：西", "单字母方位词"),
+    ("  铁路：  E  SW ", "  铁路：  东  西南", "多方位"),
+    ("L (mA)-1", "L (北极海洋性)-1", "Köppen 语序"),
     # 数据文件里的显示文本（Nations/GroundTypes/AirProfiles）
     ("Soviet Union", "苏联", "国家名"),
     ("Rifle Squad", "步兵班", "地面单位类型（Rifle 统一译步兵）"),

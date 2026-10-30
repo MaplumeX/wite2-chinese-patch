@@ -3642,8 +3642,6 @@ V (mph)	速度（英里/时）
 # of Engines:	发动机数量：
 AI LOGISTICS	AI后勤
 AI MANAGE AIR	AI管理空军
-AI脚本	AI脚本
-STEAM 游戏	STEAM 游戏
 Climate: 	气候：
 Freight: 	货运：
 Depot: 	补给站：
@@ -5293,8 +5291,6 @@ Unexpected end of request body stream encountered before expected length met.	�
 Incorrect Content-Type: must be textual to extract_string, JSON to extract_json.	Content-Type不正确：extract_string需要文本类型，extract_json需要JSON类型。
 Charset must be iso-8859-1, utf-8, utf-16, utf-16le, or utf-16be to be extracted.	字符集必须是 iso-8859-1、utf-8、utf-16、utf-16le 或 utf-16be 才能提取。
 invalid signature method.	签名方法无效。
-identity;q=1, *;q=0	identity;q=1, *;q=0
-form-data	form-data
                                                      _______________________FACTORIES___________________________	                                                     _______________________工厂___________________________
                          PRODUCED     CONSUMED       AVAIL      ACTIVE     DAMAGED   LOW RES    NO RES  ISOLATED	                         已生产       已消耗        可用       活动       受损       低资源     无资源    被围
 A AfvL	攻方装甲车损失
@@ -5509,10 +5505,10 @@ Arid Steppes	干旱草原	d
 Arid Desert	干旱沙漠	d
 Polar Maritime	极地海洋性	d
 Polar Continental	极地大陆性	d
-mT	热带海洋	d
-mA	北极海洋	d
-cP	极地大陆	d
-cT	热带大陆	d
+mT	热带海洋性	d
+mA	北极海洋性	d
+cP	极地大陆性	d
+cT	热带大陆性	d
 English	英语	d
 French	法语	d
 Spanish	西班牙语	d
@@ -5599,7 +5595,6 @@ Turn: %d	回合：%d
 %d km	%d 公里
 %d ft	%d 英尺
 %d mph	%d 英里/时
-%d %%	%d %%
 Distance: %d	距离：%d
 Range: %d	航程：%d
 Altitude: %d	高度：%d
@@ -5614,7 +5609,6 @@ CV: %d	战斗力：%d
 MP: %d	移动点：%d
 Hex: %d,%d	六角格：%d,%d
 (%d,%d)	（%d,%d）
-%d,%d	%d,%d
 'L' FF Motorized Infantry Regiment	'L'自由法国摩托化步兵团
 1st US Armored Brigade	美国第1装甲旅
 AA Battalion	防空营
@@ -7012,7 +7006,6 @@ Senegal	塞内加尔
 Souk	苏克	t
 Malo	马洛	t
 Heath	希思	t
-el	el	t
 St	圣	t
 MNR	共和国民兵	t
 zbV	特设	t
@@ -8213,7 +8206,6 @@ No. 8 (PFF) Group RAF	皇家空军第8（探路）联队
 No. 216 Air Tpt & Ferry Group RAF	皇家空军第216空运与渡运联队
 13th 'Re'	第13「Re」
 1st CA-	第1 CA-
-XVII Armored	XVII Armored
 zbV 40th	特设第40
 zbV 66th	特设第66
 zbV 752nd	特设第752
@@ -8363,10 +8355,8 @@ CSIR Italian Air Bde	意大利远征军航空旅
 4 BAK	第4 BAK
 15th (AAI)	第15（AAI）
 503rd (FHH)	第503（FHH）
-2e RD	2e RD
 CARS	CARS	t
 CSIR	CSIR	t
-ISuom.	ISuom.	t
 Andrews	安德鲁斯
 Angers	昂热	t
 Arenberg	阿伦贝格
@@ -9815,3 +9805,8 @@ Army Grp. South	南方集团军群
 Army Grp. North	北方集团军群
 Army Grp. A	A集团军群
 Army Grp. B	B集团军群
+mP	极地海洋性	d
+N	北	t
+S	南	t
+E	东	t
+W	西	t

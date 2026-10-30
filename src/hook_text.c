@@ -603,8 +603,9 @@ static void dict_build(void)
         /* 2 字符词条也要收。曾经门槛是 3，结果 "Cr"（军）、"Bn"（营）
          * 这类缩写根本进不了绘制层词典 —— "XXXXVI Mot.Cr" 修了三轮都
          * 修不好，就是因为它命中的是 klen==2 的条目，而这里静默丢了。
-         * 绘制层的匹配是按整词长度精确比对，2 字符不会误伤长串。 */
-        if (!ok || klen < 2) continue;
+         * 绘制层的匹配是按整词长度精确比对，短 key 不会误伤长串。
+         * 1 字符也要收：方位词 N/S/E/W 就是单字母。 */
+        if (!ok || klen < 1) continue;
         /* key[] 是栈上数组，循环退出时没有写终止符。
          * 不补这个 0，下面 memcpy(kc, key, klen+1) 会把栈上的
          * 未初始化字节当终止符复制走，日志里就会出现
@@ -1057,6 +1058,19 @@ static int ztry_seg(const wchar_t *w, int n, wchar_t *out, int cap)
     return 0;
 }
 
+/* 压掉连续的「第」。
+ * "No." 译成「第」，后面的 "1" 又会被番号转换加成「第1」，
+ * 拼出来就是 "第第1群皇家空军"。中文里不会有两个连续的「第」。 */
+static void squeeze_di(wchar_t *s)
+{
+    int i = 0, o = 0;
+    while (s[i]) {
+        if (s[i] == 0x7B2C && s[i + 1] == 0x7B2C) { i++; continue; }
+        s[o++] = s[i++];
+    }
+    s[o] = 0;
+}
+
 static int is_alpha_w(wchar_t c)
 {
     return (c >= L'A' && c <= L'Z') || (c >= L'a' && c <= L'z');
@@ -1192,6 +1206,7 @@ static wchar_t *seg_fill(const wchar_t *src, wchar_t *out, int cap)
         }
     }
     out[o] = 0;
+    squeeze_di(out);
     return out;
 }
 
@@ -1953,6 +1968,7 @@ tok_ok:;
                    g_zh[found].wlen * sizeof(wchar_t));
             for (int z = 0; z < tail; z++) o2[pn + g_zh[found].wlen + z] = L' ';
             o2[pn + g_zh[found].wlen + tail] = 0;
+            squeeze_di(o2);
             LONG h = InterlockedIncrement(&g_dtHits);
             if (h <= 40)
                 logfmt("[dt-unit] \"%s\" -> %d wchars\n",
