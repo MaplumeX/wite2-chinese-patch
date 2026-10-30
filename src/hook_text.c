@@ -321,6 +321,15 @@ static int g_layoutLog = 0;
  * 选项列表标签右边缘恒为 541，S = (x2-x1)/(w1-w2) 得到 17.3。
  * 不同字号的界面这个值会不同，若某处过修/欠修就调这里。 */
 #define PX_PER_EM 17.3f
+
+/* 已知的右对齐列右边缘（像素，实测）。
+ * 目前只有游戏选项界面的标签列。发现新的右对齐列就往这里加一条，
+ * 同时用 wite2_layout.txt 里的右边缘分布核对。 */
+static const float g_rightEdges[] = { 541.0f };
+
+/* 判定容差。实测该列的右边缘在 540.2..545.9 之间，取 ±6 可覆盖，
+ * 又不会把居中的标签页（785.9）误纳进来。 */
+#define EDGE_TOL 6.0f
 static int g_layoutCount = 0;
 
 /* 替换用的缓冲池: 每次调用占一个槽, 调用返回后才复用 */
@@ -1229,8 +1238,28 @@ static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
     if (r && r != text) {
         int wo = text_w(text), wr = text_w(r);
         if (wo > wr && x0 > -2000.0f && x0 < 6000.0f) {
-            dx = (float)(wo - wr) * (PX_PER_EM / 256.0f);
-            *(float *)&stk[1] = x0 + dx;
+            /* 只有右对齐的列才该位移。判据: 原文右边缘落在某个
+             * 已知的右对齐边缘附近。
+             *
+             * 左对齐的列，x 固定、右边缘随文本长度变化，几乎不可能
+             * 落进这个窄带，因此自然被排除。实测数据:
+             *
+             *   选项列表标签   右边缘 540.2 .. 545.9  (30 条)
+             *   左对齐列       右边缘散乱分布
+             *   居中标签页     785.9  (Gameplay，不该移)
+             *
+             * 曾经无条件位移，结果把左对齐的地方全推右了。 */
+            float right = x0 + (float)wo * (PX_PER_EM / 256.0f);
+            int hit = 0;
+            for (int e = 0; e < (int)(sizeof(g_rightEdges) /
+                                     sizeof(g_rightEdges[0])); e++) {
+                float d = right - g_rightEdges[e];
+                if (d > -EDGE_TOL && d < EDGE_TOL) { hit = 1; break; }
+            }
+            if (hit) {
+                dx = (float)(wo - wr) * (PX_PER_EM / 256.0f);
+                *(float *)&stk[1] = x0 + dx;
+            }
         }
     }
 
