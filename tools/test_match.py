@@ -252,10 +252,28 @@ def dt_check(text, entries):
             continue
         sl = suf.lower()
         hit = None
+        via_prefix = False
         for k, v in entries:
             if len(k) == len(suf) and k.lower() == sl:
                 hit = v
                 break
+        if hit is None:
+            # 尾部被截断时做前缀回退。游戏有固定宽度控件，长名字会被
+            # 砍掉末尾："18th Panzer Divisio"、"1/213th Sec Div"。
+            # 砍掉后整串查不到就退回英文，英文更长又被继续砍。
+            # 三条判据：尾串 >=6 字符、覆盖候选 >=55%、候选唯一。
+            if len(suf) >= 6:
+                # 第 4 条判据：截断点必须落在词中间。key[len(suf)] 是
+                # 空格说明尾串是完整单词，不是被砍掉一半 —— "Armored"
+                # 配到 "Armored Cars" 会得出 "第17装甲车"，那是误配。
+                cands = [v for k, v in entries
+                         if len(k) > len(suf)
+                         and len(suf) * 100 >= len(k) * 55
+                         and k[len(suf)] != " "
+                         and k.lower().startswith(sl)]
+                if len(cands) == 1:
+                    hit = cands[0]
+                    via_prefix = True
         if hit is None:
             continue
         head = text[lead:cut]
@@ -270,6 +288,7 @@ def dt_check(text, entries):
             pre = conv_num_prefix(head)
         if pre is None:
             parts = []
+            nTok = nMiss = 0
             for mo in re.finditer(r"[^\s/]+|/", head):
                 tok = mo.group()
                 if tok == "/":
@@ -279,19 +298,30 @@ def dt_check(text, entries):
                 if is_split_index(tok, nxt):
                     parts.append(tok)
                     continue
+                nTok += 1
                 num = conv_num_prefix(tok)
                 if num is not None:
                     parts.append(num)
                     continue
-                tl = tok.lower()
+                # 不要用 tl：它保存整串小写，策略 4 还要用。
+                # 这里曾经写成 tl = tok.lower()，把整串覆盖成最后一个
+                # token，导致策略 4 永远匹配不上。
+                tlw = tok.lower()
                 got = None
                 for k, v in entries:
-                    if len(k) == len(tok) and k.lower() == tl:
+                    if len(k) == len(tok) and k.lower() == tlw:
                         got = v
                         break
                 if got is None and len(tok) == 2:
                     got = SHORT_PRE.get(tok.upper())
+                if got is None:
+                    nMiss += 1
                 parts.append(got if got is not None else tok)
+            # 只在后缀是截断匹配时才检查：后缀精确命中时番号部分
+            # 查不到是正常的（"Andrews Field" 的 Andrews 是地名），
+            # 拦掉会把已翻好的 "Andrews机场" 一起丢掉。
+            if via_prefix and nTok > 0 and nMiss == nTok:
+                continue
             pre = "".join(parts)
         return text[:lead] + mark + pre + hit + tail, "unit"
 
@@ -409,6 +439,18 @@ CASES = [
     ("2/6th Guards", "2/第6近卫", "拆分编号 + 词典命中的尾串"),
     ("1/998th Ost", "1/第998东方", "拆分编号 + 词典命中的尾串"),
     ("1/West Wall", "第1西墙", "斜杠右边非番号时左边是番号"),
+    # 尾部截断：游戏固定宽度控件会砍掉长名字的末尾，砍完查不到词典
+    # 就退回英文，英文更长又被继续砍。加前缀回退打破这个循环。
+    ("18th Panzer Divisio", "第18装甲师", "尾部截断（缺 n）"),
+    ("1/213th Sec Div", "1/第213警备师", "尾部截断 + 拆分编号"),
+    ("1st Panzer Grou", "第1装甲集群", "尾部截断（缺 p）"),
+    ("Panzer Divisio", "装甲师", "整串截断，走策略 4"),
+    # 截断点必须落在词中间。"Armored" 是完整单词，配到 "Armored Cars"
+    # 会得出 "第17装甲车"，那是误配，宁可保留英文。
+    ("XVII Armored", "XVII Armored", "截断点不在词中间，不配"),
+    # 后缀精确命中时，番号部分查不到是正常的（地名不翻），不能拦。
+    # 这条曾经被"番号全未译就放弃切分"的判据误伤。
+    ("Andrews Field", "Andrews机场", "地名 + 精确命中后缀"),
     ("255th Infantry Division", "第255步兵师", "阿拉伯数字照常转"),
     # 序数后缀 st/nd/rd/th 全部要能识别。C 里边界写成 i+2 < len 时
     # 只有 1st 侥幸通过，79th 会退回逐词翻译变成 "79th步兵师"。

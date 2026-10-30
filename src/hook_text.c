@@ -1232,6 +1232,45 @@ static wchar_t *dt_check_raw(wchar_t *text)
                 }
                 if (ok) { found = i; break; }
             }
+
+            /* 尾部被截断时做前缀回退。
+             *
+             * 游戏有固定宽度的控件，长名字会被砍掉末尾：
+             *   "18th Panzer Divisio"   缺 n
+             *   "1/213th Sec Div"       缺 ision
+             * 砍掉之后整串查不到词典，就退回英文显示 —— 而英文显示
+             * 又长又会被继续砍，形成死循环。
+             *
+             * 判据收紧到四条，避免把普通词配到长条目上：
+             *   1. 尾串至少 6 字符（挡住 "Div"(3) 这种）
+             *   2. 覆盖候选 key 至少 55%（"Sec Div"/"Sec Division" = 58%）
+             *   3. 候选必须唯一（"Div" 能配 Divisions/DIVIDE/... 就放弃）
+             *   4. 截断点必须落在词中间。key[slen] 是空格说明尾串是个
+             *      完整单词，不是被砍掉一半 —— "Armored" 会配到
+             *      "Armored Cars" 得出 "第17装甲车"，那是误配。
+             */
+            int viaPrefix = 0;
+            if (found < 0 && slen >= 6) {
+                int cand = -1, nCand = 0;
+                for (int i = 0; i < g_nzh; i++) {
+                    int kl = g_zh[i].klen;
+                    if (kl <= slen) continue;
+                    if (slen * 100 < kl * 55) continue;
+                    /* 截断点必须是词中间 */
+                    if (g_zh[i].key[slen] == ' ') continue;
+                    int ok = 1;
+                    for (int z = 0; z < slen; z++) {
+                        if (lc_w(text[cut + 1 + z]) !=
+                            lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) {
+                            ok = 0; break;
+                        }
+                    }
+                    if (!ok) continue;
+                    cand = i;
+                    if (++nCand > 1) break;
+                }
+                if (nCand == 1) { found = cand; viaPrefix = 1; }
+            }
             if (found < 0) continue;
 
             /* 番号部分: 纯数字优先，否则逐词翻译。
@@ -1258,6 +1297,17 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     pn = 0;   /* 让下面的逐词分支重来 */
                 }
             }
+            /* 番号部分词数/未译数。只在**后缀是截断匹配**时用它：
+             * "Panzer Divisio" 会被切成 "Panzer"+"Divisio"，而后缀
+             * Divisio 是靠前缀回退配到 Panzer Division 的。番号部分
+             * Panzer 一个词都没翻出来，说明这不是"番号 + 兵种"结构，
+             * 而是整串被截断。放弃本次切分，交给策略 4，否则会得到
+             * "Panzer师"。
+             *
+             * 后缀精确命中时不能套这个判据 —— "Andrews Field" 的
+             * Andrews 本来就查不到（地名不翻），拦掉会把已经翻好的
+             * "Andrews机场" 也一起丢掉。 */
+            int nTok = 0, nMiss = 0;
             if (pn == 0) {
                 /* 重来一次，这次保留缩进 */
                 while (pn < cut && pn < 8 && text[pn] == L' ')
@@ -1279,6 +1329,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     /* 数字番号先转换。逐词分支原来只查词典，导致
                      * "- 654th Mot. Panzerjaeger Battalion" 里的
                      * 654th 查不到就原样保留，成了 "- 654th摩托化..."。 */
+                    nTok++;
                     if (is_split_index(text + st, wl, text + en)) {
                         /* 分遣队序号，原样保留数字 */
                         if (pn + wl + 2 >= 128) { pn = 0; break; }
@@ -1337,6 +1388,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
                         if (pn + wl + 2 >= 128) { pn = 0; break; }
                         memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
                         pn += wl;
+                        nMiss++;
                     }
                     pre[pn] = 0;
                     /* 保留分隔符本身，斜杠在部队名里表示下级从属 */
@@ -1348,6 +1400,8 @@ static wchar_t *dt_check_raw(wchar_t *text)
                 }
             }
             if (pn <= 0) continue;
+            /* 截断匹配 + 番号部分一个词都没翻出来 -> 放弃这次切分 */
+            if (viaPrefix && nTok > 0 && nMiss == nTok) continue;
 
             if (pn + g_zh[found].wlen + tail + 1 > 250) break;
             slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
