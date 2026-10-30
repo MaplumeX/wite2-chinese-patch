@@ -316,7 +316,11 @@ static void patch_all(HMODULE exe)
  *   不改任何游戏数据, 只在这一次调用里换指针 -> 零副作用。
  */
 
-#define MAXZH 8192
+/* 绘制层词典容量。
+ * 曾经是 8192，但词典涨到 9758 条后，dict_build 里
+ * "g_nzh < MAXZH" 会静默丢掉最后 1500 多条 —— 不在日志里说，
+ * 界面上就是"有些名字明明翻了却还是英文"。留一倍余量。 */
+#define MAXZH 32768
 typedef struct { char *key; int klen; wchar_t *wtext; int wlen; int cs; } ZhEntry;
 static ZhEntry g_zh[MAXZH];
 static int g_nzh = 0;
@@ -329,6 +333,45 @@ static int g_dtLog = 0;
 
 /* 布局诊断开关（见 dt_check2） */
 static int g_layoutLog = 0;
+
+/* ===== 全量捕获 =====
+ *
+ * 之前只能靠用户报告"哪个名字没翻"，然后我按报告去猜字符串形态。
+ * 猜错的代价很高：XXXXVI Mot. Cr 这一条修了三轮才修对，因为每一轮
+ * 我建模的形态都和真实显示不一致。
+ *
+ * 这里把绘制层遇到的**每一个字符串**都记下来（去重），游戏目录放一个
+ * 空的 wite2_capture.ini 就开启。跑几分钟浏览部队列表，就能拿到
+ * 完整清单，然后离线验证，不用再猜。
+ */
+static int g_capture = 0;
+#define CAP_N 40000
+static unsigned *g_capHash = NULL;
+static FILE *g_capFile = NULL;
+static volatile LONG g_capCount = 0;
+
+static unsigned cap_hash(const wchar_t *t, int len)
+{
+    unsigned h = 2166136261u;
+    for (int i = 0; i < len; i++) {
+        h ^= (unsigned)t[i];
+        h *= 16777619u;
+    }
+    return h ? h : 1u;
+}
+
+/* 已记录过就返回 1 */
+static int cap_seen(const wchar_t *t, int len)
+{
+    unsigned h = cap_hash(t, len);
+    unsigned start = h % CAP_N;
+    for (unsigned i = 0; i < CAP_N; i++) {
+        unsigned idx = (start + i) % CAP_N;
+        if (g_capHash[idx] == 0) { g_capHash[idx] = h; return 0; }
+        if (g_capHash[idx] == h) return 1;
+    }
+    return 1;
+}
 
 /* 右边缘判据已废弃：补丁时机改到 DllMain 后不再需要坐标修正。
  * 保留这段注释是为了说明为什么这里空了，而不是被误删。 */
@@ -550,10 +593,17 @@ static void dict_build(void)
         char key[256];
         int klen = 0, ok = 1;
         for (int j = 0; kw[j]; j++) {
-            if (kw[j] > 0x7e || klen >= 255) { ok = 0; break; }
+            /* 上限放到 0xFF：地名里有重音字符（Bátaszék 的 á 是
+             * U+00E1）。曾经卡在 0x7e，这些条目被静默丢掉，
+             * 界面上就一直是原文。 */
+            if (kw[j] > 0xff || klen >= 255) { ok = 0; break; }
             key[klen++] = (char)kw[j];
         }
-        if (!ok || klen < 3) continue;
+        /* 2 字符词条也要收。曾经门槛是 3，结果 "Cr"（军）、"Bn"（营）
+         * 这类缩写根本进不了绘制层词典 —— "XXXXVI Mot.Cr" 修了三轮都
+         * 修不好，就是因为它命中的是 klen==2 的条目，而这里静默丢了。
+         * 绘制层的匹配是按整词长度精确比对，2 字符不会误伤长串。 */
+        if (!ok || klen < 2) continue;
         /* key[] 是栈上数组，循环退出时没有写终止符。
          * 不补这个 0，下面 memcpy(kc, key, klen+1) 会把栈上的
          * 未初始化字节当终止符复制走，日志里就会出现
@@ -582,6 +632,8 @@ static void dict_build(void)
         g_zh[g_nzh].cs = is_cs_key(kc);
         g_nzh++;
     }
+    if (g_nzh >= MAXZH)
+        logfmt("[zh] 警告: 词典超过 MAXZH(%d)，后面的条目被丢弃\n", MAXZH);
 
     /* 按 key 长度降序: 保证 "Army Group Center" 先于 "Army" 命中,
      * 避免短词抢走长词的匹配机会 */
@@ -1108,7 +1160,7 @@ static void pad_to_width(const wchar_t *rep, const wchar_t *orig,
     dst[i + need] = 0;
 }
 
-static wchar_t *dt_check_raw(wchar_t *text)
+static wchar_t *dt_check_body(wchar_t *text)
 {
     if (!text) return text;
     InterlockedIncrement(&g_dtCalls);
@@ -1419,34 +1471,19 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     /* 分遣队序号（"3/213th"）原样保留 */
                     if (is_split_index(text + st, wl, text + en)) {
                         if (pn + wl + 2 >= 128) { pn = 0; break; }
+                        if (pn > 0 && text[st - 1] == L' ' && pre[pn - 1] < 0x2E80)
+                            pre[pn++] = L' ';
                         memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
                         pn += wl;
                         pre[pn] = 0;
-                        if (en < cut && pn + 2 < 128) {
-                            pre[pn++] = text[en];
+                        /* 斜杠是分遣队标记，必须原样写出去 */
+                        if (en < cut && text[en] == L'/') {
+                            pre[pn++] = L'/';
                             pre[pn] = 0;
                         }
                         st = en + 1;
                         continue;
                     }
-                    /* 数字番号 */
-                    {
-                        wchar_t ntmp[24];
-                        int nn = conv_num_prefix(text + st, wl, ntmp, 24);
-                        if (nn > 0) {
-                            if (pn + nn + 2 >= 128) { pn = 0; break; }
-                            memcpy(pre + pn, ntmp, nn * sizeof(wchar_t));
-                            pn += nn;
-                            pre[pn] = 0;
-                            if (en < cut && pn + 2 < 128) {
-                                pre[pn++] = text[en];
-                                pre[pn] = 0;
-                            }
-                            st = en + 1;
-                            continue;
-                        }
-                    }
-
                     /* ===== 贪心最长匹配 =====
                      * 之前是纯逐词查词典，多词术语会被拆散：
                      *   "West Wall ..."    -> West=西 + Wall 查不到
@@ -1487,12 +1524,39 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     /* 空格：只在前后都是 ASCII 时保留。原文空格用于分隔
                      * 拉丁词，中文之间不需要（"第41型1a" 而不是 "第41 型 1a"），
                      * 但 "(158th Res)" 内部的空格要留。 */
+                    /* 数字番号。贪心已经命中一个多词短语就别再做单 token
+                     * 转换 —— "II 'Folgore'" 整串有条目，但 II 单独转成
+                     * 第2 会把这个短语拆掉。 */
+                    if (bestHit < 0) {
+                        wchar_t ntmp[24];
+                        int nn = conv_num_prefix(text + st, wl, ntmp, 24);
+                        if (nn > 0) {
+                            if (pn + nn + 2 >= 128) { pn = 0; break; }
+                            memcpy(pre + pn, ntmp, nn * sizeof(wchar_t));
+                            pn += nn;
+                            pre[pn] = 0;
+                            if (en < cut && text[en] == L'/') {
+                                pre[pn++] = L'/';
+                                pre[pn] = 0;
+                            }
+                            st = en + 1;
+                            continue;
+                        }
+                    }
+
+                    /* 看的是**译文**首字符，不是英文 key。
+                     * "XXXXVI Mot." 的 key 是 'M'（ASCII），但译文是
+                     * "摩托化"，两侧都是中文，不该留空格 —— 留了会变成
+                     * "第46 摩托化军"。 */
                     if (st > 0 && text[st - 1] == L' ' && pn > 0 &&
                         pre[pn - 1] < 0x2E80 && pn + 2 < 128) {
-                        int nxtAsc = 0;
-                        if (bestHit >= 0) nxtAsc = (g_zh[bestHit].key[0] < 0x80);
-                        else nxtAsc = (text[st] < 0x80);
-                        if (nxtAsc) { pre[pn++] = L' '; pre[pn] = 0; }
+                        wchar_t nxtCh = 0;
+                        if (bestHit >= 0) nxtCh = g_zh[bestHit].wtext[0];
+                        else {
+                            const wchar_t *sp3 = lookup_short(text + st, wl);
+                            nxtCh = (sp3 && sp3[0]) ? sp3[0] : text[st];
+                        }
+                        if (nxtCh < 0x2E80) { pre[pn++] = L' '; pre[pn] = 0; }
                     }
 
                     if (bestHit >= 0) {
@@ -1743,7 +1807,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
             int kl = g_zh[i].klen;
             /* 门槛 len>=12: 长串被截断是常见现象, 短串不是。
              * 这能挡住 "National"(8) 误配 "NATIONALITY"(11)。 */
-            if (kl <= len || len < 12) continue;
+            if (kl <= len || len < 12 || kl < 5) continue;
             if (len * 10 < kl * 7) continue;          /* 至少覆盖 70% */
             int ok = 1;
             for (int z = 0; z < len; z++) {
@@ -1791,6 +1855,43 @@ static wchar_t *dt_check_raw(wchar_t *text)
         }
     }
     return text;
+}
+
+/* 把宽串写成可读的 UTF-8，非 ASCII 用 <XXXX> 转义，
+ * 这样日志用记事本就能看，也方便脚本解析。 */
+static void cap_write(const wchar_t *src, const wchar_t *dst)
+{
+    if (!g_capture || !g_capFile) return;
+    int len = 0;
+    while (len < 300 && src[len]) len++;
+    if (len < 3) return;
+    if (cap_seen(src, len)) return;
+    if (InterlockedIncrement(&g_capCount) > CAP_N) return;
+
+    char out[1200];
+    int o = 0;
+    const wchar_t *pair[2];
+    pair[0] = src; pair[1] = dst;
+    for (int k = 0; k < 2; k++) {
+        const wchar_t *p = pair[k] ? pair[k] : L"";
+        if (k) out[o++] = '	';
+        for (int i = 0; p[i] && i < 120 && o < 1100; i++) {
+            wchar_t c = p[i];
+            if (c >= 0x20 && c < 0x7f) out[o++] = (char)c;
+            else o += _snprintf(out + o, 12, "<%04X>", (unsigned)c);
+        }
+    }
+    out[o++] = '\n';
+    fwrite(out, 1, o, g_capFile);
+    /* 每次写都刷盘，崩溃也不丢数据 */
+    fflush(g_capFile);
+}
+
+static wchar_t *dt_check_raw(wchar_t *text)
+{
+    wchar_t *r = dt_check_body(text);
+    cap_write(text, r);
+    return r;
 }
 
 /* 对外入口: 替换文本，并把宽度补齐到原文。
@@ -2089,6 +2190,60 @@ static DWORD WINAPI init_thread(LPVOID param)
     return 0;
 }
 
+#ifdef ZH_SELFTEST
+/* ===== 自测入口 =====
+ *
+ * 用 -DZH_SELFTEST 编译出来的 exe 直接从 stdin 读 UTF-8 行，
+ * 走**真实的 C 匹配逻辑**，输出 "原文<TAB>译文<TAB>策略"。
+ *
+ * 存在的理由：tools/test_match.py 是 C 逻辑的 Python 复刻，两者会
+ * 悄悄分叉。修 conv_num_prefix 边界那次就是 —— Python 用切片写，
+ * C 用下标，C 错了 Python 全绿，直到游戏里看见 "79th步兵师" 才发现。
+ * 以后验证一律以这个 exe 为准，Python 复刻只用来快速回归。
+ */
+int main(void)
+{
+    static char line[4096];
+    static wchar_t wbuf[1024];
+    static char out[8192];
+
+    dict_load();
+    dict_build();
+    /* 关掉日志，避免污染 stdout */
+    g_logBudget = -1;
+
+    while (fgets(line, sizeof(line), stdin)) {
+        char *nl = strchr(line, '\n');
+        if (nl) *nl = 0;
+        char *cr = strchr(line, '\r');
+        if (cr) *cr = 0;
+        if (!line[0]) continue;
+
+        int wn = MultiByteToWideChar(CP_UTF8, 0, line, -1, wbuf, 1024);
+        if (wn <= 0) continue;
+        wn--;  /* 去掉结尾 NUL 计数 */
+
+        wchar_t *r = dt_check_body(wbuf);
+        int same = (r == wbuf);
+
+        char *o = out;
+        int n = WideCharToMultiByte(CP_UTF8, 0, wbuf, wn, o, 4000, NULL, NULL);
+        o += n;
+        *o++ = '	';
+        r = r ? r : wbuf;
+        int rl = 0;
+        while (r[rl]) rl++;
+        n = WideCharToMultiByte(CP_UTF8, 0, r, rl, o, 4000, NULL, NULL);
+        o += n;
+        *o++ = '	';
+        strcpy(o, same ? "UNMATCHED" : "MATCHED");
+        printf("%s\n", out);
+    }
+    return 0;
+}
+
+#else
+
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID reserved)
 {
     if (reason == DLL_PROCESS_ATTACH) {
@@ -2100,3 +2255,5 @@ BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID reserved)
     }
     return TRUE;
 }
+
+#endif

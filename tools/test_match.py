@@ -403,7 +403,8 @@ def dt_check(text, entries, _depth=0):
                     if got is not None:
                         break
                 if got is None:
-                    # 数字番号
+                    # 数字番号。贪心已命中多词短语就别再拆 ——
+                    # "II 'Folgore'" 整串有条目，II 单独转第2 会拆掉它。
                     num = conv_num_prefix(t0)
                     if num is not None:
                         parts.append(num)
@@ -639,6 +640,7 @@ CASES = [
     ("XXXXVI Mot.Corps", "第46摩托化军", "句点粘连"),
     ("XXXXVI Pz.Cr", "第46装甲军", "句点粘连 + 缩写"),
     ("1 Mot.Nbl.W.Bn", "第1摩托化火箭炮营", "多句点缩写"),
+    ("II 'Folgore' Mountain Battalion", "第二「闪电」山地营", "贪心短语优先于单 token 数字转换"),
     # 数据文件里的显示文本（Nations/GroundTypes/AirProfiles）
     ("Soviet Union", "苏联", "国家名"),
     ("Rifle Squad", "步兵班", "地面单位类型（Rifle 统一译步兵）"),

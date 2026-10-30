@@ -7,6 +7,7 @@ REM  build.bat dll        build DLL only
 REM  build.bat assets     generate translation table and font only
 REM  build.bat check      run verification only
 REM  build.bat deploy     deploy only
+REM  build.bat selftest   build selftest.exe (runs the real C matcher)
 REM ==========================================================
 setlocal EnableDelayedExpansion
 cd /d "%~dp0"
@@ -35,11 +36,33 @@ if /i "%TARGET%"=="dll"    goto only_dll
 if /i "%TARGET%"=="assets" goto only_assets
 if /i "%TARGET%"=="check"  goto only_check
 if /i "%TARGET%"=="deploy" goto only_deploy
+if /i "%TARGET%"=="selftest" goto only_selftest
 
 REM ---------- full pipeline ----------
 call :do_dll
 if errorlevel 1 goto fail
-call :do_assets
+call :do_selftest
+echo.
+echo === Building selftest.exe ===
+call "!VCVARS!" >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] vcvars32.bat failed
+    exit /b 1
+)
+if not exist build mkdir build
+cl /nologo /MT /O2 /W3 /GS- /D_CRT_SECURE_NO_WARNINGS /DZH_SELFTEST /utf-8 ^
+   src\hook_text.c ^
+   /Fe:build\selftest.exe ^
+   /Fo:build\selftest.obj ^
+   /link /MACHINE:X86 /SUBSYSTEM:CONSOLE
+if errorlevel 1 (
+    echo [FAILED] compile error
+    exit /b 1
+)
+echo        build\selftest.exe
+exit /b 0
+
+:do_assets
 if errorlevel 1 goto fail
 call :do_check
 call :do_deploy
@@ -51,7 +74,28 @@ if errorlevel 1 goto fail
 goto done
 
 :only_assets
-call :do_assets
+call :do_selftest
+echo.
+echo === Building selftest.exe ===
+call "!VCVARS!" >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] vcvars32.bat failed
+    exit /b 1
+)
+if not exist build mkdir build
+cl /nologo /MT /O2 /W3 /GS- /D_CRT_SECURE_NO_WARNINGS /DZH_SELFTEST /utf-8 ^
+   src\hook_text.c ^
+   /Fe:build\selftest.exe ^
+   /Fo:build\selftest.obj ^
+   /link /MACHINE:X86 /SUBSYSTEM:CONSOLE
+if errorlevel 1 (
+    echo [FAILED] compile error
+    exit /b 1
+)
+echo        build\selftest.exe
+exit /b 0
+
+:do_assets
 if errorlevel 1 goto fail
 goto done
 
@@ -61,6 +105,12 @@ goto done
 
 :only_deploy
 call :do_deploy
+if errorlevel 1 goto fail
+goto done
+
+REM 自测程序：跑**真实的 C 匹配逻辑**，不是 Python 复刻
+:only_selftest
+call :do_selftest
 if errorlevel 1 goto fail
 goto done
 
@@ -84,6 +134,27 @@ if errorlevel 1 (
     exit /b 1
 )
 echo        build\version.dll
+exit /b 0
+
+:do_selftest
+echo.
+echo === Building selftest.exe ===
+call "!VCVARS!" >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] vcvars32.bat failed
+    exit /b 1
+)
+if not exist build mkdir build
+cl /nologo /MT /O2 /W3 /GS- /D_CRT_SECURE_NO_WARNINGS /DZH_SELFTEST /utf-8 ^
+   src\hook_text.c ^
+   /Fe:build\selftest.exe ^
+   /Fo:build\selftest.obj ^
+   /link /MACHINE:X86 /SUBSYSTEM:CONSOLE
+if errorlevel 1 (
+    echo [FAILED] compile error
+    exit /b 1
+)
+echo        build\selftest.exe
 exit /b 0
 
 :do_assets
