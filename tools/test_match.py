@@ -159,14 +159,27 @@ def conv_num_prefix(t):
 
 
 def try_numbered(text):
-    m = re.fullmatch(r"(\d{1,4})(st|nd|rd|th) ([A-Z]{1,4})", text)
+    """数字 + 兵种缩写。
+
+    支持三种之前漏掉的形式：
+      3/97th ID   拆分编号前缀，3 是分遣队序号，原样保留
+      97th ID     基本形式
+      97th ID     尾随空格（OOB 列填充），剥掉再匹配，稍后补回
+    """
+    pre = ""
+    # 拆分编号前缀：斜杠右边必须紧跟“数字 + 序数”，否则左边是番号
+    m = re.match(r"(\d{1,3})/(?=\d+(?:st|nd|rd|th) )", text)
+    if m:
+        pre = m.group(1) + "/"
+        text = text[m.end():]
+    m = re.fullmatch(r"(\d{1,4})(st|nd|rd|th) ([A-Z]{1,4})( *)", text)
     if not m:
         return None
     ab = m.group(3)
     zh = DIVAB.get(ab)
     if not zh:
         return None
-    return "第%s%s" % (m.group(1), zh)
+    return pre + "第%s%s%s" % (m.group(1), zh, m.group(4))
 
 
 CS_KEYS = {"Port","Rail","Road","City","Town","Airfield","Coast",
@@ -439,6 +452,13 @@ CASES = [
     ("2/6th Guards", "2/第6近卫", "拆分编号 + 词典命中的尾串"),
     ("1/998th Ost", "1/第998东方", "拆分编号 + 词典命中的尾串"),
     ("1/West Wall", "第1西墙", "斜杠右边非番号时左边是番号"),
+    # 数字 + 兵种缩写要支持拆分编号前缀和尾随空格。之前 try_numbered
+    # 要求整串严格是"数字+序数+空格+缩写"，"3/97th ID" 前缀对不上、
+    # "97th ID " 尾随空格对不上，两条都退回英文。
+    ("3/97th ID", "3/第97步兵师", "拆分编号 + 兵种缩写"),
+    ("97th ID", "第97步兵师", "兵种缩写基本形式"),
+    ("3/97th PD", "3/第97装甲师", "拆分编号 + 装甲师缩写"),
+    ("97th ID ", "第97步兵师 ", "尾随空格保留"),
     # 尾部截断：游戏固定宽度控件会砍掉长名字的末尾，砍完查不到词典
     # 就退回英文，英文更长又被继续砍。加前缀回退打破这个循环。
     ("18th Panzer Divisio", "第18装甲师", "尾部截断（缺 n）"),

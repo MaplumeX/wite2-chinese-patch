@@ -920,9 +920,30 @@ static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
 
 static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
 {
-    int i = 0;
+    int i = 0, o = 0;
     long num = 0;
     int nd = 0;
+
+    /* 拆分编号前缀 "3/97th ID"。游戏把部队拆成 1/2/3 三份，这个数字
+     * 是分遣队序号，原样保留。判据和策略 1.7 一致：斜杠右边必须紧跟
+     * 数字+序数后缀，否则左边的数字是番号。
+     * 这里先探测，确认后面确实是"数字+序数"才吞掉前缀。 */
+    {
+        int p = 0, pd = 0;
+        while (p < len && text[p] >= L'0' && text[p] <= L'9' && pd < 3) { p++; pd++; }
+        if (pd >= 1 && p < len && text[p] == L'/') {
+            int q = p + 1, qd = 0;
+            while (q < len && text[q] >= L'0' && text[q] <= L'9') { q++; qd++; }
+            int okOrd = (q + 1 < len) &&
+                ((text[q]==L't'&&text[q+1]==L'h') || (text[q]==L's'&&text[q+1]==L't') ||
+                 (text[q]==L'n'&&text[q+1]==L'd') || (text[q]==L'r'&&text[q+1]==L'd'));
+            if (qd >= 1 && okOrd) {
+                for (int z = 0; z <= p && o < cap - 1; z++) out[o++] = text[z];
+                i = p + 1;
+            }
+        }
+    }
+
     while (i < len && text[i] >= L'0' && text[i] <= L'9' && nd < 5) {
         num = num * 10 + (text[i] - L'0'); i++; nd++;
     }
@@ -941,6 +962,9 @@ static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
     int st = i;
     while (i < len && text[i] >= L'A' && text[i] <= L'Z') i++;
     int sl = i - st;
+    /* OOB 树形列表的列填充会在名字后留空格，剥掉再匹配，稍后补回 */
+    int tailSp = 0;
+    while (i < len && text[i] == L' ') { i++; tailSp++; }
     if (sl < 1 || sl > 4 || i != len) return 0;
 
     char ab[8];
@@ -952,7 +976,6 @@ static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
         if (strcmp(ab, DIVAB[q].ab) == 0) { zh = DIVAB[q].zh; break; }
     if (!zh) return 0;
 
-    int o = 0;
     if (o < cap - 1) out[o++] = L'\u7B2C';   /* 第 */
     wchar_t dig[8];
     int dn = 0;
@@ -961,6 +984,7 @@ static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
     while (t > 0) { dig[dn++] = (wchar_t)(L'0' + (t % 10)); t /= 10; }
     for (int z = dn - 1; z >= 0; z--) if (o < cap - 1) out[o++] = dig[z];
     for (int z = 0; zh[z] && o < cap - 1; z++) out[o++] = zh[z];
+    for (int z = 0; z < tailSp && o < cap - 1; z++) out[o++] = L' ';
     out[o] = 0;
     return o;
 }
