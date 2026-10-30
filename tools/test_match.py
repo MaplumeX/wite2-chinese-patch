@@ -89,21 +89,36 @@ SHORT_PRE = {
 
 
 def conv_num_prefix(t):
-    """番号前缀: "113th" -> "第113", 罗马数字原样保留。返回 None 表示不是番号。"""
-    if len(t) >= 2 and all(c in "IVXLCDM" for c in t):
+    """番号前缀，与 C 的 conv_num_prefix 逐行对应。
+
+    刻意用和 C 一样的下标判断（i + 1 < len 而不是切片），这样边界
+    写错时 Python 复刻也会失败 —— 之前用切片写，C 里的 i + 2 < len
+    错误就测不出来。
+    """
+    n = len(t)
+    if n == 0:
+        return None
+    # 罗马数字原样保留
+    if n >= 2 and all(c in "IVXLCDM" for c in t):
         return t
+
     i = 0
-    while i < len(t) and t[i].isdigit():
+    while i < n and t[i].isdigit():
         i += 1
     if i == 0:
         return None
-    for suf in ("st", "nd", "rd", "th"):
-        if t[i:i+2] == suf:
-            i += 2
-            break
-    if i != len(t):
+    digits = t[:i]
+    if i + 1 < n and t[i] == "s" and t[i + 1] == "t":
+        i += 2
+    elif i + 1 < n and t[i] == "n" and t[i + 1] == "d":
+        i += 2
+    elif i + 1 < n and t[i] == "r" and t[i + 1] == "d":
+        i += 2
+    elif i + 1 < n and t[i] == "t" and t[i + 1] == "h":
+        i += 2
+    if i != n:
         return None
-    return "第" + t[:len(t)-i or None] if False else "第" + "".join(c for c in t if c.isdigit())
+    return "第" + digits
 
 
 def try_numbered(text):
@@ -335,6 +350,13 @@ CASES = [
     ("XII Corps", "XII军", "短罗马数字"),
     ("LI Corps", "LI军", "LI 是 51 但保留罗马"),
     ("255th Infantry Division", "第255步兵师", "阿拉伯数字照常转"),
+    # 序数后缀 st/nd/rd/th 全部要能识别。C 里边界写成 i+2 < len 时
+    # 只有 1st 侥幸通过，79th 会退回逐词翻译变成 "79th步兵师"。
+    ("1st Panzer Division", "第1装甲师", "序数 st"),
+    ("2nd Panzer Division", "第2装甲师", "序数 nd"),
+    ("3rd Panzer Division", "第3装甲师", "序数 rd"),
+    ("79th Infantry Division", "第79步兵师", "序数 th"),
+    ("113th Infantry Division", "第113步兵师", "三位数 th"),
 ]
 
 

@@ -317,85 +317,9 @@ static int g_dtLog = 0;
 /* 布局诊断开关（见 dt_check2） */
 static int g_layoutLog = 0;
 
-/* 每 em 多少像素。由实测反解:
- * 选项列表标签右边缘恒为 541，S = (x2-x1)/(w1-w2) 得到 17.3。
- * 不同字号的界面这个值会不同，若某处过修/欠修就调这里。 */
-#define PX_PER_EM 17.3f
+/* 右边缘判据已废弃：补丁时机改到 DllMain 后不再需要坐标修正。
+ * 保留这段注释是为了说明为什么这里空了，而不是被误删。 */
 
-/* 判定容差。实测选项列右边缘在 540.2..545.9，取 ±6 可覆盖，
- * 又不会把居中的标签页（785.9）误纳进来。 */
-#define EDGE_TOL 6.0f
-
-/* ===== 右对齐列的自动识别 =====
- *
- * 逐个界面手工测量太慢，而且漏一个就出问题。改成运行时自己学。
- *
- * 判据来自实测数据。同一列里:
- *
- *   右对齐:  x 随文字长度变化，右边缘恒定
- *            x0=301..452 -> 右边缘 541
- *   左对齐:  x 恒定，右边缘随文字长度变化
- *            x0=847       -> 右边缘 31 个不同值
- *
- * 所以「右边缘聚成一簇、且簇内 x0 有多个不同值、且宽度也有多个
- * 不同值」就判定为右对齐。三个条件缺一不可:
- *
- *   只要求右边缘相同 -> 左对齐列里宽度相近的几条会误判
- *   只要求 x0 变化   -> 居中的标题也会满足
- *
- * 游戏每帧重绘，所以第一帧学到之后立刻生效，视觉上没有延迟。
- */
-#define EDGE_SLOTS 48
-
-typedef struct {
-    float right;
-    float x0[4];
-    int   nx0;
-    int   ow[2];
-    int   now;
-    int   hits;
-} EdgeSlot;
-
-static EdgeSlot g_edges[EDGE_SLOTS];
-static int g_nEdges = 0;
-
-/* 记录一条样本，返回是否判定为右对齐列 */
-static int edge_learn(float right, float x0, int ow)
-{
-    EdgeSlot *s = NULL;
-    for (int i = 0; i < g_nEdges; i++) {
-        float d = right - g_edges[i].right;
-        if (d > -EDGE_TOL && d < EDGE_TOL) { s = &g_edges[i]; break; }
-    }
-    if (!s) {
-        if (g_nEdges >= EDGE_SLOTS) return 0;
-        s = &g_edges[g_nEdges++];
-        s->right = right;
-        s->nx0 = 0;
-        s->now = 0;
-        s->hits = 0;
-    }
-    s->hits++;
-
-    int seen = 0;
-    for (int i = 0; i < s->nx0; i++) {
-        float d = x0 - s->x0[i];
-        if (d > -1.0f && d < 1.0f) { seen = 1; break; }
-    }
-    if (!seen && s->nx0 < 4) s->x0[s->nx0++] = x0;
-
-    seen = 0;
-    for (int i = 0; i < s->now; i++) {
-        if (s->ow[i] == ow) { seen = 1; break; }
-    }
-    if (!seen && s->now < 2) s->ow[s->now++] = ow;
-
-    return (s->hits >= 3 && s->nx0 >= 2 && s->now >= 2);
-}
-
-/* 已知的右对齐列右边缘（像素，实测）。作为种子，让第一次绘制就正确，
- * 不必等 edge_learn 学出来。新发现的边缘可以往这里补。 */
-static const float g_rightEdges[] = { 541.0f };
 static int g_layoutCount = 0;
 
 /* 替换用的缓冲池: 每次调用占一个槽, 调用返回后才复用 */
@@ -892,10 +816,15 @@ static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
     }
     if (i == 0) return 0;              /* 没有数字 */
     /* 跳过序数后缀 */
+    /* 边界必须是 i + 1 < len：两个字符的后缀只需要保证 t[i+1] 存在。
+     * 曾经写成 i + 2 < len，导致 "79th"（len=4, i=2）判断失败，
+     * 序数后缀没被消费，函数返回 0，前缀退回逐词翻译保留英文，
+     * 于是出现 "79th步兵师" 而不是 "第79步兵师"。
+     * 只有 "1st"（i=1, len=3, 1+2<3 为假… 但 st 分支用的是 i+1）侥幸正常。 */
     if (i + 1 < len && t[i] == L's' && t[i+1] == L't') i += 2;
-    else if (i + 2 < len && t[i] == L'n' && t[i+1] == L'd') i += 2;
-    else if (i + 2 < len && t[i] == L'r' && t[i+1] == L'd') i += 2;
-    else if (i + 2 < len && t[i] == L't' && t[i+1] == L'h') i += 2;
+    else if (i + 1 < len && t[i] == L'n' && t[i+1] == L'd') i += 2;
+    else if (i + 1 < len && t[i] == L'r' && t[i+1] == L'd') i += 2;
+    else if (i + 1 < len && t[i] == L't' && t[i+1] == L'h') i += 2;
     out[o] = 0;
     return (i == len) ? o : 0;         /* 必须正好用完前缀 */
 }
@@ -1519,34 +1448,20 @@ static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
      */
     float x0 = *(float *)&stk[1];
     float dx = 0.0f;
-    if (r && r != text) {
-        int wo = text_w(text), wr = text_w(r);
-        if (wo > wr && x0 > -2000.0f && x0 < 6000.0f) {
-            /* 只有右对齐的列才该位移。判据: 原文右边缘落在某个
-             * 已知的右对齐边缘附近。
-             *
-             * 左对齐的列，x 固定、右边缘随文本长度变化，几乎不可能
-             * 落进这个窄带，因此自然被排除。实测数据:
-             *
-             *   选项列表标签   右边缘 540.2 .. 545.9  (30 条)
-             *   左对齐列       右边缘散乱分布
-             *   居中标签页     785.9  (Gameplay，不该移)
-             *
-             * 曾经无条件位移，结果把左对齐的地方全推右了。 */
-            float right = x0 + (float)wo * (PX_PER_EM / 256.0f);
-            int hit = 0;
-            for (int e = 0; e < (int)(sizeof(g_rightEdges) /
-                                     sizeof(g_rightEdges[0])); e++) {
-                float d = right - g_rightEdges[e];
-                if (d > -EDGE_TOL && d < EDGE_TOL) { hit = 1; break; }
-            }
-            if (!hit) hit = edge_learn(right, x0, wo);
-            if (hit) {
-                dx = (float)(wo - wr) * (PX_PER_EM / 256.0f);
-                *(float *)&stk[1] = x0 + dx;
-            }
-        }
-    }
+
+    /* ===== 不再做坐标位移 =====
+     *
+     * 这里曾经按右边缘把文本往右推，用来修正"中文比英文短导致居中/
+     * 右对齐偏移"。那个问题在补丁时机改到 DllMain 之后已经消失：
+     * 游戏读到的就是中文，测量、排版、换行全按中文算，不需要修正。
+     *
+     * 留着反而有害。判据是"原文右边缘落在已知右对齐边缘 ±6px 内"，
+     * 而 OOB 树形列表的行右边缘随文本长度在 234..643 之间分布，
+     * 必然有些行撞上 541 被推走、邻居没被推 —— 表现为展开后整列
+     * 参差不齐地往右跳。
+     *
+     * 部队名等运行时拼接的串都是左对齐列表，本来就不需要位移。
+     */
 
     if (!g_layoutLog || g_layoutCount > 4000) return r;
 
