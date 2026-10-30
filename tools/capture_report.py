@@ -53,6 +53,13 @@ def main():
 
     rows = load(path)
     print("捕获 %d 条绘制文本" % len(rows))
+    if not rows:
+        print()
+        print("文件是空的。检查下面两点：")
+        print("  1. 游戏目录里有 wite2_capture.ini（空文件即可）")
+        print("  2. wite2_hook.txt 里有 '[capture] 全量捕获开启' 这一行")
+        print("     没有的话说明 version.dll 是旧版，重新部署。")
+        return
 
     # 判断"没翻"：译文里还有连续 3 个以上拉丁字母的词
     latin = re.compile(r"[A-Za-z]{3,}")

@@ -924,7 +924,7 @@ static int is_split_index(const wchar_t *t, int len, const wchar_t *next)
 static int word_end(const wchar_t *t, int p, int cut)
 {
     while (p < cut) {
-        if (t[p] == L' ' || t[p] == L'/') break;
+        if (t[p] == L' ' || t[p] == L'/' || t[p] == L'(' || t[p] == L')') break;
         if (t[p] == L'.' && p + 1 < cut &&
             ((t[p + 1] >= L'A' && t[p + 1] <= L'Z') ||
              (t[p + 1] >= L'a' && t[p + 1] <= L'z')))
@@ -946,9 +946,236 @@ static int skip_words(const wchar_t *t, int from, int cut, int nw)
     return p;
 }
 
+/* ---- 分段兜底翻译 ----------------------------------------------------
+ *
+ * 游戏很多显示串是拼出来的："  Army Group Center   CU 1, SU 1,   MP 50 "
+ * 或者 "  Germany(Lublin) - Poor Road "。这类串永远不可能整串命中词典，
+ * 只能切成"能译的段"和"原样段"。
+ *
+ * 关键约束是**全或无**：只要有一个字母 token 译不出来，整串原样返回。
+ * 否则就会出现用户明确讨厌的那种碎片 —— "Show 生产 screen"。
+ * 宁可整句留英文，也不能半中半英。
+ */
+
+/* 在绘制层词典里按宽串查，命中返回译文指针，否则 0 */
+static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap);
+static int seg_passthru(const wchar_t *w, int n);
+
+static const wchar_t *zfind_w(const wchar_t *w, int n)
+{
+    int i;
+    if (n <= 0) return 0;
+    for (i = 0; i < g_nzh; i++) {
+        int z, ok = 1;
+        if (g_zh[i].klen != n) continue;
+        for (z = 0; z < n; z++) {
+            if (lc_w(w[z]) != lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) {
+                ok = 0;
+                break;
+            }
+        }
+        if (ok) return g_zh[i].wtext;
+    }
+    return 0;
+}
+
+/* 单段翻译：先查词典，再试番号转换，最后试短串表。返回写入长度，0 表示译不了 */
+static int ztry_seg(const wchar_t *w, int n, wchar_t *out, int cap)
+{
+    const wchar_t *t;
+    /* 纯数字直接放行。否则 "27.6" 会被切成 27 和 6 两个 token，
+     * 各自转成 "第27" "第6"，变成 "第27.第6"。 */
+    {
+        int i, allNum = (n > 0);
+        for (i = 0; i < n; i++)
+            if (w[i] < L'0' || w[i] > L'9') { allNum = 0; break; }
+        if (allNum) {
+            if (n >= cap) return 0;
+            memcpy(out, w, n * sizeof(wchar_t));
+            return n;
+        }
+    }
+    t = zfind_w(w, n);
+    if (t) {
+        int l = (int)wcslen(t);
+        if (l >= cap) return 0;
+        memcpy(out, t, l * sizeof(wchar_t));
+        return l;
+    }
+    {
+        wchar_t b[64];
+        int nn = (n < 60) ? n : 60, r;
+        memcpy(b, w, nn * sizeof(wchar_t));
+        b[nn] = 0;
+        r = conv_num_prefix(b, nn, out, cap);
+        if (r > 0) return r;
+    }
+    /* 数字+单个小写字母是层级标记（"Tier 1a" 的 1a），原样保留 */
+    {
+        int i = 0;
+        while (i < n && w[i] >= L'0' && w[i] <= L'9') i++;
+        if (i > 0 && i == n - 1 &&
+            ((w[i] >= L'a' && w[i] <= L'z') || (w[i] >= L'A' && w[i] <= L'Z'))) {
+            if (n >= cap) return 0;
+            memcpy(out, w, n * sizeof(wchar_t));
+            return n;
+        }
+    }
+    /* 缩写原样放行 */
+    if (seg_passthru(w, n)) {
+        if (n >= cap) return 0;
+        memcpy(out, w, n * sizeof(wchar_t));
+        return n;
+    }
+    return 0;
+}
+
+static int is_alpha_w(wchar_t c)
+{
+    return (c >= L'A' && c <= L'Z') || (c >= L'a' && c <= L'z');
+}
+
+/* 缩写/罗马数字：保留原文不算"译不出"。
+ * 这是全或无规则的唯一例外 —— NKVD、MP、CU 这类本来就是缩写，
+ * 逼着翻译只会更糟。 */
+static int seg_passthru(const wchar_t *w, int n)
+{
+    int i, up = 1, roman = 1;
+    if (n <= 0 || n > 6) return 0;
+    for (i = 0; i < n; i++) {
+        wchar_t c = w[i];
+        if (c >= L'a' && c <= L'z') up = 0;
+        if (c != L'I' && c != L'V' && c != L'X' && c != L'L' &&
+            c != L'C' && c != L'D' && c != L'M') roman = 0;
+        if (!((c >= L'A' && c <= L'Z') || (c >= L'0' && c <= L'9')))
+            return 0;
+    }
+    return up || roman;
+}
+
+/* seg_fill 用的分词器：括号、逗号、冒号、分号、斜杠都是边界；
+ * 句点只有在后面不是字母时才算边界（这样 Mot.Cr / Nbl.W. 仍是整token）。 */
+static int seg_end(const wchar_t *t, int p, int len)
+{
+    while (p < len) {
+        wchar_t c = t[p];
+        if (c == L' ' || c == L'/' || c == L'(' || c == L')' ||
+            c == L',' || c == L':' || c == L';' || c == L'[' || c == L']' ||
+            c == L'%')
+            break;
+        if (c == L'.' && (p + 1 >= len || !is_alpha_w(t[p + 1])))
+            break;
+        p++;
+    }
+    return p;
+}
+
+/* 分段翻译。整串都能处理才返回 out，否则返回 0（调用方保留原文） */
+static wchar_t *seg_fill(const wchar_t *src, wchar_t *out, int cap)
+{
+    int len = (int)wcslen(src);
+    int i = 0, o = 0, pendingSpace = 0;
+
+    if (len < 2 || len > 200) return 0;
+    /* 只有真正带格式符的串才交给模板匹配；"100% )" 里的百分号不是格式符 */
+    for (i = 0; i + 1 < len; i++)
+        if (src[i] == L'%' &&
+            (src[i + 1] == L's' || src[i + 1] == L'd' || src[i + 1] == L'f' ||
+             src[i + 1] == L'x' || src[i + 1] == L'u'))
+            return 0;
+    i = 0;
+
+    while (i < len) {
+        if (o >= cap - 80) return 0;
+        if (src[i] == L' ') { pendingSpace++; i++; continue; }
+        /* 数字也当 token 开头：否则 "102nd" 会被拆成 "102" + "nd"，
+         * 而 "nd" 正好是序数后缀表里的条目。纯数字本身由 ztry_seg
+         * 的缩写放行原样输出。 */
+        if (!is_alpha_w(src[i]) && !(src[i] >= L'0' && src[i] <= L'9')) {
+            /* 连续两个以上的空格是列对齐，原样保留 */
+            if (pendingSpace >= 2) {
+                while (pendingSpace > 0 && o + 1 < cap) { out[o++] = L' '; pendingSpace--; }
+            } else if (pendingSpace && o > 0) out[o++] = L' ';
+            pendingSpace = 0;
+            out[o++] = src[i++];
+            continue;
+        }
+        {
+            int span, got = 0;
+            wchar_t tmp[128];
+            int tlen = 0;
+            for (span = 8; span >= 1 && !got; span--) {
+                int e = i, k;
+                for (k = 0; k < span; k++) {
+                    while (e < len && src[e] == L' ') e++;
+                    if (e >= len) break;
+                    {
+                        int ne = seg_end(src, e, len);
+                        if (ne == e) break;
+                        e = ne;
+                    }
+                }
+                if (k < span) continue;
+                {
+                    int he = e;
+                    while (he > i && src[he - 1] == L' ') he--;
+                    if (he <= i) continue;
+                    tlen = ztry_seg(src + i, he - i, tmp, 120);
+                    if (tlen > 0) { got = 1; i = he; }
+                }
+            }
+            if (!got) return 0;              /* 全或无：有一处译不出就放弃整串 */
+            if (o + tlen + 2 >= cap) return 0;
+            /* 连续两个以上的空格是列对齐，原样保留 */
+            if (pendingSpace >= 2) {
+                while (pendingSpace > 0 && o + tlen + 2 < cap) {
+                    out[o++] = L' ';
+                    pendingSpace--;
+                }
+            } else if (pendingSpace && o > 0) {
+                /* 保留空格的条件：
+                 *  - 左边是标点（" - Poor" 省掉会变成 " -劣质"）
+                 *  - 或者两侧都是拉丁字母（"West Wall"）
+                 * 其余情况（中文侧）省略，免得出现 "第41 型"。 */
+                wchar_t pc = out[o - 1];
+                int pcPunct = !(is_alpha_w(pc) ||
+                                (pc >= L'0' && pc <= L'9') || pc >= 0x2E80);
+                if (pcPunct || (pc < 0x2E80 && tmp[0] < 0x2E80))
+                    out[o++] = L' ';
+            }
+            pendingSpace = 0;
+            memcpy(out + o, tmp, tlen * sizeof(wchar_t));
+            o += tlen;
+        }
+    }
+    out[o] = 0;
+    return out;
+}
+
 static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
 {
     int i = 0, o = 0;
+    /* "1-17th" -> "1-第17"：连字符左边是分遣/支队序号，右边才是番号。
+     * 罗马尼亚那些 "2-17th Rum. Mot. Anti-tank Company" 全是这个形态。 */
+    {
+        int d = 0;
+        while (d < len && t[d] >= L'0' && t[d] <= L'9') d++;
+        if (d > 0 && d + 2 < len && t[d] == L'-') {
+            wchar_t rest[64];
+            int rl = len - d - 1, r;
+            if (rl > 0 && rl < 60) {
+                memcpy(rest, t + d + 1, rl * sizeof(wchar_t));
+                rest[rl] = 0;
+                r = conv_num_prefix(rest, rl, out + d + 1, cap - d - 1);
+                if (r > 0) {
+                    int k;
+                    for (k = 0; k < d; k++) out[k] = t[k];
+                    out[d] = L'-';
+                    return d + 1 + r;
+                }
+            }
+        }
+    }
     /* 罗马数字: 原样保留，前面不加"第"（"XXIV Panzer Corps" -> "XXIV装甲军"） */
     /* 罗马数字只认 I V X L C D M 七个字母。
      * 曾经写成 c >= L'I' && c <= L'L'，那个区间还包含 J 和 K，
@@ -1000,6 +1227,14 @@ static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
     else if (i + 1 < len && t[i] == L'n' && t[i+1] == L'd') i += 2;
     else if (i + 1 < len && t[i] == L'r' && t[i+1] == L'd') i += 2;
     else if (i + 1 < len && t[i] == L't' && t[i+1] == L'h') i += 2;
+    /* 法语序数: 5e / 1er / 2e / 3eme。北非和意大利部队用这种写法。 */
+    else if (i < len && (t[i] == L'e' || t[i] == L'E')) {
+        i++;
+        if (i < len && (t[i] == L'r' || t[i] == L'R')) i++;
+        if (i < len && (t[i] == L'e' || t[i] == L'E')) i++;
+    }
+    else if (i + 1 < len && (t[i] == L'r' || t[i] == L'R') &&
+             (t[i+1] == L'e' || t[i+1] == L'E')) i += 2;
     out[o] = 0;
     return (i == len) ? o : 0;         /* 必须正好用完前缀 */
 }
@@ -1465,7 +1700,16 @@ static wchar_t *dt_check_body(wchar_t *text)
                 while (st < cut) {
                     int en = word_end(text, st, cut);
                     int wl = en - st;
-                    if (wl <= 0) { st = en + 1; continue; }
+                    if (wl <= 0) {
+                        /* 到达分隔符。空格跳过，其他字符（括号）要保留，
+                         * 否则 "16th(a)" 会变成 "第16a"。 */
+                        if (text[st] != L' ' && pn + 2 < 128) {
+                            pre[pn++] = text[st];
+                            pre[pn] = 0;
+                        }
+                        st = en + 1;
+                        continue;
+                    }
 
                     nTok++;
                     /* 分遣队序号（"3/213th"）原样保留 */
@@ -1481,7 +1725,7 @@ static wchar_t *dt_check_body(wchar_t *text)
                             pre[pn++] = L'/';
                             pre[pn] = 0;
                         }
-                        st = en + 1;
+                        st = en + 1;   /* 斜杠已经写过了，跳过它 */
                         continue;
                     }
                     /* ===== 贪心最长匹配 =====
@@ -1539,7 +1783,7 @@ static wchar_t *dt_check_body(wchar_t *text)
                                 pre[pn++] = L'/';
                                 pre[pn] = 0;
                             }
-                            st = en + 1;
+                            st = en;
                             continue;
                         }
                     }
@@ -1548,15 +1792,23 @@ static wchar_t *dt_check_body(wchar_t *text)
                      * "XXXXVI Mot." 的 key 是 'M'（ASCII），但译文是
                      * "摩托化"，两侧都是中文，不该留空格 —— 留了会变成
                      * "第46 摩托化军"。 */
-                    if (st > 0 && text[st - 1] == L' ' && pn > 0 &&
-                        pre[pn - 1] < 0x2E80 && pn + 2 < 128) {
+                    if (st > 0 && text[st - 1] == L' ' && pn > 0 && pn + 2 < 128) {
                         wchar_t nxtCh = 0;
                         if (bestHit >= 0) nxtCh = g_zh[bestHit].wtext[0];
                         else {
                             const wchar_t *sp3 = lookup_short(text + st, wl);
                             nxtCh = (sp3 && sp3[0]) ? sp3[0] : text[st];
                         }
-                        if (nxtCh < 0x2E80) { pre[pn++] = L' '; pre[pn] = 0; }
+                        {
+                            wchar_t pc = pre[pn - 1];
+                            int pcPunct = !(is_alpha_w(pc) ||
+                                            (pc >= L'0' && pc <= L'9') ||
+                                            pc >= 0x2E80);
+                            if (pcPunct || (pc < 0x2E80 && nxtCh < 0x2E80)) {
+                                pre[pn++] = L' ';
+                                pre[pn] = 0;
+                            }
+                        }
                     }
 
                     if (bestHit >= 0) {
@@ -1577,14 +1829,36 @@ static wchar_t *dt_check_body(wchar_t *text)
                             if (pn + wl + 2 >= 128) { pn = 0; break; }
                             memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
                             pn += wl;
-                            nMiss++;
+                            /* 纯大写/数字组成的 token 算"缩写放行"，不算漏译 */
+                            {
+                                /* 单字符 token（"(a)" 里的 a）不算漏译 */
+                                int zz, passable = (wl > 0);
+                                if (wl == 1) goto tok_ok;
+                                for (zz = 0; zz < wl; zz++) {
+                                    wchar_t c = text[st + zz];
+                                    /* 允许 . ' - 出现在缩写里：
+                                     * "O.T." "L.A.H." "M.C.A." "O'" */
+                                    if (!((c >= L'A' && c <= L'Z') ||
+                                          (c >= L'0' && c <= L'9') ||
+                                          c == L'.' || c == (wchar_t)39 ||
+                                          c == L'-')) {
+                                        passable = 0;
+                                        break;
+                                    }
+                                }
+                                if (!passable) nMiss++;
+                            }
+tok_ok:;
                         }
                     }
                     pre[pn] = 0;
                     st = bestEnd;
-                    /* 跳过分隔符，但斜杠要保留 */
+                    /* 跳过分隔符，但斜杠和括号要保留 */
                     if (st < cut && text[st] == L'/') {
                         if (pn + 2 < 128) { pre[pn++] = L'/'; pre[pn] = 0; }
+                        st++;
+                    } else if (st < cut && (text[st] == L'(' || text[st] == L')')) {
+                        if (pn + 2 < 128) { pre[pn++] = text[st]; pre[pn] = 0; }
                         st++;
                     } else if (st < cut && text[st] == L' ') {
                         st++;
@@ -1592,8 +1866,10 @@ static wchar_t *dt_check_body(wchar_t *text)
                 }
             }
             if (pn <= 0) continue;
-            /* 截断匹配 + 番号部分一个词都没翻出来 -> 放弃这次切分 */
-            if (viaPrefix && nTok > 0 && nMiss == nTok) continue;
+            /* 全或无：番号部分只要有一个词译不出，就放弃这次切分。
+             * 否则会拼出 "Enter第2步兵师近卫状态for the corps" 这种
+             * 半中半英的碎片 —— 那正是用户最反感的结果。 */
+            if (nTok > 0 && nMiss > 0) continue;
 
 
             if (pn + g_zh[found].wlen + tail + 1 > 250) break;
@@ -1609,6 +1885,46 @@ static wchar_t *dt_check_body(wchar_t *text)
                 logfmt("[dt-unit] \"%s\" -> %d wchars\n",
                        g_zh[found].key, g_zh[found].wlen);
             return o2;
+        }
+    }
+
+    /* ---------- 策略 8: 括号尾巴 ----------
+     * "Franz Halder  (Generaloberst)" —— 将领姓名本来就不翻，但军衔要翻。
+     * 把最后一个 " (" 之后的部分单独拿去翻，头部译不了就原样保留。
+     * 注意每段都用独立缓冲：seg_fill 失败时会写出半截内容，
+     * 直接在输出缓冲上调会把原文覆盖成 "卡尔rl Weisenberger"。 */
+    if (len < 240) {
+        int p = -1, z;
+        for (z = len - 1; z > 1; z--)
+            if (text[z] == L'(' && text[z - 1] == L' ') { p = z; break; }
+        if (p > 0 && text[len - 1] == L')') {
+            static wchar_t s8[POOL][512];
+            static int i8 = 0;
+            wchar_t *slot = s8[i8++ & (POOL - 1)];
+            wchar_t tail[128], tOut[192], head[256], hOut[256];
+            int tl = len - p, hl = p;
+            memcpy(tail, text + p, tl * sizeof(wchar_t));
+            tail[tl] = 0;
+            while (hl > 0 && text[hl - 1] == L' ') hl--;
+            memcpy(head, text, hl * sizeof(wchar_t));
+            head[hl] = 0;
+            if (seg_fill(tail, tOut, 192)) {
+                if (hl > 0 && seg_fill(head, hOut, 256)) {
+                    int a = (int)wcslen(hOut), b = (int)wcslen(tOut), k;
+                    while (a > 0 && hOut[a - 1] == L' ') a--;
+                    if (a + (p - hl) + b < 500) {
+                        memcpy(slot, hOut, a * sizeof(wchar_t));
+                        for (k = 0; k < p - hl; k++) slot[a + k] = L' ';
+                        memcpy(slot + a + (p - hl), tOut, (b + 1) * sizeof(wchar_t));
+                        return slot;
+                    }
+                } else if (p + tl < 500) {
+                    int b = (int)wcslen(tOut);
+                    memcpy(slot, text, p * sizeof(wchar_t));
+                    memcpy(slot + p, tOut, (b + 1) * sizeof(wchar_t));
+                    return slot;
+                }
+            }
         }
     }
 
@@ -1639,19 +1955,41 @@ static wchar_t *dt_check_body(wchar_t *text)
                 }
                 if (!ok) continue;
 
-                int need = g_zh[i].wlen + (len - plen) + 1;
-                if (need > 250) break;
-                slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
-                wchar_t *out = g_pool[slot];
-                memcpy(out, g_zh[i].wtext, g_zh[i].wlen * sizeof(wchar_t));
-                int o = g_zh[i].wlen;
-                for (int z = plen; z < len; z++) out[o++] = text[z];
-                out[o] = 0;
-                LONG n = InterlockedIncrement(&g_dtHits);
-                if (n <= 40)
-                    logfmt("[dt-suffix] \"%s\" + tail -> %d wchars\n",
-                           g_zh[i].key, o);
-                return out;
+                /* 余下部分也要处理。否则 "PRODUCED     CONSUMED  AVAIL ..."
+                 * 只翻第一个词，后面整排列头留英文 —— 这正是碎片。
+                 * 余下部分整体走 seg_fill，成功就拼接，失败就保留原文。 */
+                {
+                    wchar_t tailIn[512], tailOut[512];
+                    int tl = len - plen, to = -1, need, o, z;
+                    if (tl < 500) {
+                        memcpy(tailIn, text + plen, tl * sizeof(wchar_t));
+                        tailIn[tl] = 0;
+                        if (seg_fill(tailIn, tailOut, 512))
+                            to = (int)wcslen(tailOut);
+                    }
+                    need = g_zh[i].wlen + ((to >= 0) ? to : tl) + 2;
+                    if (need > 500) break;
+                    slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+                    {
+                        wchar_t *out = g_pool[slot];
+                        memcpy(out, g_zh[i].wtext, g_zh[i].wlen * sizeof(wchar_t));
+                        o = g_zh[i].wlen;
+                        if (to >= 0) {
+                            memcpy(out + o, tailOut, (to + 1) * sizeof(wchar_t));
+                            o += to;
+                        } else {
+                            for (z = plen; z < len; z++) out[o++] = text[z];
+                            out[o] = 0;
+                        }
+                        {
+                            LONG n = InterlockedIncrement(&g_dtHits);
+                            if (n <= 40)
+                                logfmt("[dt-suffix] \"%s\" + tail(%d) -> %d wchars\n",
+                                       g_zh[i].key, to, o);
+                        }
+                        return out;
+                    }
+                }
             }
         }
     }
@@ -1854,6 +2192,18 @@ static wchar_t *dt_check_body(wchar_t *text)
             g_dtLog++;
         }
     }
+
+    /* ---------- 策略 9: 分段兜底 ----------
+     * 拼出来的串（OOB 树、统计行、国家(城市) - 质量）永远整串命中不了。
+     * 全或无地逐段翻译，有任何一个 token 译不出就整串放弃。 */
+    {
+        static wchar_t segBuf[POOL][512];
+        static int segIdx = 0;
+        wchar_t *slot = segBuf[segIdx++ & (POOL - 1)];
+        wchar_t *r9 = seg_fill(text, slot, 512);
+        if (r9 && wcscmp(r9, text) != 0) return r9;
+    }
+
     return text;
 }
 
@@ -2187,6 +2537,21 @@ static DWORD WINAPI init_thread(LPVOID param)
         }
     }
 
+    /* 全量捕获: 需要游戏目录有 wite2_capture.ini */
+    {
+        FILE *cf = fopen("wite2_capture.ini", "rb");
+        if (cf) {
+            fclose(cf);
+            remove("wite2_capture.txt");
+            g_capHash = (unsigned *)calloc(CAP_N, sizeof(unsigned));
+            g_capFile = fopen("wite2_capture.txt", "wb");
+            if (g_capHash && g_capFile) {
+                g_capture = 1;
+                logfmt("[capture] 全量捕获开启 -> wite2_capture.txt\n");
+            }
+        }
+    }
+
     return 0;
 }
 
@@ -2201,7 +2566,7 @@ static DWORD WINAPI init_thread(LPVOID param)
  * C 用下标，C 错了 Python 全绿，直到游戏里看见 "79th步兵师" 才发现。
  * 以后验证一律以这个 exe 为准，Python 复刻只用来快速回归。
  */
-int main(void)
+int main(int argc, char **argv)
 {
     static char line[4096];
     static wchar_t wbuf[1024];
@@ -2209,6 +2574,14 @@ int main(void)
 
     dict_load();
     dict_build();
+    /* --capture: 打开捕获，用来验证管线能写文件（不用进游戏） */
+    int wantCap = (argc > 1 && strcmp(argv[1], "--capture") == 0);
+    if (wantCap) {
+        g_capHash = (unsigned *)calloc(CAP_N, sizeof(unsigned));
+        g_capFile = fopen("selftest_capture.txt", "wb");
+        if (g_capHash && g_capFile) g_capture = 1;
+        else { fprintf(stderr, "capture init FAILED\n"); return 2; }
+    }
     /* 关掉日志，避免污染 stdout */
     g_logBudget = -1;
 
@@ -2223,7 +2596,8 @@ int main(void)
         if (wn <= 0) continue;
         wn--;  /* 去掉结尾 NUL 计数 */
 
-        wchar_t *r = dt_check_body(wbuf);
+        /* 走 dt_check_raw，捕获包装才生效 */
+        wchar_t *r = wantCap ? dt_check_raw(wbuf) : dt_check_body(wbuf);
         int same = (r == wbuf);
 
         char *o = out;

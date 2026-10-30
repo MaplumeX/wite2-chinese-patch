@@ -1,0 +1,715 @@
+游戏选项
+偏好设置
+轴心：玩家
+苏联：玩家
+难度：简单
+载入存档
+多人游戏
+选择剧本
+制作名单
+Editor
+程序版本
+1.05.02
+Maplume
+STEAM 游戏
+ 选择一个剧本 
+载入剧本
+1941 Campaign - No Early End
+Oct
+21 2026   09:33
+1941 Campaign
+1943 Campaign
+1944 Campaign (May Start)
+Introductory Scenario 1 - Velikie Luki
+Stalingrad to Berlin Campaign
+Stalingrad to BerlinCampaign-NoEarlyE
+Vistula to Berlin Campaign
+AG A - Part I - Race for the Caucasus
+Jun
+18 2026   22:04
+AG A - Part II - Kuban Bridgehead
+AG C - Kutuzov to Bagration 43-44
+Case Blue Phase II 42-43 - Alternate
+Case Blue Phase II 42-43
+Drama on the Danube 44 - AI
+Drama on the Danube 44 - H2H
+Road to Karelia
+Western Ukraine 43-44
+Introductory Scenario 2 - Road to Mins
+18 2026   17:38
+Operation Typhoon 41
+Red Army Resurgent 42-43
+Red God of War
+Road To Leningrad
+The Destruction of Southwestern Front
+Start
+Turn 1  June 22 1941
+End
+Turn 215  August 4 1945
+起始玩家
+Axis
+作者：  Trey Marshall - Great_Ajax
+历史背景
+----------------------------------
+德国及其轴心盟国发动闪击战，试图摧毁苏联，
+却最终被挡在莫斯科的门槛前。
+此后还将有三年半的血腥战斗，直到镰刀锤子旗
+飘扬在勃兰登堡门上空。
+剧本概览
+轴心玩家：
+- 摧毁红军，并在1941年底前决定性夺取莫斯科、
+  列宁格勒和罗斯托夫。
+- 行政点/回合: 14
+载入中 ....
+存档版本
+地图六角格数据
+sevices
+aircraft
+地面单位
+toe(ob)
+地面类型
+locations
+units
+飞行队
+planes
+pilots
+储备（地面）
+储备（空中）
+已建造数据（地面）
+已建造数据（空中）
+已建造回合数据（地面）
+已建造回合数据（空中）
+剧本数据
+六角格控制
+战斗数据
+后勤事件
+AI脚本
+AI脚本r
+被摧毁部队
+补给数据
+过境储备（地面）
+过境储备（空中）
+战斗统计
+两栖数据
+铁路使用
+空中指令
+飞机档案
+补充（地面）
+补充（空中）
+空中条令
+六角格图形
+空中命令
+游戏统计数据
+补给（城市）
+服务器消息
+飞行员姓名
+地图区域
+地图文字档案
+地图文字
+工厂数据
+游戏事件
+城市归属变更
+地图地块透明度
+对象标签
+航空作战群
+空中作战
+游戏胜利
+分阶段损失
+按钮状态
+部队改名
+初始化中 ....
+weather
+输入存档文件夹名称
+地图信息
+信息界面
+ADMIN
+空中计划
+Jun 22 1941
+T: 1
+AP: 19
+0-50
+0-0
+32-50
+28-50
+48-0
+46-50
+45-50
+44-50
+22-0
+30-0
+29-50
+27-16
+21-16
+31-16
+29-16
+18-16
+30-16
+28-16
+60-16
+29-0
+32-16
+20-16
+10-16
+13-16
+4-16
+0-16
+0?0
+0=0
+1=1
+1?4
+1?1
+1?3
+1=2
+1=9
+1=4
+Bucharest
+Budapest
+Vienna
+Bratislava
+Prague
+Warsaw
+Berlin
+Dresden
+Koenigsberg
+Krakow
+Poznan
+Breslau
+Belgrade
+Ploesti
+Rostock
+Helsinki
+Hamburg
+Leipzig
+Nuremberg
+Munich
+Minsk
+Riga
+Smolensk
+Kiev
+Orel
+Voronezh
+Kursk
+Kharkov
+Stalino
+Rostov
+Stalingrad
+Dnepropetrovsk
+Zaporozhye
+Krasnodar
+Lvov
+Sevastopol
+Odessa
+Kalinin
+Pskov
+Tallinn
+Rzhev
+Moscow
+Leningrad
+Tula
+Saratov
+Grozny
+Baku
+Yaroslavl
+Gorky
+Astrakhan
+Ryazan
+Tambov
+Kuybyshev
+Kazan
+Maikop
+Makhachkala
+Surakhani
+Sabunchu
+Bibi-Heybat
+48%
+108
+105
+104
+93%
+95%
+83%
+218
+69%
+121
+279
+262
+63%
+138
+193
+67%
+120
+98%
+90%
+388
+435
+419
+74%
+276
+541
+275
+211
+162
+64%
+回合总结
+我方损失
+ 战斗序列变更
+---- Axis ----
+Soviet
+Map
+TBs
+转移中
+Total
+Units
+327672 (343118)
+接收吨数
+0 (0)
+Depots
+30150
+Pool
+50000
+人员接收
+Repair
+5000
+差额吨数
+作战部队警报
+补给警报
+地图上总计
+兵力警报
+低补给（<75%）
+Understrength  (<65%)
+危急补给（<50%）
+未就绪
+损耗（<10%）
+突然胜利 700
+回合 16
+Points 370
+Sudden Loss 525
+Axis High 370
+  Clear - 180, 184 
+  Germany(Lublin) - Poor 道路 
+   
+  气候：湿润 
+  地面：Clear  空中：Clear 
+  水域：0  积雪：0 
+  轴心控制 
+  小河： SW W 
+  1st Mountain Division   ( 27.6 / 13.8  100% )   MP 16 
+  离轨移动点：2 
+ XXXXIX Mnt Crps (4/5)
+12838
+157
+100
+129%
+113%
+126%
+READY
+1st Mnt Div
+  Swamp - 178, 182 
+  离轨移动点：5 
+ LI Corps (0/5)
+17011
+203
+118%
+152%
+113th ID
+ Army Group South  (5/45)
+4:9
+136%
+125%
+通讯报告
+补给优先 1
+LI Corps
+Sandomierz
+47-50
+84-50
+58-50
+51-50
+31-50
+9-16
+15-50
+  Swamp - 173, 177 
+  Germany(Radom) - Average 道路 
+  离轨移动点：4 
+90-50
+X-50
+62-16
+56-16
+27-0
+1?5
+1?9
+1?2
+ OKH  (18/90)
+24284
+101:108
+127%
+115%
+补给优先 4
+Army Grp. Cent
+  Clear - 168, 170 
+  Germany(Warsaw) - Good 道路 
+  轴心铁路 使用 0 
+  大河： NW 
+  小河： W 
+  铁路：  E  SW 
+  Army Group Center   CU 1, SU 1,   MP 50 
+  离轨移动点：0 
+Army Group Center 
+Fedor von Bock
+Wins : 0  Losses: 0
+TOE
+100/100
+最大编制
+HHQ
+OKH
+Morale
+80 (75)
+Nation
+Germany
+补给/需求
+210 / 210
+燃料/需求
+150 / 150
+弹药/需求
+0 / 0
+支援/需求
+323 / 50
+运输消耗
+6146
+车辆/需求
+1000 / 1000
+摩托化
+补给状态
+补给中
+解散部队
+补给详情
+转移部队
+显示下属（指挥官报告）
+补给优先级（4)
+设置颜色
+已分配（13)
+EXP
+RDY
+DAM
+FAT
+1000
+Support
+支援总计
+39260
+建制内支援
+34629
+支援需求总计
+31673
+指派支援单位
+Army Group HQ (1)
+ 102nd RHG Command 
+Army HQ (4)
+ 2nd Panzer Group 
+ 3rd Panzer Group 
+ 4th Army 
+ 9th Army 
+Corp HQ (1)
+ LIII Corps 
+Cavalry (1)
+ 8th SS Cavalry Brigade 
+Anti-Aircraft (1)
+- 5/55th Army SP Light Flak Company 
+Construction (5)
+ FBD 3 
+ FBD 2 
+ Exit 部队详情 Display. 
+  Clear - 178, 166 
+  Soviet Union(Bialystok) - Poor 道路 
+  苏联控制 
+9-24
+ VII Corps (1/5)
+16882
+200
+124%
+7th ID
+ 102nd RHG Command  (10/15)
+8813
+99%
+87%
+100%
+286th Sec Div
+ XXXXVI Mot. Corps (1/5)
+18759
+217
+117%
+Das Reich SS MD
+16230
+139
+197
+122%
+151%
+10th Panzer Divisio
+  Clear - 175, 173 
+  Germany(Lublin) - Average 道路 
+  小河： SE 
+  铁路：  SW  NE 
+  10th Panzer Division   ( 58.7 / 29.3  101% )   MP 50 
+   - 3/55th Army SP Light Flak Company   ( 0.2 / 0.1   100% ) 
+   - 706th SP Infantry Gun Company   ( 0.2 / 0.1   100% ) 
+ Army Group Center  (9/45)
+22968
+317
+114
+31:36
+132%
+2nd Panzer Gro
+ OKH  (19/90)
+2:9
+XXXV Corps
+Kutno
+ OKH  (23/90)
+10562
+0:27
+91%
+设置突击
+2nd Army
+11-0
+52-50
+30-50
+1?6
+  Clear - 167, 163 
+  Germany(East Prussia) - Average 道路 
+  离轨移动点：1 
+64-50
+62-50
+81-50
+49-50
+ Army Group Center  (6/45)
+6826
+81%
+103%
+WITHDRAW: 4
+8th SS Cav Bde
+Mlawa
+ Army Group Center  (2/45)
+11224
+4:27
+城市要塞
+102nd RHG Cm
+ OKL  (32/90)
+20000
+0:999
+110%
+Luftflotte 2 
+  Clear - 170, 170 
+  大河： NE 
+  铁路：  E  W 
+  102nd RHG Command   CU 2, SU 0,   MP 50 
+  Luftflotte 2   CU 0, SU 0,   MP 50 
+102nd RHG Command 
+Max von Schenckendorff
+Army Group Center
+75 (75)
+105 / 105
+75 / 75
+490 / 25
+2879
+500 / 500
+  7SG  178Dis
+已分配（3)
+500
+528
+518
+440
+Construction (1)
+- 133rd Construction Battalion 
+Security (2)
+ 286th Security Division 
+ 403rd Security Division 
+战斗序列
+4 个突击司令部（上限 4）
+4th Panzer Group
+3rd Panzer Group
+2nd Panzer Group
+1st Panzer Group
+3,018,518
+27,097
+5,088
+Franz Halder  (Generaloberst)
+OKL
+250,680
+5,887
+997
+1,580
+1,122
+Hermann Goering  (Generalfeldmarschall)
+Hungarian High Command
+447,678
+3,438
+Henrik Werth  (Vezerezredes)
+Rumanian High Command
+852,607
+7,127
+260
+Alexandru Ioanitiu  (General de Brigada)
+Slovakian High Command
+20,000
+Ferdinand Catlos  (General I. Triedy)
+Air Bases
+102,302
+1,563
+3,196,068
+25,601
+2,216
+1,634
+1,643
+1,118
+Combat
+Amphib
+航空基地
+AOG
+地图上兵力
+3,395,910 (3,395,870)
+34,757 (34,757)
+4,919 (4,919)
+3,148 (2,365)
+预备兵力
+16,817
+567
+总兵力
+5,054,377
+50,052
+6,607
+5,467
+轴心盟国
+1,295,875 (1,295,875)
+10,355 (10,355)
+495 (495)
+886 (775)
+2,833,476
+20,661
+1,023
+2,962
+2,732,151 (2,624,596)
+43,801 (42,900)
+12,385 (10,066)
+9,642 (8,004)
+3,646,896
+57,119
+16,791
+13,959
+1,133,392
+10,587
+2,786
+Fedor von Bock  (Feldmarschall)
+Army Group North
+713,547
+6,471
+947
+Wilhelm von Leeb  (Feldmarschall)
+Army Group South
+954,253
+8,659
+1,303
+Gerd von Rundstedt  (Feldmarschall)
+10,562
+Maximilian von Weichs  (Generaloberst)
+21,755
+198
+Rudolf Kaempfe  (Generalleutnant)
+XXXXII Corps
+95,083
+1,065
+Walter Kuntze  (Generalleutnant)
+141st Static Division
+13,282
+143rd Static Division
+151st Static Division
+153rd Static Division
+174th Static Division
+81st Construction Battalion
+1,224
+401st Construction Battalion
+603rd Army SP Light Flak Battalion
+652
+613th Army Mot. Light Flak Battalion
+416
+321,976
+3,453
+1,370
+Heinz Guderian  (Generaloberst)
+144,884
+1,365
+1,184
+Hermann Hoth  (Generaloberst)
+4th Army
+279,263
+2,804
+Guenther von Kluge  (Feldmarschall)
+9th Army
+234,122
+2,400
+136
+Adolf Strauss  (Generaloberst)
+102nd RHG Command
+28,850
+Max von Schenckendorff  (General)
+FBD 3
+27,632
+FBD 2
+26,408
+LIII Corps
+39,147
+422
+Karl Weisenberger  (General)
+8th SS Cavalry Brigade
+6,826
+VIII R.A.D. Labor Group
+1,368
+XII R.A.D. Labor Group
+XIV R.A.D. Labor Group
+5/55th Army SP Light Flak Company
+180
+XXXIX Mot. Corps
+75,722
+777
+691
+Rudolf Schmidt  (General)
+LVII Mot. Corps
+57,694
+546
+493
+Adolf Kuntzen  (General)
+II/43rd LW Mot. Mixed Flak Battalion
+1,468
+Heinz Guderian
+25 / 25
+12844
+  112BA  186MAP
+已分配（18)
+11468
+9695
+10672
+Corp HQ (4)
+ XXIV Mot. Corps 
+ XXXXVI Mot. Corps 
+ XXXXVII Mot. Corps 
+ XII Corps 
+Infantry (1)
+ 255th Infantry Division 
+Artillery (2)
+- 740th Mot. Gun Battalion 
+- 817th Mot. Howitzer Battalion 
+Anti-Aircraft (10)
+- 602nd Army SP Light Flak Battalion 
+- 77th LW SP Light Flak Battalion 
+- 91st LW SP Light Flak Battalion 
+- 94th LW Mot. Light Flak Battalion 
+- I/11th LW Mot. Mixed Flak Battalion 
+ 取消司令部突击状态。 
+支援等级
+LOCKED
+^^  Army Group Center ^^
+- II/11th LW Mot. Mixed Flak Battalion 
+- I/12th LW Mot. Mixed Flak Battalion 
+- I/22nd LW Mot. Mixed Flak Battalion 
+- I/38th LW Mot. Mixed Flak Battalion 
+- II/38th LW Mot. Mixed Flak Battalion 
+Machinegun (1)
+- 5th Mot. Machine Gun Battalion 
+退出游戏？
+Yes

@@ -121,6 +121,9 @@ def build_tsv():
     both = set(raw.get("_bothSections", []))
     # _rdataSafe: 确认安全的短串，允许照常改写两段。
     rdata_safe = set(raw.get("_rdataSafe", []))
+    # _drawOnly: 明确只走绘制层的词条（"LOW RES" 这类多词全大写列头，
+    # 在 .rdata 里可能是别的含义，改内存风险大于收益）
+    draw_only = set(raw.get("_drawOnly", []))
     zh = {k: v for k, v in raw.items()
           if not k.startswith("_") and not str(v).startswith("----")}
     lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",

@@ -254,7 +254,8 @@ def analyze():
         dic = json.load(f)
 
     data_only, both_sections, rdata_safe = scoped_keys()
-    scoped = data_only | both_sections | rdata_safe
+    draw_only = set(dic.get("_drawOnly", []))
+    scoped = data_only | both_sections | rdata_safe | draw_only
     findings = []
     for k in dic:
         if k.startswith("_"):
@@ -286,7 +287,8 @@ def analyze():
         if k in rdata_safe and len(k) <= 6 and SHORT_ID.match(k):
             reasons.append("短标识符放行 _rdataSafe，须确认不撞枚举")
 
-        if is_enum_name(k):
+        # _drawOnly 的词条根本不写内存（TSV 第三列 t），撞枚举也无害
+        if is_enum_name(k) and k not in draw_only:
             reasons.append("地形/资源枚举")
 
         if looks_like_identifier(k):

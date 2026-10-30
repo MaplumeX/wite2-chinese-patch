@@ -9766,3 +9766,50 @@ Police	警察	t
 Gun	火炮	t
 (-)	（减）
 (+)	（增）
+Wins	胜	t
+Anti-Aircraft	防空
+Display	显示
+MP	移动力	t
+CU	作战单位	t
+SU	支援单位	t
+AP	行政点	t
+NE	东北	t
+RHG Cm	后方军区司令部
+RHG	后方军区	t
+AOG	航空集群	t
+Generaloberst	大将
+Generalfeldmarschall	帝国元帅
+Feldmarschall	元帅
+Generalleutnant	中将
+Generalmajor	少将
+General	上将
+General de Brigada	准将
+General I. Triedy	一级上将
+Vezerezredes	上将
+Colonel General	大将
+Lieutenant General	中将
+Major General	少将
+Marshal	元帅
+Air Marshal	空军元帅
+Sandomierz	桑多梅日
+Kutno	库特诺	t
+Mlawa	姆瓦瓦	t
+East Prussia	东普鲁士
+Kowel	科韦利	t
+Spahis	北非骑兵	t
+CONSUMED	已消耗
+AVAIL	可用	t
+LOW RES	低储备
+NO RES	无储备
+RES	储备	t
+FATIGUE	疲劳
+CITY	城市	t
+MAP	地图	t
+LOSSES	损失	t
+AIR LOSSES	空战损失
+CHANGE	变更	t
+CHANGING TYPE	变更类型
+RESIZING	调整大小
+RED	红	t
+GREEN	绿	t
+BLUE	蓝	t
