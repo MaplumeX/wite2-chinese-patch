@@ -860,6 +860,19 @@ static int is_split_index(const wchar_t *t, int len, const wchar_t *next)
     return 1;
 }
 
+/* 从 from 起跳过 nw 个词，返回结束位置（不含）。
+ * 词之间用空格或斜杠分隔，连续分隔符跳过。 */
+static int skip_words(const wchar_t *t, int from, int cut, int nw)
+{
+    int p = from, cnt = 0;
+    while (p < cut && cnt < nw) {
+        while (p < cut && (t[p] == L' ' || t[p] == L'/')) p++;
+        while (p < cut && t[p] != L' ' && t[p] != L'/') p++;
+        cnt++;
+    }
+    return p;
+}
+
 static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
 {
     int i = 0, o = 0;
@@ -1350,12 +1363,11 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     /* 分隔符可以是空格或斜杠（"I/Stettin Heimat"） */
                     while (en < cut && text[en] != L' ' && text[en] != L'/') en++;
                     int wl = en - st;
-                    /* 数字番号先转换。逐词分支原来只查词典，导致
-                     * "- 654th Mot. Panzerjaeger Battalion" 里的
-                     * 654th 查不到就原样保留，成了 "- 654th摩托化..."。 */
+                    if (wl <= 0) { st = en + 1; continue; }
+
                     nTok++;
+                    /* 分遣队序号（"3/213th"）原样保留 */
                     if (is_split_index(text + st, wl, text + en)) {
-                        /* 分遣队序号，原样保留数字 */
                         if (pn + wl + 2 >= 128) { pn = 0; break; }
                         memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
                         pn += wl;
@@ -1367,6 +1379,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
                         st = en + 1;
                         continue;
                     }
+                    /* 数字番号 */
                     {
                         wchar_t ntmp[24];
                         int nn = conv_num_prefix(text + st, wl, ntmp, 24);
@@ -1383,44 +1396,85 @@ static wchar_t *dt_check_raw(wchar_t *text)
                             continue;
                         }
                     }
-                    int hit = -1;
-                    for (int i = 0; i < g_nzh && wl >= 3; i++) {
-                        if (g_zh[i].klen != wl) continue;
-                        int ok = 1;
-                        for (int z = 0; z < wl; z++) {
-                            if (lc_w(text[st + z]) !=
-                                lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) {
-                                ok = 0; break;
+
+                    /* ===== 贪心最长匹配 =====
+                     * 之前是纯逐词查词典，多词术语会被拆散：
+                     *   "West Wall ..."    -> West=西 + Wall 查不到
+                     *   "Vallo Alpino ..." -> 整串有条目却用不上
+                     *   "Light Afrika ..." -> 同上
+                     * 现在从当前位置起试最长的词组合（最多 6 个词），
+                     * 命中就用并整段跳过。 */
+                    int bestHit = -1, bestEnd = en;
+                    {
+                        int span;
+                        for (span = 10; span >= 1; span--) {
+                            int e2 = skip_words(text, st, cut, span);
+                            if (e2 <= st || e2 > cut) continue;
+                            int plen = e2 - st;
+                            /* 多词短语内不能含斜杠（斜杠是分遣队标记） */
+                            if (span > 1) {
+                                int sl = 0, z;
+                                for (z = st; z < e2; z++)
+                                    if (text[z] == L'/') { sl = 1; break; }
+                                if (sl) continue;
                             }
+                            int i2;
+                            for (i2 = 0; i2 < g_nzh; i2++) {
+                                if (g_zh[i2].klen != plen) continue;
+                                int ok = 1, z;
+                                for (z = 0; z < plen; z++) {
+                                    if (lc_w(text[st + z]) !=
+                                        lc_w((wchar_t)(unsigned char)g_zh[i2].key[z])) {
+                                        ok = 0; break;
+                                    }
+                                }
+                                if (ok) { bestHit = i2; bestEnd = e2; break; }
+                            }
+                            if (bestHit >= 0) break;
                         }
-                        if (ok) { hit = i; break; }
                     }
-                    const wchar_t *sp2 = (hit < 0) ? lookup_short(text + st, wl)
-                                                   : NULL;
-                    if (sp2 && sp2[0]) {
-                        int w2 = 0;
-                        while (sp2[w2]) w2++;
-                        if (pn + w2 + 2 >= 128) { pn = 0; break; }
-                        memcpy(pre + pn, sp2, w2 * sizeof(wchar_t));
-                        pn += w2;
-                    } else if (hit >= 0) {
-                        if (pn + g_zh[hit].wlen + 2 >= 128) { pn = 0; break; }
-                        memcpy(pre + pn, g_zh[hit].wtext,
-                               g_zh[hit].wlen * sizeof(wchar_t));
-                        pn += g_zh[hit].wlen;
+
+                    /* 空格：只在前后都是 ASCII 时保留。原文空格用于分隔
+                     * 拉丁词，中文之间不需要（"第41型1a" 而不是 "第41 型 1a"），
+                     * 但 "(158th Res)" 内部的空格要留。 */
+                    if (st > 0 && text[st - 1] == L' ' && pn > 0 &&
+                        pre[pn - 1] < 0x2E80 && pn + 2 < 128) {
+                        int nxtAsc = 0;
+                        if (bestHit >= 0) nxtAsc = (g_zh[bestHit].key[0] < 0x80);
+                        else nxtAsc = (text[st] < 0x80);
+                        if (nxtAsc) { pre[pn++] = L' '; pre[pn] = 0; }
+                    }
+
+                    if (bestHit >= 0) {
+                        int i2 = bestHit;
+                        if (pn + g_zh[i2].wlen + 2 >= 128) { pn = 0; break; }
+                        memcpy(pre + pn, g_zh[i2].wtext,
+                               g_zh[i2].wlen * sizeof(wchar_t));
+                        pn += g_zh[i2].wlen;
                     } else {
-                        if (pn + wl + 2 >= 128) { pn = 0; break; }
-                        memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
-                        pn += wl;
-                        nMiss++;
+                        const wchar_t *sp2 = lookup_short(text + st, wl);
+                        if (sp2 && sp2[0]) {
+                            int w2 = 0;
+                            while (sp2[w2]) w2++;
+                            if (pn + w2 + 2 >= 128) { pn = 0; break; }
+                            memcpy(pre + pn, sp2, w2 * sizeof(wchar_t));
+                            pn += w2;
+                        } else {
+                            if (pn + wl + 2 >= 128) { pn = 0; break; }
+                            memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
+                            pn += wl;
+                            nMiss++;
+                        }
                     }
                     pre[pn] = 0;
-                    /* 保留分隔符本身，斜杠在部队名里表示下级从属 */
-                    if (en < cut && pn + 2 < 128) {
-                        pre[pn++] = text[en];
-                        pre[pn] = 0;
+                    st = bestEnd;
+                    /* 跳过分隔符，但斜杠要保留 */
+                    if (st < cut && text[st] == L'/') {
+                        if (pn + 2 < 128) { pre[pn++] = L'/'; pre[pn] = 0; }
+                        st++;
+                    } else if (st < cut && text[st] == L' ') {
+                        st++;
                     }
-                    st = en + 1;
                 }
             }
             if (pn <= 0) continue;
@@ -1499,6 +1553,47 @@ static wchar_t *dt_check_raw(wchar_t *text)
                 samp[sl] = 0;
                 logfmt("[dt-num] \"%s\" -> %d wchars\n", samp, n);
             }
+            return g_pool[slot];
+        }
+    }
+
+    /* ---------- 策略 3.1: 斜杠分隔的双番号 ----------
+     * "CCXVIII/43rd" "LXXXVIII/43rd"：两边都是番号（罗马或阿拉伯），
+     * 斜杠表示隶属或合并。两边都转成"第N"。 */
+    {
+        int sl = -1;
+        for (int z = 1; z < len - 1; z++)
+            if (text[z] == L'/') { sl = z; break; }
+        if (sl > 0) {
+            wchar_t a[32], b[32];
+            int an = conv_num_prefix(text, sl, a, 32);
+            int bn = conv_num_prefix(text + sl + 1, len - sl - 1, b, 32);
+            if (an > 0 && bn > 0) {
+                slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+                int o2 = 0;
+                for (int z = 0; z < an; z++) g_pool[slot][o2++] = a[z];
+                g_pool[slot][o2++] = L'/';
+                for (int z = 0; z < bn; z++) g_pool[slot][o2++] = b[z];
+                g_pool[slot][o2] = 0;
+                LONG c = InterlockedIncrement(&g_dtHits);
+                if (c <= 40) logfmt("[dt-dual] dual designation\n");
+                return g_pool[slot];
+            }
+        }
+    }
+
+    /* ---------- 策略 3.2: 纯数字番号 ----------
+     * 单位名只剩 "17th" "81st" "20th" 这种（OBs.csv 里没有 Suffix，
+     * 显示名就是裸番号）。策略 3 要求后面跟兵种缩写，这里单独处理。 */
+    {
+        wchar_t ntmp[24];
+        int nn = conv_num_prefix(text, len, ntmp, 24);
+        if (nn > 0) {
+            slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+            memcpy(g_pool[slot], ntmp, (nn + 1) * sizeof(wchar_t));
+            LONG c = InterlockedIncrement(&g_dtHits);
+            if (c <= 40)
+                logfmt("[dt-bare] bare designation -> %d wchars\n", nn);
             return g_pool[slot];
         }
     }

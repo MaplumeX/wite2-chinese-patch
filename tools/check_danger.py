@@ -104,6 +104,12 @@ def referenced_by_code(code, rva_in_rdata, rd_va):
 
 IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
+# 游戏数据里被去掉空格的复合地名。驼峰形式容易被当成程序标识符，
+# 但它们不在 exe 里独立存在，只作绘制层文本，改写无副作用。
+GEO_NAMES = {
+    "ChateauBernard",
+}
+
 
 def looks_like_identifier(k):
     """真正的程序标识符: 驼峰、含下划线、或全小写长词。
@@ -118,11 +124,20 @@ def looks_like_identifier(k):
     # 纯大写短词（OKH/TOE/FAT）是界面标签
     if k.isupper() and len(k) <= 6:
         return False
+    # 6 字符以内的标识符由 build_assets.py 自动标 t（只绘制层），
+    # 不改内存，所以不算危险。zbV 就是这样：它在 .rdata 是空军部队
+    # 类型枚举（邻居 FAGr/Transport/TG/NJG），但标 t 后不碰内存。
+    if len(k) <= 6:
+        return False
     # 含下划线 -> 程序标识符
     if "_" in k:
         return True
-    # 驼峰（小写后接大写，如 SoundFx / buildLimit）
+    # 驼峰（小写后接大写，如 SoundFx / buildLimit）。
+    # 例外：游戏数据里的复合地名被去掉了空格（ChateauBernard =
+    # Chateau Bernard），这类在 exe 里不存在，只作绘制层文本。
     if re.search(r"[a-z][A-Z]", k):
+        if k in GEO_NAMES:
+            return False
         return True
     # 全小写长词：只有配置文件里确实作为键名出现才算（由规则 C 判定）。
     # 这里不单独判 True —— "partisan"/"infantry" 这种普通英文单词
@@ -175,17 +190,13 @@ SHORT_ID = re.compile(r"^[A-Za-z][A-Za-z0-9.\-:'#]*$")
 
 
 def roman_misread(k, v):
-    """罗马数字番号被当成阿拉伯数字。
+    """罗马数字番号的处理。
 
-    部队名 "XXIV Mot. Corps" 的 XXIV 是罗马数字 24，应当原样保留
-    （"XXIV摩托化军"）。曾有一批条目写成 "第24摩托化军"，把罗马数字
-    转成了阿拉伯数字 —— 罗马数字是部队正式番号，不能换算。
+    曾经认为罗马数字是部队正式番号，必须原样保留（"XXIV摩托化军"）。
+    实测不行：中文读者看到 XII 不知道是 12，只觉得没翻完。现在统一
+    转成阿拉伯并加"第"（"第12军"、"第24摩托化军"）。
+    所以这里不再报警 —— 转换是预期行为。
     """
-    w = k.split()
-    if not w:
-        return None
-    if len(w[0]) >= 2 and ROMAN.match(w[0]) and re.search(r"第\d", v):
-        return "罗马数字误转阿拉伯"
     return None
 
 

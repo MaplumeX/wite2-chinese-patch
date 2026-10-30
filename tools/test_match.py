@@ -300,42 +300,89 @@ def dt_check(text, entries):
         else:
             pre = conv_num_prefix(head)
         if pre is None:
+            # 番号部分：贪心最长匹配。
+            #
+            # 之前是纯逐词，导致多词术语被拆散：
+            #   "West Wall ..."   -> West=西 + Wall=查不到 -> "西 Wall"
+            #   "Vallo Alpino ..." -> 整串有条目却用不上
+            #   "1/16th (158th Res) ..." -> "(158th Res)" 被拆
+            # 现在从当前位置起试最长的词组合，命中就用，否则退一个词。
+            # 这样多词术语、括号注释、斜杠分隔都能整段命中。
+            toks = [(m.start(), m.end(), m.group())
+                    for m in re.finditer(r"[^\s/]+|/", head)]
             parts = []
             nTok = nMiss = 0
-            for mo in re.finditer(r"[^\s/]+|/", head):
-                tok = mo.group()
-                if tok == "/":
+            k = 0
+            while k < len(toks):
+                st0, en0, t0 = toks[k]
+                if t0 == "/":
                     parts.append("/")
+                    k += 1
                     continue
-                nxt = head[mo.end():]
-                if is_split_index(tok, nxt):
-                    parts.append(tok)
+                # 保留原文空格
+                if st0 > 0 and head[st0 - 1] == " ":
+                    parts.append(" ")
+                # 分遣队序号
+                if is_split_index(t0, head[en0:]):
+                    parts.append(t0)
+                    k += 1
                     continue
                 nTok += 1
-                num = conv_num_prefix(tok)
-                if num is not None:
-                    parts.append(num)
-                    continue
-                # 不要用 tl：它保存整串小写，策略 4 还要用。
-                # 这里曾经写成 tl = tok.lower()，把整串覆盖成最后一个
-                # token，导致策略 4 永远匹配不上。
-                tlw = tok.lower()
+                # 贪心最长匹配先做：多词短语（"II 'Folgore'"、"No. 216 ..."）
+                # 必须整串命中，不能被单 token 的罗马数字转换抢走。
                 got = None
-                for k, v in entries:
-                    if len(k) == len(tok) and k.lower() == tlw:
-                        got = v
+                used = 0
+                for span in range(min(10, len(toks) - k), 0, -1):
+                    seg = toks[k:k + span]
+                    if any(x[2] == "/" for x in seg):
+                        continue
+                    phrase = head[seg[0][0]:seg[-1][1]]
+                    # 段内必须是连续原文（只隔单个空格）
+                    if phrase.count("  ") or phrase != " ".join(x[2] for x in seg):
+                        continue
+                    pl = phrase.lower()
+                    for kk, vv in entries:
+                        if len(kk) == len(phrase) and kk.lower() == pl:
+                            got, used = vv, span
+                            break
+                    if got is not None:
                         break
-                if got is None and len(tok) == 2:
-                    got = SHORT_PRE.get(tok.upper())
                 if got is None:
+                    # 数字番号
+                    num = conv_num_prefix(t0)
+                    if num is not None:
+                        parts.append(num)
+                        k += 1
+                        continue
+                if got is None:
+                    # 二字前缀小表
+                    if len(t0) == 2:
+                        got = SHORT_PRE.get(t0.upper())
+                    used = 1
+                if got is None:
+                    got = t0
                     nMiss += 1
-                parts.append(got if got is not None else tok)
-            # 只在后缀是截断匹配时才检查：后缀精确命中时番号部分
-            # 查不到是正常的（"Andrews Field" 的 Andrews 是地名），
-            # 拦掉会把已翻好的 "Andrews机场" 一起丢掉。
+                parts.append(got)
+                k += used
+            # 只在两侧都是拉丁/数字时保留空格。原文的空格是用来分隔
+            # 拉丁词的，中文之间不需要："第41型1a" 而不是 "第41 型 1a"，
+            # 而 "(158th Res)" 内部的空格照留。
+            merged = ""
+            for idx, pz in enumerate(parts):
+                if pz == " ":
+                    if not merged:
+                        continue
+                    nxt = parts[idx + 1] if idx + 1 < len(parts) else ""
+                    if merged[-1].isascii() and nxt and nxt[0].isascii():
+                        merged += " "
+                    continue
+                merged += pz
+            # 尾串是截断回退命中时，番号部分必须至少有一个词翻出来了，
+            # 否则这不是"番号+兵种"结构而是整串被截断（"Panzer Divisio"
+            # 会被切成 "Panzer"+"Divisio"）。放弃切分交给策略 4。
             if via_prefix and nTok > 0 and nMiss == nTok:
                 continue
-            pre = "".join(parts)
+            pre = merged
         return text[:lead] + mark + pre + hit + tail, "unit"
 
     # 策略 2: 剥离尾部后缀
@@ -354,6 +401,20 @@ def dt_check(text, entries):
     r = try_numbered(text)
     if r:
         return r, "numbered"
+
+    # 策略 3.1: 斜杠分隔的双番号（"CCXVIII/43rd"），两边都是番号
+    if "/" in text:
+        a, b = text.split("/", 1)
+        an, bn = conv_num_prefix(a), conv_num_prefix(b)
+        if an is not None and bn is not None:
+            return an + "/" + bn, "dual"
+
+    # 策略 3.2: 纯数字番号
+    # 单位名只剩 "17th" "81st" 这种（OBs.csv 里没 Suffix，显示名就是
+    # 裸番号）。策略 3 要求后面跟兵种缩写，这里单独处理。
+    r = conv_num_prefix(text)
+    if r is not None:
+        return r, "bare"
 
     # 策略 3.5: 缩写展开(仅当确实展开了缩写)
     st = [False]
@@ -472,7 +533,17 @@ CASES = [
     ("XVII Armored", "XVII Armored", "截断点不在词中间，不配"),
     # 后缀精确命中时，番号部分查不到是正常的（地名不翻），不能拦。
     # 这条曾经被"番号全未译就放弃切分"的判据误伤。
-    ("Andrews Field", "Andrews机场", "地名 + 精确命中后缀"),
+    ("Andrews Field", "安德鲁斯机场", "地名 + 精确命中后缀"),
+    # 番号部分改贪心最长匹配后，多词术语不再被拆散
+    ("West Wall Mot. Brandenburg Regiment", "西墙摩托化勃兰登堡团", "多词术语整段命中"),
+    ("Vallo Alpino Mot. Brandenburg Regiment", "阿尔卑斯防线摩托化勃兰登堡团", "同上"),
+    ("II 'Folgore' Mountain Battalion", "第二「闪电」山地营", "引号师名整串命中"),
+    ("MG-Ski zbV Mot. Regiment (-)", "机枪滑雪营特设摩托化团（减）", "缩写 + 缩减标记"),
+    # 斜杠分隔的双番号
+    ("CCXVIII/43rd", "第218/第43", "罗马/阿拉伯双番号"),
+    ("LXXXVIII/43rd", "第88/第43", "同上"),
+    # 裸番号（OBs.csv 没 Suffix 时显示名就是番号）
+    ("17th", "第17", "裸番号"),
     ("255th Infantry Division", "第255步兵师", "阿拉伯数字照常转"),
     # 序数后缀 st/nd/rd/th 全部要能识别。C 里边界写成 i+2 < len 时
     # 只有 1st 侥幸通过，79th 会退回逐词翻译变成 "79th步兵师"。
