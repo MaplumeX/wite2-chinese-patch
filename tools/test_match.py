@@ -12,6 +12,7 @@
 import json
 import os
 import re
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -190,10 +191,12 @@ def dt_check(text, entries):
         tn -= 1
     tail = text[tn:]
     for cut in range(lead + 1, tn - 1):
-        if text[cut] != " " or text[cut - 1] == " ":
+        if text[cut] == "/":
+            pass
+        elif text[cut] != " " or text[cut - 1] == " ":
             continue
         suf = text[cut + 1:tn]
-        if len(suf) < 3:
+        if len(suf) < 2:
             continue
         sl = suf.lower()
         hit = None
@@ -211,7 +214,10 @@ def dt_check(text, entries):
         pre = conv_num_prefix(head)
         if pre is None:
             parts = []
-            for tok in head.split():
+            for tok in re.findall(r"[^\s/]+|/", head):
+                if tok == "/":
+                    parts.append("/")
+                    continue
                 tl = tok.lower()
                 got = None
                 for k, v in entries:

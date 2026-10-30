@@ -1192,9 +1192,15 @@ static wchar_t *dt_check_raw(wchar_t *text)
         int tail = len - tn;
 
         for (int cut = 1; cut < tn - 1; cut++) {
-            if (text[cut] != L' ' || text[cut - 1] == L' ') continue;
+            /* 分隔符可以是空格，也可以是斜杠（"1/West Wall" 这种
+             * 意大利/德军分队的写法）。空格不能连续。 */
+            if (text[cut] == L'/') {
+                /* 斜杠分隔，直接切 */
+            } else if (text[cut] != L' ' || text[cut - 1] == L' ') {
+                continue;
+            }
             int slen = tn - cut - 1;
-            if (slen < 3) continue;
+            if (slen < 2) continue;
 
             int found = -1;
             for (int i = 0; i < g_nzh; i++) {
@@ -1242,7 +1248,8 @@ static wchar_t *dt_check_raw(wchar_t *text)
                 pre[pn] = 0;
                 while (st < cut) {
                     int en = st;
-                    while (en < cut && text[en] != L' ') en++;
+                    /* 分隔符可以是空格或斜杠（"I/Stettin Heimat"） */
+                    while (en < cut && text[en] != L' ' && text[en] != L'/') en++;
                     int wl = en - st;
                     int hit = -1;
                     for (int i = 0; i < g_nzh && wl >= 3; i++) {
@@ -1275,6 +1282,11 @@ static wchar_t *dt_check_raw(wchar_t *text)
                         pn += wl;
                     }
                     pre[pn] = 0;
+                    /* 保留分隔符本身，斜杠在部队名里表示下级从属 */
+                    if (en < cut && pn + 2 < 128) {
+                        pre[pn++] = text[en];
+                        pre[pn] = 0;
+                    }
                     st = en + 1;
                 }
             }

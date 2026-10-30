@@ -34,10 +34,8 @@ Set to human controlled W Allies player.	设为玩家控制西线盟军
 Toggle Play by E-Mail OFF.	关闭邮件对战
 Toggle Play by E-Mail ON.	开启邮件对战
 Supply	补给
-Combat	战斗
 Movement	移动
 Depot	补给站
-Partisan	游击队
 Weather	天气
 Factory	工厂
 Air Directive	空中指令
@@ -49,7 +47,6 @@ Air Bases	航空基地
 Pilots	飞行员
 Aircraft	飞机
 Rest	休整
-Training	训练
 Normal	正常
 Restricted	受限
 Priority	优先
@@ -66,9 +63,6 @@ Reinforcements & Transfers	增援与调动
 Army Group Center	中央集团军群
 Army Group South	南方集团军群
 Army Group North	北方集团军群
-Panzer Army	装甲集团军
-Panzer Group	装甲集群
-Panzer Corps	装甲军
 Army Group A	A集团军群
 Army Group B	B集团军群
 Carpathian Army Group	喀尔巴阡集团军群
@@ -139,7 +133,6 @@ FAT	疲劳
 DAM	损伤
 EXP	经验
 Morale	士气
-Support	支援
 Pool	储备池
 Repair	修理
 Total	总计
@@ -301,7 +294,6 @@ LOW	低
 MEDIUM	中
 HIGH	高
 Low	低
-High	高
 Very Low	极低
 Very High	极高
 MAX-IN	最大放大
@@ -405,8 +397,6 @@ Select this leader	选择此将领
 Leader	将领
 Dismissal Cost:	解职花费：
 High Command	最高统帅部
-Army Group	集团军群
-Front	方面军
 Pick New Leader for	选择新将领：
 Leader Display	将领显示
 Leader Selection	将领选择
@@ -699,7 +689,6 @@ Ini	主动
 Mor	士气
 Pol	政治
 Cost	花费
-Air	空中
 Inf	步兵
 Mech	机械
 Adm	行政
@@ -770,9 +759,6 @@ SET AI OBJECTIVES	设置AI目标
 AI SCRIPT MODE	AI脚本模式
 SET VICTORY CITIES	设置胜利城市
 toe:	编制：
-Rifle Corps	步兵军
-Cavalry Corps	骑兵军
-Guards	近卫
 Gds	近卫
 SELECT UNIT TYPE	选择部队类型
 Build selected units	建造选中部队
@@ -790,7 +776,6 @@ Gds Cav Corps	近卫骑兵军
 Cav Corps	骑兵军
 Clear all unit transfers	清除所有部队转移
 Increase the support level	提高支援等级
-Air Base	航空基地
 capacity (total/free)	容量（总计/空闲）
 Delete rename?	删除改名？
 ON TURN	于回合
@@ -1033,7 +1018,6 @@ Average Experience	平均经验
 Average Morale	平均士气
 Average Fatigue	平均疲劳
 Units in Battle	参战部队
-Anti-Aircraft	防空
 On The Ground	在地面
 Aircraft On The Ground	地面上的飞机
 Short Scenario	短剧本
@@ -1288,8 +1272,6 @@ Evacuate Exposed Air Bases	撤离暴露的航空基地
 Axis Army Attacks - 5th Panzer Army	轴心集团军攻击 - 第5装甲集团军
 Moscow Air	莫斯科空军
 Leningrad Air	列宁格勒空军
-Air Command	空军司令部
-Air Army	空军集团军
 Moscow Air Command	莫斯科空军司令部
 PVO Air Command	国土防空空军司令部
 Volga Air	伏尔加空军
@@ -1618,7 +1600,6 @@ CHALLENGING	挑战	d
 IMPOSSIBLE	不可能	d
 January	1月
 February	2月
-March	3月
 April	4月
 June	6月
 July	7月
@@ -1655,7 +1636,6 @@ Army Group South Ukraine	南乌克兰集团军群
 Belgrade	贝尔格莱德
 Minsk	明斯克
 Rostov	罗斯托夫
-Moscow	莫斯科
 Leningrad	列宁格勒
 Kiev	基辅
 Kharkov	哈尔科夫
@@ -1695,9 +1675,6 @@ Clear all	清除全部
 All	全部
 No	否
 OK	确定
-Fallschirmjaeger	伞兵
-Panzergrenadier	装甲掷弹兵
-Panzerjaeger	反坦克歼击
 Panzergren	装甲掷弹兵
 Armored Train	装甲列车
 Field Gun	野炮
@@ -1728,14 +1705,10 @@ Number	数量
 States	状态
 Button	按钮
 Date	日期
-German	德国
 Italy	意大利
 Ital	意大利
-Ital.	意大利
 Hun	匈牙利
-Hun.	匈牙利
 Rum	罗马尼亚
-Rum.	罗马尼亚
 Romania	罗马尼亚
 Romanian	罗马尼亚
 Finland	芬兰
@@ -1744,7 +1717,6 @@ Fin	芬兰
 Slovakia	斯洛伐克
 Slovakian	斯洛伐克
 Croatia	克罗地亚
-Croatian	克罗地亚
 Russia	俄罗斯
 Russian	俄罗斯
 Western Europe	西欧
@@ -1984,7 +1956,6 @@ Bomber Regiment	轰炸机团
 Border Art Idx	边界图形索引
 Campaign	战役
 Cargo Ships	货船
-Cavalry Division	骑兵师
 Chain ID:	指挥链ID：
 Change Leaders	更换将领
 Check Phase:	检查阶段：
@@ -2065,7 +2036,6 @@ Luftflotte 1	第1航空队
 Luftflotte 2	第2航空队
 Luftflotte 4	第4航空队
 Luftflotte 6	第6航空队
-Luftwaffe	德国空军
 Mark As Read	标记为已读
 Max Ceiling:	最大升限：
 Max Command:	最大指挥：
@@ -2264,11 +2234,6 @@ Cities	城市
 Cities:	城市：
 Removed cities	已移除城市
 Divisions	师
-Regiment	团
-Brigade	旅
-Division	师
-Corps	军
-Army	集团军
 Navy	海军
 Action	行动
 ACTIONS	行动
@@ -2358,7 +2323,6 @@ Class:	类别：
 Position:	位置：
 Produced by:	生产方：
 National Source	国家来源
-Fighter	战斗机
 Bomber	轰炸机
 NATIONALITY	国籍
 HEX NATIONALITY	六角格国籍
@@ -2370,9 +2334,6 @@ RIVER COSTS	河流消耗
 Maj River	大河
 Min River	小河
 River	河流
-Railroad	铁路
-Rail	铁路
-Road	道路
 Rail: 	铁路：
 RAIL REQUIREMENTS: ~ 	铁路需求：~ 
 Zoom map in {+}	放大地图 {+}
@@ -2636,7 +2597,6 @@ Pct Reserve:	储备百分比：
 Permanent	永久
 Preparation	准备
 Probability	概率
-Replacement	补充
 Recon Sqn	侦察中队
 Fighter Sqn	战斗机中队
 Squadron (2)	中队（2）
@@ -2715,7 +2675,6 @@ Attribute	属性
 Angle	角度
 Offset	偏移
 Limit	上限
-Mobile	机动
 Object	对象
 Export	导出
 Import	导入
@@ -2737,14 +2696,11 @@ V Low	极低
 V High	极高
 Major	主要
 Minor	次要
-Mixed	混合
 Fixed	固定
-Naval	海军
 Night	夜间
 Day	白天
 Clear	晴朗
 Coast	海岸
-Border	边界
 Damage	损伤
 Damage 	损伤 
 Disabled	已禁用
@@ -2757,7 +2713,6 @@ Vehicles	车辆
 turns 	回合 
 Guards 	近卫 
 Guards:	近卫：
-Rifle Division	步兵师
 Czech	捷克
 Dutch	荷兰
 Polish	波兰
@@ -3702,7 +3657,6 @@ Both	两者
 Yes 	是 
 Exec	执行
 Face	朝向
-Base	基地
 Mix	混合
 Mnl	手动
 Tab	标签
@@ -3895,8 +3849,6 @@ Black Sea Fleet	黑海舰队
 Fliegerfuehrer 	航空指挥官 
 NON-MOTORIZED	非摩托化
 NON-MOT	非摩托化
-Motorized	摩托化
-Infantry	步兵
 INFANTRY	步兵
 VEHICLES	车辆
 Elements	单位
@@ -3916,12 +3868,9 @@ SYNTH FUEL	合成燃料
 Active	活动
 Custom	自定义
 Device	装备
-Medium	中等
 Origin	起点
 Origin:	起点：
 Range:	射程：
-Static	固定
-Reserve	预备
 Victory	胜利
 Transport	运输
 Day Only	仅白天
@@ -4010,7 +3959,6 @@ TAG:	标记：
 AI ID:	AI编号：
 Pool (	储备（
 Range	射程
-Recon	侦察
 Refit	补充
 Train	训练
 Delay	延迟
@@ -4838,13 +4786,11 @@ Vertex Processing Type - HARDWARE_VP	顶点处理类型 - 硬件
 Vertex Processing Type - SOFTWARE_VP	顶点处理类型 - 软件
 Vertex Processing Type - PURE_HARDWARE_VP	顶点处理类型 - 纯硬件
 Port	港口
-City	城市
 Airfield	机场
 Water	水域
 Swamp	沼泽
 Forest	森林
 Woods	林地
-Mountain	山地
 Urban	城区
 Desert	沙漠
 Tundra	冻原
@@ -4867,7 +4813,6 @@ Class	类别
 Climb	爬升
 Color	颜色
 Elite	精锐
-Group	大队
 Hide	隐藏
 Human	玩家
 Kills	击落
@@ -4875,7 +4820,6 @@ Owner	归属
 Phase	阶段
 Pilot	飞行员
 Quick	快速
-Rifle	步枪
 Launch	发射
 Radius	半径
 Remove	移除
@@ -4888,7 +4832,6 @@ Replace	替换
 Players	玩家
 Weapons	武器
 Activate	激活
-Airborne	空降
 Altitude	高度
 Anti-Air	防空
 Attacker	攻方
@@ -4896,14 +4839,10 @@ Industry	工业
 Missions	任务
 Modified	已修改
 Schedule	日程
-Security	警备
-Fortified	筑垒
 Historical	历史
 Initiative	主动性
 Destination	目的地
-Construction	建设
 Amphib	两栖
-Cavalry	骑兵
 Airbase	航空基地
 Airdrop	空投
 Ceiling	升限
@@ -5028,9 +4967,7 @@ Gnd Bombed	地面被轰炸
 AF Bombed	机场被轰炸
 airfield was BOMBED	机场被轰炸
 Anti-Soft	对软目标
-Anti-Tank	反坦克
 Anti-Armor	反装甲
-Artillery	炮兵
 SP Artillery	自行炮兵
 SP Gun	自行火炮
 Self-Propelled Gun	自行火炮
@@ -5265,7 +5202,6 @@ Period	时期
 Result	结果
 Sub To	隶属于
 Suffix	后缀
-Armored	装甲
 Armored Cars	装甲车
 Engines	发动机
 Loadout	挂载
@@ -5435,21 +5371,9 @@ Labor Units	劳工单位
 Labor Group	劳工组
 Labor Detachment	劳工支队
 Machinegun Battalion	机枪营
-Machine Gun Battalion	机枪营
 Flak Battalion	高炮营
-Pioneer Battalion	工兵营
-Construction Battalion	建设营
-Security Battalion	警备营
-Panzer Battalion	装甲营
-Stug Battalion	突击炮营
 Tank Battalion	坦克营
-Ski Battalion	滑雪营
-Squadron	中队
 Flotilla	支队
-Mortar	迫击炮
-Rocket	火箭炮
-Engineer	工兵
-Battalion	营
 Penetration	穿透
 Scouted	已侦察
 Const	建设
@@ -5697,197 +5621,24 @@ MP: %d	移动点：%d
 Hex: %d,%d	六角格：%d,%d
 (%d,%d)	（%d,%d）
 %d,%d	%d,%d
-Bul.	保加利亚
-Fin.	芬兰
-Slov.	斯洛伐克
-Croat.	克罗地亚
-AUS	澳大利亚
-RSI	意大利社会共和国
-DMA	意黑衫
-DMC	意黑衫
-DMM	意黑衫
-DMO	意黑衫
-CCNN	黑衫军
-Yug.	南斯拉夫
-NKVD	内务部
-PVO	防空
-R.A.D.	帝国劳工服务
-NKPS	交通人民委员部
-RVGK	最高统帅部预备队
-Gep.	装甲
-Sep.	独立
-Separate	独立
-Wach	卫戍
-Sperr	封锁
-Ost	东方
-Afrika	非洲
-Bataillon	营
-Abteilung	营
-Regim	团
-Company	连
-Battery	炮兵连
-Korps	军
-Corpo	军
-Kampfgruppe	战斗群
-Platoon	排
-Detachment	支队
-Legion	军团
-Fortress	要塞
-Zone	地带
-Region	区
-District	区
-Tower	塔
-Command	司令部
-Komendatura	警备司令部
-Force	部队
-Task	特遣
-Commando	突击队
-AGRA	皇家野战炮兵群
-GACA	军属野战炮兵群
-Tactical	战术
-Cavalry-Mechanized	骑兵机械化
-Armoured	装甲
-Panzer	装甲
-Tank	坦克
-Flak	高炮
-AAA	防空
-Anti-tank	反坦克
-AT-Rifle	反坦克枪
-Engineer-Sapper	工兵
-Pioneer	工兵
-Parachute	伞兵
-Airlanding	机降
-Luftlande	机降
-Air-Portable	可空运
-Marine	海军陆战
-Howitzer	榴弹炮
-Gun	火炮
-Guard	近卫
-Jaeger	猎兵
-Skijaeger	滑雪猎兵
-Ski-Jaeger	滑雪猎兵
-Grenadier	掷弹兵
-Volksgrenadier	国民掷弹兵
-Fusilier	燧发枪兵
-Fusiliers	燧发枪兵
-Field	野战
-Frontier	边防
-Coastal	海岸
-Mechanized	机械化
-Mechanzied	机械化
-Mot.	摩托化
-Semi-Mot.	半摩托化
-Bicycle	自行车
-Motorcycle	摩托车
-Ski	滑雪
-Reconnaissance	侦察
-Recce	侦察
-Cannon	加农炮
-Destroyer	驱逐
-Stug	突击炮
-Sturm	突击
-Sturmpanzer	突击炮
-Sturmmoerser	突击迫击炮
-Werfer	火箭炮
-Nebelwerfer	火箭炮
-Flame	喷火
-Flamethrower	喷火
-Flammpanzer	喷火坦克
-Fallschirm	伞兵
-Schuetzen	射手
-Landesschuetzen	国土射手
-Panzerjagd	装甲猎兵
-Volks	国民
-Ersatz	补充
-Militia	民兵
-Police	警察
-Polizei	警察
-Labor	劳工
-Railway	铁路
-Amphibious	两栖
-Aviation	航空
-Escort	护航
-Special	特种
-Garrison	守备
-Outpost	前哨
-Siege	攻城
-Shock	突击
-Assault	突击
-Fast	快速
-Super	超级
-Heavy	重型
-Light	轻型
-Royal	皇家
-Military	军事
-Service	勤务
-Operating	作业
-Power	动力
-Remount	补充马匹
-Defense	防御
-Volunteer	志愿
-Cossack	哥萨克
-Hussar	骠骑兵
-Ranger	游骑兵
-Bersaglieri	狙击兵
-Alpina	阿尔卑斯
-Celere	快速
-Legere	轻装
-Tabor	塔博尔
-Marocains	摩洛哥
-Mecanique	机械化
-Pacifique	太平洋
-Arab	阿拉伯
-Libyan	利比亚
-Tunisian	突尼斯
-Gurkha	廓尔喀
-AAMG	高射机枪
-MG-Artillery	机枪炮兵
-Auto-Wpns	自动武器
-Launcher	发射器
-Pack	驮载
-Chemical	化学
-Breakthrough	突破
-Expeditionary	远征
-Schnelle	快速
-Flieger	航空
-PzG	装甲掷弹兵
-CDL	探照坦克
-FKL	遥控
-Brandenburg	勃兰登堡
-Brandenburger	勃兰登堡
-Rommel	隆美尔
-Ewert	埃韦特
-Fullriede	富尔里德
-Sissi	西西
-Sahrien	萨赫里安
-Northumberland	诺森伯兰
-leFH	轻型野战榴弹炮
-sFH	重型野战榴弹炮
-MNR	共和海军
-Car	车
-Nr.1	第1
-Nr.2	第2
-Tier	型
-Shtat	编制
-Reduced	缩减
-CSTT	CSTT
-d'Afrique	非洲
-Franc	自由
 'L' FF Motorized Infantry Regiment	'L'自由法国摩托化步兵团
-1st US Armored Brigade	1st美国装甲旅
+1st US Armored Brigade	美国第1装甲旅
 AA Battalion	防空营
 AA Regiment	防空团
 AI Anti-tank Gun Battalion	盟军意大利反坦克炮营
-AI Combat Group	盟军意大利战斗集群
+AI Combat Group	盟军意大利战斗群
 AI Infantry Corpo	盟军意大利步兵军
 AI Medium Howitzer Battalion	盟军意大利中型榴弹炮营
-AI Motorized Group	盟军意大利摩托化集群
+AI Motorized Group	盟军意大利摩托化群
 AT-Rifle Battalion	反坦克枪营
 AU Fortified Zone	澳大利亚筑垒地带
 AU Infantry Division	澳大利亚步兵师
 AUS Infantry Division	澳大利亚步兵师
 Afrika Mot. Artillery Battalion	非洲摩托化炮兵营
 Afrika Schuetzen Regiment	非洲射手团
+Air Army	航空集团军
+Air Base	航空基地
+Air Command	航空司令部
 Airborne Brigade	空降旅
 Airborne Corps	空降军
 Airlanding Brigade	机降旅
@@ -5898,9 +5649,11 @@ Anti-Tank Battalion	反坦克营
 Anti-Tank Brigade	反坦克旅
 Anti-Tank Regiment	反坦克团
 Armored Car Brigade	装甲车旅
+Army	集团军
 Army Artillery Brigade	集团军属炮兵旅
 Army Artillery Regiment	集团军属炮兵团
 Army Cannon Brigade	集团军属加农炮旅
+Army Group	集团军群
 Army Light Flak Battalion	集团军属轻型高炮营
 Army Mot. Flak Battalion	集团军属摩托化高炮营
 Army Mot. Light Flak Battalion	集团军属摩托化轻型高炮营
@@ -5915,7 +5668,7 @@ Assault Engineer-Sapper Brigade	突击工兵旅
 Aviation Corps	航空军
 BE Armoured Car Regiment	比利时装甲车团
 BE Fortified Zone	比利时筑垒地带
-BE Infantry Brigade Group	比利时步兵旅集群
+BE Infantry Brigade Group	比利时步兵旅群
 BM Howitzer Regiment	BM榴弹炮团
 BR AGRA	英国皇家野战炮兵群
 BR Air Base	英国航空基地
@@ -5924,14 +5677,14 @@ BR Airborne Division	英国空降师
 BR Amphibious HQ	英国两栖司令部
 BR Anti-tank Regiment	英国反坦克团
 BR Armoured Brigade	英国装甲旅
-BR Armoured Brigade Group	英国装甲旅集群
+BR Armoured Brigade Group	英国装甲旅群
 BR Armoured Car Regiment	英国装甲车团
 BR Armoured Division	英国装甲师
 BR Army	英国集团军
-BR Army Commando	英国集团军属突击队
-BR Army Field Company	英国集团军属野战连
-BR Army Group	英国集团军属集群
-BR Army Tank Brigade	英国集团军属坦克旅
+BR Army Commando	英国集团军突击队
+BR Army Field Company	英国集团军野战连
+BR Army Group	英国集团军群
+BR Army Tank Brigade	英国集团军坦克旅
 BR Assault Engineer Brigade	英国突击工兵旅
 BR CDL Brigade	英国探照坦克旅
 BR Commando Brigade	英国突击队旅
@@ -5945,14 +5698,14 @@ BR Heavy Anti-Aircraft Battery	英国重型防空炮兵连
 BR Heavy Anti-Aircraft Regiment	英国重型防空团
 BR Heavy Artillery Regiment	英国重型炮兵团
 BR Infantry Brigade	英国步兵旅
-BR Infantry Brigade Group	英国步兵旅集群
+BR Infantry Brigade Group	英国步兵旅群
 BR Infantry Division	英国步兵师
 BR Light Anti-Aircraft Battery	英国轻型防空炮兵连
 BR Light Anti-Aircraft Regiment	英国轻型防空团
 BR Light Armoured Brigade	英国轻型装甲旅
 BR Medium Artillery Regiment	英国中型炮兵团
-BR Mixed Division	英国混合师
-BR Mixed Infantry Division	英国混合步兵师
+BR Mixed Division	英国混成师
+BR Mixed Infantry Division	英国混成步兵师
 BR Mortar Company	英国迫击炮连
 BR Mortar Platoon	英国迫击炮排
 BR Motorcycle Battalion	英国摩托车营
@@ -5961,19 +5714,19 @@ BR Mountain Artillery Regiment	英国山地炮兵团
 BR Mountain Battalion	英国山地营
 BR Parachute Battalion (+)	英国伞兵营（加）
 BR Parachute Brigade	英国伞兵旅
-BR Parachute Brigade Group	英国伞兵旅集群
-BR Railway Construction Group	英国铁路建设集群
+BR Parachute Brigade Group	英国伞兵旅群
+BR Railway Construction Group	英国铁路建设群
 BR Royal Engineer Battalion	英国皇家工兵营
-BR Royal Marine Armoured Group	英国皇家海军陆战装甲集群
+BR Royal Marine Armoured Group	英国皇家海军陆战装甲群
 BR Royal Marine Brigade	英国皇家海军陆战旅
 BR Royal Marine Commando	英国皇家海军陆战突击队
 BR SP Field Artillery Regiment	英国自行野战炮兵团
 BR Special Service Brigade	英国特种勤务旅
-BR Static Mixed AA Brigade	英国静态混合防空旅
-BR Static Mixed AA Regiment	英国静态混合防空团
-BR Super Heavy AGRA	英国超级重型皇家野战炮兵群
-BR Super Heavy Artillery Battery	英国超级重型炮兵连
-BR Super Heavy Artillery Regiment	英国超级重型炮兵团
+BR Static Mixed AA Brigade	英国静态混成防空旅
+BR Static Mixed AA Regiment	英国静态混成防空团
+BR Super Heavy AGRA	英国超重型皇家野战炮兵群
+BR Super Heavy Artillery Battery	英国超重型炮兵连
+BR Super Heavy Artillery Regiment	英国超重型炮兵团
 BR Tank Brigade	英国坦克旅
 BZ Infantry Division	BZ步兵师
 Bicycle Jaeger Brigade	自行车猎兵旅
@@ -5981,13 +5734,14 @@ Bicycle Recon Battalion	自行车侦察营
 Bicycle Road Construction Battalion	自行车道路建设营
 Brandenburger Battalion	勃兰登堡营
 Breakthrough Artillery Division	突破炮兵师
+Brigade	旅
 Bul. Air Base	保加利亚航空基地
 Bul. Anti-Aircraft Regiment	保加利亚防空团
 Bul. Armored Battalion	保加利亚装甲营
 Bul. Armored Brigade	保加利亚装甲旅
 Bul. Armored Regiment	保加利亚装甲团
 Bul. Army	保加利亚集团军
-Bul. Assault Gun Battalion	保加利亚突击火炮营
+Bul. Assault Gun Battalion	保加利亚突击炮营
 Bul. Border Guard Battalion	保加利亚边防营
 Bul. Border Guard Brigade	保加利亚边防旅
 Bul. Border Guard Regiment	保加利亚边防团
@@ -6004,17 +5758,17 @@ Bul. Infantry Regiment	保加利亚步兵团
 Bul. Labor Battalion	保加利亚劳工营
 Bul. Mot. Anti-Aircraft Battalion	保加利亚摩托化防空营
 Bul. Mot. Anti-Tank Battalion	保加利亚摩托化反坦克营
-Bul. Mot. Field Gun Battalion	保加利亚摩托化野战火炮营
+Bul. Mot. Field Gun Battalion	保加利亚摩托化野战炮营
 Bul. Mot. Heavy Howitzer Battalion	保加利亚摩托化重型榴弹炮营
 Bul. Mot. Howitzer Battalion	保加利亚摩托化榴弹炮营
-Bul. Mountain Gun Battalion	保加利亚山地火炮营
+Bul. Mountain Gun Battalion	保加利亚山地炮营
 CA AGRA Brigade	加拿大皇家野战炮兵群旅
 CA Anti-tank Regiment	加拿大反坦克团
 CA Armoured Brigade	加拿大装甲旅
 CA Armoured Car Regiment	加拿大装甲车团
 CA Armoured Division	加拿大装甲师
 CA Army	加拿大集团军
-CA Army Field Company	加拿大集团军属野战连
+CA Army Field Company	加拿大集团军野战连
 CA Corps	加拿大军
 CA Engineer Battalion	加拿大工兵营
 CA Field Artillery Regiment	加拿大野战炮兵团
@@ -6029,17 +5783,21 @@ CA Light Anti-Aircraft Regiment	加拿大轻型防空团
 CA Medium Artillery Regiment	加拿大中型炮兵团
 CA Mortar Company	加拿大迫击炮连
 CA Mortar Platoon	加拿大迫击炮排
-CA SP Field Regiment	加拿大自行野战团
-CW Rail Group	英联邦铁路集群
+CA SP Field Regiment	加拿大自行野战炮兵团
+CW Rail Group	英联邦铁路群
 CZ Armoured Brigade	捷克装甲旅
-Cannon Artillery Division	加农炮炮兵师
+Cannon Artillery Division	加农炮兵师
 Cannon Brigade	加农炮旅
 Cannon Regiment	加农炮团
 Cavalry Brigade	骑兵旅
+Cavalry Corps	骑兵军
+Cavalry Division	骑兵师
 Cavalry Regiment	骑兵团
 Cavalry Squadron	骑兵中队
-Cavalry-Mechanized Group	骑兵机械化集群
+Cavalry-Mechanized Group	骑兵机械化群
 Coastal Artillery Division	海岸炮兵师
+Construction Battalion	建设营
+Corps	军
 Corps Artillery Regiment	军属炮兵团
 Corps Machine Gun Battalion	军属机枪营
 Cossack Cavalry Division	哥萨克骑兵师
@@ -6053,8 +5811,8 @@ Croat. Mountain Brigade	克罗地亚山地旅
 Croat. Mountain Division	克罗地亚山地师
 Croat. Mountain Regiment	克罗地亚山地团
 Defense Zone	防御地带
-Destroyer Anti-Tank Brigade	驱逐反坦克旅
-Destroyer Anti-Tank Regiment	驱逐反坦克团
+Destroyer Anti-Tank Brigade	歼击反坦克旅
+Destroyer Anti-Tank Regiment	歼击反坦克团
 Engineer-Sapper Battalion	工兵营
 Engineer-Sapper Brigade	工兵旅
 Engineer-Sapper Regiment	工兵团
@@ -6072,16 +5830,16 @@ FF CSTT Infantry Brigade	自由法国CSTT步兵旅
 FF Cavalry Squadron	自由法国骑兵中队
 FF Commando Battalion	自由法国突击队营
 FF Corps	自由法国军
-FF DMM Infantry Division	自由法国意黑衫步兵师
-FF DMO Infantry Division	自由法国意黑衫步兵师
+FF DMM Infantry Division	自由法国DMM步兵师
+FF DMO Infantry Division	自由法国DMO步兵师
 FF Engineer Regiment	自由法国工兵团
 FF Fortified Zone	自由法国筑垒地带
-FF Franc d'Afrique Infantry Regiment	自由法国自由非洲步兵团
+FF Franc d'Afrique Infantry Regiment	自由法国非洲步兵团
 FF GACA Armored Company	自由法国军属野战炮兵群装甲连
 FF Infantry Battalion	自由法国步兵营
 FF Infantry Division	自由法国步兵师
 FF Infantry Regiment	自由法国步兵团
-FF Legere Mecanique	自由法国轻装机械化
+FF Legere Mecanique	自由法国轻机械化部队
 FF Light Tank Regiment	自由法国轻型坦克团
 FF Motorized Division	自由法国摩托化师
 FF Motorized Division (-)	自由法国摩托化师（减）
@@ -6093,14 +5851,14 @@ FF Pioneer Regiment	自由法国工兵团
 FF Recce Brigade	自由法国侦察旅
 FF Recce Regiment	自由法国侦察团
 FF Sahrien Cavalry Battalion	自由法国萨赫里安骑兵营
-FF Tabor Marocains	自由法国塔博尔摩洛哥
-FF Tank Destroyer Regiment	自由法国坦克驱逐团
-FF et du Pacifique Infantry Battalion	自由法国与太平洋步兵营
+FF Tabor Marocains	自由法国摩洛哥塔博尔
+FF Tank Destroyer Regiment	自由法国坦克歼击团
+FF et du Pacifique Infantry Battalion	自由法国太平洋步兵营
 FJ Pioneer Battalion	伞兵工兵营
 FJ Pioneer Battalion (-)	伞兵工兵营（减）
 FJ Reconnaissance Battalion	伞兵侦察营
-FKL Panzer Pioneer Battalion	遥控装甲工兵营
-FKL Panzer Pioneer Company	遥控装甲工兵连
+FKL Panzer Pioneer Battalion	FKL装甲工兵营
+FKL Panzer Pioneer Company	FKL装甲工兵连
 Fallschirm Flak Regiment	伞兵高炮团
 Fallschirm Nr.1 Panzer Division	伞兵第1装甲师
 Fallschirm Nr.2 PzG Division	伞兵第2装甲掷弹兵师
@@ -6145,16 +5903,19 @@ Flammpanzer Battalion	喷火坦克营
 Flammpanzer Company	喷火坦克连
 Flieger Division	航空师
 Flieger Division (-)	航空师（减）
-Fortified Region	筑垒区
+Fortified Region	筑垒地域
 Fortified Zone	筑垒地带
+Fortress	要塞
 Fortress Infantry Battalion	要塞步兵营
 Fortress Infantry Brigade	要塞步兵旅
 Fortress Infantry Division	要塞步兵师
 Fortress MG Battalion	要塞机枪营
 Fortress Pioneer Battalion	要塞工兵营
+Front	方面军
+Fullriede	富尔里德
 Fusilier Battalion	燧发枪兵营
 GR Fortified Zone	希腊筑垒地带
-GR Mountain Brigade Group	希腊山地旅集群
+GR Mountain Brigade Group	希腊山地旅群
 Garrison Brigade	守备旅
 Gep. Panzergrenadier Battalion	装甲装甲掷弹兵营
 Gep. Panzergrenadier Regiment	装甲装甲掷弹兵团
@@ -6176,13 +5937,13 @@ Guards Mot. Rifle Division	近卫摩托化步兵师
 Guards Rifle Corps	近卫步兵军
 Guards Rifle Division	近卫步兵师
 Guards Tank Corps	近卫坦克军
-Gun Regiment	火炮团
+Gun Regiment	炮兵团
 HG Mot. Jaeger Brigade	赫尔曼·戈林摩托化猎兵旅
-HJ Panzer Destroyer Battalion	希特勒青年团装甲驱逐营
+HJ Panzer Destroyer Battalion	希特勒青年团装甲歼击营
 Heavy Anti-Tank Regiment	重型反坦克团
 Heavy Cannon Battalion	重型加农炮营
 Heavy Cannon Brigade	重型加农炮旅
-Heavy Gun Regiment	重型火炮团
+Heavy Gun Regiment	重型炮兵团
 Heavy Howitzer Brigade	重型榴弹炮旅
 Heavy Mortar Brigade	重型迫击炮旅
 Heavy Panzer Battalion	重型装甲营
@@ -6190,11 +5951,11 @@ Heavy Panzer Company	重型装甲连
 Heavy Rocket Battalion	重型火箭炮营
 Heavy Rocket Brigade	重型火箭炮旅
 Heavy Rocket Regiment	重型火箭炮团
-Heavy SU Brigade	重型苏联旅
-Heavy SU Regiment	重型苏联团
+Heavy SU Brigade	重型自行火炮旅
+Heavy SU Regiment	重型自行炮兵团
 Heavy Tank Brigade	重型坦克旅
 Heavy Tank Regiment	重型坦克团
-High Power Artillery Battalion	高动力炮兵营
+High Power Artillery Battalion	大威力炮兵营
 Howitzer Brigade	榴弹炮旅
 Howitzer Regiment	榴弹炮团
 Hun. AA Battalion	匈牙利防空营
@@ -6204,11 +5965,11 @@ Hun. Armored Division	匈牙利装甲师
 Hun. Armored Recon Battalion	匈牙利装甲侦察营
 Hun. Armored Regiment	匈牙利装甲团
 Hun. Army	匈牙利集团军
-Hun. Assault Gun Battalion	匈牙利突击火炮营
+Hun. Assault Gun Battalion	匈牙利突击炮营
 Hun. Bicycle Infantry Battalion	匈牙利自行车步兵营
 Hun. Border Guard Battalion	匈牙利边防营
 Hun. Border Guard Brigade	匈牙利边防旅
-Hun. Border Guard Group	匈牙利边防集群
+Hun. Border Guard Group	匈牙利边防群
 Hun. Border Guard Regiment	匈牙利边防团
 Hun. Cavalry Brigade	匈牙利骑兵旅
 Hun. Construction Battalion	匈牙利建设营
@@ -6223,7 +5984,7 @@ Hun. Hussar Regiment	匈牙利骠骑兵团
 Hun. Infantry Brigade	匈牙利步兵旅
 Hun. Infantry Division	匈牙利步兵师
 Hun. Infantry Regiment	匈牙利步兵团
-Hun. Light Division	匈牙利轻型师
+Hun. Light Division	匈牙利轻装师
 Hun. Light Security Brigade	匈牙利轻型警备旅
 Hun. Light Security Division	匈牙利轻型警备师
 Hun. Light Security Regiment	匈牙利轻型警备团
@@ -6267,7 +6028,7 @@ Ital. Alpina Division	意大利阿尔卑斯师
 Ital. Alpina Regiment	意大利阿尔卑斯团
 Ital. Anti-Tank Regiment	意大利反坦克团
 Ital. Armored Division	意大利装甲师
-Ital. Armored Group	意大利装甲集群
+Ital. Armored Group	意大利装甲群
 Ital. Armored Regiment	意大利装甲团
 Ital. Army	意大利集团军
 Ital. Assault Division	意大利突击师
@@ -6300,13 +6061,13 @@ Ital. Infantry Regiment	意大利步兵团
 Ital. Labor Battalion	意大利劳工营
 Ital. Light AA Battalion	意大利轻型防空营
 Ital. Light AA Battery	意大利轻型防空炮兵连
-Ital. Light Gun Battalion	意大利轻型火炮营
+Ital. Light Gun Battalion	意大利轻型炮营
 Ital. Light Tank Battalion	意大利轻型坦克营
 Ital. Marine Commando Battalion	意大利海军陆战突击队营
-Ital. Mobile Group	意大利机动集群
+Ital. Mobile Group	意大利机动群
 Ital. Mortar Battalion	意大利迫击炮营
-Ital. Mot. AA Gun Battalion	意大利摩托化防空火炮营
-Ital. Mot. AA Gun Regiment	意大利摩托化防空火炮团
+Ital. Mot. AA Gun Battalion	意大利摩托化防空炮营
+Ital. Mot. AA Gun Regiment	意大利摩托化防空炮团
 Ital. Mot. Anti-Tank Battalion	意大利摩托化反坦克营
 Ital. Mot. Anti-Tank Company	意大利摩托化反坦克连
 Ital. Mot. Assault Battalion	意大利摩托化突击营
@@ -6316,7 +6077,7 @@ Ital. Mot. Bersaglieri Recon Battalion	意大利摩托化狙击兵侦察营
 Ital. Mot. Bersaglieri Regiment	意大利摩托化狙击兵团
 Ital. Mot. Celere Division	意大利摩托化快速师
 Ital. Mot. Heavy AA Battalion	意大利摩托化重型防空营
-Ital. Mot. Heavy Gun Battalion	意大利摩托化重型火炮营
+Ital. Mot. Heavy Gun Battalion	意大利摩托化重型炮营
 Ital. Mot. Heavy Howitzer Battalion	意大利摩托化重型榴弹炮营
 Ital. Mot. Infantry Battalion	意大利摩托化步兵营
 Ital. Mot. Infantry Brigade	意大利摩托化步兵旅
@@ -6324,12 +6085,12 @@ Ital. Mot. Infantry Regiment	意大利摩托化步兵团
 Ital. Mot. Light AA Battalion	意大利摩托化轻型防空营
 Ital. Mot. Light AA Battery	意大利摩托化轻型防空炮兵连
 Ital. Mot. Machine Gun Battalion	意大利摩托化机枪营
-Ital. Mot. Medium Gun Battalion	意大利摩托化中型火炮营
+Ital. Mot. Medium Gun Battalion	意大利摩托化中型炮营
 Ital. Mot. Medium Howitzer Battalion	意大利摩托化中型榴弹炮营
 Ital. Mot. Reconnaissance Battalion	意大利摩托化侦察营
 Ital. Motorized Division	意大利摩托化师
 Ital. Mountain Division	意大利山地师
-Ital. Mountain Gun Battalion	意大利山地火炮营
+Ital. Mountain Gun Battalion	意大利山地炮营
 Ital. Parachute Battalion	意大利伞兵营
 Ital. Parachute Division	意大利伞兵师
 Ital. Parachute Regiment	意大利伞兵团
@@ -6339,7 +6100,7 @@ Ital. Security Division	意大利警备师
 Ital. Semi-Mot. Infantry Division	意大利半摩托化步兵师
 Ital. Semi-Mot. Infantry Regiment	意大利半摩托化步兵团
 Ital. Ski Battalion	意大利滑雪营
-Ital. Tactical Group	意大利战术集群
+Ital. Tactical Group	意大利战术群
 Ital. Tank Battalion	意大利坦克营
 Ital. Tunisian Volunteer Infantry Regim	意大利突尼斯志愿步兵团
 Jaeger Battalion	猎兵营
@@ -6349,29 +6110,29 @@ Jaeger Kampfgruppe	猎兵战斗群
 Jaeger Regiment	猎兵团
 KM Marine Infantry Battalion	海军海军陆战步兵营
 Kampfgruppe Panzer Division	战斗群装甲师
-Korps Abteilung	军营
+Korps Abteilung	军支队
 LW Flak Regiment	空军高炮团
 LW Heavy Flak Battalion	空军重型高炮营
 LW Heavy Rail Flak Battalion	空军重型铁路高炮营
 LW Light Flak Battalion	空军轻型高炮营
-LW Mixed Flak Battalion	空军混合高炮营
+LW Mixed Flak Battalion	空军混成高炮营
 LW Mot. Flak Regiment	空军摩托化高炮团
 LW Mot. Light Flak Battalion	空军摩托化轻型高炮营
-LW Mot. Mixed Flak Battalion	空军摩托化混合高炮营
+LW Mot. Mixed Flak Battalion	空军摩托化混成高炮营
 LW SP Light Flak Battalion	空军自行轻型高炮营
 LW SP Light Flak Company	空军自行轻型高炮连
 Landesschuetzen Security Battalion	国土射手警备营
 Landesschuetzen Security Regiment	国土射手警备团
 Libyan Arab Force	利比亚阿拉伯部队
-Light Afrika Motorized Division	轻型非洲摩托化师
+Light Afrika Motorized Division	轻装非洲摩托化师
 Light Artillery Brigade	轻型炮兵旅
 Light Artillery Regiment	轻型炮兵团
-Light Division	轻型师
+Light Division	轻装师
 Light Infantry Battalion	轻型步兵营
 Light Rocket Battalion	轻型火箭炮营
 Light Rocket Regiment	轻型火箭炮团
-Light SU Brigade	轻型苏联旅
-Light SU Regiment	轻型苏联团
+Light SU Brigade	轻型自行火炮旅
+Light SU Regiment	轻型自行炮兵团
 Light Tank Battalion	轻型坦克营
 Luftlande Sturm Regiment	机降突击团
 Luftwaffe Field Corps	空军野战军
@@ -6381,23 +6142,24 @@ Luftwaffe Jaeger Regiment	空军猎兵团
 MG-Artillery Battalion	机枪炮兵营
 MNR Marine Battalion	共和海军海军陆战营
 MO Infantry Regiment	摩洛哥步兵团
+Machine Gun Battalion	机枪营
 Machine Gun Regiment	机枪团
 Machine Gun Ski Brigade	机枪滑雪旅
-March FF DMA Infantry Division	行军自由法国意黑衫步兵师
-March FF DMC Infantry Division	行军自由法国意黑衫步兵师
-Marine Flak Battalion	海军陆战高炮营
-Marine Flak Brigade	海军陆战高炮旅
-Marine Flak Regiment	海军陆战高炮团
+March FF DMA Infantry Division	3月自由法国DMA步兵师
+March FF DMC Infantry Division	3月自由法国DMC步兵师
+Marine Flak Battalion	海军高炮营
+Marine Flak Brigade	海军高炮旅
+Marine Flak Regiment	海军高炮团
 Mechanized Brigade	机械化旅
 Mechanized Corps	机械化军
 Mechanized Division	机械化师
-Medium SU Brigade	中型苏联旅
-Medium SU Regiment	中型苏联团
-Military District	军事区
-Militia Fighter Battalion	民兵战斗机营
-Militia Fighter Brigade	民兵战斗机旅
+Medium SU Brigade	中型自行火炮旅
+Medium SU Regiment	中型自行炮兵团
+Military District	军区
+Militia Fighter Battalion	民兵战斗营
+Militia Fighter Brigade	民兵战斗旅
 Militia Rifle Division	民兵步兵师
-Mixed Light Tank Battalion	混合轻型坦克营
+Mixed Light Tank Battalion	混成轻型坦克营
 Mortar Battalion	迫击炮营
 Mortar Brigade	迫击炮旅
 Mortar Regiment	迫击炮团
@@ -6418,7 +6180,7 @@ Mot. Fortress Werfer Brigade	摩托化要塞火箭炮旅
 Mot. Grenadier Battalion	摩托化掷弹兵营
 Mot. Grenadier Brigade	摩托化掷弹兵旅
 Mot. Grenadier Regiment	摩托化掷弹兵团
-Mot. Gun Battalion	摩托化火炮营
+Mot. Gun Battalion	摩托化炮营
 Mot. Heavy Cannon Battalion	摩托化重型加农炮营
 Mot. Heavy Panzerjaeger Battalion	摩托化重型装甲猎兵营
 Mot. Heavy Werfer Battalion	摩托化重型火箭炮营
@@ -6427,14 +6189,14 @@ Mot. Howitzer Battalion	摩托化榴弹炮营
 Mot. Infantry Battalion	摩托化步兵营
 Mot. Infantry Kampfgruppe	摩托化步兵战斗群
 Mot. Infantry Regiment	摩托化步兵团
-Mot. K3 Gun Battalion	摩托化K3火炮营
-Mot. Kampfgruppe Ewert	摩托化战斗群埃韦特
-Mot. Light Afrika Division	摩托化轻型非洲师
+Mot. K3 Gun Battalion	摩托化K3炮营
+Mot. Kampfgruppe Ewert	摩托化埃韦特战斗群
+Mot. Light Afrika Division	摩托化轻装非洲师
 Mot. Machine Gun Battalion	摩托化机枪营
 Mot. Military Police Battalion	摩托化军事警察营
 Mot. Military Police Regiment	摩托化军事警察团
 Mot. Military Police Rifle Battalion	摩托化军事警察步兵营
-Mot. Mixed Artillery Battalion	摩托化混合炮兵营
+Mot. Mixed Artillery Battalion	摩托化混成炮兵营
 Mot. NKVD Border Regiment	摩托化内务部边防团
 Mot. Nebelwerfer Battalion	摩托化火箭炮营
 Mot. Panzergrenadier Battalion	摩托化装甲掷弹兵营
@@ -6446,16 +6208,16 @@ Mot. Road Construction Battalion	摩托化道路建设营
 Mot. Schuetzen Battalion	摩托化射手营
 Mot. Schuetzen Regiment	摩托化射手团
 Mot. Sep. Jaeger Battalion	摩托化独立猎兵营
-Mot. Siege Mortar Battery	摩托化攻城迫击炮炮兵连
+Mot. Siege Mortar Battery	摩托化攻城迫击炮连
 Mot. Sturm Brigade	摩托化突击旅
-Mot. Super Heavy Howitzer Battalion	摩托化超级重型榴弹炮营
+Mot. Super Heavy Howitzer Battalion	摩托化超重型榴弹炮营
 Mot. Volks Artillery Brigade	摩托化国民炮兵旅
 Mot. Volks Werfer Brigade	摩托化国民火箭炮旅
 Mot. Werfer Battalion	摩托化火箭炮营
 Mot. Werfer Brigade	摩托化火箭炮旅
 Mot. Werfer Regiment	摩托化火箭炮团
-Mot. leFH Howitzer Battalion	摩托化轻型野战榴弹炮榴弹炮营
-Mot. sFH Heavy Howitzer Battalion	摩托化重型野战榴弹炮重型榴弹炮营
+Mot. leFH Howitzer Battalion	摩托化轻型野战榴弹炮营
+Mot. sFH Heavy Howitzer Battalion	摩托化重型野战榴弹炮营
 Motorcycle Regiment	摩托车团
 Motorized Brigade	摩托化旅
 Motorized Division	摩托化师
@@ -6475,7 +6237,8 @@ Mountain Rifle Corps	山地步兵军
 Mountain Rifle Division	山地步兵师
 Mountain Sturm Brigade	山地突击旅
 NE Fortified Zone	荷兰筑垒地带
-NE Infantry Brigade Group	荷兰步兵旅集群
+NE Infantry Brigade Group	荷兰步兵旅群
+NKPS	交通人民委员部
 NKVD Border Guard Detachment	内务部边防支队
 NKVD Border Guard Komendatura	内务部边防警备司令部
 NKVD Border Guard Outpost	内务部边防前哨
@@ -6487,11 +6250,11 @@ NZ Armoured Brigade	新西兰装甲旅
 NZ Corps	新西兰军
 NZ Fortified Zone	新西兰筑垒地带
 NZ Infantry Division	新西兰步兵师
-NZ Mixed Division	新西兰混合师
-NZ Mixed Infantry Division	新西兰混合步兵师
+NZ Mixed Division	新西兰混成师
+NZ Mixed Infantry Division	新西兰混成步兵师
 Naval Infantry Battalion	海军步兵营
 Naval Infantry Brigade	海军步兵旅
-Naval Support Group	海军支援集群
+Naval Support Group	海军支援群
 Ost Infantry Regiment	东方步兵团
 Ost Mountain Regiment	东方山地团
 PO Anti-tank Regiment	波兰反坦克团
@@ -6504,15 +6267,19 @@ PO Heavy Anti-Aircraft Regiment	波兰重型防空团
 PO Infantry Division	波兰步兵师
 PO Light Anti-Aircraft Regiment	波兰轻型防空团
 PO Medium Artillery Regiment	波兰中型炮兵团
-PO Parachute Brigade Group	波兰伞兵旅集群
-PVO AA Battalion	防空防空营
-PVO AA Brigade	防空防空旅
-PVO AA Regiment	防空防空团
-PVO AAMG Battalion	防空高射机枪营
-PVO AAMG Regiment	防空高射机枪团
+PO Parachute Brigade Group	波兰伞兵旅群
+PVO AA Battalion	国土防空防空营
+PVO AA Brigade	国土防空防空旅
+PVO AA Regiment	国土防空防空团
+PVO AAMG Battalion	国土防空高射机枪营
+PVO AAMG Regiment	国土防空高射机枪团
+Panzer Army	装甲集团军
+Panzer Battalion	装甲营
 Panzer Brigade	装甲旅
-Panzer Destroyer Battalion	装甲驱逐营
+Panzer Corps	装甲军
+Panzer Destroyer Battalion	装甲歼击营
 Panzer Division	装甲师
+Panzer Group	装甲集群
 Panzer Kampfgruppe	装甲战斗群
 Panzer Pioneer Battalion	装甲工兵营
 Panzer Reconnaissance Battalion	装甲侦察营
@@ -6522,9 +6289,10 @@ Panzergrenadier Division	装甲掷弹兵师
 Panzergrenadier Kampfgruppe	装甲掷弹兵战斗群
 Panzergrenadier Regiment	装甲掷弹兵团
 Partisan Battalion	游击营
+Pioneer Battalion	工兵营
 Polizei Regiment	警察团
 R.A.D. Labor Detachment	帝国劳工服务劳工支队
-R.A.D. Labor Group	帝国劳工服务劳工集群
+R.A.D. Labor Group	帝国劳工服务劳工群
 RD	RD
 RR Construction Brigade	铁路建设旅
 RSI Anti-Aircraft Battalion	意大利社会共和国防空营
@@ -6540,10 +6308,13 @@ RSK Infantry Regiment	RSK步兵团
 RVGK Artillery Regiment	最高统帅部预备队炮兵团
 Reserve Panzer Division	预备装甲师
 Rifle Brigade	步兵旅
+Rifle Corps	步兵军
+Rifle Division	步兵师
 Rifle Regiment	步兵团
 Road Construction Battalion	道路建设营
 Rocket Launcher Division	火箭炮师
-Royal Northumberland Fusiliers	皇家诺森伯兰燧发枪兵
+Rommel	隆美尔
+Royal Northumberland Fusiliers	皇家诺森伯兰燧发枪团
 Rum. AA Artillery Regiment	罗马尼亚防空炮兵团
 Rum. Air Base	罗马尼亚航空基地
 Rum. Armored Battalion	罗马尼亚装甲营
@@ -6561,7 +6332,7 @@ Rum. Corps	罗马尼亚军
 Rum. Expeditionary Ski Brigade	罗马尼亚远征滑雪旅
 Rum. Fortified Zone	罗马尼亚筑垒地带
 Rum. Fortress Infantry Brigade	罗马尼亚要塞步兵旅
-Rum. Frontier Guard Division	罗马尼亚边防近卫师
+Rum. Frontier Guard Division	罗马尼亚边防师
 Rum. Infantry Battalion	罗马尼亚步兵营
 Rum. Infantry Brigade	罗马尼亚步兵旅
 Rum. Infantry Division	罗马尼亚步兵师
@@ -6590,7 +6361,7 @@ Rum. Pioneer Battalion	罗马尼亚工兵营
 Rum. Pioneer Construction Regiment	罗马尼亚工兵建设团
 Rum. RR Construction Battalion	罗马尼亚铁路建设营
 Rum. Railroad Command	罗马尼亚铁路司令部
-Rum. Recon Group	罗马尼亚侦察集群
+Rum. Recon Group	罗马尼亚侦察群
 Rum. Security Battalion	罗马尼亚警备营
 Rum. Security Division	罗马尼亚警备师
 SA Armoured Car Regiment	南非装甲车团
@@ -6616,6 +6387,7 @@ SS Motorized Brigade	党卫军摩托化旅
 Schnelle Bicycle Infantry Battalion	快速自行车步兵营
 Schnelle Brigade	快速旅
 Schnelle Division	快速师
+Security Battalion	警备营
 Security Division	警备师
 Security Regiment	警备团
 Sep. Bicycle Infantry Battalion	独立自行车步兵营
@@ -6626,7 +6398,9 @@ Sep. Panzer Regiment	独立装甲团
 Sep. Skijaeger Battalion	独立滑雪猎兵营
 Separate Tank Battalion	独立坦克营
 Separate Tank Regiment	独立坦克团
+Service	勤务
 Shock Army	突击集团军
+Ski Battalion	滑雪营
 Ski Brigade	滑雪旅
 Ski-Jaeger Brigade	滑雪猎兵旅
 Ski-Jaeger Division	滑雪猎兵师
@@ -6652,31 +6426,32 @@ Slov. Tank Battalion	斯洛伐克坦克营
 Slov. Tank Company	斯洛伐克坦克连
 Static Division	静态师
 Static Infantry Division	静态步兵师
-Stug Battery	突击炮炮兵连
+Stug Battalion	突击炮营
+Stug Battery	突击炮连
 Stug Brigade	突击炮旅
 Sturm Brigade	突击旅
 Sturm Division	突击师
 Sturm Infantry Battalion	突击步兵营
-Sturmmoerser Battery	突击迫击炮炮兵连
+Sturmmoerser Battery	突击迫击炮连
 Sturmpanzer Battalion	突击炮营
 Sturmpanzer Company	突击炮连
-Super Heavy Howitzer Brigade	超级重型榴弹炮旅
+Super Heavy Howitzer Brigade	超重型榴弹炮旅
 TD Battery	坦克歼击炮兵连
 Tank Army	坦克集团军
 Tank Brigade	坦克旅
 Tank Corps	坦克军
 Tank Division	坦克师
 US AA Auto-Wpns Battalion	美国防空自动武器营
-US AAA Gun Battalion	美国防空火炮营
+US AAA Gun Battalion	美国防空炮营
 US Air Base	美国航空基地
 US Airborne Division	美国空降师
 US Amphibious HQ	美国两栖司令部
 US Armored Division	美国装甲师
 US Armored Infantry Battalion	美国装甲步兵营
 US Army	美国集团军
-US Army Group	美国集团军属集群
-US CDL Tank Battalion	美国探照坦克坦克营
-US Cavalry Group	美国骑兵集群
+US Army Group	美国集团军群
+US CDL Tank Battalion	美国探照坦克营
+US Cavalry Group	美国骑兵群
 US Cavalry Recon Squadron	美国骑兵侦察中队
 US Cavalry Squadron	美国骑兵中队
 US Chemical Mortar Battalion	美国化学迫击炮营
@@ -6684,7 +6459,7 @@ US Coastal AA Battalion	美国海岸防空营
 US Combat Engineer Battalion	美国战斗工兵营
 US Construction Battalion	美国建设营
 US Corps	美国军
-US Engineer GS Regiment	美国工兵通用勤务团
+US Engineer GS Regiment	美国通用勤务工兵团
 US Field Artillery Battalion (105mm)	美国野战炮兵营（105毫米）
 US Field Artillery Battalion (155mm)	美国野战炮兵营（155毫米）
 US Field Artillery Battalion (240mm)	美国野战炮兵营（240毫米）
@@ -6704,30 +6479,507 @@ US Parachute Battalion	美国伞兵营
 US Parachute Battalion (+)	美国伞兵营（加）
 US Parachute Regiment	美国伞兵团
 US Parachute Regiment (+)	美国伞兵团（加）
-US Railroad Operating Battalion	美国铁路作业营
+US Railroad Operating Battalion	美国铁路运营营
 US Ranger Battalion	美国游骑兵营
 US Ranger Force Regiment	美国游骑兵部队团
 US SP Field Artillery Battalion	美国自行野战炮兵营
 US Special Service Force Brigade	美国特种勤务部队旅
 US Special Tank Battalion	美国特种坦克营
 US Tank Battalion	美国坦克营
-US Tank Destroyer Battalion	美国坦克驱逐营
-US Tank Destroyer Battalion (SP)	美国坦克驱逐营（自行）
+US Tank Destroyer Battalion	美国坦克歼击营
+US Tank Destroyer Battalion (SP)	美国坦克歼击营（自行）
 Volks Artillery Regiment	国民炮兵团
 Volksgrenadier Division	国民掷弹兵师
 Volksgrenadier Regiment	国民掷弹兵团
 Volunteer Motorized Brigade	志愿摩托化旅
 Wach Battalion	卫戍营
 Yug. Army	南斯拉夫集团军
-Yug. Army Group	南斯拉夫集团军属集群
+Yug. Army Group	南斯拉夫集团军群
 Yug. Cavalry Brigade	南斯拉夫骑兵旅
 Yug. Corps	南斯拉夫军
 Yug. Engineer Brigade	南斯拉夫工兵旅
 Yug. Infantry Division	南斯拉夫步兵师
 Yug. Partisan Battalion	南斯拉夫游击营
 Yug. Partisan Division	南斯拉夫游击师
-leFH Howitzer Battalion	轻型野战榴弹炮榴弹炮营
-sFH Heavy Howitzer Battalion	重型野战榴弹炮重型榴弹炮营
+leFH Howitzer Battalion	轻型野战榴弹炮营
+sFH Heavy Howitzer Battalion	重型野战榴弹炮营
 zbV Mot. Infantry Battalion	特设摩托化步兵营
 zbV Mot. Panzergrenadier Battalion	特设摩托化装甲掷弹兵营
 zbV Mot. Regiment (-)	特设摩托化团（减）
+Rifle	步兵
+Mountain	山地
+Naval	海军
+Marine	海军陆战
+Road	道路
+Rail	铁路
+Rail.	铁路
+Cavalry	骑兵
+Airborne	空降
+Allied Airborne	盟军空降
+Coastal	海岸
+Cossack	哥萨克
+Border	边防
+Separate	独立
+Independent	独立
+Independant	独立
+Replacement	补充
+Reserve	预备
+Light	轻装
+Super	超级
+Mot.	摩托化
+Motorized	摩托化
+Alpine	山地
+Alpini	阿尔卑斯山地兵
+Alps Mountain	阿尔卑斯山地
+Gebirgs	山地
+Sturm	突击
+Sturm Mortar	突击迫击炮
+Army Sturm	集团军属突击
+Fort	要塞
+Shore	海岸
+Tactical Air Command	战术航空司令部
+Bomber Command	轰炸机司令部
+Troop Carrier Command	运兵司令部
+US Air Force	美国空军
+RAF Tactical Air Force	英国皇家空军战术航空队
+Shock Air Group	突击航空群
+Air Fleet	航空队
+Ital. Air Fleet	意大利航空队
+Flieger Corps	航空军
+Jagd Corps	猎兵军
+RHG Command	陆军测绘司令部
+X Commando	第10突击队
+Commando	突击队
+Ost	东方
+West Wall	西墙
+Vallo Alpino	阿尔卑斯防线
+Volks	国民
+Lehr	教导
+Beute	缴获
+Heimat	本土
+Alarm	应急
+Eisenbahn	铁道
+Autotransportabile	摩托化运输
+Pol.	波兰
+RSI	意大利社会共和国
+Militia RSI	意大利社会共和国民兵
+'Aquila' RSI	意大利社会共和国「鹰」
+SS Mountain	党卫军山地
+Nord SS	党卫军北方
+Croat.	克罗地亚
+Croat	克罗地亚
+Croat. Mountain	克罗地亚山地
+Croat. Jager	克罗地亚猎兵
+Georgian	格鲁吉亚
+Armenian	亚美尼亚
+Azerbaijani	阿塞拜疆
+Turkistani	突厥斯坦
+Turkomen	土库曼
+Ukrainian	乌克兰
+Belorussian	白俄罗斯
+Slovak	斯洛伐克
+Moroccan	摩洛哥
+Algerian	阿尔及利亚
+North African	北非
+Colonial African	殖民地非洲
+Colonial	殖民地
+Colonial Levant	殖民地黎凡特
+Nisei	二世
+Nisei Sep.	二世独立
+Arab	阿拉伯
+Tribal	部落
+Household	皇家近卫
+Lancers	枪骑兵
+Carpathian Lancers	喀尔巴阡枪骑兵
+Hussars	骠骑兵
+Royal Dragoons	皇家龙骑兵
+King's Dragoon Gds	国王龙骑兵近卫
+Royal HAF Field Bde	皇家防空野战旅
+Savoia	萨伏依
+Taurinese	都灵
+Ferro	铁
+Principe Amedeo	阿梅代奥亲王
+Bersaglieri	狙击兵
+Bersiglieri	狙击兵
+Folgore	闪电
+Nembo	雨云
+San Marco' Marine	「圣马可」海军陆战
+'San Marco' Marine	「圣马可」海军陆战
+Trieste	的里雅斯特
+Trento	特伦托
+Centauro	半人马
+Ariete	公羊
+Littorio	利托里奥
+'Ariete II'	「公羊II」
+'Centauro II'	「半人马II」
+Isonzo	伊松佐
+Vicenza	维琴察
+Ravenna	拉文纳
+Firenze	佛罗伦萨
+Siena	锡耶纳
+Bergamo	贝加莫
+RCA	皇家陆军
+Sassari	萨萨里
+'Sassari'	「萨萨里」
+'Piacenza'	「皮亚琴察」
+'Mantova'	「曼托瓦」
+'Rovigo'	「罗维戈」
+'Piave'	「皮亚韦」
+'Piceno'	「皮切诺」
+'Friuli'	「弗留利」
+Friuli	弗留利
+'Granatieri di Sardegna'	「撒丁掷弹兵」
+Pinerolo	皮内罗洛
+'Blue'	「蓝色」
+'Assietta'	「阿西耶塔」
+Assietta	阿西耶塔
+'Filiberto'	「菲利贝托」
+'Littorio'	「利托里奥」
+'Sforzesca'	「斯福尔扎」
+Sforzesca	斯福尔扎
+'Tridentina'	「特里登蒂纳」
+Tridentina	特里登蒂纳
+'Sabauda'	「萨包达」
+'Calabria'	「卡拉布里亚」
+Marche	马尔凯
+Forli	弗利
+Modena	摩德纳
+Puglie	普利亚
+'Julia'	「朱莉娅」
+Julia	朱莉娅
+'Ravenna'	「拉文纳」
+'Cremona'	「克雷莫纳」
+'Bari'	「巴里」
+'Taro'	「塔罗」
+'Cuneense'	「库内奥」
+Cuneense	库内奥
+'Livorno'	「里窝那」
+'Monte Rosa'	「罗莎峰」
+'Torino'	「都灵」
+Torino	都灵
+'Napoli'	「那不勒斯」
+Napoli	那不勒斯
+'Cosseria'	「科塞里亚」
+Cosseria	科塞里亚
+'Pusteria'	「普斯特里亚」
+Pusteria	普斯特里亚
+'Alpi Graie'	「格拉耶阿尔卑斯」
+Alpi Graie	格拉耶阿尔卑斯
+'Toscana'	「托斯卡纳」
+'Pasubio'	「帕苏比奥」
+Pasubio	帕苏比奥
+Arezzo	阿雷佐
+Savona	萨沃纳
+Casale	卡萨莱
+Lombardia	伦巴第
+'Legnano'	「莱尼亚诺」
+Legnano	莱尼亚诺
+Cagliari	卡利亚里
+Sabratha	萨布拉塔
+'Nembo'	「雨云」
+'Italia'	「意大利」
+'Aosta'	「奥斯塔」
+Gennaio	一月
+Marzo	三月
+Messina	墨西拿
+Siracusa	锡拉库萨
+Palermo	巴勒莫
+Trapani	特拉帕尼
+Catania	卡塔尼亚
+Hermann Goring	赫尔曼·戈林
+Gd. Leningrad PM	近卫列宁格勒民兵
+Leningrad PM	列宁格勒民兵
+Moscow PM	莫斯科民兵
+North Caucasus	北高加索
+Tabor Goums	塔博尔古姆
+1st Tabor Goums	第1塔博尔古姆
+3rd Tabor Goums	第3塔博尔古姆
+4th Tabor Goums	第4塔博尔古姆
+Spahis Algerian	阿尔及利亚骑兵
+Spahis Moroccan	摩洛哥骑兵
+Bomb Div USAAF	美国陆军航空队轰炸师
+64th African	第64非洲
+65th African	第65非洲
+66th African	第66非洲
+6th Guards	第6近卫
+214th Sturm	第214突击
+998th Ost	第998东方
+198th Ost	第198东方
+9th Ost	第9东方
+GG Light	大德意志轻装
+IAK PVO	国土防空航空军
+BAK	BAK
+FKL	遥控
+AFHQ	盟军司令部
+(Res)	（预备）
+(AAI)	（AAI）
+(FHH)	（FHH）
+(Pz Grp West)	（西线装甲集群）
+-Feb	2月
+-Jan	1月
+-Mar	3月
+Army Group C	C集团军群
+Army Group E	E集团军群
+Army Group F	F集团军群
+Army Group G	G集团军群
+Army Group H	H集团军群
+Army Group Antonescu	安东内斯库集团军群
+London	伦敦
+S London	南伦敦
+W. London	西伦敦
+Belfast	贝尔法斯特
+Grimsby	格里姆斯比
+Cardiff	加的夫
+Derby	德比
+Edinburgh	爱丁堡
+Leeds	利兹
+Sheffield	谢菲尔德
+Bristol	布里斯托尔
+Dunfermline	邓弗姆林
+Gillingham	吉灵厄姆
+Liverpool	利物浦
+Norwich	诺里奇
+Nottingham	诺丁汉
+Portsmouth	朴茨茅斯
+South Shields	南希尔兹
+Southampton	南安普顿
+Sunderland	桑德兰
+Birmingham	伯明翰
+Bradford	布拉德福德
+Chatham	查塔姆
+Croydon	克罗伊登
+Douglas	道格拉斯
+Dover	多佛
+Falmouth	法尔茅斯
+Glasgow	格拉斯哥
+Gloucester	格洛斯特
+Huddersfield	哈德斯菲尔德
+Inverness	因弗内斯
+Ipswich	伊普斯威奇
+Kingston upon Hull	赫尔河畔金斯顿
+Leicester	莱斯特
+Londonderry	伦敦德里
+Manchester	曼彻斯特
+Mansfield	曼斯菲尔德
+Middlesbrough	米德尔斯堡
+Newcastle upon Tyne	泰恩河畔纽卡斯尔
+Northampton	北安普顿
+Oxford	牛津
+Perth	珀斯
+Preston	普雷斯顿
+Reading	雷丁
+St Helens	圣海伦斯
+Swansea	斯旺西
+Wolverhampton	伍尔弗汉普顿
+No.	第
+Nr.	第
+Group	群
+RAF	皇家空军
+SP	自行
+Fallschirm	伞兵
+TF	特遣部队
+Res	预备
+Sep.	独立
+Air	航空
+Command	司令部
+PVO	国土防空
+Force	部队
+FBD	铁路兵旅
+Engineer	工兵
+GR	希腊
+Ital.	意大利
+West	西
+North	北
+South	南
+East	东
+St	圣
+St.	圣
+Le	勒
+La	拉
+de	德
+di	迪
+San	圣
+Bad	巴特
+School	学校
+Fleet	舰队
+Tactical	战术
+Reich	帝国
+Harbor	港
+Castle	堡
+Moor	沼
+Field	机场
+Newton	牛顿
+Bay	湾
+Head	角
+Park	公园
+Common	公地
+Down	丘陵
+Wolds	丘陵
+Wing	联队
+Levant	黎凡特
+African	非洲
+Nord	北方
+WMBef.	国防军指挥部
+OpGr	作战群
+MTO	地中海战区
+ETO	欧洲战区
+ARS	ARS
+SIR	SIR
+BH	BH
+CCNN	黑衫军
+Fuhrer	元首
+Feldherrnhalle	统帅堂
+Ostfriesland	东弗里斯兰
+Stettin	什切青
+Thuringen	图林根
+Stuttgart	斯图加特
+Braunschweig	不伦瑞克
+Hannover	汉诺威
+Luebeck	吕贝克
+Bordeaux	波尔多
+Bunzlau	本茨劳
+Katowice	卡托维兹
+Danzig	但泽
+Oppeln	奥波莱
+Zwickau	茨维考
+Augsburg	奥格斯堡
+Chemnitz	开姆尼茨
+Czechowice	切霍维采
+Deschowitz	德绍维茨
+Gleiwitz	格莱维茨
+Halle	哈雷
+Mucheln	米歇尔恩
+Posen	波森
+Ruhland	鲁兰
+Zeitz	蔡茨
+S. Berlin	南柏林
+N. BH	北BH
+S. BH	南BH
+Berliner Zoo	柏林动物园
+Goerlitz	格尔利茨
+Brieg	布里格
+Bautzen	包岑
+Bayreuth	拜罗伊特
+Ansbach	安斯巴赫
+Anklam	安克拉姆
+Barth	巴特
+Bremen	不来梅
+Bremen Marine	不来梅海军
+Bremerhaven	不来梅港
+Danzig Marine	但泽海军
+Essen	埃森
+Erfurt	埃尔福特
+Erding	埃尔丁
+Eberswalde	埃伯斯瓦尔德
+Ebenrode	埃本罗德
+Eggebek	埃格贝克
+Eggersdorf	埃格斯多夫
+Eisenstadt	艾森施塔特
+Enschede	恩斯赫德
+Erbenschwang	埃尔本施旺
+Eschwege	埃施韦格
+Esperstedt	埃斯珀施泰特
+Ettinghausen	埃廷豪森
+Euskirchen	奥伊斯基兴
+Falkenberg	法尔肯贝格
+Fassberg	法斯贝格
+Fels am Wagram	瓦格拉姆岩
+Ferrara	费拉拉
+Fiano	菲亚诺
+Aachen	亚琛
+Aalborg	奥尔堡
+Amiens	亚眠
+Amsterdam	阿姆斯特丹
+Antwerp	安特卫普
+Anzio	安齐奥
+Athens	雅典
+Baden	巴登
+Baltic	波罗的海
+Bologna	博洛尼亚
+Boulogne	布洛涅
+Bourges	布尔日
+Brest	布列斯特
+Brest Litovsk	布列斯特-立托夫斯克
+Brindisi	布林迪西
+Brussels	布鲁塞尔
+Bydgoszcz	比得哥什
+Copenhagen	哥本哈根
+Denmark	丹麦
+Exeter	埃克塞特
+Feldherrnhalle Nr. 1	统帅堂第1
+Feldherrnhalle Nr. 2	统帅堂第2
+Florence	佛罗伦萨
+Genoa	热那亚
+Gibraltar	直布罗陀
+Lisbon	里斯本
+Lodz	罗兹
+Lublin	卢布林
+Madrid	马德里
+Moscow	莫斯科
+Naples	那不勒斯
+Oran	奥兰
+Oslo	奥斯陆
+Paris	巴黎
+Rome	罗马
+Sofia	索非亚
+Stockholm	斯德哥尔摩
+Tunis	突尼斯
+Turin	都灵
+Venice	威尼斯
+Vilnius	维尔纽斯
+Zagreb	萨格勒布
+Oranienbaum	奥拉宁鲍姆
+Constantine	君士坦丁
+Alger	阿尔及尔
+Maroc March	摩洛哥行军
+Oran March	奥兰行军
+Military Railway	军用铁路
+SU Rail	苏联铁路
+Soviet City	苏联城市
+Guards	近卫
+Training	训练
+Expeditionary	远征
+Light Afrika	轻装非洲
+Das Reich SS	党卫军帝国
+Totenkopf SS	党卫军骷髅
+Wiking SS	党卫军维京
+LAH SS	党卫军警卫旗队
+Estonian SS	爱沙尼亚党卫军
+East Prussian	东普鲁士
+Central Asia	中亚
+Coastal Air Force	海岸航空队
+Desert Air Force	沙漠航空队
+Coastal OpGr	海岸作战群
+Engineer Rail Group A	工兵铁路群A
+Engineer Rail Group B	工兵铁路群B
+Engineer Rail Group C	工兵铁路群C
+Engineer Rail Group MTO	工兵铁路群MTO
+FBD 1	铁路兵旅1
+FBD 2	铁路兵旅2
+FBD 3	铁路兵旅3
+FBD 4	铁路兵旅4
+FBD 5	铁路兵旅5
+Italian Air Bde	意大利航空旅
+SIR Italian Air Bde	SIR意大利航空旅
+Colonial Chasseurs	殖民地猎兵
+Cavalleggeri Guide' Cavalry	轻骑兵向导骑兵
+Celere Cavalry	快速骑兵
+Almaco-Partinico' CCNN	阿尔马科-帕尔蒂尼科黑衫军
+Comiso-Ispica' CCNN	科米索-伊斯皮卡黑衫军
+Chiusa Scalafina'	基乌萨斯卡拉菲纳
+W.	西
+N.	北
+S.	南
+E.	东
+W. Berlin	西柏林
+Neinhagen	奈因哈根
+Sagan	萨甘
+Liegnitz	利格尼茨
+Linz	林茨
+Dessau	德绍
+Wiener Neustadt	维也纳新城
+Moosbierbaum	莫斯比尔鲍姆
+Support	支援
+Tier	型
+German	德国
+City	城市

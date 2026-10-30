@@ -162,6 +162,8 @@ SAFE_LABELS = {
     # 已核实不在 .rdata 作为独立枚举出现；zbV 例外，它是空军部队
     # 类型枚举（邻居 FAGr/Transport/TG/NJG），所以没进词典。
     "PzG", "leFH", "sFH",
+    # 部队编制缩写，只在单位名里出现，已核实不在 .rdata 独立存在
+    "OpGr",
 }
 
 ROMAN = re.compile(r"^[IVXLCDM]+$")
