@@ -13,6 +13,7 @@
     python tools/inventory.py --todo     输出待翻译清单
     python tools/inventory.py --blocked  输出被排除的（核对是否误排）
     python tools/inventory.py --csv      导出 todo CSV
+    python tools/inventory.py --data     改扫 .data 段（天气/气候/工厂类型）
 """
 
 import csv
@@ -120,7 +121,14 @@ UPPER_OK = {
 }
 
 
-def load_strings():
+def load_strings(section=".rdata"):
+    """提取指定段的 UTF-16 字符串。
+
+    .rdata 是界面文本的主要来源，但不是全部：天气名和气候带
+    （Rain / Snowfall / Blizzard / Temperate Humid / Arid Steppes）
+    以及工厂类型显示数组（PORT / RAILYARD / OIL…）都在 .data。
+    只扫 .rdata 会永远漏掉这批。
+    """
     exe = os.path.join(GAME, "WarInTheEast2.exe")
     d = open(exe, "rb").read()
     e = struct.unpack_from("<I", d, 0x3C)[0]
@@ -132,7 +140,7 @@ def load_strings():
         name = d[o:o + 8].rstrip(b"\0").decode()
         vs, va, rs, ra = struct.unpack_from("<IIII", d, o + 8)
         secs[name] = (va, vs, ra, rs)
-    rd_va, _, rd_raw, rd_rs = secs[".rdata"]
+    rd_va, _, rd_raw, rd_rs = secs[section]
     body = d[rd_raw:rd_raw + rd_rs]
     pat = re.compile(rb"(?:[\x20-\x7e]\x00){2,}")
     out, seen = [], set()
@@ -161,7 +169,8 @@ def classify(s):
 
 
 def main():
-    strings = load_strings()
+    section = ".data" if "--data" in sys.argv else ".rdata"
+    strings = load_strings(section)
     with open(DICT, encoding="utf-8") as f:
         dic = json.load(f)
     have = set(k.lower() for k in dic if not k.startswith("_"))

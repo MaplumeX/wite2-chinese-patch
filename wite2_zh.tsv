@@ -1,5 +1,5 @@
 # WITE2 中英对照表  UTF-8  TAB 分隔
-# 英文<TAB>中文
+# 英文<TAB>中文[<TAB>d]   d = 只改 .data 段
 Game Options	游戏选项
 Set the game options.	设置游戏选项。
 Multiplayer	多人游戏
@@ -775,7 +775,7 @@ AIR TRANSFER	空转
 GS-on	对地支援-开
 GS-off	对地支援-关
 FILTER	筛选
-GROUND	地面
+GROUND	地面	d
 ALL	全部
 CUSTOM	自定义
 AIR	空中
@@ -823,21 +823,21 @@ ESCORT	护航
 SWEEP	扫荡
 TRAIN	训练
 RECON	侦察
-V-WEAPON	V型武器
+V-WEAPON	V型武器	d
 V-W LAUNCH	V型发射
-VEHICLE	车辆
-ARMAMENT	军备
-FUEL	燃料
-RESOURCE	资源
-OIL	石油
-RAILYARD	铁路场站
-MANPOWER	人力
-AIRCRAFT	飞机
+VEHICLE	车辆	d
+ARMAMENT	军备	d
+FUEL	燃料	d
+RESOURCE	资源	d
+OIL	石油	d
+RAILYARD	铁路场站	d
+MANPOWER	人力	d
+AIRCRAFT	飞机	d
 AFV	装甲车
 FERRY	渡运
 INTERDICT	遮断
 RAILWAY	铁路
-U-BOAT	潜艇
+U-BOAT	潜艇	d
 NIGHT ONLY	仅夜间
 DAY & NIGHT	昼夜
 MIX MISSION	混合任务
@@ -2052,7 +2052,7 @@ Game event year (1941-1945)	游戏事件年（1941-1945）
 GND Index	地面索引
 Grab Empty Hexes	夺取空白六角格
 Heavy Industry	重工业
-HEAVY INDUSTRY	重工业
+HEAVY INDUSTRY	重工业	d
 Heavy-Urban	重型城区
 Hex Art	六角格图形
 Hex Art:	六角格图形：
@@ -3139,7 +3139,7 @@ Koluft	空军联络
 AC TYPE	飞机类型
 AP AXIS	轴心行政点
 AP SOVIET	苏联行政点
-ARMAMENTS	军备
+ARMAMENTS	军备	d
 ARMY LEVEL	集团军级
 AXIS MAJOR	轴心重大胜利
 AXIS MINOR	轴心次要胜利
@@ -3553,11 +3553,9 @@ Disband this unit ~- return component elements to the replacement pool.	解散�
 Is leader available/enabled? Set false to disable (vacates command), true to re-enable.	将领是否可用？设为否将禁用（空出指挥），设为是可重新启用。
  Freight     Received    Used      To Units    Truck Use	 货运        接收        使用        至部队      卡车使用
                                  TURN        TOTAL	                                 回合        总计
------------------------Turn--------Game----- 	-----------------------回合--------游戏----- 
     TURN        GAME	    回合        游戏
      CBT        GHQ        AHQ        ABU        CAA        CON	     作战       地面司令部  空军司令部  航空基地   民航       建设
     RAIL       PORT	    铁路       港口
----- Axis ----	---- 轴心 ----
 1000000 (auto)	1000000（自动）
 Axis High 370	轴心最高 370
 None: 0	无：0
@@ -3678,7 +3676,6 @@ Sudden Loss 525	突然失败 525
 Sudden Victory 700	突然胜利 700
 DESTROYED 'DAMAGED'	已摧毁「受损」
 ++++++++ ON REFIT +++++++++++	++++++++ 补充中 +++++++++++
------------ NOT ON REFIT ------------	----------- 非补充 ------------
 ~ *: HHQ was changed this turn	~ *: 上级司令部本回合已变更
 ~ (u): Unready unit	~ (u): 未就绪部队
 ~ -: Support unit	~ -: 支援单位
@@ -3918,7 +3915,7 @@ NON-MOT	非摩托化
 Motorized	摩托化
 Infantry	步兵
 INFANTRY	步兵
-VEHICLES	车辆
+VEHICLES	车辆	d
 Elements	单位
 Location	地点
 Location:	地点：
@@ -3932,7 +3929,7 @@ AVERAGE	平均
 AVERAGE ROAD	中等道路
 FACTORY	工厂
 FIGHTER	战斗机
-SYNTH FUEL	合成燃料
+SYNTH FUEL	合成燃料	d
 Active	活动
 Custom	自定义
 Device	装备
@@ -3976,7 +3973,7 @@ AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS   
 ### ERROR : wfunit.dat failed to save ###	### 错误：wfunit.dat 保存失败 ###
 ### ERROR : wfcontrol.dat failed to save ###	### 错误：wfcontrol.dat 保存失败 ###
 ### ERROR : wfmaptext.dat failed to save ###	### 错误：wfmaptext.dat 保存失败 ###
-AMMO	弹药
+AMMO	弹药	d
 AUTO	自动
 AUTO:	自动：
 AXIS	轴心
@@ -3997,7 +3994,7 @@ MARKED	已标记
 MONTH	月份
 MOTOR	摩托化
 MULTI	多用途
-NAVAL	海军
+NAVAL	海军	d
 NATION	国家
 NEXT	下一个
 PLAYER	玩家
@@ -4153,7 +4150,7 @@ FrRec	接收
 FrLost	损失
 VehRec	车辆接收
 UNITS	部队
-NONE	无
+NONE	无	d
 CONDITION	条件
 5 - LW	5 - 空军
 5 - LW 	5 - 空军 
@@ -5584,3 +5581,41 @@ Frozen for %d turns	冻结 %d 回合
 Set terrain in %d,%d to %s	将 %d,%d 的地形设为 %s
 Enter size: 0-Def,1-Reg,2-Bde,3-Div,4-Crps	输入规模：0=默认 1=团 2=旅 3=师 4=军
 Clear all transfers for '%s'	清除「%s」的全部转移
+GROUND CHASSIS	地面底盘	d
+AIRFRAME	机体	d
+RESOURCES	资源	d
+SYNTHETIC FUEL	合成燃料	d
+PORT	港口	d
+V-WEAPON LAUNCH	V武器发射场	d
+U-BOAT PEN	潜艇坞	d
+CHASSIS	底盘	d
+HEAVY IND	重工业	d
+V-W L	V发	d
+V-WPN	V武	d
+U-BPEN	潜坞	d
+RANGE	航程	d
+RANGE W/ LOAD	带载航程	d
+MAX LOAD	最大载弹	d
+SPEED	速度	d
+LOW RECON	低空侦察	d
+MID RECON	中空侦察	d
+HIGH RECON	高空侦察	d
+RADAR	雷达	d
+NAVAL RANGE	海上航程	d
+Polar	极地
+Arid Steppes	干旱草原
+Arid Desert	干旱沙漠
+Polar Maritime	极地海洋性
+Polar Continental	极地大陆性
+mP	极地海洋
+mT	热带海洋
+mA	北极海洋
+cP	极地大陆
+cT	热带大陆
+English	英语
+French	法语
+Spanish	西班牙语
+EASY	简单
+HARD	困难
+Easy	简单
+Hard	困难

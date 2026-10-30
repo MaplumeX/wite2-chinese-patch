@@ -56,9 +56,18 @@ def collect_chars():
 
 def build_tsv():
     with open(DICT, encoding="utf-8") as f:
-        zh = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
-    lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔", "# 英文<TAB>中文"]
-    lines += ["%s\t%s" % (k, v) for k, v in zh.items()]
+        raw = json.load(f)
+    # _dataOnly: 这些键只改写 .data 段，不动 .rdata。
+    # 工厂/资源类型名（PORT、RAILYARD、OIL…）在 .data 是定长显示数组，
+    # 在 .rdata 另有同名枚举副本（PORT 的邻居是 AIRFIELD/UNIT/RAILWAY/
+    # FERRY/INTERDICT，属任务类型枚举）。改枚举会让地图渲染出错。
+    data_only = set(raw.get("_dataOnly", []))
+    zh = {k: v for k, v in raw.items()
+          if not k.startswith("_") and not str(v).startswith("----")}
+    lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",
+             "# 英文<TAB>中文[<TAB>d]   d = 只改 .data 段"]
+    for k, v in zh.items():
+        lines.append("%s\t%s%s" % (k, v, "\td" if k in data_only else ""))
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     print("翻译表 %d 条 -> %s" % (len(zh), os.path.basename(TSV)))

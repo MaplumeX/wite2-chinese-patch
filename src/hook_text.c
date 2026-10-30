@@ -79,7 +79,15 @@ FWD(UINT,  VerLanguageNameW,           (DWORD a, LPWSTR b, UINT c), (a,b,c))
 
 /* ================= 词典 ================= */
 #define MAXENT 65536
-typedef struct { wchar_t *key; wchar_t *val; } Pair;
+/* sec: 0 = .rdata 和 .data 都改（默认）
+ *      1 = 只改 .rdata
+ *      2 = 只改 .data
+ *
+ * 为什么需要这个: 工厂/资源类型名（PORT、RAILYARD、OIL、FUEL、MANPOWER…）
+ * 在 .data 里是定长显示数组（步长 0x28 = 20 个 wchar），但在 .rdata 里
+ * 另有同名的枚举副本。改 .data 的显示数组没问题，改 .rdata 的枚举
+ * 会重演 WATER/RIVER 那次事故——地图渲染拿它做查找，水体变黑。 */
+typedef struct { wchar_t *key; wchar_t *val; int sec; } Pair;
 static Pair g_dic[MAXENT];
 static int  g_ndic = 0;
 
@@ -152,7 +160,7 @@ static int wfind_all(const BYTE *buf, DWORD size, const wchar_t *key, int klen,
     return n;
 }
 
-static void patch_section(BYTE *base, DWORD size, const char *secName)
+static void patch_section(BYTE *base, DWORD size, const char *secName, int secId)
 {
     if (!size) return;
 
@@ -165,6 +173,8 @@ static void patch_section(BYTE *base, DWORD size, const char *secName)
     DWORD *offs = (DWORD *)malloc(sizeof(DWORD) * 256);
     int cnt = 0;
     for (int d = 0; d < g_ndic; d++) {
+        /* secId: 1 = .rdata, 2 = .data；条目的 sec 为 0 表示两者都改 */
+        if (g_dic[d].sec && g_dic[d].sec != secId) continue;
         const wchar_t *k = g_dic[d].key;
         const wchar_t *v = g_dic[d].val;
         int klen = (int)wcslen(k);
@@ -215,9 +225,12 @@ static void patch_all(HMODULE exe)
          * .data : 天气/气候名称等运行时初始化的字符串表
          *         （Clear / Rain / Heavy Rain / Snowfall / Blizzard
          *          以及 Temperate Humid 这类气候带名都在这里） */
-        if (strcmp(nm, ".rdata") != 0 && strcmp(nm, ".data") != 0) continue;
+        int secId = 0;
+        if (strcmp(nm, ".rdata") == 0) secId = 1;
+        else if (strcmp(nm, ".data") == 0) secId = 2;
+        else continue;
         patch_section((BYTE *)exe + sec->VirtualAddress,
-                      sec->Misc.VirtualSize, nm);
+                      sec->Misc.VirtualSize, nm, secId);
     }
 }
 

@@ -149,7 +149,22 @@ SAFE_LABELS = {
     "NONE",                                # 下拉框选项
     "AirGroups",                           # 界面标签（无空格版本）
     "UNITS", "CONDITION",
+    # Köppen 气候分类代号（.data 里和 Polar Maritime 等长名配对显示）
+    "mP", "mT", "mA", "cP", "cT",
 }
+
+def data_only_keys():
+    """zh_dict.json 里 _dataOnly 列出的键：只改写 .data 段。
+
+    这些键在 .data 是定长显示数组，在 .rdata 另有同名枚举副本
+    （例如 PORT 的邻居是 AIRFIELD/UNIT/RAILWAY/FERRY/INTERDICT，
+    是任务类型枚举）。已用作用域隔离，不算危险词条。
+    """
+    try:
+        with open(os.path.join(ROOT, "zh_dict.json"), encoding="utf-8") as f:
+            return set(json.load(f).get("_dataOnly", []))
+    except Exception:
+        return set()
 
 
 def is_enum_name(k):
@@ -183,9 +198,14 @@ def analyze():
     with open(DICT, encoding="utf-8") as f:
         dic = json.load(f)
 
+    scoped = data_only_keys()
     findings = []
     for k in dic:
         if k.startswith("_"):
+            continue
+        # 已用 _dataOnly 做作用域隔离的键不参与判定：
+        # 它们只改写 .data 的显示数组，碰不到 .rdata 的枚举副本。
+        if k in scoped:
             continue
         reasons = []
 

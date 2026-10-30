@@ -331,6 +331,58 @@ python tools/check_danger.py --fix    # 从词典删除
 邻居是 `Depots`/`Range`/`MP` 说明是表格列标题，邻居是 `IMPASSABLE`/`//Tiles//`
 说明是枚举。
 
+### 两个段，不是只有一个
+
+界面文本主要在 `.rdata`，但**天气和气候带在 `.data`**：
+
+```
+0x64E09E  Clear | Rain | Heavy Rain | Cold | Snowfall | Blizzard
+0x64E160  Polar | Humid Cold | Humid | Humid Warm | Temperate Humid | Arid Desert
+0x64F0B4  Polar Maritime | Tropical Maritime | Arctic Maritime
+```
+
+工厂/资源类型名也是（定长数组，步长 `0x28` = 20 个 wchar）：
+
+```
+0x630F20  NONE | GROUND | GROUND CHASSIS | AIRCRAFT | AIRFRAME
+          HEAVY INDUSTRY | ARMAMENTS | VEHICLES | RESOURCES | OIL
+          FUEL | SYNTHETIC FUEL | MANPOWER | PORT | RAILYARD
+          V-WEAPON LAUNCH | V-WEAPON | U-BOAT | U-BOAT PEN
+0x631228  同上短名版本（CHASSIS / HEAVY IND / V-W L / U-BPEN…）
+```
+
+只扫 `.rdata` 时无论加多少词典条目都翻不到这些。
+`patch_all` 现在同时走 `.rdata` 和 `.data`，
+`inventory.py --data` 可以单独清点该段。
+
+### 按段作用域（`_dataOnly`）
+
+同一批工厂类型名在 `.rdata` 里另有**同名枚举副本**：
+
+```
+.data  0x630F20  ... | PORT | RAILYARD | OIL | FUEL | MANPOWER     ← 显示数组
+.rdata 0x52B5C4  AIRFIELD | UNIT | RAILWAY | PORT | FERRY | INTERDICT | RAILYARD
+                                                                   ← 任务类型枚举
+```
+
+`patch_section` 会把整段里所有精确匹配的串都换掉，所以只加一条 `PORT`
+会同时改到枚举——就是 `WATER`/`RIVER` 那次地图变黑的翻版。
+
+解法是给条目加作用域。`zh_dict.json` 里的 `_dataOnly` 列表：
+
+```json
+"_dataOnly": ["PORT", "RAILYARD", "OIL", "FUEL", "MANPOWER", "NONE", ...]
+```
+
+`build_assets.py` 把它写成 TSV 第三列：
+
+```
+PORT<TAB>港口<TAB>d
+```
+
+`d` = 只改 `.data`，`r` = 只改 `.rdata`，空 = 两者都改。
+`check_danger.py` 认得这个标记，不会把已隔离的条目算成危险词条。
+
 ### 大小写敏感
 
 地形词有大小写两种形式，用途完全不同：
