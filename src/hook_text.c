@@ -295,6 +295,15 @@ static void dict_build(void)
     logfmt("[zh] %d entries ready\n", g_nzh);
 }
 
+/* 大小写不敏感比较: 游戏有些串在 .rdata 里是大写开头, 绘制时变小写,
+ * 例如 "Show Production screen" 对 "Show Production Screen"。
+ * 只处理 ASCII, 词典 key 都是 ASCII。 */
+static wchar_t lc_w(wchar_t c)
+{
+    if (c >= L'A' && c <= L'Z') return (wchar_t)(c - L'A' + L'a');
+    return c;
+}
+
 /* 词字符: 字母数字。子串匹配必须在词边界上, 否则 "Start" 会吃掉
  * "Starting" 的前半截, 变成 "开始ing"。 */
 static int is_word_ch(wchar_t c)
@@ -387,9 +396,12 @@ static const struct { const char *a; const char *f; } ABBR[] = {
 };
 #define N_ABBR ((int)(sizeof(ABBR)/sizeof(ABBR[0])))
 
+static int g_lastExpand = 0;
+
 static int norm_expand(const wchar_t *s, int len, char *out, int cap)
 {
     int o = 0, i = 0;
+    g_lastExpand = 0;
     while (i < len && o < cap - 12) {
         wchar_t c = s[i];
         if ((c >= L'A' && c <= L'Z') || (c >= L'a' && c <= L'z') ||
@@ -410,6 +422,7 @@ static int norm_expand(const wchar_t *s, int len, char *out, int cap)
             if (rep) {
                 int rl = (int)strlen(rep);
                 if (o + rl < cap - 1) { memcpy(out + o, rep, rl); o += rl; }
+                g_lastExpand = 1;
             } else if (wl) {
                 if (o + wl < cap - 1) { memcpy(out + o, w, wl); o += wl; }
             }
@@ -483,7 +496,23 @@ static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
     return o;
 }
 
-/* 检查绘制文本: 支持子串替换 (处理 "Attacks - 5th Panzer Army" 这类复合串) */
+/* 检查绘制文本, 命中则返回替换后的指针
+ *
+ * 设计原则: 绝不自由拼接。
+ *
+ * 之前用"子串替换 + 宽松前缀匹配"导致大量碎片:
+ *   "Show Production screen" -> "Show 生产 screen"
+ *   "National"               -> "国家al"
+ *   "Army Grp. Sout"         -> "集团军 Grp. Sout"
+ * 根因是任何短 key 只要出现在长串里就会被替换。
+ *
+ * 现在的策略, 从严格到宽松:
+ *   1. 整串精确匹配 (大小写不敏感)          <- 最安全, 覆盖绝大多数
+ *   2. 剥离尾部后缀后精确匹配                <- "LI Corps (1/5)" 这种
+ *   3. 数字 + 兵种缩写模式                  <- "113th ID"
+ *   4. 截断前缀 (严格条件)                  <- "Army Grp. Sout"
+ * 不再做任意位置的子串替换。
+ */
 static wchar_t *dt_check(wchar_t *text)
 {
     if (!text) return text;
@@ -495,71 +524,14 @@ static wchar_t *dt_check(wchar_t *text)
 
     collect_add(text, len);
 
-    /* 先在整串范围内找词典 key, 逐位置尝试, 长的优先 */
-    int changed = 0;
-    int slot = -1;
-    wchar_t *out = NULL;
-    int op = 0;
+    int slot;
 
-    for (int pos = 0; pos < len; ) {
-        int matched = 0;
-
-        for (int i = 0; i < g_nzh; i++) {
-            int kl = g_zh[i].klen;
-            if (kl < 3 || pos + kl > len) continue;
-
-            /* 词边界: key 前后都不能紧贴字母数字 */
-            if (pos > 0 && is_word_ch(text[pos - 1])) continue;
-            if (pos + kl < len && is_word_ch(text[pos + kl])) continue;
-
-            int ok = 1;
-            for (int z = 0; z < kl; z++) {
-                if (text[pos + z] != (wchar_t)(unsigned char)g_zh[i].key[z]) { ok = 0; break; }
-            }
-            if (!ok) continue;
-
-            /* 命中: 第一次命中时分配输出缓冲 */
-            if (!changed) {
-                slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
-                out = g_pool[slot];
-                memcpy(out, text, pos * sizeof(wchar_t));
-                op = pos;
-                changed = 1;
-            }
-            /* 复制译文 */
-            for (int z = 0; z < g_zh[i].wlen && op < 250; z++)
-                out[op++] = g_zh[i].wtext[z];
-
-            LONG n = InterlockedIncrement(&g_dtHits);
-            if (n <= 40) {
-                logfmt("[dt-hit] pos=%d \"%s\" -> %d wchars\n",
-                       pos, g_zh[i].key, g_zh[i].wlen);
-            }
-            pos += kl;
-            matched = 1;
-            break;
-        }
-        if (matched) continue;
-
-        if (changed && op < 250) out[op++] = text[pos];
-        pos++;
-    }
-
-    if (changed) {
-        if (op < 255) out[op] = 0;
-        else out[255] = 0;
-        return out;
-    }
-
-    /* 截断处理: 简略信息面板可能只画了前 N 个字符, 例如 "Army Group Ce"
-     * 此时整串是某个 key 的前缀。要求前缀长度 >= 5 且占 key 一半以上,
-     * 避免 "Army" 这种误匹配。 */
+    /* ---------- 策略 1: 整串精确匹配 ---------- */
     for (int i = 0; i < g_nzh; i++) {
-        int kl = g_zh[i].klen;
-        if (kl <= len || len < 5 || len * 2 < kl) continue;
+        if (g_zh[i].klen != len) continue;
         int ok = 1;
         for (int z = 0; z < len; z++) {
-            if (text[z] != (wchar_t)(unsigned char)g_zh[i].key[z]) { ok = 0; break; }
+            if (lc_w(text[z]) != lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) { ok = 0; break; }
         }
         if (!ok) continue;
 
@@ -567,19 +539,60 @@ static wchar_t *dt_check(wchar_t *text)
         memcpy(g_pool[slot], g_zh[i].wtext,
                (g_zh[i].wlen + 1) * sizeof(wchar_t));
         LONG n = InterlockedIncrement(&g_dtHits);
-        if (n <= 60)
-            logfmt("[dt-trunc] \"%s\" (len=%d) -> full \"%s\"\n",
-                   g_zh[i].key, len, g_zh[i].key);
+        if (n <= 40)
+            logfmt("[dt-exact] \"%s\" -> %d wchars\n", g_zh[i].key, g_zh[i].wlen);
         return g_pool[slot];
     }
 
-    /* 策略2: 数字+兵种缩写 "113th ID" -> "第113步兵师" */
+    /* ---------- 策略 2: 剥离尾部后缀后精确匹配 ----------
+     * "LI Corps (1/5)"      -> 前缀 "LI Corps"
+     * "16th MD   ( 24.9 )"  -> 前缀 "16th MD"
+     * "1st Panzer Group   CU 1, SU 11" -> 前缀 "1st Panzer Group"
+     * 只在明确的分隔处切: 空格+括号 / 连续两个以上空格 */
+    {
+        int cut = -1;
+        for (int z = 0; z + 1 < len; z++) {
+            /* 连续两个空格 */
+            if (text[z] == L' ' && text[z + 1] == L' ') { cut = z; break; }
+            /* 空格后跟括号 */
+            if (text[z] == L' ' && text[z + 1] == L'(') { cut = z; break; }
+            /* 空格后跟斜杠(如 " / Det") */
+            if (text[z] == L' ' && text[z + 1] == L'/') { cut = z; break; }
+        }
+        if (cut >= 3) {
+            int plen = cut;
+            for (int i = 0; i < g_nzh; i++) {
+                if (g_zh[i].klen != plen) continue;
+                int ok = 1;
+                for (int z = 0; z < plen; z++) {
+                    if (lc_w(text[z]) != lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) { ok = 0; break; }
+                }
+                if (!ok) continue;
+
+                int need = g_zh[i].wlen + (len - plen) + 1;
+                if (need > 250) break;
+                slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+                wchar_t *out = g_pool[slot];
+                memcpy(out, g_zh[i].wtext, g_zh[i].wlen * sizeof(wchar_t));
+                int o = g_zh[i].wlen;
+                for (int z = plen; z < len; z++) out[o++] = text[z];
+                out[o] = 0;
+                LONG n = InterlockedIncrement(&g_dtHits);
+                if (n <= 40)
+                    logfmt("[dt-suffix] \"%s\" + tail -> %d wchars\n",
+                           g_zh[i].key, o);
+                return out;
+            }
+        }
+    }
+
+    /* ---------- 策略 3: 数字 + 兵种缩写 ---------- */
     {
         slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
         int n = try_numbered(text, len, g_pool[slot], 250);
         if (n > 0) {
             LONG c = InterlockedIncrement(&g_dtHits);
-            if (c <= 60) {
+            if (c <= 40) {
                 char samp[80]; int sl = 0;
                 for (int z = 0; z < len && z < 40; z++) samp[sl++] = (char)text[z];
                 samp[sl] = 0;
@@ -589,16 +602,20 @@ static wchar_t *dt_check(wchar_t *text)
         }
     }
 
-    /* 策略3: 缩写展开后做前缀匹配
-     *   "Army Grp. Sout" -> norm "armygroupsout"
-     *   key "Army Group South" -> norm "armygroupsouth"
-     *   -> 前缀匹配成功, 显示完整中文 (中文更短, 不会被截断) */
+    /* ---------- 策略 3.5: 缩写展开 + 前缀匹配 ----------
+     * 只在确实展开了缩写时启用。例如 "Army Grp. Sout" 里的 "Grp." 被
+     * 展开成 "Group", 归一化为 "armygroupsout", 可匹配
+     * "Army Group South"。没有缩写被展开的普通单词(如 "National")
+     * 不参与, 否则会误配到 NATIONALITY 这类长词。 */
     {
         char nt[400];
         int nl = norm_expand(text, len, nt, sizeof(nt));
-        if (nl >= 6) {
+        int didExpand = g_lastExpand;
+        if (didExpand && nl >= 6) {
+            int best = -1, bestLen = 1 << 30;
             for (int i = 0; i < g_nzh; i++) {
-                if (g_zh[i].klen < 6) continue;
+                if (g_zh[i].klen < nl || g_zh[i].klen >= bestLen) continue;
+                if (nl * 2 < g_zh[i].klen) continue;
                 wchar_t wk[256];
                 int wkl = 0;
                 for (int z = 0; z < g_zh[i].klen && wkl < 250; z++)
@@ -606,24 +623,52 @@ static wchar_t *dt_check(wchar_t *text)
                 char nk[400];
                 int nkl = norm_expand(wk, wkl, nk, sizeof(nk));
                 if (nkl < nl) continue;
-                /* 绘制文本太短时不要匹配长 key, 否则 "Army" 会变成
-                 * "中央集团军群"。要求覆盖 key 的一半以上。 */
-                if (nl * 2 < nkl) continue;
                 if (memcmp(nt, nk, nl) != 0) continue;
-
+                best = i;
+                bestLen = g_zh[i].klen;
+            }
+            if (best >= 0) {
                 slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
-                memcpy(g_pool[slot], g_zh[i].wtext,
-                       (g_zh[i].wlen + 1) * sizeof(wchar_t));
+                memcpy(g_pool[slot], g_zh[best].wtext,
+                       (g_zh[best].wlen + 1) * sizeof(wchar_t));
                 LONG c = InterlockedIncrement(&g_dtHits);
-                if (c <= 60)
+                if (c <= 40)
                     logfmt("[dt-abbr] \"%s\" (norm=%s) -> \"%s\"\n",
-                           g_zh[i].key, nt, g_zh[i].key);
+                           g_zh[best].key, nt, g_zh[best].key);
                 return g_pool[slot];
             }
         }
     }
 
-    /* 诊断: 记录含军事关键词但未命中的绘制文本 */
+    /* ---------- 策略 4: 截断前缀 (严格) ----------
+     * 绘制文本必须是某个 key 的**开头**, 且覆盖 key 至少 70%。
+     * "Army Grp. Sout" -> "Army Group South" 需要先做缩写展开, 见下。
+     * 这里只处理纯截断: "1st Panzer Grou" -> "1st Panzer Group" */
+    {
+        for (int i = 0; i < g_nzh; i++) {
+            int kl = g_zh[i].klen;
+            /* 门槛 len>=12: 长串被截断是常见现象, 短串不是。
+             * 这能挡住 "National"(8) 误配 "NATIONALITY"(11)。 */
+            if (kl <= len || len < 12) continue;
+            if (len * 10 < kl * 7) continue;          /* 至少覆盖 70% */
+            int ok = 1;
+            for (int z = 0; z < len; z++) {
+                if (lc_w(text[z]) != lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) { ok = 0; break; }
+            }
+            if (!ok) continue;
+
+            slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+            memcpy(g_pool[slot], g_zh[i].wtext,
+                   (g_zh[i].wlen + 1) * sizeof(wchar_t));
+            LONG n = InterlockedIncrement(&g_dtHits);
+            if (n <= 40)
+                logfmt("[dt-trunc] \"%s\" (len=%d) -> \"%s\"\n",
+                       g_zh[i].key, len, g_zh[i].key);
+            return g_pool[slot];
+        }
+    }
+
+    /* ---------- 诊断: 记录含军事关键词但未命中的绘制文本 ---------- */
     if (g_dtLog < 150 && len >= 4 && len <= 80) {
         static const char *kw[] = { "Army", "Panzer", "Corps", "Division",
                                     "Group", "Bde", "Rgt", "Korps", "Armee" };

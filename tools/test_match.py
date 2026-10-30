@@ -49,8 +49,14 @@ def is_word_ch(c):
     return c.isascii() and (c.isalnum())
 
 
-def norm_expand(s):
+def lc_w(c):
+    """与 C 代码一致的大小写折叠"""
+    return c.lower() if c.isascii() else c
+
+
+def norm_expand(s, state=None):
     out = []
+    expanded = False
     i = 0
     n = len(s)
     while i < n:
@@ -61,9 +67,13 @@ def norm_expand(s):
                 w.append(s[i].lower())
                 i += 1
             word = "".join(w)
+            if word in ABBR:
+                expanded = True
             out.append(ABBR.get(word, word))
         else:
             i += 1
+    if state is not None:
+        state[0] = expanded
     return "".join(out)
 
 
@@ -79,67 +89,62 @@ def try_numbered(text):
 
 
 def dt_check(text, entries):
-    """返回 (结果, 命中的策略)"""
+    """与 C 代码一致: 整串精确 -> 剥后缀 -> 数字模式 -> 截断前缀"""
     if not text:
         return text, None
-
-    # 策略 1: 子串匹配(带词边界)
-    out = []
-    pos = 0
-    changed = False
-    first_strategy = None
     n = len(text)
-    while pos < n:
-        hit = None
+
+    # 策略 1: 整串精确(大小写不敏感)
+    tl = text.lower()
+    for k, v in entries:
+        if len(k) == n and k.lower() == tl:
+            return v, "exact"
+
+    # 策略 2: 剥离尾部后缀
+    cut = -1
+    for z in range(n - 1):
+        if text[z] == " " and text[z + 1] in " (/":
+            cut = z
+            break
+    if cut >= 3:
+        pl = text[:cut].lower()
         for k, v in entries:
-            kl = len(k)
-            if kl < 3 or pos + kl > n:
-                continue
-            if pos > 0 and is_word_ch(text[pos - 1]):
-                continue
-            if pos + kl < n and is_word_ch(text[pos + kl]):
-                continue
-            if text[pos:pos + kl] == k:
-                hit = (k, v, kl)
-                break
-        if hit:
-            out.append(hit[1])
-            pos += hit[2]
-            changed = True
-            if first_strategy is None:
-                first_strategy = "substr"
-            continue
-        out.append(text[pos])
-        pos += 1
+            if len(k) == cut and k.lower() == pl:
+                return v + text[cut:], "suffix"
 
-    if changed:
-        return "".join(out), first_strategy
-
-    # 策略 2: 数字 + 兵种缩写
+    # 策略 3: 数字 + 兵种缩写
     r = try_numbered(text)
     if r:
         return r, "numbered"
 
-    # 策略 3: 缩写展开 + 前缀匹配
-    nt = norm_expand(text)
-    if len(nt) >= 6:
+    # 策略 3.5: 缩写展开(仅当确实展开了缩写)
+    st = [False]
+    nt = norm_expand(text, st)
+    if st[0] and len(nt) >= 6:
+        best = None
+        best_len = 1 << 30
         for k, v in entries:
-            if len(k) < 6:
+            if len(k) < len(nt) or len(k) >= best_len:
+                continue
+            if len(nt) * 2 < len(k):
                 continue
             nk = norm_expand(k)
             if len(nk) < len(nt):
                 continue
-            if len(nt) * 2 < len(nk):
-                continue
             if nt == nk[:len(nt)]:
-                return v, "abbr"
+                best = (k, v)
+                best_len = len(k)
+        if best:
+            return best[1], "abbr"
 
-    # 策略 4: 截断前缀
+    # 策略 4: 截断前缀(绘制文本是 key 的开头, 覆盖 >=70%, 截断点是词边界)
     for k, v in entries:
         kl = len(k)
-        if kl <= n or n < 5 or n * 2 < kl:
+        if kl <= n or n < 12:
             continue
-        if text == k[:n]:
+        if n * 10 < kl * 7:
+            continue
+        if k.lower()[:n] == tl:
             return v, "trunc"
 
     return text, None
@@ -157,7 +162,7 @@ CASES = [
     ("113th ID", "第113步兵师", "数字+兵种缩写"),
     ("16th MD", "第16摩托化师", "数字+兵种缩写"),
     ("LI Corps (1/5)", "第51军 (1/5)", "带后缀"),
-    ("Army", "Army", "单字不应匹配到长 key"),
+    ("Army", "集团军", "独立单词, 精确匹配"),
     ("End", "结束", "独立单词"),
     ("Ending", "Ending", "不能变成 结束ing"),
     ("Supporting", "Supporting", "不能变成 支援ing"),

@@ -10,6 +10,8 @@ build/
 translation.english.csv
 todo.txt
 translated_list.txt
+scen_txt/
+_scen_backup/
 
 # 备份与本地配置
 _backup/
@@ -42,6 +44,13 @@ _ui_todo.txt
 _prose_todo.txt
 _term_dump.txt
 todo_dump.txt
+_todo_full.txt
+_prev_*.txt
+_preview.txt
+_manual_*.py
+_add_*.py
+_new_dtcheck.c
+_hook_text_backup.c
 
 # Python
 __pycache__/

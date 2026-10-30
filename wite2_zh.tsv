@@ -49,7 +49,6 @@ Air Groups	飞行队
 Air Bases	航空基地
 Pilots	飞行员
 Aircraft	飞机
-Mission	任务
 Rest	休整
 Training	训练
 Normal	正常
@@ -150,7 +149,6 @@ COMBAT UNIT ALERTS	作战部队警报
 SUPPLY DETAILS	补给详情
 SUPPLY PRIORITY	补给优先级
 GROUND ELEMENT	地面单位
-Elements	单位
 TOE	编制
 FAT	疲劳
 DAM	损伤
@@ -1041,3 +1039,1381 @@ LW	空军
 SS	党卫军
 GRD	近卫
 GCD	近卫骑兵
+User Preferences	用户偏好设置
+in pool	储备中
+Trained Pilots	训练完成的飞行员
+Assets Priority	资产优先级
+Plane Type	飞机类型
+Minimum Weather	最低天气
+Auto Assignment	自动指派
+Area radius	区域半径
+INTERDICTION	遮断
+Partisan Attack	游击队攻击
+Average Experience	平均经验
+Average Morale	平均士气
+Average Fatigue	平均疲劳
+Units in Battle	参战部队
+Anti-Aircraft	防空
+On The Ground	在地面
+Aircraft On The Ground	地面上的飞机
+Short Scenario	短剧本
+DLC	DLC
+Scenario requires DLC	剧本需要DLC
+this unit's detail	此部队的详情
+this city	此城市
+ELEMENTS	单位
+Ground Element	地面单位
+Max Speed	最大速度
+Cruise Speed	巡航速度
+Morale rating	士气评级
+Air rating	空战评级
+Leader Name	将领姓名
+Leader's fate	将领命运
+Air Landing	空降
+chain of command	指挥链
+Combat Units Attached	附属作战部队
+Support Units Attached	附属支援单位
+Support units attached	附属支援单位
+Units Attached	附属部队
+base size	基地规模
+Air base size	航空基地规模
+Combat Prep	战斗准备
+TOE percentage	编制百分比
+Unit status	部队状态
+Withdraw Status	撤离状态
+Withdraw Destination	撤离目的地
+Battles Lost	战败次数
+Unit delay	部队延迟
+Max TOE	最大编制
+Max TOE %	最大编制 %
+Current TOE	当前编制
+Current TOE %	当前编制 %
+Use TOE(OB)	使用编制
+TOE(OB)	编制
+Rebuild Unit	重建部队
+Rebuild unit from TOE(OB)	按编制重建部队
+Unit Transfers	部队转移
+Non-Guards	非近卫
+Strat Movement Points	战略移动点
+Switch to TOE display	切换到编制显示
+Unit TOE Display	部队编制显示
+Support Unit Selection	支援单位选择
+Gnd Type	地面类型
+Men in unit	部队人员
+AFV in unit	部队装甲车
+Aircraft in unit	部队飞机
+Zero Alt Speed	零高度速度
+Max Alt Speed	最大高度速度
+Max Speed Alt	最大速度高度
+Sortie Ammo	出击弹药
+Sortie Fuel	出击燃料
+Speed Mod	速度修正
+Ammo Mod	弹药修正
+Fuel Mod	燃料修正
+Air Group Transfers	飞行队转场
+Pilots in Group	队内飞行员
+Rebuild Air Group	重建飞行队
+Reserve Aircraft	储备飞机
+Max Aircraft	最大飞机数
+Group Type Names	队类型名称
+Ground Types	地面类型
+Air Profiles	空中档案
+Air Group Renames	飞行队改名
+Unit Renames	部队改名
+Ignore Delayed Units?	忽略延迟部队？
+Map Region	地图区域
+Crew/Men	乘员/人员
+Supply Use	补给使用
+Mech. Infantry	机械化步兵
+Gun Type	火炮类型
+Support Required	所需支援
+Factory Damage	工厂损伤
+Factory Delay	工厂延迟
+Target City	目标城市
+New Size	新规模
+Rail Value	铁路值
+Port Value	港口值
+Freight Turn	货运回合
+Morale Modifiers	士气修正
+Ground Morale Mod	地面士气修正
+Air Morale Mod	空中士气修正
+Navy Morale Mod	海军士气修正
+Synth Fuel	合成燃料
+Ground Morale by Year	逐年地面士气
+Air Morale by Year	逐年空中士气
+Navy Morale by Year	逐年海军士气
+Supply Only	仅补给
+Ground Element ID	地面单位ID
+Axis-Elite	轴心精锐
+All Units	全部部队
+Modified Scenario	修改过的剧本
+Scenario Early End	剧本提前结束
+No Unit Rebuild	不重建部队
+Admin Points per Turn	每回合行政点
+Men Disabled	人员失能
+Object Type	对象类型
+Temp-Motorized (1 Turn)	临时摩托化（1回合）
+Resupply Unit	补给部队
+Unit / Need	部队/需求
+Aircraft Based	驻扎飞机
+Air base build	航空基地建造
+Previous Unit with Tag	上一个带标记部队
+Next Unit with Tag	下一个带标记部队
+Previous Leader with Tag	上一个带标记将领
+Next Leader with Tag	下一个带标记将领
+Ground Only	仅地面
+Air Only	仅空中
+Dominant Weather by Zone	各区域主导天气
+Weather Effects	天气效果
+Weather Fronts	天气锋
+MP Cost / Hex	每格移动消耗
+Winter Type	冬季类型
+Air Planning	空中计划
+Last Turn	上回合
+Auto save at end of turn.	回合结束时自动存档。
+Auto Save Game	自动存档
+Auto save before logistic phase.	后勤阶段前自动存档。
+Pre-logistics Auto Save	后勤前自动存档
+Auto show turn summary at the start of the turn.	回合开始时自动显示回合总结。
+Auto Show Turn Summary	自动显示回合总结
+Combat Resolution Message Level	战斗结果消息等级
+Combat resolution message delay length.	战斗结果消息延迟时长。
+Combat Resolution Message Delay	战斗结果消息延迟
+Combat Resolution Close Delay	战斗结果关闭延迟
+GUI and Map scaling percentage.	界面与地图缩放百分比。
+You must exit the game program for Screen Mode changes to take effect.	修改屏幕模式后需重启游戏才生效。
+You must exit the game program for Non-NATO Unit Symbols changes to take effect.	修改非北约部队符号后需重启游戏才生效。
+Combat Recon	战斗侦察
+Using Automated AI Air System	使用自动AI空中系统
+Medium Detail	中等详情
+Display unit TOE details	显示部队编制详情
+Supply status	补给状态
+Beach/Air Supply	滩头/空中补给
+Support/Need	支援/需求
+Supply/Need	补给/需求
+Formation Supply Level	编制补给等级
+Air Support/Need	空中支援/需求
+Bad Weather	恶劣天气
+Air Directive Summary	空中指令总结
+Lost / Dam	损失/受损
+Cancel Target Hex Selection	取消目标六角格选择
+Confirm Air Directive?	确认空中指令？
+Reassign air group to another~Air Directive?	将飞行队改派到另一个空中指令？
+Resource Movement: moving to pools	资源流动：运往储备
+Resource Movement: city to city	资源流动：城市间
+Pool to City	储备到城市
+City to Pool	城市到储备
+Resource Movement: moving from pools	资源流动：从储备运出
+Freight	货运
+Truck Use	卡车使用
+Supplying Units: lowest priority	补给部队：最低优先
+Supplying Units: low priority	补给部队：低优先
+Supplying Units: medium priority	补给部队：中优先
+Supplying Units: high priority	补给部队：高优先
+Supplying Units: highest priority	补给部队：最高优先
+Supplying Units in Reserve	补给预备部队
+Aviation Supply Support 1	航空补给支援 1
+Aviation Supply Support 2	航空补给支援 2
+Depot Freight Movement	补给站货运
+Partisan Attacks	游击队攻击
+Scenario Month (1-12)	剧本月份（1-12）
+Scenario Year (1941 - 1945)	剧本年份（1941-1945）
+Scenario Date (YYYYMMDD)	剧本日期（YYYYMMDD）
+Current player 1 - Axis, 2 - Soviet	当前玩家 1-轴心 2-苏联
+Unit Delay (0-999)	部队延迟（0-999）
+Soviet Admin Points	苏联行政点
+Axis Admin Points	轴心行政点
+Soviet Event VP	苏联事件胜利点
+Soviet Event Victory Points	苏联事件胜利点
+Axis Event VP	轴心事件胜利点
+Axis Event Victory Points	轴心事件胜利点
+Owning player of the location. 1 - Axis, 2 - Soviet	该地归属玩家 1-轴心 2-苏联
+AIR Dmg	空中损伤
+ALL Fact Dmg	全部工厂损伤
+PORT Dmg	港口损伤
+FUEL Dmg	燃料损伤
+OIL Dmg	石油损伤
+Evac Air Pct	空运后送百分比
+Night Air Defense Requirement	夜间防空需求
+Air Def Req	防空需求
+Air Defense Requirement	防空需求
+Ground Def Req	地面防御需求
+Ground Defense Requirement	地面防御需求
+Night Air Defense Pct	夜间防空百分比
+Air Defense Pct	防空百分比
+Ground Defense Pct	地面防御百分比
+Dest Air Pct	摧毁空中百分比
+Off Map	地图外
+Map region is off map	地图区域在地图外
+Map region control is set to Western Allied	地图区域控制权设为西方盟军
+Map region control is set to Soviet	地图区域控制权设为苏联
+Map region control is set to Axis	地图区域控制权设为轴心
+Naval Def Req	海军防御需求
+Night Air Def Req	夜间防空需求
+SU Partisan Atk	苏军游击队攻击
+Nation surrendered?	国家已投降？
+Nation manpower pool	国家人力储备
+Supply Prod Mod	补给生产修正
+Supply production modifier	补给生产修正
+Manpower Pool	人力储备
+Hex On Map	地图上的六角格
+Synth Fuel Prod Mod	合成燃料生产修正
+Synthetic Fuel production modifier	合成燃料生产修正
+Fuel Prod Mod	燃料生产修正
+Fuel production modifier	燃料生产修正
+Destroyed Unit	被摧毁部队
+Guns Losses	火炮损失
+Naval Defense Value Req	海军防御值需求
+Air (Night) Defense Value Req	空中（夜间）防御值需求
+Air (Day) Defense Value Req	空中（昼间）防御值需求
+Ground Defense Value Req	地面防御值需求
+Naval Defense Value	海军防御值
+Air (Night) Defense Value	空中（夜间）防御值
+Air (Day) Defense Value	空中（昼间）防御值
+Ground Defense Value	地面防御值
+Naval Defense Value Req %	海军防御值需求 %
+Air (Night) Defense Value %	空中（夜间）防御值 %
+Air (Day) Defense Value %	空中（昼间）防御值 %
+Ground Defense Value %	地面防御值 %
+Air Replacements	空中补充
+Ground Replacements	地面补充
+Soviet Logistics	苏联后勤
+Axis Logistics	轴心后勤
+Axis Action	轴心行动
+Soviet Action	苏联行动
+Map Regions	地图区域
+Ground/Aircraft Types	地面/飞机类型
+Map Text	地图文字
+Air execution phase	空中执行阶段
+Create Depot Here ?	在此建造补给站？
+Expand Air Base ?	扩建航空基地？
+Expand Air Base	扩建航空基地
+Center Map	地图居中
+Map Info	地图信息
+Establish New Depot	建立新补给站
+Factory Navigation	工厂导航
+Reinforcement/Withdrawal	增援/撤离
+Temporary Depot - trucks: 	临时补给站 - 卡车：
+Depot freight level: 	补给站货运水平：
+Air Directive path :	空中指令路径：
+Axis Victory Points	轴心胜利点
+Soviet Victory Points	苏联胜利点
+Soviet Control	苏联控制
+Hex Isolated	六角格被围
+Axis move isolated units	轴心移动被围部队
+Axis Siege Ops	轴心围攻作战
+Axis Army Attacks	轴心集团军攻击
+Secure HQ Units	巩固司令部
+Evacuate Exposed Air Bases	撤离暴露的航空基地
+Axis Army Attacks - 5th Panzer Army	轴心集团军攻击 - 第5装甲集团军
+Moscow Air	莫斯科空军
+Leningrad Air	列宁格勒空军
+Air Command	空军司令部
+Air Army	空军集团军
+Moscow Air Command	莫斯科空军司令部
+PVO Air Command	国土防空空军司令部
+Volga Air	伏尔加空军
+North Caucasus Air	北高加索空军
+Rumanian Air Command	罗马尼亚空军司令部
+Hungarian Air Command	匈牙利空军司令部
+Arkhangelsk Air	阿尔汉格尔斯克空军
+Dobrogea Rum. Air	多布罗加罗马尼亚空军
+Baltic Fleet Air Command	波罗的海舰队空军司令部
+Black Sea Fleet Air	黑海舰队空军
+Baltic Sea Fleet Air Army	波罗的海舰队空军集团军
+Black Sea Fleet Air Command	黑海舰队空军司令部
+Black Sea Fleet Air Army	黑海舰队空军集团军
+Axis Fighter Sorties :	轴心战斗机架次：
+Soviet Fighter Sorties :	苏联战斗机架次：
+Axis Bomber Sorties :	轴心轰炸机架次：
+Soviet Bomber Sorties :	苏联轰炸机架次：
+Axis Fighter Flak Hits :	轴心战斗机高炮命中：
+Soviet Fighter Flak Hits :	苏联战斗机高炮命中：
+Axis Bomber Flak Hits :	轴心轰炸机高炮命中：
+Soviet Bomber Flak Hits	苏联轰炸机高炮命中
+Axis Fighters Damaged :	轴心战斗机受损：
+Soviet Fighters Damaged	苏联战斗机受损
+Axis Bombers Damaged :	轴心轰炸机受损：
+Soviet Bombers Damaged :	苏联轰炸机受损：
+Soviet Unit Moves	苏联部队移动
+Organize Soviet Fronts	组建苏联方面军
+Soviet Reaction Attacks	苏联反击
+Soviet Crimea Ops	苏联克里米亚作战
+Soviet Front Attacks	苏联方面军攻击
+Form Front Line	形成战线
+Soviet Army Strategic Moves	苏联集团军战略移动
+Axis Attack Exposed Units	轴心攻击暴露部队
+Axis Reaction Attacks	轴心反击
+Organize Axis Fronts	组建轴心战线
+Axis Unit Moves	轴心部队移动
+May not transport into this terrain type	不能运输到此地形类型
+Units Build Forts	部队建造要塞
+Mobilize Soviet Trucks	动员苏联卡车
+Train New Pilots	训练新飞行员
+Leader Attrition	将领损耗
+Supply Truck Attrition	补给卡车损耗
+Adjust Depot Trucks	调整补给站卡车
+Resolve Leader Conflict	解决将领冲突
+Swap Ground Elements	替换地面单位
+Auto Offset Moves	自动补偿移动
+Reduce Unit Delays	减少部队延迟
+Swap Aircraft	替换飞机
+Unit Fatigue Reduction	部队疲劳减少
+End Of Logistics	后勤结束
+Auto Land Recon	自动降落侦察机
+Rally Routed Units	收拢溃退部队
+Check Unit Surrender	检查部队投降
+Target Destroyed 	目标已摧毁 
+Target Disrupted 	目标已扰乱 
+Reactivate Units?	重新激活部队？
+End Date:	结束日期：
+Aircraft Compare	飞机对比
+Sortie Ammo:	出击弹药：
+Sortie Fuel:	出击燃料：
+Max Speed:	最大速度：
+Cruise Speed:	巡航速度：
+Max Alt:	最大高度：
+Same Type	同类型
+Same Air Profile	同空中档案
+REBUILD Selected Units	重建选中部队
+RESUPPLY Selected Units	补给选中部队
+REACTIVATE Selected Units (Need to Resupply after!!!)	重新激活选中部队（之后需补给！）
+Pct Ready:	就绪百分比：
+Pct Damaged:	受损百分比：
+Scenario Info	剧本信息
+Scenario Data Export/Import	剧本数据导出/导入
+Export Scenario data to CSV files.	导出剧本数据到CSV文件。
+Import Scenario data from CSV files.	从CSV文件导入剧本数据。
+May not undo last move	无法撤销上一步移动
+Ground Elem	地面单位
+Nat/Weather	国家/天气
+Nation Sort	国家排序
+Air weather shift	空中天气偏移
+Eastern Front (MAP)	东线（地图）
+German Front (MAP)	德军战线（地图）
+Temp 1 Turn	临时1回合
+High Comm	最高统帅部
+Non-Air HQ	非空军司令部
+Combat Prep:	战斗准备：
+All Units:	全部部队：
+Black Sea Pool	黑海储备
+Atlantic Pool	大西洋储备
+Number in Pool	储备数量
+Baltic Pool	波罗的海储备
+Soviet Number in Pool	苏联储备数量
+Baltic Fleet Number in Pool	波罗的海舰队储备数量
+Mediterranean Pool	地中海储备
+Axis Number in Pool	轴心储备数量
+Caspian Fleet Number in Pool	里海舰队储备数量
+Ladoga Fleet Number in Pool	拉多加湖舰队储备数量
+Black Fleet Number in Pool	黑海舰队储备数量
+Azov Fleet Number in Pool	亚速海舰队储备数量
+Support Need:	支援需求：
+Number In Pool:	储备数量：
+Allied In Pool:	盟军储备：
+Factory Sites:	工厂地点：
+Max Speed Alt:	最大速度高度：
+All Groups to defaults	所有队恢复默认
+Withdaw Turn	撤离回合
+Group Type:	队类型：
+Air Op Group:	航空作战群：
+Air Base Damage:	航空基地损伤：
+Scenario Name:	剧本名称：
+Air Battle	空战
+Scenario Early End:	剧本提前结束：
+Map SE Limit:	地图东南界限：
+Map NW Limit:	地图西北界限：
+Admin per Turn:	每回合行政点：
+Axis Pilot Quality:	轴心飞行员素质：
+No Unit Rebuild:	不重建部队：
+Soviet Attack:	苏联攻击：
+Axis Attack:	轴心攻击：
+Soviet Men Disabled:	苏联人员失能：
+Axis Men Disabled:	轴心人员失能：
+W Allies Men Disabled:	西方盟军人员失能：
+Axis Allies:	轴心盟国：
+Edit Map Text	编辑地图文字
+Unit attachemnts	部队附属
+Factory fix	工厂修正
+AI turn is ACTIVE	AI回合进行中
+Air execution phase is ACTIVE	空中执行阶段进行中
+Logistics phase is ACTIVE	后勤阶段进行中
+Reinforcement/Withdrawal Schedule	增援/撤离日程
+Auto Transfer Air Units (Air Transfer Mode)	自动转移航空单位（空转模式）
+Merge Units to Build Larger Formation	合并部队组建更大编制
+Auto Fly Missions (Air Recon or Bomb Airfield Modes)	自动飞行任务（空中侦察或轰炸机场模式）
+Air Transport Mode	空运模式
+Show Units Refitting	显示补充中的部队
+Toggle Units on Map On/Off	切换地图部队显示
+Auto assign unit(s) to near HQ	自动将部队指派到附近司令部
+Toggle Jump Map On/Off	切换跳转地图显示
+Toggle Move Values on Map On/Off	切换地图移动值显示
+Toggle Unsupplied Units On/Off	切换未补给部队显示
+Unzoom the Map	缩小地图
+Exit Current Dispaly/Combat	退出当前界面/战斗
+Toggle Between Units Move and Defense Values	切换部队移动值/防御值
+Show Units Withdrawing	显示撤离中的部队
+Show Weather	显示天气
+Zoom the Map	放大地图
+Goto Edit Aircraft menu	前往编辑飞机菜单
+South Pacific Edit Aircraft Menu	南太平洋 编辑飞机菜单
+Combat Delay Effects	战斗延迟效果
+Is this player using Fog of War rules?	该玩家是否使用战争迷雾规则？
+Automate AI Air Assist	自动AI空中辅助
+Is this player using Movement Fog of War rules?	该玩家是否使用移动战争迷雾规则？
+Lock HQ Support	锁定司令部支援
+When checked, automatically activates AI Air Assist twice each player-turn	勾选后每玩家回合自动激活两次AI空中辅助
+Campaign End Conditions	战役结束条件
+Morale Level	士气等级
+Morale modification for this player (100 is normal)	该玩家的士气修正（100为正常）
+Soviet Vehicle Repair Rate	苏联车辆修理率
+Axis Vehicle Repair Rate	轴心车辆修理率
+Side To Play	选择阵营
+Continuous Play OFF	连续播放关闭
+Auto assign unit(s) to nearest applicable HQ	自动将部队指派到最近的适用司令部
+Zoom Map Out	缩小地图
+Activate AI Air Assist	激活AI空中辅助
+Zoom Map In	放大地图
+Highlight Armor/Mech/Motorized Units	高亮装甲/机械/摩托化部队
+Highlight Cavalry Units	高亮骑兵部队
+Highlight Partisan Units	高亮游击队
+Ground Support Air Directive / Rail Mode	对地支援空中指令 / 铁路模式
+Strategic Bombing Air Directive / Amphib Transport Mode	战略轰炸空中指令 / 两栖运输模式
+Ground Attack Air Directive / Naval Transport Mode	对地攻击空中指令 / 海上运输模式
+Air Recon Air Directive / NA	空中侦察指令 / 无
+Air Superiority Air Directive / NA	空中优势指令 / 无
+Highlight Artillery and Anti-tank Units	高亮炮兵和反坦克部队
+Highlight Security Units	高亮警备部队
+Air Resolution Phase / Ground Movement Phase	空中结算阶段 / 地面移动阶段
+Highlight Rail Repair Units	高亮铁路抢修部队
+Naval Patrol Air Directive / NA	海上巡逻指令 / 无
+Type: 7=Move Toward  8=Transfer	类型：7=向目标移动 8=转移
+Test Combat Function ?	测试战斗功能？
+Test Combat	测试战斗
+Scenario Check Log	剧本检查日志
+Ready Aircraft Totals	就绪飞机总计
+Front Conditions	战线条件
+Front Line	战线
+Air Execution	空中执行
+Total Airborne Transport Cost	空运总消耗
+Ready Transport Capacity	就绪运输能力
+Axis Major Victory	轴心重大胜利
+Axis Minor Victory	轴心次要胜利
+Axis Decisive Victory	轴心决定性胜利
+Soviet Major Victory	苏联重大胜利
+Soviet Decisive Victory	苏联决定性胜利
+Soviet Minor Victory	苏联次要胜利
+Fuel Refinery	炼油厂
+National Air Reserve	国家航空储备
+Synthetic Fuel	合成燃料
+Unit Upkeep	部队维护
+Factory Upkeep	工厂维护
+Supply Used (t)	补给消耗（吨）
+Supply Prod (t)	补给生产（吨）
+Supply Store (t)	补给储存（吨）
+Air Prod	飞机生产
+Supply Need (t)	补给需求（吨）
+Pool (Trans)	储备（运输）
+Fuel Need (t)	燃料需求（吨）
+Fuel Used (t)	燃料消耗（吨）
+Fuel Prod (t)	燃料生产（吨）
+Fuel Store (t)	燃料储存（吨）
+Soviet Union	苏联
+Resource Stores + Pool:	资源储存+储备：
+Vehicles in Units:	部队中车辆：
+Vehicles in Repair:	修理中车辆：
+Vehicles in Pool:	储备中车辆：
+Fuel Stores + Pool:	燃料储存+储备：
+Supply Stores + Pool:	补给储存+储备：
+Oil Stores + Pool:	石油储存+储备：
+Ground Element Map	地面单位地图
+Execute Air Directives?	执行空中指令？
+AI Move/Manage Air Units/Bases ?	AI移动/管理航空单位/基地？
+Automatic Air Directive Creation	自动创建空中指令
+Execute Air Directives	执行空中指令
+Use AI to Move/Manage Air Units/Bases	使用AI移动/管理航空单位/基地
+Partisan Activity	游击队活动
+set all priorities to NONE	将所有优先级设为无
+Axis Garrison Status	轴心驻防状态
+Men Captured	被俘人员
+Men Killed	阵亡人员
+Current Turn	当前回合
+W Allies Losses	西方盟军损失
+Flak Losses	高炮损失
+Air combat Losses	空战损失
+Lost On The Ground	地面损失
+Operational Losses	作战损失
+Western Allies Losses	西方盟军损失
+Soviet (Disbanded)	苏联（已解散）
+Axis (Disbanded)	轴心（已解散）
+Prev Turn	上回合
+Cur Turn	本回合
+Soviet Logistics Phase	苏联后勤阶段
+Soviet Air Phase	苏联空中阶段
+Axis Air Phase	轴心空中阶段
+Axis Action Phase	轴心行动阶段
+Soviet Action Phase	苏联行动阶段
+End Turn Without AI Depot Management ?	结束回合且不进行AI补给站管理？
+End Your Turn ?	结束你的回合？
+Failure to meet garrison req. Return to Movement Phase?	未满足驻防要求。返回移动阶段？
+Destroyed Units	被摧毁部队
+Since Last Turn	自上回合起
+Axis Logistics Phase	轴心后勤阶段
+Current Turn Losses Filters	本回合损失筛选
+Abort Leader Selection.	中止将领选择。
+Withdraw group for retraining	撤回队伍重新训练
+Place Air Group to Reserve?	将飞行队放入预备队？
+Air base too close to enemy unit	航空基地距敌军过近
+Type (Air Profile)	类型（空中档案）
+No admin points available to send unit to East Front	无可用行政点派遣部队到东线
+May not send static unit to East Front	不能派遣固定部队到东线
+Only German units may be sent to the East Front	只有德国部队可派往东线
+New units may only be formed in or adjacent to a Soviet urban hex	新部队只能在苏联城市格或其相邻格组建
+May not build a unit in or adjacent to an enemy controlled hex	不能在敌方控制格或其相邻格建造部队
+Terminate Priority Repairs ?	终止优先修理？
+Abort new Air HQ Selection.	中止新空军司令部选择。
+Cancel Support Unit Selection.	取消支援单位选择。
+May not convert a unit that is loaded on a train or ships	不能转换已装载在火车或船只上的部队
+Relocate Unit ?	转移部队？
+Merge Unit ?	合并部队？
+Unit will demotorize during the next supply phase	部队将在下个补给阶段取消摩托化
+The Soviet player may not motorize units in 1941	苏联玩家在1941年不能摩托化部队
+All units reporting directly to this HQ ~ will have their REFIT status turned OFF	所有直接隶属此司令部的部队将关闭补充状态
+All units reporting directly to this HQ ~ will have their status set to REFIT	所有直接隶属此司令部的部队将设为补充状态
+May not set airborne target during air planning phase	空中计划阶段不能设置空降目标
+May not set amphibious target during air planning phase	空中计划阶段不能设置两栖目标
+Unit should be unloaded before assigned to City Fort.	部队应先卸载再分配到城市要塞。
+Unit is preparing for airdrop.	部队正在准备空投。
+Projected End Points	预计结束点数
+Axis Reserves	轴心预备队
+Soviet Union Garrison	苏联驻防
+Northern Front	北方方面军
+Soviet Reserves	苏联预备队
+Combat Divisions:	作战师：
+Aircraft Received:	接收飞机：
+Axis Sudden Loss	轴心突然失败
+Axis High Watermark	轴心最高水位
+Soviet City Capture Bonus	苏联占领城市奖励
+Axis City Capture Bonus	轴心占领城市奖励
+Soviet SUDDEN Victory	苏联突然胜利
+Axis SUDDEN Victory	轴心突然胜利
+May not be a target hex	不能作为目标六角格
+Not Assigned	未指派
+OnMap Units	地图上部队
+On Map Forces	地图上兵力
+Total Forces	总兵力
+Axis Allies	轴心盟国
+Ground Element Detail	地面单位详情
+Air Operational Group Detail	航空作战群详情
+Unit Build Selection	部队建造选择
+Exit the Registration Screen	退出注册界面
+Enemy Aircraft Lost VP	敌机损失胜利点
+Enemy AFV Lost VP	敌装甲车损失胜利点
+Enemy Guns Lost VP	敌火炮损失胜利点
+Enemy Men Lost VP	敌人员损失胜利点
+Theater Box Aircraft	战区飞机
+Theater Box AFV	战区装甲车
+Theater Box Men	战区人员
+Map Guns	地图火炮
+Total Guns	火炮总计
+In Transfer Guns	转移中火炮
+Resource Stores + Pool	资源储存+储备
+Supply Stores Req	补给储存需求
+Supply Stores + Pool	补给储存+储备
+Fuel Stores Req	燃料储存需求
+Fuel Stores + Pool	燃料储存+储备
+Air Phase	空中阶段
+Armaments Pool	军备储备
+Aircraft Operational Losses	飞机作战损失
+Aircraft Lost on the Ground	地面损失飞机
+Aircraft Flak Losses	飞机高炮损失
+Gun Losses	火炮损失
+Manpower Losses	人力损失
+Naval Patrol Losses	海上巡逻损失
+Naval Patrol Sorties	海上巡逻架次
+Sorties Per One Loss	每损失一架次的出击数
+Difficulty: CHALLENGING	难度：挑战
+Difficulty: IMPOSSIBLE	难度：不可能
+CHALLENGING	挑战
+IMPOSSIBLE	不可能
+January	1月
+February	2月
+March	3月
+April	4月
+June	6月
+July	7月
+August	8月
+September	9月
+October	10月
+November	11月
+December	12月
+Sept	9月
+Axis player:	轴心玩家：
+Soviet player:	苏联玩家：
+Show Depot Warning Message	显示补给站警告消息
+LOAD GENERIC DATA	载入通用数据
+SAVE GENERIC DATA	保存通用数据
+Show Allowed Movement	显示允许移动
+Show Ground Element/Aircraft Icons	显示地面单位/飞机图标
+Switch to old editor	切换到旧编辑器
+Switch to new editor	切换到新编辑器
+Allowed	允许
+Icons	图标
+Warning	警告
+Message	消息
+Messages	消息
+GENERIC	通用
+editor	编辑器
+Introductory	入门
+Road to	通往
+player:	玩家：
+player	玩家
+Player	玩家
+Operation Barbarossa	巴巴罗萨行动
+Red Army	红军
+Army Group South Ukraine	南乌克兰集团军群
+Belgrade	贝尔格莱德
+Minsk	明斯克
+Rostov	罗斯托夫
+Moscow	莫斯科
+Leningrad	列宁格勒
+Kiev	基辅
+Kharkov	哈尔科夫
+Stalingrad	斯大林格勒
+Sevastopol	塞瓦斯托波尔
+Odessa	敖德萨
+Dnepr River	第聂伯河
+Dnepr	第聂伯河
+Don River	顿河
+Volga	伏尔加河
+Crimea	克里米亚
+Caucasus	高加索
+Hungary	匈牙利
+Rumania	罗马尼亚
+Rumanian	罗马尼亚
+Bulgaria	保加利亚
+Bulgarians	保加利亚人
+Serbia	塞尔维亚
+Macedonia	马其顿
+Greece	希腊
+Yugoslavia	南斯拉夫
+Yugoslavian	南斯拉夫
+partisan	游击队
+partisans	游击队
+infantry	步兵
+armor	装甲
+reinforcements	增援
+offensive	攻势
+victory	胜利
+defeat	失败
+combat	战斗
+forces	部队
+armies	集团军
+Armies	集团军
+Clear All	清除全部
+Clear all	清除全部
+All	全部
+No	否
+OK	确定
+Fallschirmjaeger	伞兵
+Panzergrenadier	装甲掷弹兵
+Panzerjaeger	反坦克歼击
+Panzergren	装甲掷弹兵
+Armored Train	装甲列车
+Field Gun	野炮
+AT Gun	反坦克炮
+AA Gun	高射炮
+Machine Gun	机枪
+Rifle Squad	步兵班
+Level Bomber	水平轰炸机
+Tactical Bomber	战术轰炸机
+Torpedo Bomber	鱼雷轰炸机
+Night Fighter	夜间战斗机
+Transport Plane	运输机
+Clear 	晴朗 
+Poor Roads	劣质道路
+Average Roads	中等道路
+Good Roads	良好道路
+Minor River	小河
+Major River	大河
+Light Woods	疏林
+Heavy Woods	密林
+Clear - 	晴朗 - 
+Locations	地点
+Replacements	补充
+transit	过境
+Level	等级
+Points	点数
+Number	数量
+States	状态
+Button	按钮
+Date	日期
+German	德国
+Italy	意大利
+Ital	意大利
+Ital.	意大利
+Hun	匈牙利
+Hun.	匈牙利
+Rum	罗马尼亚
+Rum.	罗马尼亚
+Romania	罗马尼亚
+Romanian	罗马尼亚
+Finland	芬兰
+Finnish	芬兰
+Fin	芬兰
+Slovakia	斯洛伐克
+Slovakian	斯洛伐克
+Croatia	克罗地亚
+Croatian	克罗地亚
+Russia	俄罗斯
+Russian	俄罗斯
+Western Europe	西欧
+Balkans	巴尔干
+Norway	挪威
+Eastern Front	东线
+German Front	德军战线
+theater boxes	战区
+theater box	战区
+Theater Box	战区
+Theater Boxes	战区
+Kazan	喀山
+Kulikovka	库利科夫卡
+Stalino	斯大林诺
+Surakhani	苏拉哈内
+Vienna	维也纳
+Poznan	波兹南
+Lvov	利沃夫
+Budapest	布达佩斯
+Bucharest	布加勒斯特
+Kuybyshev	古比雪夫
+Krakow	克拉科夫
+Smolensk	斯摩棱斯克
+Bratislava	布拉迪斯拉发
+Astrakhan	阿斯特拉罕
+Rzhev	勒热夫
+Makhachkala	马哈奇卡拉
+Koenigsberg	柯尼斯堡
+Baku	巴库
+Pskov	普斯科夫
+Dnepropetrovsk	第聂伯罗彼得罗夫斯克
+Breslau	布雷斯劳
+Hamburg	汉堡
+Ryazan	梁赞
+Zaporozhye	扎波罗热
+Nuremberg	纽伦堡
+Krolevets	克罗列韦茨
+Voronezh	沃罗涅日
+Kalinin	加里宁
+Berlin	柏林
+Tula	图拉
+Grozny	格罗兹尼
+Helsinki	赫尔辛基
+Warsaw	华沙
+Saratov	萨拉托夫
+Prague	布拉格
+Leipzig	莱比锡
+Tambov	坦波夫
+Kursk	库尔斯克
+Tallinn	塔林
+Munich	慕尼黑
+Krasnodar	克拉斯诺达尔
+Riga	里加
+Gorky	高尔基
+Rostock	罗斯托克
+Ploesti	普洛耶什蒂
+Dresden	德累斯顿
+Orel	奥廖尔
+Maikop	迈科普
+Sabunchu	萨本丘
+Yaroslavl	雅罗斯拉夫尔
+Tbilisi	第比利斯
+Bibi-Heybat	比比埃巴特
+Sumy	苏梅
+Show Weather Screen	显示天气界面
+Show Order of Battle Screen	显示战斗序列界面
+hex control	六角格控制
+city owner change	城市归属变更
+save version	存档版本
+battles data	战斗数据
+battles statistics	战斗统计
+game events	游戏事件
+game victory	游戏胜利
+game statistical data	游戏统计数据
+map hex data	地图六角格数据
+map tile aplha	地图地块透明度
+map text profiles	地图文字档案
+aircraft profiles	飞机档案
+built data (ground)	已建造数据（地面）
+built data (air)	已建造数据（空中）
+built data turn (ground)	已建造回合数据（地面）
+built data turn (air)	已建造回合数据（空中）
+supply data	补给数据
+factory data	工厂数据
+amphib data	两栖数据
+scenario data	剧本数据
+losses by phase	分阶段损失
+pilot names	飞行员姓名
+air orders	空中命令
+air ops	空中作战
+air doctrines	空中条令
+ai scripts	AI脚本
+logistics events	后勤事件
+server messages	服务器消息
+button states	按钮状态
+object tags	对象标签
+rail usage	铁路使用
+transit pools (air)	过境储备（空中）
+transit pools (ground)	过境储备（地面）
+pools (air)	储备（空中）
+pools (ground)	储备（地面）
+replacements (air)	补充（空中）
+replacements (ground)	补充（地面）
+Show New Events	显示新事件
+Show Next TOE(OB) Upgrade	显示下一个编制升级
+Toggle Show Ground Element Mapping	切换地面单位映射显示
+Show Ground Element Mapping	显示地面单位映射
+View Ended	查看已结束
+View Ended Game	查看已结束对局
+Pick Support Unit for	选择支援单位用于
+Show unit in Editor	在编辑器中显示部队
+Set unit MAX TOE:	设置部队最大编制：
+Set Supply Priority.	设置补给优先级。
+Decrease the support level	降低支援等级
+Select All Air Groups	选择全部飞行队
+Delete Air Directive?	删除空中指令？
+Clear All Air Directives	清除全部空中指令
+Select air directive	选择空中指令
+Change target hex	更改目标六角格
+Change staging base	更改中转基地
+Toggle day/night setting	切换昼夜设置
+Toggle fly schedule	切换飞行计划
+Toggle execution phase	切换执行阶段
+Increase flight altitude	提高飞行高度
+Decrease flight altitude	降低飞行高度
+Change requested aircraft	更改请求飞机数
+Decrease air directive priority	降低空中指令优先级
+Toggle partial escorts	切换部分护航
+Select City Target	选择城市目标
+Select Ground HQ	选择地面司令部
+Hide AOG	隐藏航空作战群
+Hide Inactive	隐藏未激活
+Show Air Groups	显示飞行队
+Set Rail/Port Values	设置铁路/港口值
+Add Production	添加生产
+Set Unit Withdrawals	设置部队撤离
+Set Unit MP	设置部队移动点
+Add HQ Support to Units	为部队添加司令部支援
+Set date	设置日期
+Change date	更改日期
+Clear Game Event?	清除游戏事件？
+Delete Game Event?	删除游戏事件？
+Click To Edit Description	点击编辑描述
+Exit Event Viewer	退出事件查看器
+Assign Anti-Aircraft or Construction Unit to	指派防空或建设单位到
+( Select All )	（全选）
+Select All	全选
+Ground: Clear  Air: Clear	地面：晴朗  空中：晴朗
+Tons Rec	接收吨数
+Tons Dif	差额吨数
+Men Rec	人员接收
+Sudden Victory	突然胜利
+Sudden Loss	突然失败
+Formation Type	编制类型
+Fort  3 (10%)	要塞  3（10%）
+Minor River:  E SE	小河：东 东南
+ADD	添加
+ADD LINK	添加链接
+BOTH	两者
+CALCULATE	计算
+CANCEL	取消
+CHANGE SUFFIX	更改后缀
+CHANGE TO	更改为
+CLEAR LINKS	清除链接
+CLEAR PRODUCTION POOLS	清除生产储备
+CLOSE	关闭
+CONFIRM	确认
+COPY	复制
+DISABLE	禁用
+DISBANDED	已解散
+DIVIDE	拆分
+DOWN	下
+EDIT NATIONS	编辑国家
+EDIT WEAPON SETS	编辑武器组
+EXECUTE	执行
+FIND	查找
+FIND HEX	查找六角格
+HIDE WEAPON SETS	隐藏武器组
+INSERT	插入
+LIMITED	有限
+LOAD	载入
+LOAD CSV	载入CSV
+MARK	标记
+MERGE WITH	合并至
+MULTIPLY	乘
+NO TEXT	无文字
+OUTLINE	描边
+PASTE	粘贴
+PERCENT	百分比
+PICK ACTION OBJECT	选择行动对象
+PICK ACTION OPERATOR	选择行动操作符
+PICK ATTRIBUTE	选择属性
+PICK CHECK CONDITION	选择检查条件
+PICK CHECK PHASE	选择检查阶段
+PICK NATIONALITY	选择国籍
+PICK OB CLASS	选择编制等级
+PICK OBJECT	选择对象
+PICK RANK	选择军衔
+PICK SHIP CLASS	选择舰船级别
+PICK WEAPON FACING	选择武器朝向
+PROMOTION	晋升
+RANDOMIZE	随机化
+RANDOMIZE TILES	随机化地块
+RENAME	改名
+RENAMES TO	改名为
+RESIZE	调整大小
+RESIZE (REMOVE)	调整大小（移除）
+SAVE	保存
+SAVE CSV	保存CSV
+SET TO	设为
+SET TO (DIE)	设为（骰子）
+SHOW EVENT LINKS	显示事件链接
+SUBTRACT	减
+TRANSLATE	翻译
+TRUE	真
+FALSE	假
+UNMARK	取消标记
+VALID	有效
+WITHDRAWAL LIST	撤离列表
+WITHDRAWALS    ARRIVALS    RENAMES 	撤离    抵达    改名 
+Add Pilot	添加飞行员
+Adjustment	调整
+Airborne Prep:	空降准备：
+AI Line Forming XY:	AI构建战线XY：
+AI Manage Depots	AI管理补给站
+ALLOW AI TO MANAGE DEPOTS Y/N 	允许AI管理补给站 是/否 
+Amphib HQ	两栖司令部
+Assign To	指派到
+Attack CV	攻击战斗力
+Attrition	损耗
+Available Month:	可用月份：
+Available Year:	可用年份：
+Baltic Sea	波罗的海
+Base Art Idx:	基地图形索引：
+Bomber Group	轰炸机大队
+Bomber Regiment	轰炸机团
+Border Art Idx	边界图形索引
+Campaign	战役
+Cargo Ships	货船
+Cavalry Division	骑兵师
+Chain ID:	指挥链ID：
+Change Leaders	更换将领
+Check Phase:	检查阶段：
+Clear AOG link	清除航空作战群链接
+Clear link to AOG?	清除到航空作战群的链接？
+Clear production pools?	清除生产储备？
+Click to set delay	点击设置延迟
+Climate Zone	气候带
+Climate Zones	气候带
+Climate: 	气候：
+Climate: Humid	气候：湿润
+Coast Art Idx	海岸图形索引
+Commander's Report	指挥官报告
+Compress pilot database	压缩飞行员数据库
+Compress plane database	压缩飞机数据库
+Convert to PBEM	转为邮件对战
+Convert W Allies Pools	转换西方盟军储备
+Counter Idx:	图标索引：
+Current Status	当前状态
+Data Validation Report	数据校验报告
+Day Expire	到期日
+Dmg Factories	工厂损伤
+Double Rails:	双线铁路：
+Drop Hex	放置六角格
+Dump DAT files?	导出DAT文件？
+DUMP DAT FILES	导出DAT文件
+Edit Shifts	编辑班次
+Expand Production	扩大生产
+Expand to hide/unhide columns	展开以隐藏/显示列
+Expansion Code:	扩充代码：
+Expansion Rate:	扩充速率：
+Export To CSV	导出为CSV
+Export to CSV?	导出为CSV？
+Execute Test Code?	执行测试代码？
+Factories	工厂
+Failed to decrypt	解密失败
+Fighter Flotilla	战斗机支队
+Fighter Group	战斗机大队
+Fighter Regiment	战斗机团
+Flieger-Division	航空师
+Fliegerfuehrer	航空指挥官
+Fliegerfuehrer Ostsee	波罗的海航空指挥官
+Fliegerkorps	航空军
+Frequency	频率
+Game event day (1-31)	游戏事件日（1-31）
+Game event expire day (1-31)	游戏事件到期日（1-31）
+Game event expire month (1-12)	游戏事件到期月（1-12）
+Game event expire year (1941-1945)	游戏事件到期年（1941-1945）
+Game event month (1-12)	游戏事件月（1-12）
+Game event probability (0-100)	游戏事件概率（0-100）
+Game event year (1941-1945)	游戏事件年（1941-1945）
+GND Index	地面索引
+Grab Empty Hexes	夺取空白六角格
+Heavy Industry	重工业
+HEAVY INDUSTRY	重工业
+Heavy-Urban	重型城区
+Hex Art	六角格图形
+Hex Art:	六角格图形：
+Hex X	六角格X
+Hex Y	六角格Y
+Hexes	六角格
+Hide column config	隐藏列配置
+Hide Types	隐藏类型
+Highlight Fortified Regions	高亮筑垒区域
+Import From CSV	从CSV导入
+Import from CSV?	从CSV导入？
+Import From ID:	从ID导入：
+Import is finished!	导入完成！
+In Cities	在城市
+Incompatible Types	类型不兼容
+INCOMPATIBLE DAY/NIGHT SETTING	昼夜设置不兼容
+INCOMPATIBLE FB MISSION SETTING	战斗轰炸任务设置不兼容
+Last 10 Turns	最近10回合
+Lend Lease Delivery	租借法案交付
+Light-Urban	轻型城区
+Long Range Command	远程指挥
+Loss by Phase	分阶段损失
+Luftflotte 1	第1航空队
+Luftflotte 2	第2航空队
+Luftflotte 4	第4航空队
+Luftflotte 6	第6航空队
+Luftwaffe	德国空军
+Mark As Read	标记为已读
+Max Ceiling:	最大升限：
+Max Command:	最大指挥：
+Max Load:	最大载弹：
+Min AC(Esc):	最少护航机：
+Min AC:	最少飞机：
+Month Expire	到期月份
+Mulberries Built:	已建人工港：
+Mulberry Harbor	人工港
+Naval Defense Pct	海军防御百分比
+Naval Defense Requirement	海军防御需求
+Naval Only:	仅海军：
+Night Missions:	夜间任务：
+No available slots	无可用栏位
+No Fly Info	无飞行信息
+No Significant VP Advantage	无显著胜利点优势
+NOT PREPARING	未准备
+NOT YET AVAILABLE LOADOUTS	尚未可用挂载
+Occupied	被占领
+Plane swap loop detected:	检测到飞机互换循环：
+Port Art Idx:	港口图形索引：
+Position	位置
+Probability:	概率：
+Process turns?	处理回合？
+Production	生产
+Production Charts	生产图表
+Production modifier	生产修正
+PRODUCTION MODIFIERS	生产修正
+Promote Leaders	晋升将领
+Rail Art Idx	铁路图形索引
+RailStatus	铁路状态
+Randomize sand/desert tile art?	随机化沙地/沙漠地块图形？
+Randomize tile art?	随机化地块图形？
+Rate of Fire:	射速：
+Railyards	铁路场站
+Recruit Hiwis	招募志愿兵
+Remove Temporary Motorization	取消临时摩托化
+Replace Base	替换基地
+Replace Border	替换边界
+Replace Coast	替换海岸
+Replace Rail	替换铁路
+Replace River	替换河流
+Replace Road	替换道路
+Replace Terrain	替换地形
+Replace Town	替换城镇
+Req AC(Esc):	需要护航机：
+Req AC:	需要飞机：
+Requirement:	需求：
+Restriction:	限制：
+Restrictions:	限制：
+Restrict Rebuild:	限制重建：
+River Art Idx	河流图形索引
+Road Art Idx:	道路图形索引：
+Road System	道路系统
+Road System:	道路系统：
+Run Test Code	运行测试代码
+Same Class	同类
+Scale	规模
+Scaling OFF	缩放关闭
+Scaling ON	缩放开启
+Scrap Obsolete Pools	报废过时储备
+Select Profile:	选择档案：
+Set Chain ID	设置指挥链ID
+Set Off Rail Values	设置离轨值
+Set Radius	设置半径
+Set Sea Zone (0..14)	设置海区（0-14）
+Set Staging Base	设置中转基地
+Set Starting Potential (-50 to 100)	设置初始潜力（-50到100）
+Set Variation	设置浮动
+Set WATER tile indexes?	设置水域地块索引？
+Show Hotkey list	显示热键列表
+Show production charts	显示生产图表
+Show Save Game screen	显示存档界面
+Show Types	显示类型
+Show Values	显示数值
+Show Witepedia	显示百科
+Ships	船只
+SHIP CLASSES	舰船级别
+SHIPPING CONTESTED	航运争夺中
+SHIPPING HEAVILY CONTESTED	航运激烈争夺
+SHIPPING PROHIBITED	禁止航运
+Song List:	曲目列表：
+Soviets Attack Exposed Enemy	苏军攻击暴露的敌人
+Soviets examine starting positions	苏军检查初始位置
+Soviets Reaction Attacks	苏军反击
+Staging Base:	中转基地：
+Starting game, ~ This takes a while ~ Please be patient	正在启动游戏，需要一些时间，请耐心等待
+STRATEGIC BOMBING DAMAGE	战略轰炸损伤
+Strike num:	出击数量：
+SUBORDINATE AOGs	下属航空作战群
+Surrender	投降
+Surrendered	已投降
+SURRENDER FLAGS	投降标记
+Switch to ship view	切换到舰船视图
+Symbol From ID:	符号来自ID：
+Temp Multiple Turns	临时多回合
+Terrain	地形
+Terrain:	地形：
+Terr Art Idx:	地形图形索引：
+To Theater	至战区
+Toggle command links	切换指挥链接
+Toggle enemy hexes on/off	切换敌方六角格显示
+Toggle fort levels on/off	切换要塞等级显示
+Toggle hex grid on/off	切换六角格网格
+Toggle Regions on/off	切换区域显示
+Toggle Roads (on/off)	切换道路显示
+Town Art Idx:	城镇图形索引：
+Troop Ships	运兵船
+Unable to convert	无法转换
+Update OBs ?	更新编制？
+Use Photo ID:	使用照片ID：
+Use Symbol ID:	使用符号ID：
+Use to rename:	用于改名：
+Vehicle production modifier	车辆生产修正
+Vehicles production modifier	车辆生产修正
+Armaments production modifier	军备生产修正
+Vehicles in Depots:	补给站车辆：
+Version	版本
+Weeks in Production:	生产周数：
+WITHDRAWAL	撤离
+Year Expire	到期年份
+aog assignment	航空作战群指派
+set AOG link	设置航空作战群链接
+set missions	设置任务
+show/hide columns	显示/隐藏列
+Air Exec Phase Detail	空中执行阶段详情
+AirExecLog	空中执行日志
+Anti-Soft:	对软目标：
+Armaments Prod Mod	军备生产修正
+Available	可用
+Blizzard	暴风雪
+BOCAGE	灌木篱
+BOCAGE/POLDER	灌木篱/圩田
+Ceiling:	升限：
+CIVILIAN CONSUMPTION	民用消费
+Climb rate (ft/min)	爬升率（英尺/分）
+Cur Song:	当前曲目：
+DEBUG	调试
+Debug	调试
+DESERT	沙漠
+Durability:	耐久：
+Eff Ceiling:	有效升限：
+Endurance:	续航：
+Equipment	装备
+Excellent	优秀
+EXPIRED LOADOUTS	已过期挂载
+Event Log	事件日志
+EventLog	事件日志
+Exported	已导出
+Fair	晴朗
+FOREST	森林
+Frozen Solid	完全冻结
+GOOD Road System	良好道路系统
+AVERAGE Road System	中等道路系统
+POOR Road System	劣质道路系统
+HARSH	严酷
+harsh winter	严冬
+mild winter	暖冬
+HEAT Pen:	空心装药穿深：
+HVAP Pen:	硬芯穿甲弹穿深：
+HVY URBAN	重型城区
+IMPASSABLE	不可通行
+Impassable	不可通行
+Impassable: 	不可通行：
+IMPERIAL	英制
+Italic	斜体
+Italic-Bold	粗斜体
+Bold	粗体
+Koluft Center	中央空军联络
+Koluft North	北方空军联络
+Koluft South	南方空军联络
+Maneuver	机动
+Maneuver:	机动：
+Manuever:	机动：
+METRIC	公制
+MILD	温和
+MINIMAL	最小
+MOUNTAIN	山地
+Mud	泥泞
+Neutral	中立
+No change	无变化
+Norm	正常
+Not set	未设置
+PBEM	邮件对战
+Penetration:	穿透：
+Population	人口
+Required	必需
+RIVER	河流
+SAND	沙地
+SNOW	雪
+Snow	雪
+SWAMP	沼泽
+TERRAIN	地形
+Thin Ice	薄冰
+TUNDRA	冻原
+URBAN	城区
+Very Poor	极差
+WATER	水域
+WATER (1)	水域（1）
+WitePedia	百科
+Wounded	负伤
+Captured	被俘
+Received	接收
+Used	已使用
+unlimited	无限
+Unlimited	无限
+resigning	退出中
+registering	注册中
+TOWN	城镇
+Town	城镇
+Cities	城市
+Cities:	城市：
+Removed cities	已移除城市
+Divisions	师
+Regiment	团
+Brigade	旅
+Division	师
+Corps	军
+Army	集团军
+Navy	海军
+Action	行动
+ACTIONS	行动
+Arrival	抵达
+Arrival:	抵达：
+Arrived	已抵达
+Attacks	攻击
+Default	默认
+DEFAULT	默认
+Devices	装备
+Devices:	装备：
+ERROR	错误
+Effect:	效果：
+Font	字体
+FontColor	字体颜色
+Metrics	统计
+Pages	页
+Rename	改名
+Renames	改名
+Scripts	脚本
+SoundFx	音效
+SfxGroupVolume	音效组音量
+Music	音乐
+Video	视频
+Title	标题
+Text	文本
+TEXT	文本
+Tags	标记
+Tag	标记
+Turns	回合
+Year	年份
+Month	月份
+Blue	蓝色
+Red	红色
+Green	绿色
+White	白色
+Alpha	透明
+APLHA CHANNEL	透明通道
+ATTACK	攻击
+DEFENSE VALUES	防御值
+DELIBERATE ATTACK	蓄意攻击
+NEW ATTACK	新攻击
+FINAL SCORE	最终得分
+ALLIED DECISIVE	盟军决定性胜利
+ALLIED MAJOR	盟军重大胜利
+ALLIED MINOR	盟军次要胜利
+AIRBORNE PLANNING	空降计划
+AVAILABLE LOADOUTS	可用挂载
+SELECTED LOADOUT	已选挂载
+WEAPON STATS	武器数据
+Caspian	里海
+Ladoga	拉多加
+Sea Zone	海区
+SEA ZONE	海区
+production multiplier (%%)	生产倍率（%%）
+Vehicles (>999%%):	车辆（>999%%）：
+CHASSIS Dmg	底盘损伤
+AIRFRAME Dmg	机体损伤
+ARM Dmg	军备损伤
+RES Dmg	资源损伤
+VEH Dmg	车辆损伤
+GND Dmg	地面损伤
+MAN Dmg	人力损伤
+SUB Dmg	潜艇损伤
+VW Dmg	V型武器损伤
+VW-L Dmg	V型发射器损伤
+RAIL Dmg	铁路损伤
+SFUEL Dmg	合成燃料损伤
+SUB PEN Dmg	潜艇坞损伤
+HI Dmg	重工业损伤
+Accuracy:	精度：
+Altitude:	高度：
+Max Altitude:	最大高度：
+Radius (miles)	半径（英里）
+Radius:	半径：
+Radius +/- delta	半径±增量
+Valid till:	有效至：
+Visible To:	可见于：
+Linked with:	链接至：
+Link To:	链接至：
+Profile:	档案：
+Variation:	浮动：
+%%Variation:	%%浮动：
+Reccurence:	重复：
+Schedule:	日程：
+Special:	特殊：
+Special Flag:	特殊标记：
+Status:	状态：
+Class:	类别：
+Position:	位置：
+Produced by:	生产方：
+National Source	国家来源
+Fighter	战斗机
+Bomber	轰炸机
+NATIONALITY	国籍
+HEX NATIONALITY	六角格国籍
+HEX ROAD SYSTEM	六角格道路系统
+HEX TERRAIN	六角格地形
+HEX TILE ART	六角格地块图形
+HEXGRID	六角格网格
+RIVER COSTS	河流消耗
+Maj River	大河
+Min River	小河
+River	河流
+Railroad	铁路
+Rail	铁路
+RAIL	铁路
+Road	道路
+ROAD	道路
+Rail: 	铁路：
+RAIL REQUIREMENTS: ~ 	铁路需求：~ 

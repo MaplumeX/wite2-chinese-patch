@@ -17,7 +17,7 @@
 | 部队番号：部队列表 | ✅ 可用 |
 | 部队番号：简略信息面板 | ✅ 可用（缩写/截断自动匹配） |
 | 抗游戏更新 | ✅ 只需补翻新增条目 |
-| 翻译进度 | ⚠️ 1041 条（玩家可见界面基本覆盖） |
+| 翻译进度 | 界面 2417 条 + 剧本描述 23 个文件 |
 
 **技术框架已完整跑通。** 界面文本从 exe 的 `.rdata` 完整挖出，
 玩家实际能看到的文本基本都翻了；剩余主要是编辑器专用指令和内部调试串。
@@ -136,9 +136,9 @@ jmp  [trampoline]                            ; 跳回原函数
 
 **游戏数据一个字节都不改**，只在这一次绘制调用里换指针。零副作用。
 
-### 三层匹配策略
+### 匹配策略
 
-部队名在不同位置有不同的显示形式：
+部队名在不同位置有不同显示形式：
 
 ```
 完整名                     简略信息面板
@@ -148,14 +148,30 @@ Army Group South        →  Army Grp. Sout    (缩写 + 截断)
 1st Panzer Group        →  1st Panzer Grou    (截断)
 ```
 
-对应三层策略：
+**关键教训：绝不做自由拼接。**
 
-**策略 1 — 数字 + 兵种缩写**（自动覆盖所有编号部队）
+早期版本用"任意位置子串替换"，只要短 key 出现在长串里就替换，结果：
 
 ```
-"113th ID" → "第113步兵师"
-"16th MD"  → "第16摩托化师"
+"Show Production screen" → "Show 生产 screen"
+"National"               → "国家al"
+"Army Grp. Sout"         → "集团军 Grp. Sout"
 ```
+
+加更多词条只会让碎片更严重。现在的策略从严格到宽松：
+
+| 顺序 | 策略 | 例子 | 触发条件 |
+|---|---|---|---|
+| 1 | 整串精确匹配（大小写不敏感） | `Show Production screen` → 显示生产界面 | 长度和内容完全相等 |
+| 2 | 剥离尾部后缀后精确匹配 | `LI Corps (1/5)` → 第51军 (1/5) | 空格+`(`/`/` 或连续两空格处切开 |
+| 3 | 数字 + 兵种缩写 | `113th ID` → 第113步兵师 | `数字+序数+全大写缩写` |
+| 3.5 | 缩写展开 + 前缀匹配 | `Army Grp. Sout` → 南方集团军群 | **仅当确实展开了缩写** |
+| 4 | 截断前缀 | `1st Panzer Grou` → 第1装甲集群 | 长度≥12 且覆盖 key ≥70% |
+
+策略 3.5 的触发条件很关键。`Grp.` 展开成 `Group` 才算"展开了缩写"；
+像 `National` 这种没有缩写的普通单词不参与，否则会误配到 `NATIONALITY`。
+
+兵种缩写对照表（策略 3）：
 
 | 缩写 | 含义 | 中文 |
 |---|---|---|
@@ -168,24 +184,23 @@ Army Group South        →  Army Grp. Sout    (缩写 + 截断)
 | `MGD` | Mechanized Division | 机械化师 |
 | `GD` | Guards Division | 近卫师 |
 
-**策略 2 — 缩写展开 + 前缀匹配**
+`tools/test_match.py` 里有 23 个回归用例，覆盖以上全部策略和已知的失败模式。
 
-```
-绘制: "Army Grp. Sout"
-  ↓ Grp. → Group，去标点转小写
-"armygroupsout"
-  ↓ 和 key "Army Group South" 的归一化形式比
-"armygroupsouth"
-  ↓ 前缀匹配成功
-显示: "南方集团军群"
+### 剧本描述
+
+`Dat/Scen/*.txt` 是**明文**的历史描述文件，游戏直接读取，不需要逆向。
+
+```bash
+python tools/scen_localize.py check    # 检查覆盖率
+python tools/scen_localize.py apply    # 翻译并写入游戏目录
+python tools/scen_localize.py restore  # 还原原始文件
 ```
 
-**策略 3 — 子串匹配**（处理带后缀的复合串）
+23 个剧本共 656 非空行，逐行对应翻译，保持段落和换行结构不变。
 
-```
-"LI Corps (1/5)"                      → "第51军 (1/5)"
-"1st Panzer Group   CU 1, SU 11, MP 50" → "第1装甲集群   CU 1, SU 11, MP 50"
-```
+注意：**字体必须包含剧本用到的汉字**。早期版本生成字体时只扫了 `zh_dict.json`，
+漏掉剧本翻译的 284 个汉字，导致文字出现空洞、读起来语义不通。
+`tools/build_assets.py` 现在会同时收集两处。
 
 ---
 
@@ -329,8 +344,9 @@ VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 2. **`.dat` 文件无法静态修改**
    自研流密码，已确认不可静态破解。补丁走的是运行时绘制层。
 
-3. **不处理历史描述文本**
-   `unitInfo.csv` 里 1168 段历史描述（含 `<cr>` `<i>` `<b>` `<url>` 标记）尚未处理。
+3. **`unitInfo.csv` 未处理**
+   1168 段部队历史描述（含 `<cr>` `<i>` `<b>` `<url>` 标记）尚未翻译。
+   这是纯数据文件，同样可以直接改，不需要逆向。
 
 4. **需要 32 位编译器**
    游戏是 x86 程序，DLL 必须 `-MACHINE:X86`。
@@ -342,14 +358,18 @@ VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 ```
 src/hook_text.c          注入 DLL 源码（代理 + .rdata 改写 + 绘制层 hook）
 src/version.def          17 个导出转发
+tools/build_assets.py    生成翻译表 + 字体子集（统一入口）
 tools/review.py          翻译校对工具（导出/导入/覆盖率/待译清单）
-tools/test_match.py      离线验证三层匹配逻辑（不跑游戏）
+tools/test_match.py      离线验证匹配逻辑（不跑游戏）
 tools/term_review.py     术语审校表（按类别导出/导入/一致性检查）
+tools/find_gaps.py       找出翻译后仍残留英文的串
+tools/scen_localize.py   剧本描述汉化（读写 Dat/Scen/*.txt）
 tools/dump_code.c        诊断工具：dump 解密后的代码段（逆向用）
 tools/extract_strings.py 从 exe 提取 UTF-16 界面文本
 tools/make_subset_font.py 字体子集化
 scripts/build_all.py     一键构建
 zh_dict.json             翻译源文件（权威数据）
+scen_trans.py            剧本描述翻译表
 wite2_zh.tsv             生成的翻译表（部署到游戏目录）
 校对流程.md              校对流程详细说明
 build.bat                编译脚本
@@ -363,7 +383,7 @@ build.bat                编译脚本
 
 ```
 === WITE2 中文化 v4 (内存改写) ===
-词典: 1041 条
+词典: 2417 条
 [patch] .rdata: 改写 281 处
 改写 281 处, 译文过长跳过 0 条, 未找到 3 条
 [zh] 183 entries ready
