@@ -155,6 +155,16 @@ CASES = [
     ("1-17th Rum. Mot. Anti-tank Company", "1-第17罗马尼亚摩托化反坦克连", "连字符分遣序号"),
     ("16th(a) Infantry Division", "第16(a)步兵师", "括号内单字母"),
     ("Wins : 0  Losses: 0", "胜 : 0  损失: 0", "战果行"),
+    # 含格式符的串：%s/%d 是结构，不是待译内容，要当放行 token
+    ("%s airdrop mission", "%s空投任务", "格式符占位"),
+    ("Period %d Month", "时期%d月份", "格式符占位"),
+    ("%d Air Group Reinforcements & Transfers",
+     "%d飞行队增援与调动", "格式符 + 长短语"),
+    ("II/43rd LW Mot. Mixed Flak Battalion",
+     "第2/第43空军摩托化混成高炮营", "罗马数字斜杠只能写一次"),
+    ("Range: 5", "射程: 5", "标签带冒号"),
+    ("o.sav", "o.sav", "文件扩展名不能被当成萨伏依"),
+    ("Show Production screen", "显示生产界面", "整句可译时才译"),
     # 数据文件里的显示文本（Nations/GroundTypes/AirProfiles）
     ("Soviet Union", "苏联", "国家名"),
     ("Rifle Squad", "步兵班", "地面单位类型（Rifle 统一译步兵）"),

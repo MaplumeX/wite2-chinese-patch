@@ -1010,6 +1010,11 @@ static int ztry_seg(const wchar_t *w, int n, wchar_t *out, int cap)
         r = conv_num_prefix(b, nn, out, cap);
         if (r > 0) return r;
     }
+    /* 单字符 token（"%d x %s" 的 x、"(a)" 的 a）原样保留 */
+    if (n == 1) {
+        memcpy(out, w, sizeof(wchar_t));
+        return 1;
+    }
     /* 数字+单个小写字母是层级标记（"Tier 1a" 的 1a），原样保留 */
     {
         int i = 0;
@@ -1019,6 +1024,25 @@ static int ztry_seg(const wchar_t *w, int n, wchar_t *out, int cap)
             if (n >= cap) return 0;
             memcpy(out, w, n * sizeof(wchar_t));
             return n;
+        }
+    }
+    /* 尾部带标点的 token："Range:" "Losses,"。剥掉标点再查，
+     * 查到就把标点补回去 —— tooltip 里 "Label: 值" 到处都是。 */
+    if (n > 2) {
+        int tb = n;
+        while (tb > 1 && (w[tb - 1] == L':' || w[tb - 1] == L',' ||
+                          w[tb - 1] == L';' || w[tb - 1] == L'.'))
+            tb--;
+        if (tb < n && tb > 0) {
+            const wchar_t *t3 = zfind_w(w, tb);
+            if (t3) {
+                int l3 = (int)wcslen(t3), k;
+                if (l3 + (n - tb) < cap) {
+                    memcpy(out, t3, l3 * sizeof(wchar_t));
+                    for (k = tb; k < n; k++) out[l3 + k - tb] = w[k];
+                    return l3 + (n - tb);
+                }
+            }
         }
     }
     /* 缩写原样放行 */
@@ -1077,17 +1101,29 @@ static wchar_t *seg_fill(const wchar_t *src, wchar_t *out, int cap)
     int i = 0, o = 0, pendingSpace = 0;
 
     if (len < 2 || len > 200) return 0;
-    /* 只有真正带格式符的串才交给模板匹配；"100% )" 里的百分号不是格式符 */
-    for (i = 0; i + 1 < len; i++)
-        if (src[i] == L'%' &&
-            (src[i + 1] == L's' || src[i + 1] == L'd' || src[i + 1] == L'f' ||
-             src[i + 1] == L'x' || src[i + 1] == L'u'))
-            return 0;
-    i = 0;
 
     while (i < len) {
         if (o >= cap - 80) return 0;
         if (src[i] == L' ') { pendingSpace++; i++; continue; }
+        /* %s / %d / %f 这类占位符整体原样输出。它们是结构，不是待译内容；
+         * 整串按分段翻完后，运行时游戏再把值填进去。 */
+        if (src[i] == L'%' && i + 1 < len) {
+            wchar_t nx = src[i + 1];
+            if (nx == L's' || nx == L'd' || nx == L'f' || nx == L'x' ||
+                nx == L'u' || nx == L'c' || nx == L'%') {
+                int fl = 2;
+                if (o + fl + 2 < cap) {
+                    if (pendingSpace && o > 0 &&
+                        out[o - 1] < 0x2E80 && nx < 0x2E80)
+                        out[o++] = L' ';
+                    pendingSpace = 0;
+                    out[o++] = src[i];
+                    out[o++] = src[i + 1];
+                }
+                i += fl;
+                continue;
+            }
+        }
         /* 数字也当 token 开头：否则 "102nd" 会被拆成 "102" + "nd"，
          * 而 "nd" 正好是序数后缀表里的条目。纯数字本身由 ztry_seg
          * 的缩写放行原样输出。 */
@@ -1703,7 +1739,8 @@ static wchar_t *dt_check_body(wchar_t *text)
                     if (wl <= 0) {
                         /* 到达分隔符。空格跳过，其他字符（括号）要保留，
                          * 否则 "16th(a)" 会变成 "第16a"。 */
-                        if (text[st] != L' ' && pn + 2 < 128) {
+                        if ((text[st] == L'(' || text[st] == L')') &&
+                            pn + 2 < 128) {
                             pre[pn++] = text[st];
                             pre[pn] = 0;
                         }
