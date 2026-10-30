@@ -164,6 +164,24 @@ SAFE_LABELS = {
     "PzG", "leFH", "sFH",
 }
 
+ROMAN = re.compile(r"^[IVXLCDM]+$")
+
+
+def roman_misread(k, v):
+    """罗马数字番号被当成阿拉伯数字。
+
+    部队名 "XXIV Mot. Corps" 的 XXIV 是罗马数字 24，应当原样保留
+    （"XXIV摩托化军"）。曾有一批条目写成 "第24摩托化军"，把罗马数字
+    转成了阿拉伯数字 —— 罗马数字是部队正式番号，不能换算。
+    """
+    w = k.split()
+    if not w:
+        return None
+    if len(w[0]) >= 2 and ROMAN.match(w[0]) and re.search(r"第\d", v):
+        return "罗马数字误转阿拉伯"
+    return None
+
+
 def data_only_keys():
     """zh_dict.json 里 _dataOnly 列出的键：只改写 .data 段。
 
@@ -219,6 +237,10 @@ def analyze():
         if k in scoped:
             continue
         reasons = []
+
+        r = roman_misread(k, dic[k])
+        if r:
+            reasons.append(r)
 
         if is_enum_name(k):
             reasons.append("地形/资源枚举")

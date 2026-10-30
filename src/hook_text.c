@@ -867,11 +867,15 @@ static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
 {
     int i = 0, o = 0;
     /* 罗马数字: 原样保留，前面不加"第"（"XXIV Panzer Corps" -> "XXIV装甲军"） */
+    /* 罗马数字只认 I V X L C D M 七个字母。
+     * 曾经写成 c >= L'I' && c <= L'L'，那个区间还包含 J 和 K，
+     * 而且真正的罗马数字判断靠后面的 c == L'V' 等分支兜底，
+     * 读起来容易误以为区间覆盖了 X。这里改成逐个显式比对。 */
     int allRoman = (len > 0);
     for (i = 0; i < len; i++) {
         wchar_t c = t[i];
-        if (!((c >= L'I' && c <= L'L') || c == L'V' || c == L'X' || c == L'C' ||
-              c == L'D' || c == L'M')) { allRoman = 0; break; }
+        if (c != L'I' && c != L'V' && c != L'X' && c != L'L' &&
+            c != L'C' && c != L'D' && c != L'M') { allRoman = 0; break; }
     }
     if (allRoman && len >= 2 && o + len < cap) {
         for (i = 0; i < len; i++) out[o++] = t[i];
