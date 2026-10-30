@@ -1495,6 +1495,106 @@ static wchar_t *dt_check_body(wchar_t *text)
 
     int slot;
 
+    /* ---------- 策略 0: 拆分单位前缀 ----------
+     *
+     * 游戏允许把单位拆成几份，显示成 "1/213th Infantry Division" 或
+     * "II/43rd ..."。前缀是纯机械的：数字原样，罗马数字转阿拉伯。
+     * 后面的部分仍然是整条查表 —— 所以这里唯一的"拼接"就是把前缀
+     * 拼回去，不做任何语言判断。
+     *
+     * 放在最前面：本体整条命中比任何分段逻辑都准。 */
+    if (len > 2) {
+        int p = 0, preLen = 0;
+        wchar_t preOut[8];
+        int isRoman = 0;
+        /* 跳过层级标记 "- " 和缩进 */
+        while (p < len && (text[p] == L' ' || text[p] == L'-')) p++;
+        {
+            int q = p;
+            while (q < len && text[q] >= L'0' && text[q] <= L'9') q++;
+            if (q > p && q < len && text[q] == L'/') {
+                int z;
+                for (z = p; z < q && preLen < 6; z++) preOut[preLen++] = text[z];
+            } else {
+                q = p;
+                while (q < len && text[q] >= L'I' && text[q] <= L'M' &&
+                       (text[q] == L'I' || text[q] == L'V' || text[q] == L'X' ||
+                        text[q] == L'L' || text[q] == L'C' || text[q] == L'D' ||
+                        text[q] == L'M')) q++;
+                if (q > p && q < len && text[q] == L'/') {
+                    int n = 0, z;
+                    wchar_t r[8];
+                    for (z = p; z < q; z++) {
+                        wchar_t c = text[z];
+                        n = n * 10 + (c == L'I' ? 1 : c == L'V' ? 5 : c == L'X' ? 10 :
+                                      c == L'L' ? 50 : c == L'C' ? 100 :
+                                      c == L'D' ? 500 : 1000);
+                    }
+                    if (n > 0 && n < 1000) {
+                        wchar_t t[8];
+                        int tl = 0, m;
+                        while (n > 0 && tl < 6) { t[tl++] = L'0' + (n % 10); n /= 10; }
+                        preOut[preLen++] = 0x7B2C;    /* 第 */
+                        for (m = tl - 1; m >= 0; m--) preOut[preLen++] = t[m];
+                        isRoman = 1;
+                    }
+                }
+            }
+        }
+        (void)isRoman;
+        if (preLen > 0) {
+            /* 前缀后面是本体的起点 */
+            int body = p;
+            while (body < len && text[body] >= L'0' && text[body] <= L'9') body++;
+            if (body < len && text[body] >= L'I' && text[body] <= L'M') {
+                while (body < len && (text[body] == L'I' || text[body] == L'V' ||
+                                      text[body] == L'X' || text[body] == L'L' ||
+                                      text[body] == L'C' || text[body] == L'D' ||
+                                      text[body] == L'M')) body++;
+            }
+            if (body < len && text[body] == L'/') {
+                body++;
+                /* 斜杠右边必须真的是番号（数字开头），左边才是分遣队序号。
+                 * 否则 "1/West Wall" 的 1 是番号，会被误当成拆分前缀变成
+                 * "1/西墙"。判据和 is_split_index 一致。 */
+                if (body >= len || text[body] < L'0' || text[body] > L'9')
+                    body = len;
+                {
+                    int bl = len - body;
+                    int i;
+                    for (i = 0; i < g_nzh; i++) {
+                        int z, ok = 1;
+                        if (g_zh[i].klen != bl) continue;
+                        for (z = 0; z < bl; z++) {
+                            wchar_t a = text[body + z];
+                            wchar_t b = (wchar_t)(unsigned char)g_zh[i].key[z];
+                            if (g_zh[i].cs ? (a != b) : (lc_w(a) != lc_w(b))) {
+                                ok = 0;
+                                break;
+                            }
+                        }
+                        if (!ok) continue;
+                        {
+                            static wchar_t s0[POOL][512];
+                            static int i0 = 0;
+                            wchar_t *slot = s0[i0++ & (POOL - 1)];
+                            int lead = p;
+                            /* 保留原来的前导空格和 "- " 标记 */
+                            if (lead + preLen + 1 + g_zh[i].wlen >= 500) break;
+                            memcpy(slot, text, lead * sizeof(wchar_t));
+                            memcpy(slot + lead, preOut, preLen * sizeof(wchar_t));
+                            slot[lead + preLen] = L'/';
+                            memcpy(slot + lead + preLen + 1, g_zh[i].wtext,
+                                   g_zh[i].wlen * sizeof(wchar_t));
+                            slot[lead + preLen + 1 + g_zh[i].wlen] = 0;
+                            return slot;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /* ---------- 策略 1: 整串精确匹配 ---------- */
     for (int i = 0; i < g_nzh; i++) {
         if (g_zh[i].klen != len) continue;

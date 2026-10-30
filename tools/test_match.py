@@ -181,6 +181,14 @@ CASES = [
     ("  小河： W ", "  小河：西", "单字母方位词"),
     ("  铁路：  E  SW ", "  铁路：  东  西南", "多方位"),
     ("L (mA)-1", "L (北极海洋性)-1", "Köppen 语序"),
+    # A′ 逐条手写 + 拆分前缀规则
+    ("1st Sep. Grenadier Regiment", "第1独立掷弹兵团", "逐条条目"),
+    ("1st Sep.Grenadier Rgt", "第1独立掷弹兵团", "缩写点后无空格也要有独立条目"),
+    ("III Panzer Group", "第3装甲集群", "罗马番号整条"),
+    ("XXXXVIII Pz Grp.", "第48装甲集群", "罗马番号缩写形态"),
+    ("1/1st Infantry Division", "1/第1步兵师", "动态拆分：数字前缀原样"),
+    ("II/43rd LW Mot. Mixed Flak Battalion", "第2/第43空军摩托化混成高炮营", "动态拆分：罗马前缀转阿拉伯"),
+    ("1/West Wall", "第1西墙", "斜杠右边非番号时左边是番号"),
     # 数据文件里的显示文本（Nations/GroundTypes/AirProfiles）
     ("Soviet Union", "苏联", "国家名"),
     ("Rifle Squad", "步兵班", "地面单位类型（Rifle 统一译步兵）"),
