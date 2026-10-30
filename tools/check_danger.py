@@ -169,6 +169,9 @@ SAFE_LABELS = {
 ROMAN = re.compile(r"^[IVXLCDM]+$")
 # 星号/罗马数字序列，常作为评级标记或分隔符出现，不能翻
 SEQUENCE = re.compile(r"^[XIV]+$")
+# 短标识符：<=6 字符、无空格、纯 ASCII。在 .rdata 里几乎都是枚举成员、
+# ISO 语言码、CSV 列名、BBCode 标记，全局改写会静默破坏游戏逻辑。
+SHORT_ID = re.compile(r"^[A-Za-z][A-Za-z0-9.\-:'#]*$")
 
 
 def roman_misread(k, v):
@@ -186,18 +189,26 @@ def roman_misread(k, v):
     return None
 
 
-def data_only_keys():
-    """zh_dict.json 里 _dataOnly 列出的键：只改写 .data 段。
+def scoped_keys():
+    """zh_dict.json 里已做作用域隔离的键，返回 (data_only, both, rdata_safe)。
 
-    这些键在 .data 是定长显示数组，在 .rdata 另有同名枚举副本
-    （例如 PORT 的邻居是 AIRFIELD/UNIT/RAILWAY/FERRY/INTERDICT，
-    是任务类型枚举）。已用作用域隔离，不算危险词条。
+    _dataOnly   只改写 .data 段。这些键在 .data 是定长显示数组，在
+                .rdata 另有同名枚举副本（PORT 的邻居是 AIRFIELD/UNIT/
+                RAILWAY/FERRY/INTERDICT，属任务类型枚举）。
+    _bothSections  显式要求两段都改。
+    _rdataSafe  确认安全的短串，允许照常改写。
+
+    另外 build_assets.py 会把 <=6 字符的标识符自动标成 t（只绘制层），
+    这里也要认，否则会把它们当危险词条报出来。
     """
     try:
         with open(os.path.join(ROOT, "zh_dict.json"), encoding="utf-8") as f:
-            return set(json.load(f).get("_dataOnly", []))
+            raw = json.load(f)
     except Exception:
-        return set()
+        return set(), set(), set()
+    return (set(raw.get("_dataOnly", [])),
+            set(raw.get("_bothSections", [])),
+            set(raw.get("_rdataSafe", [])))
 
 
 def is_enum_name(k):
@@ -231,7 +242,8 @@ def analyze():
     with open(DICT, encoding="utf-8") as f:
         dic = json.load(f)
 
-    scoped = data_only_keys()
+    data_only, both_sections, rdata_safe = scoped_keys()
+    scoped = data_only | both_sections | rdata_safe
     findings = []
     for k in dic:
         if k.startswith("_"):
@@ -250,6 +262,18 @@ def analyze():
         # 邻居里全是同类序列，翻了会破坏比对。
         if len(k) >= 2 and SEQUENCE.match(k) and k not in ("IV", "VI", "IX", "XI"):
             reasons.append("罗马/星号序列")
+
+        # 短标识符由 build_assets.py 自动标 t（只绘制层），安全。
+        # 只有被列进 _rdataSafe、强制两段都改的短标识符才需要人工确认。
+        # 撞过的实例（都是短标识符撞上枚举/代码表）：
+        #   no → 否      命中 ISO 639 挪威语代码 ja|ko|nl|no|pl
+        #   de → 德      命中德语代码
+        #   CP → 极地大陆  命中 Command Points
+        #   SP → 自行    命中西班牙国家码 AM|VC|IQ|SP|SZ
+        #   inf → 步兵   命中 CRT 浮点解析表 nINF|inf|INITY|NAN
+        #   st → 圣      命中序数后缀表 th|st|nd|rd
+        if k in rdata_safe and len(k) <= 6 and SHORT_ID.match(k):
+            reasons.append("短标识符放行 _rdataSafe，须确认不撞枚举")
 
         if is_enum_name(k):
             reasons.append("地形/资源枚举")

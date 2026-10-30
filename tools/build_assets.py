@@ -26,6 +26,7 @@
 """
 
 import json
+import re
 import os
 import sys
 
@@ -81,6 +82,34 @@ def collect_chars():
     return chars
 
 
+def short_class(k):
+    """短串危险等级。
+
+    短串（<=6 字符、无空格、纯 ASCII 标识符样）在 .rdata 里几乎都是
+    枚举成员、ISO 语言码、CSV 列名或 BBCode 标记。全局改写会破坏
+    游戏逻辑，而且是静默破坏 —— 界面上看不出来，只在特定操作时出错。
+
+    实测撞到的例子：
+        no    ISO 639 挪威语代码（ja|ko|nl|no|pl|pt|ro）
+        de    德语代码
+        CP    Command Points
+        SP    西班牙国家码（AM|VC|IQ|SP|SZ|TU|DE）
+        inf   CRT 浮点解析表（nINF|inf|INITY|NAN）
+        st    序数后缀表（th|st|nd|rd），改了游戏会输出 "1圣"
+        div   ISO 639 迪维希语代码
+        url   BBCode 解析器 [url]...[/url]
+        id,   CSV 表头
+
+    这些串出现在界面上的概率很低，却一改就出事。绘制层能翻译它们，
+    所以标记成 t（只绘制层），不动内存。
+    """
+    if " " in k or "	" in k:
+        return 0
+    if not re.fullmatch(r"[A-Za-z][A-Za-z0-9.\-:'#]*", k):
+        return 0
+    return len(k) <= 6
+
+
 def build_tsv():
     with open(DICT, encoding="utf-8") as f:
         raw = json.load(f)
@@ -90,6 +119,8 @@ def build_tsv():
     # FERRY/INTERDICT，属任务类型枚举）。改枚举会让地图渲染出错。
     data_only = set(raw.get("_dataOnly", []))
     both = set(raw.get("_bothSections", []))
+    # _rdataSafe: 确认安全的短串，允许照常改写两段。
+    rdata_safe = set(raw.get("_rdataSafe", []))
     zh = {k: v for k, v in raw.items()
           if not k.startswith("_") and not str(v).startswith("----")}
     lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",
@@ -99,6 +130,8 @@ def build_tsv():
             scope = "\tb"
         elif k in data_only:
             scope = "\td"
+        elif short_class(k) and k not in rdata_safe:
+            scope = "\tt"
         else:
             scope = ""
         lines.append("%s\t%s%s" % (k, v, scope))
@@ -131,7 +164,7 @@ def verify_tsv():
                 bad.append((en.decode("utf-8", "replace"), "列数 %d" % len(cols)))
                 continue
             zh = cols[0]
-            if len(cols) == 2 and cols[1] not in (b"d", b"r", b"b"):
+            if len(cols) == 2 and cols[1] not in (b"d", b"r", b"b", b"t"):
                 bad.append((en.decode("utf-8", "replace"),
                             "作用域标记 %r" % cols[1]))
             if b"\t" in zh:

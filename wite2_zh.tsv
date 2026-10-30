@@ -8,7 +8,7 @@ Load Saved Game	载入存档
 Go to the saved game list.	打开存档列表。
 Pick Scenario	选择剧本
 Select a scenario	选择一个剧本
-Editor	编辑器
+Editor	编辑器	t
 Go to the game data editor.	打开游戏数据编辑器。
 Credits	制作名单
 Show Game Credits	显示制作名单
@@ -33,30 +33,30 @@ Set to human controlled Soviet player.	设为玩家控制苏联
 Set to human controlled W Allies player.	设为玩家控制西线盟军
 Toggle Play by E-Mail OFF.	关闭邮件对战
 Toggle Play by E-Mail ON.	开启邮件对战
-Supply	补给
+Supply	补给	t
 Movement	移动
-Depot	补给站
+Depot	补给站	t
 Weather	天气
 Factory	工厂
 Air Directive	空中指令
 End Turn	结束回合
 Rail Repair	铁路修复
-Turn	回合
-Units	部队
+Turn	回合	t
+Units	部队	t
 Air Bases	航空基地
-Pilots	飞行员
+Pilots	飞行员	t
 Aircraft	飞机
-Rest	休整
-Normal	正常
+Rest	休整	t
+Normal	正常	t
 Restricted	受限
 Priority	优先
-Manual	手动
-Auto	自动
+Manual	手动	t
+Auto	自动	t
 Disband	解散
 Assigned	已分配
-None	无
+None	无	t
 Player:	玩家：
-ACTIVE	激活
+ACTIVE	激活	t
 INACTIVE	未激活
 Reinforcement	增援
 Reinforcements & Transfers	增援与调动
@@ -89,10 +89,10 @@ Carpathian Hun. Army	喀尔巴阡匈牙利集团军
 16th Motorized Division	第16摩托化师
 79th Infantry Division	第79步兵师
 103rd RHG Command	第103后方卫戍区
-OKH	国防军陆军总司令部
-OKL	空军总司令部
-OHQ	上级司令部
-HHQ	战区司令部
+OKH	国防军陆军总司令部	t
+OKL	空军总司令部	t
+OHQ	上级司令部	t
+HHQ	战区司令部	t
 Army Group HQ	集团军群司令部
 Army HQ	集团军司令部
 Corp HQ	军司令部
@@ -120,44 +120,44 @@ Depleted	损耗
 Understrength	缺编
 Low Supply	低补给
 Critical Supply	危急补给
-READY	就绪
-LOCKED	锁定
+READY	就绪	t
+LOCKED	锁定	t
 STRENGTH ALERTS	兵力警报
 SUPPLY ALERTS	补给警报
 COMBAT UNIT ALERTS	作战部队警报
 SUPPLY DETAILS	补给详情
 SUPPLY PRIORITY	补给优先级
 GROUND ELEMENT	地面单位
-TOE	编制
-FAT	疲劳
-DAM	损伤
-EXP	经验
-Morale	士气
-Pool	储备池
-Repair	修理
-Total	总计
-Nation	国家
+TOE	编制	t
+FAT	疲劳	t
+DAM	损伤	t
+EXP	经验	t
+Morale	士气	t
+Pool	储备池	t
+Repair	修理	t
+Total	总计	t
+Nation	国家	t
 Scenario	剧本
 Scenario Overview	剧本概览
 Historical Overview	历史背景
 Load Scenario	载入剧本
-Start	开始
-End	结束
-Yes	是
-Map	地图
+Start	开始	t
+End	结束	t
+Yes	是	t
+Map	地图	t
 MAP INFO	地图信息
 Turn Summary	回合总结
 TURN SUMMARY	回合总结
 LOGISTICS	后勤
-ADMIN	行政
+ADMIN	行政	t
 INFO SCREENS	信息界面
 OB CHANGES	战斗序列变更
 COM REPORT	通讯报告
 FRIENDLY LOSSES	我方损失
 SET COLOR	设置颜色
 Axis Control	轴心控制
-Soviet	苏联
-Axis	轴心
+Soviet	苏联	t
+Axis	轴心	t
 Germany	德国
 Starting player	起始玩家
 Starting Zoom Level	初始缩放级别
@@ -217,21 +217,21 @@ Select this saved game.	选择此存档。
 Air Execution Phase Detail	空中执行阶段详情
 Export Battle Details (CSV)	导出战斗详情（CSV）
 Author:  Trey Marshall - Great_Ajax	作者：Trey Marshall - Great_Ajax
-CURSOR	光标
+CURSOR	光标	t
 NUMERAL	数字
 CV-MOVE	战斗力-移动
-Jun	6月
-Jul	7月
-Aug	8月
-Sep	9月
-Oct	10月
-Nov	11月
-Dec	12月
-Jan	1月
-Feb	2月
-Mar	3月
-Apr	4月
-May	5月
+Jun	6月	t
+Jul	7月	t
+Aug	8月	t
+Sep	9月	t
+Oct	10月	t
+Nov	11月	t
+Dec	12月	t
+Jan	1月	t
+Feb	2月	t
+Mar	3月	t
+Apr	4月	t
+May	5月	t
 Road To Leningrad	通往列宁格勒
 Stalingrad to Berlin Campaign - No Early End	斯大林格勒到柏林战役 - 无提前结束
 Stalingrad to BerlinCampaign-NoEarlyE	斯大林格勒到柏林战役 - 无提前结束
@@ -290,17 +290,17 @@ You must exit the game program for Graphics Quality changes to take effect.	修�
 Set the level of difficulty.	设置难度等级。
 Reset the game options to their default values	恢复游戏选项为默认值
 Exit the game options screen.	退出游戏选项界面。
-LOW	低
-MEDIUM	中
-HIGH	高
-Low	低
+LOW	低	t
+MEDIUM	中	t
+HIGH	高	t
+Low	低	t
 Very Low	极低
 Very High	极高
-MAX-IN	最大放大
+MAX-IN	最大放大	t
 MAX-OUT	最大缩小
-OUT	缩小
-NAME	名称
-COMBAT	战斗
+OUT	缩小	t
+NAME	名称	t
+COMBAT	战斗	t
 Resign from this game (this cannot be undone)?	退出此对局（不可撤销）？
 Sign in to multiplayer server	登录多人游戏服务器
 Go to Privacy Policy Page	前往隐私政策页面
@@ -315,7 +315,7 @@ Enter Password :	输入密码：
 Enter Email :	输入邮箱：
 USERNAME	用户名
 PASSWORD	密码
-EMAIL	邮箱
+EMAIL	邮箱	t
 SERIAL NUMBER	序列号
 Sign In	登录
 Register	注册
@@ -327,7 +327,7 @@ View / Resign Game	查看/退出对局
 View / Resign	查看/退出
 Open Sign In Form	打开登录表单
 Play server game	进行服务器对局
-Play	开始
+Play	开始	t
 View / Cancel	查看/取消
 Open Challenges	打开挑战
 View / Accept challenge	查看/接受挑战
@@ -379,22 +379,22 @@ MULTI-ROLE	多用途
 MULTI-ROLE (/3)	多用途（/3）
 SET ASSAULT	设置突击
 ASSAULT	突击
-BUILD	建造
-STATIC	固定
+BUILD	建造	t
+STATIC	固定	t
 RESERVE	预备
-LOADED	已装载
+LOADED	已装载	t
 GARRISON	驻防
 DEPLETED	损耗
-REFIT	补充
+REFIT	补充	t
 WITHDRAW	撤离
-ROUTED	溃退
+ROUTED	溃退	t
 ISOLATED	被围
 MOTORIZED	摩托化
 RESTRICTED	受限
 Formation Role: 	编制角色：
 no leader assigned	未指派将领
 Select this leader	选择此将领
-Leader	将领
+Leader	将领	t
 Dismissal Cost:	解职花费：
 High Command	最高统帅部
 Pick New Leader for	选择新将领：
@@ -416,13 +416,13 @@ Construction Value	建设值
 Vehicles/Need	车辆/需求
 Ammo/Need	弹药/需求
 Fuel/Need	燃料/需求
-Men	人员
-Value	数值
-Unit	部队
-Type	类型
-Size	规模
-Speed	速度
-Ready	就绪
+Men	人员	t
+Value	数值	t
+Unit	部队	t
+Type	类型	t
+Size	规模	t
+Speed	速度	t
+Ready	就绪	t
 Traveled	已行进
 Reliability	可靠性
 Build Cost	建造成本
@@ -439,16 +439,16 @@ Front Armor	前装甲
 Stacking 	堆叠 
 Upgrade	升级
 Capacity	容量
-Detail	详情
+Detail	详情	t
 Damaged	受损
-Lost	损失
-Raids	出击
-Groups	机组
+Lost	损失	t
+Raids	出击	t
+Groups	机组	t
 Intensity	强度
-Area	区域
-Alt	高度
-Target	目标
-Other	其他
+Area	区域	t
+Alt	高度	t
+Target	目标	t
+Other	其他	t
 Resource factories damage in the location	此地资源工厂受损
 Resource factories damage in the region	此区域资源工厂受损
 Resource factories damage in the nation	全国资源工厂受损
@@ -683,28 +683,26 @@ Hold down shift key for DELIBERATE ATTACK	按住 Shift 键进行蓄意攻击
 F U N C T I O N S	功能
 E  N  E  M  Y	敌  方
 F R I E N D L Y	友  方
-Def	防御
-Vic	胜利
-Ini	主动
-Mor	士气
-Pol	政治
-Cost	花费
-Inf	步兵
-Mech	机械
-Adm	行政
-ROF	射速
-AMM	弹药
-RGE	射程
-ACC	精度
-DEVICE	装备
-DEF	防御
-SEC	次要
-ATK	攻击
-RDY	就绪
+Def	防御	t
+Vic	胜利	t
+Ini	主动	t
+Mor	士气	t
+Pol	政治	t
+Cost	花费	t
+Mech	机械	t
+Adm	行政	t
+ROF	射速	t
+AMM	弹药	t
+RGE	射程	t
+ACC	精度	t
+DEVICE	装备	t
+DEF	防御	t
+ATK	攻击	t
+RDY	就绪	t
 Sorties	架次
-Losses	损失
-Ammo	弹药
-Fuel	燃料
+Losses	损失	t
+Ammo	弹药	t
+Fuel	燃料	t
 Supplies	补给品
 Experience	经验
 Fatigue	疲劳
@@ -713,53 +711,53 @@ setting AD	设置空中指令
 auto naval	自动海军
 air directives	空中指令
 Continue	继续
-Pause	暂停
+Pause	暂停	t
 on the ground	地面
 air combat	空战
 FLYING AIR PATROLS	执行空中巡逻
-UNIT	部队
+UNIT	部队	t
 ground element	地面单位
-OB#:	编制号：
+OB#:	编制号：	t
 Execute Air Phase	执行空中阶段
 Delete message	删除消息
 Click to enter/edit message	点击输入/编辑消息
 Show Command Efficiency	显示指挥效率
-Ground	地面
+Ground	地面	t
 Air-Ground	空对地
 Show Command Quality	显示指挥素质
 all flak	全部高炮
 city flak only	仅城市高炮
 Strategic Recon	战略侦察
 BOMB AIRFIELD	轰炸机场
-MOVE	移动
+MOVE	移动	t
 BOMB UNIT	轰炸部队
 BOMB CITY	轰炸城市
 AIR EXECUTION	空中执行
 SCRIPT T	脚本 T
 SCRIPT M	脚本 M
 AIR PLANNING	空中计划
-SUPPLY	补给
+SUPPLY	补给	t
 AMPHIBIOUS	两栖
 SHOW BATTLES	显示战斗
-SCRIPT	脚本
+SCRIPT	脚本	t
 NAVAL MOVE	海上移动
 AIR RECON	空中侦察
 TRANSPORT	运输
 AIR TRANSPORT	空运
 AIR TRANSFER	空转
-GS-on	对地支援-开
-GS-off	对地支援-关
-FILTER	筛选
-GROUND	地面
-ALL	全部
-CUSTOM	自定义
-AIR	空中
+GS-on	对地支援-开	t
+GS-off	对地支援-关	t
+FILTER	筛选	t
+GROUND	地面	t
+ALL	全部	t
+CUSTOM	自定义	t
+AIR	空中	t
 Examine city details	查看城市详情
 SET AI OBJECTIVES	设置AI目标
 AI SCRIPT MODE	AI脚本模式
 SET VICTORY CITIES	设置胜利城市
-toe:	编制：
-Gds	近卫
+toe:	编制：	t
+Gds	近卫	t
 SELECT UNIT TYPE	选择部队类型
 Build selected units	建造选中部队
 low AP : too many units	行政点不足：部队过多
@@ -781,57 +779,57 @@ Delete rename?	删除改名？
 ON TURN	于回合
 DESTROYED	已摧毁
 STRAT RECON	战略侦察
-BOMB	轰炸
+BOMB	轰炸	t
 NAVAL PATROL	海上巡逻
-TRANSP	运输
-RETURN	返航
+TRANSP	运输	t
+RETURN	返航	t
 AIR SUPER	空中优势
-PATROL	巡逻
-SEARCH	搜索
+PATROL	巡逻	t
+SEARCH	搜索	t
 INTRUDER	夜间袭扰
 INTERCEPT	拦截
-ESCORT	护航
-SWEEP	扫荡
-TRAIN	训练
-RECON	侦察
+ESCORT	护航	t
+SWEEP	扫荡	t
+TRAIN	训练	t
+RECON	侦察	t
 V-WEAPON	V型武器
 V-W LAUNCH	V型发射
 VEHICLE	车辆
 ARMAMENT	军备
-FUEL	燃料
+FUEL	燃料	t
 RESOURCE	资源
-OIL	石油
+OIL	石油	t
 RAILYARD	铁路场站
 MANPOWER	人力
 AIRCRAFT	飞机
-AFV	装甲车
-FERRY	渡运
+AFV	装甲车	t
+FERRY	渡运	t
 INTERDICT	遮断
 RAILWAY	铁路
-U-BOAT	潜艇
+U-BOAT	潜艇	t
 NIGHT ONLY	仅夜间
 DAY & NIGHT	昼夜
 MIX MISSION	混合任务
 DAY ONLY	仅白天
 MIX REPLACE	混合补充
 TRAINING	训练
-REST	休整
+REST	休整	t
 PRIORITY	优先级
 Flexible	灵活
-Hold	坚守
+Hold	坚守	t
 Retreat	撤退
 Advance	前进
-Ignore	忽略
+Ignore	忽略	t
 MOVE TO	移动到
-TYPE	类型
-SIZE	规模
+TYPE	类型	t
+SIZE	规模	t
 RESET FILTERS	重置筛选
 FILTERS	筛选器
 CHANGE TYPE	更改类型
 CHANGE SIZE	更改规模
 IMPORTS	进口
-SITES	地点
-TOTAL	总计
+SITES	地点	t
+TOTAL	总计	t
 S Time	S 时间
 Sup Need	补给需求
 Sup Rec	补给接收
@@ -915,7 +913,7 @@ This cannot be undone --- Continue	此操作不可撤销 --- 继续
 This will take some time --- Continue	此操作需要一些时间 --- 继续
 Do you want to update selected generic data?	是否更新选中的通用数据？
 Do you want to update ALL generic data?	是否更新全部通用数据？
-Done.	完成。
+Done.	完成。	t
 saving ....	保存中 ....
 loading ....	载入中 ....
 initializing ....	初始化中 ....
@@ -981,7 +979,7 @@ Stop following HQ	停止跟随司令部
 Set Follow HQ	设置跟随司令部
 Follow: 	跟随：
 Rng Circles	航程圈
-Exit	退出
+Exit	退出	t
 Medium: 2	中：2
 Low: 1	低：1
 High: 3	高：3
@@ -997,13 +995,13 @@ out of 	 /
 (max 	（最大 
 Naval Ops:	海军作战：
 Naval Ops Port: 	海军作战港口：
-FHQ:	前线司令部：
+FHQ:	前线司令部：	t
  (max  	（最大 
  to 	 至 
-LW	空军
-SS	党卫军
-GRD	近卫
-GCD	近卫骑兵
+LW	空军	t
+SS	党卫军	t
+GRD	近卫	t
+GCD	近卫骑兵	t
 User Preferences	用户偏好设置
 in pool	储备中
 Trained Pilots	训练完成的飞行员
@@ -1021,7 +1019,7 @@ Units in Battle	参战部队
 On The Ground	在地面
 Aircraft On The Ground	地面上的飞机
 Short Scenario	短剧本
-DLC	DLC
+DLC	DLC	t
 Scenario requires DLC	剧本需要DLC
 this unit's detail	此部队的详情
 this city	此城市
@@ -1600,15 +1598,15 @@ CHALLENGING	挑战	d
 IMPOSSIBLE	不可能	d
 January	1月
 February	2月
-April	4月
-June	6月
-July	7月
-August	8月
+April	4月	t
+June	6月	t
+July	7月	t
+August	8月	t
 September	9月
 October	10月
 November	11月
 December	12月
-Sept	9月
+Sept	9月	t
 Axis player:	轴心玩家：
 Soviet player:	苏联玩家：
 Show Depot Warning Message	显示补给站警告消息
@@ -1619,62 +1617,62 @@ Show Ground Element/Aircraft Icons	显示地面单位/飞机图标
 Switch to old editor	切换到旧编辑器
 Switch to new editor	切换到新编辑器
 Allowed	允许
-Icons	图标
+Icons	图标	t
 Warning	警告
 Message	消息
 Messages	消息
 GENERIC	通用
-editor	编辑器
+editor	编辑器	t
 Introductory	入门
 Road to	通往
 player:	玩家：
-player	玩家
-Player	玩家
+player	玩家	t
+Player	玩家	t
 Operation Barbarossa	巴巴罗萨行动
 Red Army	红军
 Army Group South Ukraine	南乌克兰集团军群
 Belgrade	贝尔格莱德
-Minsk	明斯克
-Rostov	罗斯托夫
+Minsk	明斯克	t
+Rostov	罗斯托夫	t
 Leningrad	列宁格勒
-Kiev	基辅
+Kiev	基辅	t
 Kharkov	哈尔科夫
 Stalingrad	斯大林格勒
 Sevastopol	塞瓦斯托波尔
-Odessa	敖德萨
+Odessa	敖德萨	t
 Dnepr River	第聂伯河
-Dnepr	第聂伯河
+Dnepr	第聂伯河	t
 Don River	顿河
-Volga	伏尔加河
-Crimea	克里米亚
+Volga	伏尔加河	t
+Crimea	克里米亚	t
 Caucasus	高加索
 Hungary	匈牙利
 Rumania	罗马尼亚
 Rumanian	罗马尼亚
 Bulgaria	保加利亚
 Bulgarians	保加利亚人
-Serbia	塞尔维亚
+Serbia	塞尔维亚	t
 Macedonia	马其顿
-Greece	希腊
+Greece	希腊	t
 Yugoslavia	南斯拉夫
 Yugoslavian	南斯拉夫
 partisan	游击队
 partisans	游击队
 infantry	步兵
-armor	装甲
+armor	装甲	t
 reinforcements	增援
 offensive	攻势
 victory	胜利
-defeat	失败
-combat	战斗
-forces	部队
-armies	集团军
-Armies	集团军
+defeat	失败	t
+combat	战斗	t
+forces	部队	t
+armies	集团军	t
+Armies	集团军	t
 Clear All	清除全部
 Clear all	清除全部
-All	全部
-No	否
-OK	确定
+All	全部	t
+No	否	t
+OK	确定	t
 Panzergren	装甲掷弹兵
 Armored Train	装甲列车
 Field Gun	野炮
@@ -1699,88 +1697,88 @@ Clear - 	晴朗 -
 Locations	地点
 Replacements	补充
 transit	过境
-Level	等级
-Points	点数
-Number	数量
-States	状态
-Button	按钮
-Date	日期
-Italy	意大利
-Ital	意大利
-Hun	匈牙利
-Rum	罗马尼亚
+Level	等级	t
+Points	点数	t
+Number	数量	t
+States	状态	t
+Button	按钮	t
+Date	日期	t
+Italy	意大利	t
+Ital	意大利	t
+Hun	匈牙利	t
+Rum	罗马尼亚	t
 Romania	罗马尼亚
 Romanian	罗马尼亚
 Finland	芬兰
 Finnish	芬兰
-Fin	芬兰
+Fin	芬兰	t
 Slovakia	斯洛伐克
 Slovakian	斯洛伐克
 Croatia	克罗地亚
-Russia	俄罗斯
+Russia	俄罗斯	t
 Russian	俄罗斯
 Western Europe	西欧
 Balkans	巴尔干
-Norway	挪威
+Norway	挪威	t
 Eastern Front	东线
 German Front	德军战线
 theater boxes	战区
 theater box	战区
 Theater Box	战区
 Theater Boxes	战区
-Kazan	喀山
+Kazan	喀山	t
 Kulikovka	库利科夫卡
 Stalino	斯大林诺
 Surakhani	苏拉哈内
-Vienna	维也纳
-Poznan	波兹南
-Lvov	利沃夫
+Vienna	维也纳	t
+Poznan	波兹南	t
+Lvov	利沃夫	t
 Budapest	布达佩斯
 Bucharest	布加勒斯特
 Kuybyshev	古比雪夫
-Krakow	克拉科夫
+Krakow	克拉科夫	t
 Smolensk	斯摩棱斯克
 Bratislava	布拉迪斯拉发
 Astrakhan	阿斯特拉罕
-Rzhev	勒热夫
+Rzhev	勒热夫	t
 Makhachkala	马哈奇卡拉
 Koenigsberg	柯尼斯堡
-Baku	巴库
-Pskov	普斯科夫
+Baku	巴库	t
+Pskov	普斯科夫	t
 Dnepropetrovsk	第聂伯罗彼得罗夫斯克
 Breslau	布雷斯劳
 Hamburg	汉堡
-Ryazan	梁赞
+Ryazan	梁赞	t
 Zaporozhye	扎波罗热
 Nuremberg	纽伦堡
 Krolevets	克罗列韦茨
 Voronezh	沃罗涅日
 Kalinin	加里宁
-Berlin	柏林
-Tula	图拉
-Grozny	格罗兹尼
+Berlin	柏林	t
+Tula	图拉	t
+Grozny	格罗兹尼	t
 Helsinki	赫尔辛基
-Warsaw	华沙
+Warsaw	华沙	t
 Saratov	萨拉托夫
-Prague	布拉格
+Prague	布拉格	t
 Leipzig	莱比锡
-Tambov	坦波夫
-Kursk	库尔斯克
+Tambov	坦波夫	t
+Kursk	库尔斯克	t
 Tallinn	塔林
-Munich	慕尼黑
+Munich	慕尼黑	t
 Krasnodar	克拉斯诺达尔
-Riga	里加
-Gorky	高尔基
+Riga	里加	t
+Gorky	高尔基	t
 Rostock	罗斯托克
 Ploesti	普洛耶什蒂
 Dresden	德累斯顿
-Orel	奥廖尔
-Maikop	迈科普
+Orel	奥廖尔	t
+Maikop	迈科普	t
 Sabunchu	萨本丘
 Yaroslavl	雅罗斯拉夫尔
 Tbilisi	第比利斯
 Bibi-Heybat	比比埃巴特
-Sumy	苏梅
+Sumy	苏梅	t
 Show Weather Screen	显示天气界面
 Show Order of Battle Screen	显示战斗序列界面
 hex control	六角格控制
@@ -1873,38 +1871,38 @@ Sudden Loss	突然失败
 Formation Type	编制类型
 Fort  3 (10%)	要塞  3（10%）
 Minor River:  E SE	小河：东 东南
-ADD	添加
+ADD	添加	t
 ADD LINK	添加链接
-BOTH	两者
+BOTH	两者	t
 CALCULATE	计算
-CANCEL	取消
+CANCEL	取消	t
 CHANGE SUFFIX	更改后缀
 CHANGE TO	更改为
 CLEAR LINKS	清除链接
 CLEAR PRODUCTION POOLS	清除生产储备
-CLOSE	关闭
+CLOSE	关闭	t
 CONFIRM	确认
-COPY	复制
+COPY	复制	t
 DISABLE	禁用
 DISBANDED	已解散
-DIVIDE	拆分
-DOWN	下
+DIVIDE	拆分	t
+DOWN	下	t
 EDIT NATIONS	编辑国家
 EDIT WEAPON SETS	编辑武器组
 EXECUTE	执行
-FIND	查找
+FIND	查找	t
 FIND HEX	查找六角格
 HIDE WEAPON SETS	隐藏武器组
-INSERT	插入
+INSERT	插入	t
 LIMITED	有限
-LOAD	载入
+LOAD	载入	t
 LOAD CSV	载入CSV
-MARK	标记
+MARK	标记	t
 MERGE WITH	合并至
 MULTIPLY	乘
 NO TEXT	无文字
 OUTLINE	描边
-PASTE	粘贴
+PASTE	粘贴	t
 PERCENT	百分比
 PICK ACTION OBJECT	选择行动对象
 PICK ACTION OPERATOR	选择行动操作符
@@ -1920,21 +1918,21 @@ PICK WEAPON FACING	选择武器朝向
 PROMOTION	晋升
 RANDOMIZE	随机化
 RANDOMIZE TILES	随机化地块
-RENAME	改名
+RENAME	改名	t
 RENAMES TO	改名为
-RESIZE	调整大小
+RESIZE	调整大小	t
 RESIZE (REMOVE)	调整大小（移除）
-SAVE	保存
+SAVE	保存	t
 SAVE CSV	保存CSV
 SET TO	设为
 SET TO (DIE)	设为（骰子）
 SHOW EVENT LINKS	显示事件链接
 SUBTRACT	减
 TRANSLATE	翻译
-TRUE	真
-FALSE	假
-UNMARK	取消标记
-VALID	有效
+TRUE	真	t
+FALSE	假	t
+UNMARK	取消标记	t
+VALID	有效	t
 WITHDRAWAL LIST	撤离列表
 WITHDRAWALS    ARRIVALS    RENAMES 	撤离    抵达    改名 
 Add Pilot	添加飞行员
@@ -2015,7 +2013,7 @@ Hex Art	六角格图形
 Hex Art:	六角格图形：
 Hex X	六角格X
 Hex Y	六角格Y
-Hexes	六角格
+Hexes	六角格	t
 Hide column config	隐藏列配置
 Hide Types	隐藏类型
 Highlight Fortified Regions	高亮筑垒区域
@@ -2092,7 +2090,7 @@ Road System	道路系统
 Road System:	道路系统：
 Run Test Code	运行测试代码
 Same Class	同类
-Scale	规模
+Scale	规模	t
 Scaling OFF	缩放关闭
 Scaling ON	缩放开启
 Scrap Obsolete Pools	报废过时储备
@@ -2111,7 +2109,7 @@ Show Save Game screen	显示存档界面
 Show Types	显示类型
 Show Values	显示数值
 Show Witepedia	显示百科
-Ships	船只
+Ships	船只	t
 SHIP CLASSES	舰船级别
 SHIPPING CONTESTED	航运争夺中
 SHIPPING HEAVILY CONTESTED	航运激烈争夺
@@ -2170,8 +2168,8 @@ Ceiling:	升限：
 CIVILIAN CONSUMPTION	民用消费
 Climb rate (ft/min)	爬升率（英尺/分）
 Cur Song:	当前曲目：
-DEBUG	调试
-Debug	调试
+DEBUG	调试	t
+Debug	调试	t
 Durability:	耐久：
 Eff Ceiling:	有效升限：
 Endurance:	续航：
@@ -2180,12 +2178,12 @@ Excellent	优秀
 EXPIRED LOADOUTS	已过期挂载
 Event Log	事件日志
 Exported	已导出
-Fair	晴朗
+Fair	晴朗	t
 Frozen Solid	完全冻结
 GOOD Road System	良好道路系统
 AVERAGE Road System	中等道路系统
 POOR Road System	劣质道路系统
-HARSH	严酷
+HARSH	严酷	t
 harsh winter	严冬
 mild winter	暖冬
 HEAT Pen:	空心装药穿深：
@@ -2194,29 +2192,29 @@ HVY URBAN	重型城区
 Impassable	不可通行
 Impassable: 	不可通行：
 IMPERIAL	英制
-Italic	斜体
+Italic	斜体	t
 Italic-Bold	粗斜体
-Bold	粗体
+Bold	粗体	t
 Koluft Center	中央空军联络
 Koluft North	北方空军联络
 Koluft South	南方空军联络
 Maneuver	机动
 Maneuver:	机动：
 Manuever:	机动：
-METRIC	公制
-MILD	温和
+METRIC	公制	t
+MILD	温和	t
 MINIMAL	最小
-Mud	泥泞
+Mud	泥泞	t
 Neutral	中立
 No change	无变化
-Norm	正常
+Norm	正常	t
 Not set	未设置
-PBEM	邮件对战
+PBEM	邮件对战	t
 Penetration:	穿透：
 Population	人口
 Required	必需
-SNOW	雪
-Snow	雪
+SNOW	雪	t
+Snow	雪	t
 TERRAIN	地形
 Thin Ice	薄冰
 Very Poor	极差
@@ -2224,18 +2222,18 @@ WATER (1)	水域（1）
 Wounded	负伤
 Captured	被俘
 Received	接收
-Used	已使用
+Used	已使用	t
 unlimited	无限
 Unlimited	无限
 resigning	退出中
 registering	注册中
-Town	城镇
-Cities	城市
+Town	城镇	t
+Cities	城市	t
 Cities:	城市：
 Removed cities	已移除城市
 Divisions	师
-Navy	海军
-Action	行动
+Navy	海军	t
+Action	行动	t
 ACTIONS	行动
 Arrival	抵达
 Arrival:	抵达：
@@ -2245,31 +2243,31 @@ Default	默认
 DEFAULT	默认
 Devices	装备
 Devices:	装备：
-ERROR	错误
+ERROR	错误	t
 Effect:	效果：
-Font	字体
+Font	字体	t
 Metrics	统计
-Pages	页
-Rename	改名
+Pages	页	t
+Rename	改名	t
 Renames	改名
 Scripts	脚本
-Music	音乐
-Video	视频
-Title	标题
-Text	文本
-TEXT	文本
-Tags	标记
-Tag	标记
-Turns	回合
-Year	年份
-Month	月份
-Blue	蓝色
-Red	红色
-Green	绿色
-White	白色
-Alpha	透明
+Music	音乐	t
+Video	视频	t
+Title	标题	t
+Text	文本	t
+TEXT	文本	t
+Tags	标记	t
+Tag	标记	t
+Turns	回合	t
+Year	年份	t
+Month	月份	t
+Blue	蓝色	t
+Red	红色	t
+Green	绿色	t
+White	白色	t
+Alpha	透明	t
 APLHA CHANNEL	透明通道
-ATTACK	攻击
+ATTACK	攻击	t
 DEFENSE VALUES	防御值
 DELIBERATE ATTACK	蓄意攻击
 NEW ATTACK	新攻击
@@ -2282,7 +2280,7 @@ AVAILABLE LOADOUTS	可用挂载
 SELECTED LOADOUT	已选挂载
 WEAPON STATS	武器数据
 Caspian	里海
-Ladoga	拉多加
+Ladoga	拉多加	t
 Sea Zone	海区
 SEA ZONE	海区
 production multiplier (%%)	生产倍率（%%）
@@ -2319,11 +2317,11 @@ Schedule:	日程：
 Special:	特殊：
 Special Flag:	特殊标记：
 Status:	状态：
-Class:	类别：
+Class:	类别：	t
 Position:	位置：
 Produced by:	生产方：
 National Source	国家来源
-Bomber	轰炸机
+Bomber	轰炸机	t
 NATIONALITY	国籍
 HEX NATIONALITY	六角格国籍
 HEX ROAD SYSTEM	六角格道路系统
@@ -2333,7 +2331,7 @@ HEXGRID	六角格网格
 RIVER COSTS	河流消耗
 Maj River	大河
 Min River	小河
-River	河流
+River	河流	t
 Rail: 	铁路：
 RAIL REQUIREMENTS: ~ 	铁路需求：~ 
 Zoom map in {+}	放大地图 {+}
@@ -2444,7 +2442,7 @@ Air & Ground	空中与地面
 Air Directive :	空中指令：
 Air HQ	空军司令部
 Air HQ:	空军司令部：
-Air:	空中：
+Air:	空中：	t
 Ground Units	地面部队
 Ground HQ:	地面司令部：
 Ground Combat	地面战斗
@@ -2459,10 +2457,10 @@ Men Losses	人员损失
 Supply Units	补给单位
 Support Elements	支援单位
 Support Men	支援人员
-Battle	战斗
+Battle	战斗	t
 Battle Site Filter	战斗地点筛选
 Combat Value:	战斗力：
-Enemy	敌方
+Enemy	敌方	t
 Enemy (air)	敌方（空中）
 Friendly	友方
 Axis Air	轴心空军
@@ -2482,7 +2480,7 @@ Neutral Rail 	中立铁路
 Axis Rail Usage 0	轴心铁路使用 0
 Axis Rail Repair	轴心铁路抢修
 Adjust Rail Usage	调整铁路使用
-Rails	铁路
+Rails	铁路	t
 Fort Build	要塞建设
 Fort Attrition	要塞损耗
 Fort  	要塞  
@@ -2643,7 +2641,7 @@ City pop	城市人口
 City coordinate	城市坐标
 Hex City ID:	六角格城市ID：
 Hex Recon	六角格侦察
-Hex	六角格
+Hex	六角格	t
 Leaders	将领
 Nations	国家
 Unit Name	部队名称
@@ -2672,12 +2670,12 @@ Score Mods:	得分修正：
 Condition	条件
 Construct	建设
 Attribute	属性
-Angle	角度
-Offset	偏移
-Limit	上限
-Object	对象
-Export	导出
-Import	导入
+Angle	角度	t
+Offset	偏移	t
+Limit	上限	t
+Object	对象	t
+Export	导出	t
+Import	导入	t
 Find Next	查找下一个
 Find what:	查找内容：
 Reset All	全部重置
@@ -2688,41 +2686,40 @@ Exit To Map.	返回地图。
 Go to HHQ	前往上级司令部
 Go to Air Base	前往航空基地
 View Map	查看地图
-Done	完成
-Good	良好
-Poor	劣质
+Done	完成	t
+Good	良好	t
+Poor	劣质	t
 Average	平均
 V Low	极低
 V High	极高
-Major	主要
-Minor	次要
-Fixed	固定
-Night	夜间
-Day	白天
-Clear	晴朗
-Coast	海岸
-Damage	损伤
+Minor	次要	t
+Fixed	固定	t
+Night	夜间	t
+Day	白天	t
+Clear	晴朗	t
+Coast	海岸	t
+Damage	损伤	t
 Damage 	损伤 
 Disabled	已禁用
-Event	事件
-Weapon	武器
-Guns	火炮
-Truck	卡车
+Event	事件	t
+Weapon	武器	t
+Guns	火炮	t
+Truck	卡车	t
 Truck Used	卡车使用
 Vehicles	车辆
 turns 	回合 
 Guards 	近卫 
 Guards:	近卫：
-Czech	捷克
-Dutch	荷兰
-Polish	波兰
+Czech	捷克	t
+Dutch	荷兰	t
+Polish	波兰	t
 Belgian	比利时
 Italian	意大利
 Hungarian	匈牙利
 Bulgarian	保加利亚
-Debica	登比察
-Jesau	耶绍
-Azov	亚速
+Debica	登比察	t
+Jesau	耶绍	t
+Azov	亚速	t
 Gr. Sud	南方集团军群
 Gr. Nord	北方集团军群
 Gr. Mitte	中央集团军群
@@ -2788,7 +2785,7 @@ No factory recon data	无工厂侦察数据
 No Detail	无详情
 Low Detail	低详情
 High Detail	高详情
-IMAGE	图像
+IMAGE	图像	t
 Image File	图像文件
 CSV Files	CSV文件
 Scenario~	剧本~
@@ -2945,7 +2942,7 @@ leaders	将领
 nations	国家
 location	地点
 flights	架次
-planes	飞机
+planes	飞机	t
 repairs	修理
 loadmap	载入地图
 title,	标题，
@@ -2954,62 +2951,62 @@ id,	编号，
 lck*	锁定*
 url=	网址=
 /url	/网址
-url	网址
+url	网址	t
 <cr>	<换行>
-red	红
-white	白
-green	绿
-Alhpa	透明
-Hist	历史
-hist	历史
-stat	统计
-stats	统计
-misc	杂项
-logs	日志
-base	基地
-flak	高炮
-last	最后
-limit	上限
-delay	延迟
-range	射程
-photo	照片
-staff	参谋
-unlck	解锁
-cheat	作弊
-relib	可靠性
-tons	吨
-men:	人员：
+red	红	t
+white	白	t
+green	绿	t
+Alhpa	透明	t
+Hist	历史	t
+hist	历史	t
+stat	统计	t
+stats	统计	t
+misc	杂项	t
+logs	日志	t
+base	基地	t
+flak	高炮	t
+last	最后	t
+limit	上限	t
+delay	延迟	t
+range	射程	t
+photo	照片	t
+staff	参谋	t
+unlck	解锁	t
+cheat	作弊	t
+relib	可靠性	t
+tons	吨	t
+men:	人员：	t
 Rec 	接收 
-Var:	浮动：
-Loc:	地点：
-Main	主要
-Max:	最大：
-Exp:	经验：
-Men:	人员：
-Oil:	石油：
-Rdy:	就绪：
-Crew:	乘员：
-Date:	日期：
-Fuel:	燃料：
-Load:	装载：
-Port:	港口：
-Rank:	军衔：
-Size:	规模：
-Type:	类型：
-Admin:	行政：
-Armor:	装甲：
-Blast:	爆破：
-Climb:	爬升：
-Delay:	延迟：
-Naval:	海军：
-Pilot:	飞行员：
-Ready:	就绪：
-Speed:	速度：
-Units:	部队：
+Var:	浮动：	t
+Loc:	地点：	t
+Main	主要	t
+Max:	最大：	t
+Exp:	经验：	t
+Men:	人员：	t
+Oil:	石油：	t
+Rdy:	就绪：	t
+Crew:	乘员：	t
+Date:	日期：	t
+Fuel:	燃料：	t
+Load:	装载：	t
+Port:	港口：	t
+Rank:	军衔：	t
+Size:	规模：	t
+Type:	类型：	t
+Admin:	行政：	t
+Armor:	装甲：	t
+Blast:	爆破：	t
+Climb:	爬升：	t
+Delay:	延迟：	t
+Naval:	海军：	t
+Pilot:	飞行员：	t
+Ready:	就绪：	t
+Speed:	速度：	t
+Units:	部队：	t
 Usage 	使用 
 Pages 	页 
 S Base	S基地
-OnMap:	地图上：
+OnMap:	地图上：	t
 Nation:	国家：
 Trucks:	卡车：
 Active:	活动：
@@ -3041,16 +3038,16 @@ Withdraw Units	撤回部队
 Air Group	飞行队
 Air Groups	飞行队
 Destroyed	已摧毁
-Depots	补给站
+Depots	补给站	t
 0 - None	0 - 无
 1 - Axis	1 - 轴心
 2 - Soviet	2 - 苏联
 3 - Army	3 - 集团军
 4 - Corps	4 - 军
-Area:	区域：
-Auto:	自动：
-Axis:	轴心：
-Mech:	机械：
+Area:	区域：	t
+Auto:	自动：	t
+Axis:	轴心：	t
+Mech:	机械：	t
 Manual:	手动：
 Soviet:	苏联：
 Cavalry:	骑兵：
@@ -3067,7 +3064,7 @@ Aircraft:	飞机：
 Armaments	军备
 Capacity:	容量：
 Game Event	游戏事件
-Built	已建造
+Built	已建造	t
 Assemble	集结
 AG/Front	集团军群/方面军
 map NW	地图西北
@@ -3075,7 +3072,7 @@ map SE	地图东南
 In Unit	部队内
 In TBs:	战区：
 Gnd Prod	地面生产
-Koluft	空军联络
+Koluft	空军联络	t
 0 to 9	0 到 9
 AC TYPE	飞机类型
 AP AXIS	轴心行政点
@@ -3638,7 +3635,7 @@ air group	飞行队
  Cavalry Corps	 骑兵军
  Rifle Corps	 步兵军
  Cavalry Division	 骑兵师
-Impass	不可通行
+Impass	不可通行	t
 H (ft)	高度（英尺）
 V (kmh)	速度（公里/时）
 V (mph)	速度（英里/时）
@@ -3650,30 +3647,30 @@ STEAM 游戏	STEAM 游戏
 Climate: 	气候：
 Freight: 	货运：
 Depot: 	补给站：
-Both	两者
+Both	两者	t
 - Both	- 两者
 - Enemy	- 敌方
 - Friendly	- 友方
 Yes 	是 
-Exec	执行
-Face	朝向
-Mix	混合
-Mnl	手动
-Tab	标签
-Cpt	上尉
-Est	估计
-Wnd	风向
-TBs	战区
-del	删除
-dur	持续
-esc	护航
-lbs	磅
-nat	国家
-num	数量
-off	关
-pct	百分比
-sym	符号
-wpn	武器
+Exec	执行	t
+Face	朝向	t
+Mix	混合	t
+Mnl	手动	t
+Tab	标签	t
+Cpt	上尉	t
+Est	估计	t
+Wnd	风向	t
+TBs	战区	t
+del	删除	t
+dur	持续	t
+esc	护航	t
+lbs	磅	t
+nat	国家	t
+num	数量	t
+off	关	t
+pct	百分比	t
+sym	符号	t
+wpn	武器	t
 Show Production screen {p}	显示生产界面 {p}
 Show Losses screen {l}	显示损失界面 {l}
 Show Order of Battle screen {o}	显示战斗序列界面 {o}
@@ -3865,12 +3862,12 @@ AVERAGE ROAD	中等道路
 FACTORY	工厂
 FIGHTER	战斗机
 SYNTH FUEL	合成燃料
-Active	活动
-Custom	自定义
-Device	装备
-Origin	起点
+Active	活动	t
+Custom	自定义	t
+Device	装备	t
+Origin	起点	t
 Origin:	起点：
-Range:	射程：
+Range:	射程：	t
 Victory	胜利
 Transport	运输
 Day Only	仅白天
@@ -3905,63 +3902,63 @@ AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS   
 ### ERROR : wfunit.dat failed to save ###	### 错误：wfunit.dat 保存失败 ###
 ### ERROR : wfcontrol.dat failed to save ###	### 错误：wfcontrol.dat 保存失败 ###
 ### ERROR : wfmaptext.dat failed to save ###	### 错误：wfmaptext.dat 保存失败 ###
-AMMO	弹药
-AUTO	自动
-AUTO:	自动：
-AXIS	轴心
-BASE	基地
-BUILT	已建造
-CHAIN	指挥链
-CTRL	控制
-DAMAGE	损伤
-DELETE	删除
-DELAY	延迟
-EVENTS	事件
-FACE	朝向
-FROM	从
-GOOD	良好
-GUARDS	近卫
-MAIN	主要
-MARKED	已标记
-MONTH	月份
-MOTOR	摩托化
-MULTI	多用途
-NAVAL	海军
-NATION	国家
-NEXT	下一个
-PLAYER	玩家
-POOL	储备
-POOR	劣质
-RANK	军衔
-SERVER	服务器
-SHIPS	船只
-SOVIET	苏联
-TAGGED	已标记
-TARGET	目标
-TERR	地形
-TILE	地块
-TRANS	运输
-TURN	回合
-TURR	炮塔
-YEAR	年份
-AFTER	之后
-ARMOR	装甲
-BOMBER	轰炸机
-TACB	战术轰炸
-BMBR	轰炸机
-SCEN	剧本
-FTR-B	战斗轰炸
-WITE2	WITE2
+AMMO	弹药	t
+AUTO	自动	t
+AUTO:	自动：	t
+AXIS	轴心	t
+BASE	基地	t
+BUILT	已建造	t
+CHAIN	指挥链	t
+CTRL	控制	t
+DAMAGE	损伤	t
+DELETE	删除	t
+DELAY	延迟	t
+EVENTS	事件	t
+FACE	朝向	t
+FROM	从	t
+GOOD	良好	t
+GUARDS	近卫	t
+MAIN	主要	t
+MARKED	已标记	t
+MONTH	月份	t
+MOTOR	摩托化	t
+MULTI	多用途	t
+NAVAL	海军	t
+NATION	国家	t
+NEXT	下一个	t
+PLAYER	玩家	t
+POOL	储备	t
+POOR	劣质	t
+RANK	军衔	t
+SERVER	服务器	t
+SHIPS	船只	t
+SOVIET	苏联	t
+TAGGED	已标记	t
+TARGET	目标	t
+TERR	地形	t
+TILE	地块	t
+TRANS	运输	t
+TURN	回合	t
+TURR	炮塔	t
+YEAR	年份	t
+AFTER	之后	t
+ARMOR	装甲	t
+BOMBER	轰炸机	t
+TACB	战术轰炸	t
+BMBR	轰炸机	t
+SCEN	剧本	t
+FTR-B	战斗轰炸	t
+WITE2	WITE2	t
 OB/TOE	编制
-V.LOW	极低
-V.HIGH	极高
-TAG:	标记：
+V.LOW	极低	t
+V.HIGH	极高	t
+TAG:	标记：	t
 AI ID:	AI编号：
 Pool (	储备（
-Range	射程
-Refit	补充
-Train	训练
-Delay	延迟
+Range	射程	t
+Refit	补充	t
+Train	训练	t
+Delay	延迟	t
 Interdict	遮断
 Disband unit	解散部队
 Pick Weapon Facing	选择武器朝向
@@ -4025,7 +4022,7 @@ Auto (Auto)	自动（自动）
 , SU 	, 支援单位 
    CU 	   战斗力 
    MP 	   移动点 
-mmand:	指挥部：
+mmand:	指挥部：	t
  ~ Water: 	 ~ 水域：
  ~ Ground: 	 ~ 地面：
  ~ Threat: 	 ~ 威胁：
@@ -4077,11 +4074,11 @@ Enter Player for Sudden Victory. 1 - Axis, 2 - Soviet	输入突然胜利的玩�
 AXIS SUDDEN LOSS! High Water Mark %d : Sudden Loss High Water Mark %d	轴心突然失败！最高水位 %d ：失败最高水位 %d
 Enter High Water Mark for Axis Sudden Loss	输入轴心突然失败的最高水位
 Turns to OB change	距编制变更的回合数
-FrRec	接收
-FrLost	损失
-VehRec	车辆接收
-UNITS	部队
-NONE	无
+FrRec	接收	t
+FrLost	损失	t
+VehRec	车辆接收	t
+UNITS	部队	t
+NONE	无	t
 CONDITION	条件
 5 - LW	5 - 空军
 5 - LW 	5 - 空军 
@@ -4784,17 +4781,17 @@ Vertex Processing Type - MIXED_VP	顶点处理类型 - 混合
 Vertex Processing Type - HARDWARE_VP	顶点处理类型 - 硬件
 Vertex Processing Type - SOFTWARE_VP	顶点处理类型 - 软件
 Vertex Processing Type - PURE_HARDWARE_VP	顶点处理类型 - 纯硬件
-Port	港口
+Port	港口	t
 Airfield	机场
-Water	水域
-Swamp	沼泽
-Forest	森林
-Woods	林地
-Urban	城区
-Desert	沙漠
-Tundra	冻原
-Sand	沙地
-Rough	崎岖
+Water	水域	t
+Swamp	沼泽	t
+Forest	森林	t
+Woods	林地	t
+Urban	城区	t
+Desert	沙漠	t
+Tundra	冻原	t
+Sand	沙地	t
+Rough	崎岖	t
 Armaments 1	军备 1
 Armaments 2	军备 2
 Armaments 3	军备 3
@@ -4804,28 +4801,28 @@ V-Weapon launch site	V型武器发射场
 Port Source	港口来源
 Port/city: %s	港口/城市：%s
 Naval Ops Port: %s	海军作战港口：%s
-Crew	乘员
-Data	数据
-Show	显示
-Bonus	加成
-Class	类别
-Climb	爬升
-Color	颜色
-Elite	精锐
-Hide	隐藏
-Human	玩家
-Kills	击落
-Owner	归属
-Phase	阶段
-Pilot	飞行员
-Quick	快速
-Launch	发射
-Radius	半径
-Remove	移除
-Resign	退出
-Status	状态
-Symbol	符号
-Trucks	卡车
+Crew	乘员	t
+Data	数据	t
+Show	显示	t
+Bonus	加成	t
+Class	类别	t
+Climb	爬升	t
+Color	颜色	t
+Elite	精锐	t
+Hide	隐藏	t
+Human	玩家	t
+Kills	击落	t
+Owner	归属	t
+Phase	阶段	t
+Pilot	飞行员	t
+Quick	快速	t
+Launch	发射	t
+Radius	半径	t
+Remove	移除	t
+Resign	退出	t
+Status	状态	t
+Symbol	符号	t
+Trucks	卡车	t
 Storage	储备
 Replace	替换
 Players	玩家
@@ -4841,16 +4838,16 @@ Schedule	日程
 Historical	历史
 Initiative	主动性
 Destination	目的地
-Amphib	两栖
+Amphib	两栖	t
 Airbase	航空基地
 Airdrop	空投
 Ceiling	升限
 Delayed	延迟
 Mission	任务
-Found	已找到
-Hasty	仓促
-Delta	增量
-Zones	区域
+Found	已找到	t
+Hasty	仓促	t
+Delta	增量	t
+Zones	区域	t
 A Afv	攻方装甲车
 A Bmr	攻方轰炸机
 A Ftr	攻方战斗机
@@ -4897,7 +4894,7 @@ s Guards	 近卫
  None 	 无 
 > Good	> 良好
 > Poor	> 劣质
-Events	事件
+Events	事件	t
 Turn : 	回合：
 Ammo tons	弹药（吨）
 Fuel tons	燃料（吨）
@@ -5182,8 +5179,8 @@ ON SHIPS	在船上
 ON TRAIN	在火车上
 AT SEA	在海上
 NO ICE	无冰
-Frozen	冻结
-OOB	战斗序列
+Frozen	冻结	t
+OOB	战斗序列	t
 AB Size	航空基地规模
 AA UNIT	防空单位
 AIR DAY	空中-昼间
@@ -5192,15 +5189,15 @@ Trained as	训练为
  Trained as BOMBER	 训练为轰炸机
  Trained as FIGHTER	 训练为战斗机
 Battle Result	战斗结果
-Effect	效果
-Facing	朝向
-Flight	飞行队
+Effect	效果	t
+Facing	朝向	t
+Flight	飞行队	t
 In TBs	在战区
-Killed	阵亡
-Period	时期
-Result	结果
+Killed	阵亡	t
+Period	时期	t
+Result	结果	t
 Sub To	隶属于
-Suffix	后缀
+Suffix	后缀	t
 Armored Cars	装甲车
 Engines	发动机
 Loadout	挂载
@@ -5375,8 +5372,8 @@ Tank Battalion	坦克营
 Flotilla	支队
 Penetration	穿透
 Scouted	已侦察
-Const	建设
-Login	登录
+Const	建设	t
+Login	登录	t
 Permanent Redirect	永久重定向
 Transports / Escorts	运输/护航
 AG/Fronts	集团军群/方面军
@@ -5388,9 +5385,9 @@ NUM x	数量 x
  command points.	 指挥点。
  (inactive)	 （未激活）
 @City Detail	@城市详情
-Mar-44	1944年3月
-May-44	1944年5月
-Sep-43	1943年9月
+Mar-44	1944年3月	t
+May-44	1944年5月	t
+Sep-43	1943年9月	t
 great britain	英国
 united-states	美国
 united-kingdom	英国
@@ -5462,11 +5459,10 @@ Temperate Dry	温带干燥	d
 Tropical Maritime	热带海洋性	d
 Arctic Maritime	北极海洋性	d
 Tropical Continental	热带大陆性	d
-Crps	军
-Div	师
-Bde	旅
-Rgt	团
-Bn	营
+Crps	军	t
+Bde	旅	t
+Rgt	团	t
+Bn	营	t
 Show Balkans Theater Box Details	显示巴尔干战区详情
 BALKANS MANPOWER AT START     %d	巴尔干初始人力     %d
 Trained Pilot Crews:    %d	训练完成的机组：    %d
@@ -5491,7 +5487,7 @@ GROUND CHASSIS	地面底盘	d
 AIRFRAME	机体	d
 RESOURCES	资源	d
 SYNTHETIC FUEL	合成燃料	d
-PORT	港口
+PORT	港口	t
 V-WEAPON LAUNCH	V武器发射场	d
 U-BOAT PEN	潜艇坞	d
 CHASSIS	底盘	d
@@ -5513,7 +5509,6 @@ Arid Steppes	干旱草原	d
 Arid Desert	干旱沙漠	d
 Polar Maritime	极地海洋性	d
 Polar Continental	极地大陆性	d
-mP	极地海洋	d
 mT	热带海洋	d
 mA	北极海洋	d
 cP	极地大陆	d
@@ -5523,8 +5518,8 @@ French	法语	d
 Spanish	西班牙语	d
 EASY	简单	d
 HARD	困难	d
-Easy	简单
-Hard	困难
+Easy	简单	t
+Hard	困难	t
 Difficulty: %s	难度：%s
 Upgrade Setting	升级设置
 Upgrade Settings	升级设置
@@ -5648,7 +5643,7 @@ Anti-Tank Battalion	反坦克营
 Anti-Tank Brigade	反坦克旅
 Anti-Tank Regiment	反坦克团
 Armored Car Brigade	装甲车旅
-Army	集团军
+Army	集团军	t
 Army Artillery Brigade	集团军属炮兵旅
 Army Artillery Regiment	集团军属炮兵团
 Army Cannon Brigade	集团军属加农炮旅
@@ -5796,7 +5791,7 @@ Cavalry Squadron	骑兵中队
 Cavalry-Mechanized Group	骑兵机械化群
 Coastal Artillery Division	海岸炮兵师
 Construction Battalion	建设营
-Corps	军
+Corps	军	t
 Corps Artillery Regiment	军属炮兵团
 Corps Machine Gun Battalion	军属机枪营
 Cossack Cavalry Division	哥萨克骑兵师
@@ -5910,7 +5905,7 @@ Fortress Infantry Brigade	要塞步兵旅
 Fortress Infantry Division	要塞步兵师
 Fortress MG Battalion	要塞机枪营
 Fortress Pioneer Battalion	要塞工兵营
-Front	方面军
+Front	方面军	t
 Fullriede	富尔里德
 Fusilier Battalion	燧发枪兵营
 GR Fortified Zone	希腊筑垒地带
@@ -6237,7 +6232,7 @@ Mountain Rifle Division	山地步兵师
 Mountain Sturm Brigade	山地突击旅
 NE Fortified Zone	荷兰筑垒地带
 NE Infantry Brigade Group	荷兰步兵旅群
-NKPS	交通人民委员部
+NKPS	交通人民委员部	t
 NKVD Border Guard Detachment	内务部边防支队
 NKVD Border Guard Komendatura	内务部边防警备司令部
 NKVD Border Guard Outpost	内务部边防前哨
@@ -6292,7 +6287,7 @@ Pioneer Battalion	工兵营
 Polizei Regiment	警察团
 R.A.D. Labor Detachment	帝国劳工服务劳工支队
 R.A.D. Labor Group	帝国劳工服务劳工群
-RD	RD
+RD	RD	t
 RR Construction Brigade	铁路建设旅
 RSI Anti-Aircraft Battalion	意大利社会共和国防空营
 RSI Construction Battalion	意大利社会共和国建设营
@@ -6312,7 +6307,7 @@ Rifle Division	步兵师
 Rifle Regiment	步兵团
 Road Construction Battalion	道路建设营
 Rocket Launcher Division	火箭炮师
-Rommel	隆美尔
+Rommel	隆美尔	t
 Royal Northumberland Fusiliers	皇家诺森伯兰燧发枪团
 Rum. AA Artillery Regiment	罗马尼亚防空炮兵团
 Rum. Air Base	罗马尼亚航空基地
@@ -6505,37 +6500,37 @@ sFH Heavy Howitzer Battalion	重型野战榴弹炮营
 zbV Mot. Infantry Battalion	特设摩托化步兵营
 zbV Mot. Panzergrenadier Battalion	特设摩托化装甲掷弹兵营
 zbV Mot. Regiment (-)	特设摩托化团（减）
-Rifle	步兵
+Rifle	步兵	t
 Mountain	山地
-Naval	海军
-Marine	海军陆战
-Road	道路
-Rail	铁路
-Rail.	铁路
+Naval	海军	t
+Marine	海军陆战	t
+Road	道路	t
+Rail	铁路	t
+Rail.	铁路	t
 Cavalry	骑兵
 Airborne	空降
 Allied Airborne	盟军空降
 Coastal	海岸
 Cossack	哥萨克
-Border	边防
+Border	边防	t
 Separate	独立
 Independent	独立
 Independant	独立
 Replacement	补充
 Reserve	预备
-Light	轻装
-Super	超级
-Mot.	摩托化
+Light	轻装	t
+Super	超级	t
+Mot.	摩托化	t
 Motorized	摩托化
-Alpine	山地
-Alpini	阿尔卑斯山地兵
+Alpine	山地	t
+Alpini	阿尔卑斯山地兵	t
 Alps Mountain	阿尔卑斯山地
 Gebirgs	山地
-Sturm	突击
+Sturm	突击	t
 Sturm Mortar	突击迫击炮
 Army Sturm	集团军属突击
-Fort	要塞
-Shore	海岸
+Fort	要塞	t
+Shore	海岸	t
 Tactical Air Command	战术航空司令部
 Bomber Command	轰炸机司令部
 Troop Carrier Command	运兵司令部
@@ -6549,24 +6544,24 @@ Jagd Corps	猎兵军
 RHG Command	陆军测绘司令部
 X Commando	第10突击队
 Commando	突击队
-Ost	东方
+Ost	东方	t
 West Wall	西墙
 Vallo Alpino	阿尔卑斯防线
-Volks	国民
-Lehr	教导
-Beute	缴获
-Heimat	本土
-Alarm	应急
+Volks	国民	t
+Lehr	教导	t
+Beute	缴获	t
+Heimat	本土	t
+Alarm	应急	t
 Eisenbahn	铁道
 Autotransportabile	摩托化运输
-Pol.	波兰
-RSI	意大利社会共和国
+Pol.	波兰	t
+RSI	意大利社会共和国	t
 Militia RSI	意大利社会共和国民兵
 'Aquila' RSI	意大利社会共和国「鹰」
 SS Mountain	党卫军山地
 Nord SS	党卫军北方
-Croat.	克罗地亚
-Croat	克罗地亚
+Croat.	克罗地亚	t
+Croat	克罗地亚	t
 Croat. Mountain	克罗地亚山地
 Croat. Jager	克罗地亚猎兵
 Georgian	格鲁吉亚
@@ -6576,17 +6571,17 @@ Turkistani	突厥斯坦
 Turkomen	土库曼
 Ukrainian	乌克兰
 Belorussian	白俄罗斯
-Slovak	斯洛伐克
+Slovak	斯洛伐克	t
 Moroccan	摩洛哥
 Algerian	阿尔及利亚
 North African	北非
 Colonial African	殖民地非洲
 Colonial	殖民地
 Colonial Levant	殖民地黎凡特
-Nisei	二世
+Nisei	二世	t
 Nisei Sep.	二世独立
-Arab	阿拉伯
-Tribal	部落
+Arab	阿拉伯	t
+Tribal	部落	t
 Household	皇家近卫
 Lancers	枪骑兵
 Carpathian Lancers	喀尔巴阡枪骑兵
@@ -6594,30 +6589,30 @@ Hussars	骠骑兵
 Royal Dragoons	皇家龙骑兵
 King's Dragoon Gds	国王龙骑兵近卫
 Royal HAF Field Bde	皇家防空野战旅
-Savoia	萨伏依
+Savoia	萨伏依	t
 Taurinese	都灵
-Ferro	铁
+Ferro	铁	t
 Principe Amedeo	阿梅代奥亲王
 Bersaglieri	狙击兵
 Bersiglieri	狙击兵
 Folgore	闪电
-Nembo	雨云
+Nembo	雨云	t
 San Marco' Marine	「圣马可」海军陆战
 'San Marco' Marine	「圣马可」海军陆战
 Trieste	的里雅斯特
-Trento	特伦托
+Trento	特伦托	t
 Centauro	半人马
-Ariete	公羊
+Ariete	公羊	t
 Littorio	利托里奥
 'Ariete II'	「公羊II」
 'Centauro II'	「半人马II」
-Isonzo	伊松佐
+Isonzo	伊松佐	t
 Vicenza	维琴察
 Ravenna	拉文纳
 Firenze	佛罗伦萨
-Siena	锡耶纳
+Siena	锡耶纳	t
 Bergamo	贝加莫
-RCA	皇家陆军
+RCA	皇家陆军	t
 Sassari	萨萨里
 'Sassari'	「萨萨里」
 'Piacenza'	「皮亚琴察」
@@ -6626,7 +6621,7 @@ Sassari	萨萨里
 'Piave'	「皮亚韦」
 'Piceno'	「皮切诺」
 'Friuli'	「弗留利」
-Friuli	弗留利
+Friuli	弗留利	t
 'Granatieri di Sardegna'	「撒丁掷弹兵」
 Pinerolo	皮内罗洛
 'Blue'	「蓝色」
@@ -6640,12 +6635,12 @@ Sforzesca	斯福尔扎
 Tridentina	特里登蒂纳
 'Sabauda'	「萨包达」
 'Calabria'	「卡拉布里亚」
-Marche	马尔凯
-Forli	弗利
-Modena	摩德纳
-Puglie	普利亚
+Marche	马尔凯	t
+Forli	弗利	t
+Modena	摩德纳	t
+Puglie	普利亚	t
 'Julia'	「朱莉娅」
-Julia	朱莉娅
+Julia	朱莉娅	t
 'Ravenna'	「拉文纳」
 'Cremona'	「克雷莫纳」
 'Bari'	「巴里」
@@ -6655,9 +6650,9 @@ Cuneense	库内奥
 'Livorno'	「里窝那」
 'Monte Rosa'	「罗莎峰」
 'Torino'	「都灵」
-Torino	都灵
+Torino	都灵	t
 'Napoli'	「那不勒斯」
-Napoli	那不勒斯
+Napoli	那不勒斯	t
 'Cosseria'	「科塞里亚」
 Cosseria	科塞里亚
 'Pusteria'	「普斯特里亚」
@@ -6667,9 +6662,9 @@ Alpi Graie	格拉耶阿尔卑斯
 'Toscana'	「托斯卡纳」
 'Pasubio'	「帕苏比奥」
 Pasubio	帕苏比奥
-Arezzo	阿雷佐
-Savona	萨沃纳
-Casale	卡萨莱
+Arezzo	阿雷佐	t
+Savona	萨沃纳	t
+Casale	卡萨莱	t
 Lombardia	伦巴第
 'Legnano'	「莱尼亚诺」
 Legnano	莱尼亚诺
@@ -6679,7 +6674,7 @@ Sabratha	萨布拉塔
 'Italia'	「意大利」
 'Aosta'	「奥斯塔」
 Gennaio	一月
-Marzo	三月
+Marzo	三月	t
 Messina	墨西拿
 Siracusa	锡拉库萨
 Palermo	巴勒莫
@@ -6707,9 +6702,9 @@ Bomb Div USAAF	美国陆军航空队轰炸师
 9th Ost	第9东方
 GG Light	大德意志轻装
 IAK PVO	国土防空航空军
-BAK	BAK
-FKL	遥控
-AFHQ	盟军司令部
+BAK	BAK	t
+FKL	遥控	t
+AFHQ	盟军司令部	t
 (Res)	（预备）
 (AAI)	（AAI）
 (FHH)	（FHH）
@@ -6723,15 +6718,15 @@ Army Group F	F集团军群
 Army Group G	G集团军群
 Army Group H	H集团军群
 Army Group Antonescu	安东内斯库集团军群
-London	伦敦
+London	伦敦	t
 S London	南伦敦
 W. London	西伦敦
 Belfast	贝尔法斯特
 Grimsby	格里姆斯比
 Cardiff	加的夫
-Derby	德比
+Derby	德比	t
 Edinburgh	爱丁堡
-Leeds	利兹
+Leeds	利兹	t
 Sheffield	谢菲尔德
 Bristol	布里斯托尔
 Dunfermline	邓弗姆林
@@ -6748,7 +6743,7 @@ Bradford	布拉德福德
 Chatham	查塔姆
 Croydon	克罗伊登
 Douglas	道格拉斯
-Dover	多佛
+Dover	多佛	t
 Falmouth	法尔茅斯
 Glasgow	格拉斯哥
 Gloucester	格洛斯特
@@ -6763,70 +6758,69 @@ Mansfield	曼斯菲尔德
 Middlesbrough	米德尔斯堡
 Newcastle upon Tyne	泰恩河畔纽卡斯尔
 Northampton	北安普顿
-Oxford	牛津
-Perth	珀斯
+Oxford	牛津	t
+Perth	珀斯	t
 Preston	普雷斯顿
 Reading	雷丁
 St Helens	圣海伦斯
 Swansea	斯旺西
 Wolverhampton	伍尔弗汉普顿
-No.	第
-Nr.	第
-Group	群
-RAF	皇家空军
-SP	自行
+No.	第	t
+Nr.	第	t
+Group	群	t
+RAF	皇家空军	t
+SP	自行	t
 Fallschirm	伞兵
-TF	特遣部队
-Res	预备
-Sep.	独立
-Air	航空
+TF	特遣部队	t
+Res	预备	t
+Sep.	独立	t
+Air	航空	t
 Command	司令部
-PVO	国土防空
-Force	部队
-FBD	铁路兵旅
+PVO	国土防空	t
+Force	部队	t
+FBD	铁路兵旅	t
 Engineer	工兵
-GR	希腊
-Ital.	意大利
-West	西
-North	北
-South	南
-East	东
-St	圣
-St.	圣
-Le	勒
-La	拉
-de	德
-di	迪
-San	圣
-Bad	巴特
-School	学校
-Fleet	舰队
+GR	希腊	t
+Ital.	意大利	t
+West	西	t
+North	北	t
+South	南	t
+East	东	t
+St.	圣	t
+Le	勒	t
+La	拉	t
+de	德	t
+di	迪	t
+San	圣	t
+Bad	巴特	t
+School	学校	t
+Fleet	舰队	t
 Tactical	战术
-Reich	帝国
-Harbor	港
-Castle	堡
-Moor	沼
-Field	机场
-Newton	牛顿
-Bay	湾
-Head	角
-Park	公园
-Common	公地
-Down	丘陵
-Wolds	丘陵
-Wing	联队
-Levant	黎凡特
+Reich	帝国	t
+Harbor	港	t
+Castle	堡	t
+Moor	沼	t
+Field	机场	t
+Newton	牛顿	t
+Bay	湾	t
+Head	角	t
+Park	公园	t
+Common	公地	t
+Down	丘陵	t
+Wolds	丘陵	t
+Wing	联队	t
+Levant	黎凡特	t
 African	非洲
-Nord	北方
-WMBef.	国防军指挥部
-OpGr	作战群
-MTO	地中海战区
-ETO	欧洲战区
-ARS	ARS
-SIR	SIR
-BH	BH
-CCNN	黑衫军
-Fuhrer	元首
+Nord	北方	t
+WMBef.	国防军指挥部	t
+OpGr	作战群	t
+MTO	地中海战区	t
+ETO	欧洲战区	t
+ARS	ARS	t
+SIR	SIR	t
+BH	BH	t
+CCNN	黑衫军	t
+Fuhrer	元首	t
 Feldherrnhalle	统帅堂
 Ostfriesland	东弗里斯兰
 Stettin	什切青
@@ -6838,37 +6832,37 @@ Luebeck	吕贝克
 Bordeaux	波尔多
 Bunzlau	本茨劳
 Katowice	卡托维兹
-Danzig	但泽
-Oppeln	奥波莱
+Danzig	但泽	t
+Oppeln	奥波莱	t
 Zwickau	茨维考
 Augsburg	奥格斯堡
 Chemnitz	开姆尼茨
 Czechowice	切霍维采
 Deschowitz	德绍维茨
 Gleiwitz	格莱维茨
-Halle	哈雷
+Halle	哈雷	t
 Mucheln	米歇尔恩
-Posen	波森
+Posen	波森	t
 Ruhland	鲁兰
-Zeitz	蔡茨
+Zeitz	蔡茨	t
 S. Berlin	南柏林
 N. BH	北BH
 S. BH	南BH
 Berliner Zoo	柏林动物园
 Goerlitz	格尔利茨
-Brieg	布里格
+Brieg	布里格	t
 Bautzen	包岑
 Bayreuth	拜罗伊特
 Ansbach	安斯巴赫
-Anklam	安克拉姆
-Barth	巴特
-Bremen	不来梅
+Anklam	安克拉姆	t
+Barth	巴特	t
+Bremen	不来梅	t
 Bremen Marine	不来梅海军
 Bremerhaven	不来梅港
 Danzig Marine	但泽海军
-Essen	埃森
-Erfurt	埃尔福特
-Erding	埃尔丁
+Essen	埃森	t
+Erfurt	埃尔福特	t
+Erding	埃尔丁	t
 Eberswalde	埃伯斯瓦尔德
 Ebenrode	埃本罗德
 Eggebek	埃格贝克
@@ -6884,58 +6878,58 @@ Falkenberg	法尔肯贝格
 Fassberg	法斯贝格
 Fels am Wagram	瓦格拉姆岩
 Ferrara	费拉拉
-Fiano	菲亚诺
-Aachen	亚琛
+Fiano	菲亚诺	t
+Aachen	亚琛	t
 Aalborg	奥尔堡
-Amiens	亚眠
+Amiens	亚眠	t
 Amsterdam	阿姆斯特丹
 Antwerp	安特卫普
-Anzio	安齐奥
-Athens	雅典
-Baden	巴登
-Baltic	波罗的海
+Anzio	安齐奥	t
+Athens	雅典	t
+Baden	巴登	t
+Baltic	波罗的海	t
 Bologna	博洛尼亚
 Boulogne	布洛涅
 Bourges	布尔日
-Brest	布列斯特
+Brest	布列斯特	t
 Brest Litovsk	布列斯特-立托夫斯克
 Brindisi	布林迪西
 Brussels	布鲁塞尔
 Bydgoszcz	比得哥什
 Copenhagen	哥本哈根
 Denmark	丹麦
-Exeter	埃克塞特
+Exeter	埃克塞特	t
 Feldherrnhalle Nr. 1	统帅堂第1
 Feldherrnhalle Nr. 2	统帅堂第2
 Florence	佛罗伦萨
-Genoa	热那亚
+Genoa	热那亚	t
 Gibraltar	直布罗陀
-Lisbon	里斯本
-Lodz	罗兹
-Lublin	卢布林
-Madrid	马德里
-Moscow	莫斯科
-Naples	那不勒斯
-Oran	奥兰
-Oslo	奥斯陆
-Paris	巴黎
-Rome	罗马
-Sofia	索非亚
+Lisbon	里斯本	t
+Lodz	罗兹	t
+Lublin	卢布林	t
+Madrid	马德里	t
+Moscow	莫斯科	t
+Naples	那不勒斯	t
+Oran	奥兰	t
+Oslo	奥斯陆	t
+Paris	巴黎	t
+Rome	罗马	t
+Sofia	索非亚	t
 Stockholm	斯德哥尔摩
-Tunis	突尼斯
-Turin	都灵
-Venice	威尼斯
+Tunis	突尼斯	t
+Turin	都灵	t
+Venice	威尼斯	t
 Vilnius	维尔纽斯
-Zagreb	萨格勒布
+Zagreb	萨格勒布	t
 Oranienbaum	奥拉宁鲍姆
 Constantine	君士坦丁
-Alger	阿尔及尔
+Alger	阿尔及尔	t
 Maroc March	摩洛哥行军
 Oran March	奥兰行军
 Military Railway	军用铁路
 SU Rail	苏联铁路
 Soviet City	苏联城市
-Guards	近卫
+Guards	近卫	t
 Training	训练
 Expeditionary	远征
 Light Afrika	轻装非洲
@@ -6966,23 +6960,32 @@ Celere Cavalry	快速骑兵
 Almaco-Partinico' CCNN	阿尔马科-帕尔蒂尼科黑衫军
 Comiso-Ispica' CCNN	科米索-伊斯皮卡黑衫军
 Chiusa Scalafina'	基乌萨斯卡拉菲纳
-W.	西
-N.	北
-S.	南
-E.	东
+W.	西	t
+N.	北	t
+S.	南	t
+E.	东	t
 W. Berlin	西柏林
 Neinhagen	奈因哈根
-Sagan	萨甘
+Sagan	萨甘	t
 Liegnitz	利格尼茨
-Linz	林茨
-Dessau	德绍
+Linz	林茨	t
+Dessau	德绍	t
 Wiener Neustadt	维也纳新城
 Moosbierbaum	莫斯比尔鲍姆
 Support	支援
-Tier	型
-German	德国
-City	城市
+Tier	型	t
+German	德国	t
+City	城市	t
 (158th Res)	（第158预备役）
 (156th Res)	（第156预备役）
 (171st Res)	（第171预备役）
 (191st Res)	（第191预备役）
+Sec Division	警备师
+Sec. Division	警备师
+Sec Regiment	警备团
+Sec. Regiment	警备团
+Sec Battalion	警备营
+Sec. Battalion	警备营
+Sec Brigade	警备旅
+Sec. Brigade	警备旅
+Sec Corps	警备军

@@ -118,6 +118,7 @@ static void dict_load(void)
         /* 可选第三列: 作用域标记
          *   d = 只改 .data（天气/气候/飞机数据列这类只在 .data 出现的词）
          *   r = 只改 .rdata
+         *   t = 只在绘制层翻译，不改内存
          *   空 = .rdata 和 .data 都改
          * 不剥掉这一列，译文会带上 "\td"，界面上显示成“大雨d”。 */
         int sec = 0;
@@ -128,6 +129,7 @@ static void dict_load(void)
             if (sp[1] == 'd') sec = 2;
             else if (sp[1] == 'r') sec = 1;
             else if (sp[1] == 'b') sec = 3;   /* 两段都改 */
+            else if (sp[1] == 't') sec = 4;   /* 只在绘制层翻，不改内存 */
         }
 
         size_t el = strlen(en);
@@ -200,6 +202,17 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
          *
          * .rdata 跳过 dataOnly 词：这些词在 .rdata 有同名枚举副本，
          * 不能碰。 */
+        /* sec 4 = 只在绘制层翻译，两个段都不改。
+         * 短串（<=6 字符）在 .rdata 几乎都是枚举、ISO 语言码、
+         * CSV 列名、BBCode 标记，改了会破坏游戏逻辑。例如
+         *   "no"  是 ISO 639 挪威语代码（ja|ko|nl|no|pl）
+         *   "de"  是德语代码
+         *   "CP"  是 Command Points
+         *   "SP"  是西班牙国家码（AM|VC|IQ|SP|SZ）
+         * 这些串在界面上出现的概率极低，却一改就出事。
+         * 绘制层已经能翻译它们，不必动内存。 */
+        if (g_dic[d].sec == 4) continue;
+
         /* sec 3 = 两段都改。给"在 .data 是显示数组、在 .rdata 只是
          * 安全界面标签"的词用，例如难度名 NORMAL。 */
         if (secId == 2) {
