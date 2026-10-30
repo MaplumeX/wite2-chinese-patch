@@ -9426,3 +9426,343 @@ Supply Dump	补给库
 Troop Ship	运兵船
 V-Weapons Launcher	V型武器发射架
 ITA Attack/DB	意大利攻击/俯冲轰炸机
+Cr	军	t
+Cps	军	t
+Div	师	t
+Dv	师	t
+Bd	旅	t
+Rt	团	t
+Coy	连	t
+Pz.	装甲	t
+Pz	装甲	t
+Mot	摩托化	t
+Gep.	装甲	t
+Gep	装甲	t
+Rum.	罗马尼亚	t
+Hun.	匈牙利	t
+Slov.	斯洛伐克	t
+Slov	斯洛伐克	t
+Fin.	芬兰	t
+BR	英国	t
+US	美国	t
+CA	加拿大	t
+AU	澳大利亚	t
+NZ	新西兰	t
+FF	自由法国	t
+SA	南非	t
+IN	印度	t
+Art	炮兵	t
+Artl	炮兵	t
+Arty	炮兵	t
+Eng	工兵	t
+Engr	工兵	t
+Rec	侦察	t
+Recon	侦察	t
+Flk	高射炮	t
+Flak	高射炮	t
+Para	伞兵	t
+Gd	近卫	t
+Brdr	边境	t
+Mrt	迫击炮	t
+Arm.	装甲	t
+Bt	炮兵连	t
+Pzjgr	反坦克猎兵	t
+Pnr	工兵	t
+Res.	预备	t
+Op.	作战	t
+Rckt	火箭炮	t
+Ftr	战斗机	t
+Bmbr	轰炸机	t
+Lbr	劳工	t
+Bcl	自行车	t
+Transp.	运输
+Observ.	观测
+Flt	舰队	t
+Airbn	空降	t
+Sg	攻城	t
+Am.	阿梅代奥	t
+Litt.	利托里奥	t
+FG	战斗机大队	t
+BG	轰炸机大队	t
+ShAG	突击航空群	t
+NW	西北	t
+Ind	独立	t
+Cmd	司令部	t
+Autotrans.	摩托化运输
+Autotrans	摩托化运输
+Exped.	远征	t
+Exped	远征	t
+Blk Sea	黑海
+SW	西南	t
+Grp.	群	t
+Grp	群	t
+Cav	骑兵	t
+Lt	轻装	t
+F.R	筑垒地域	t
+M.D	军区	t
+Front.	边境	t
+G.D.	大德意志	t
+G.D	大德意志	t
+Transp	运输	t
+Long Rg	远程
+Rd	道路	t
+Transcauc.	外高加索
+Transcauc	外高加索
+Cauc.	高加索	t
+Cauc	高加索	t
+Cent.	半人马	t
+Cent	半人马	t
+Lomb.	伦巴第	t
+Lomb	伦巴第	t
+Litt	利托里奥	t
+A.B	航空基地	t
+IT	意大利	t
+D.Z	防御地带	t
+RM	罗马尼亚	t
+FI	芬兰	t
+HU	匈牙利	t
+SL	斯洛伐克	t
+Taur.	都灵	t
+Taur	都灵	t
+Sav.	萨伏依	t
+Sav	萨伏依	t
+Fld	机场	t
+Blrs.	白俄罗斯	t
+Blrs	白俄罗斯	t
+Mos. PM	莫斯科民兵
+Len. PM	列宁格勒民兵
+PzD.	装甲师	t
+MD.	摩托化师	t
+CD.	骑兵师	t
+ID.	步兵师	t
+FG.	战斗机大队	t
+BG.	轰炸机大队	t
+ShAG.	突击航空群	t
+NW.	西北	t
+RC.	步兵军	t
+MC.	机械化军	t
+TD.	坦克师	t
+RD.	步兵师	t
+Hun..	匈牙利	t
+Ind.	独立	t
+Cmd.	司令部	t
+Autotrans..	摩托化运输
+Exped..	远征
+Blk Sea.	黑海
+SW.	西南	t
+Grp..	群	t
+Eng.	工兵	t
+Art.	火炮	t
+Cav.	骑兵	t
+Bde.	旅	t
+Mot..	摩托化	t
+Lt.	轻装	t
+F.R..	筑垒地域	t
+M.D..	军区	t
+Brdr.	边防	t
+Mrt.	迫击炮	t
+Mnt.	山地	t
+Res..	预备	t
+Sep..	独立	t
+Gds.	近卫	t
+Front..	边境
+Slovak.	斯洛伐克
+Bmbr.	轰炸机	t
+G.D..	大德意志	t
+Rec.	侦察	t
+Flk.	高射炮	t
+Transp..	运输
+Long Rg.	远程
+Rd.	道路	t
+Transcauc..	外高加索
+Flt.	舰队	t
+Airbn.	空降	t
+Cauc..	高加索	t
+Crps.	军	t
+Cent..	半人马	t
+Lomb..	伦巴第	t
+Litt..	利托里奥	t
+Air Cmd..	航空司令部
+A.B..	航空基地	t
+Rckt.	火箭炮	t
+IT.	意大利	t
+D.Z..	防御地带	t
+RM.	罗马尼亚	t
+FI.	芬兰	t
+HU.	匈牙利	t
+SL.	斯洛伐克	t
+Taur..	都灵	t
+Fort.	要塞	t
+Sav..	萨伏依	t
+Fld.	机场	t
+Blrs..	白俄罗斯	t
+Mos. PM.	莫斯科民兵
+Len. PM.	列宁格勒民兵
+Battalion	营
+Division	师
+Regiment	团
+Company	连
+Battery	炮兵连
+Carpathian	喀尔巴阡
+Aviation	航空
+Aviation Unit	航空单位
+Southeast	东南
+Southeastern	东南
+Long-Range	远程
+Howitzer	榴弹炮
+Security	警备
+Infantry	步兵
+Construction	建设
+Heavy	重型	t
+Detachment	支队
+Medium	中型	t
+Nebelwerfer	火箭炮
+Panzer	装甲	t
+Mechanized	机械化
+Jagdpanzer	坦克歼击车
+Motorcycle	摩托车
+Armored	装甲
+Panzerjager	反坦克猎兵
+Pioneer	工兵
+Mixed	混成	t
+Operational	作战
+Kanakkale	卡纳卡莱
+Breakthrough	突破
+Pzgrenadier	装甲掷弹兵
+Fighter	战斗机
+Settore	地段
+Principe	普林西比
+Spedizione	远征
+Librazhd	利布拉日
+Labor	劳工	t
+Squadriglia	中队
+Bicycle	自行车
+Parachute	伞兵
+Observation	观测
+Luftwaffe	空军
+Siege	攻城	t
+Amedeo	阿梅代奥	t
+Antonescu	安东内斯库
+MC.200 Saetta	MC.200 箭式
+Royal	皇家	t
+North Ukraine	北乌克兰
+South Ukraine	南乌克兰
+Jagdabschnittsfuhrer	猎兵地段指挥官
+Assault Eng-Sapper	突击工兵
+Bn.	营	t
+Carpat	喀尔巴阡	t
+Carpat.	喀尔巴阡
+Carpat..	喀尔巴阡
+Div.	师	t
+Av..	航空	t
+Av.	航空	t
+Av	航空	t
+AU.	航空单位	t
+SE.	东南	t
+SE	东南	t
+LR.	远程	t
+LR	远程	t
+Hwz	榴弹炮	t
+Hwz.	榴弹炮	t
+Sec	警备	t
+Sec.	警备	t
+Inf.	步兵	t
+Inf	步兵	t
+Rgt.	团	t
+Const.	建设	t
+Const..	建设
+Hvy	重型	t
+Hvy.	重型	t
+Det..	支队	t
+Det	支队	t
+Det.	支队	t
+Mdm	中型	t
+Mdm.	中型	t
+Nbl.W.	火箭炮	t
+Nbl.W	火箭炮	t
+Nbl.W..	火箭炮
+Mech.	机械化	t
+Jgd.Pz.	坦克歼击车
+Jgd.Pz..	坦克歼击车
+Jgd.Pz	坦克歼击车	t
+Mtcl	摩托车	t
+Mtcl.	摩托车	t
+Arm	装甲	t
+Arm..	装甲	t
+Bt.	炮兵连	t
+Pzjgr.	反坦克猎兵	t
+Pnr.	工兵	t
+Mix.	混成	t
+Op	作战	t
+Op..	作战	t
+Kan..	卡纳卡莱	t
+Kan	卡纳卡莱	t
+Kan.	卡纳卡莱	t
+Brkthr	突破	t
+Brkthr..	突破
+Brkthr.	突破
+Pz.Gr.	装甲掷弹兵	t
+Pz.Gr..	装甲掷弹兵
+Pz.Gr	装甲掷弹兵	t
+Ftr.	战斗机	t
+Set..	地段	t
+Set.	地段	t
+Set	地段	t
+Prin	普林西比	t
+Prin..	普林西比	t
+Prin.	普林西比	t
+Sped..	远征	t
+Sped	远征	t
+Sped.	远征	t
+Lib.	利布拉日	t
+Lib	利布拉日	t
+Lib..	利布拉日	t
+Lbr.	劳工	t
+Squadr..	中队
+Squadr	中队	t
+Squadr.	中队
+Bcl.	自行车	t
+Para.	伞兵	t
+Observ..	观测
+Observ	观测	t
+LW.	空军	t
+Sg.	攻城	t
+Am	阿梅代奥	t
+Am..	阿梅代奥	t
+Coy.	连	t
+Anton.	安东内斯库	t
+Anton..	安东内斯库
+Anton	安东内斯库	t
+MC.200 S	MC.200 箭式
+MC.200 S..	MC.200 箭式
+MC.200 S.	MC.200 箭式
+Roy.	皇家	t
+Roy	皇家	t
+N Ukraine	北乌克兰
+N Ukraine.	北乌克兰
+JGF.	猎兵地段指挥官	t
+JGF	猎兵地段指挥官	t
+S Ukraine	南乌克兰
+S Ukraine.	南乌克兰
+AE Sapper	突击工兵
+AE Sapper.	突击工兵
+Werfer	火箭炮	t
+Anti-tank	反坦克
+Anti-Tank	反坦克
+Anti-tank Gun	反坦克炮
+Panzergrenadier	装甲掷弹兵
+Afrika	非洲	t
+Celere	快速	t
+Panzerjaeger	装甲猎兵
+leFH	轻型野战	t
+sFH	重型野战	t
+Semi-Mot	半摩托化
+Semi-Mot.	半摩托化
+Reconnaissance	侦察
+Schuetzen	狙击兵
+Skijaeger	滑雪猎兵
+Military	军事
+Police	警察	t
+Gun	火炮	t
+(-)	（减）
+(+)	（增）

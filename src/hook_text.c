@@ -862,12 +862,33 @@ static int is_split_index(const wchar_t *t, int len, const wchar_t *next)
 
 /* 从 from 起跳过 nw 个词，返回结束位置（不含）。
  * 词之间用空格或斜杠分隔，连续分隔符跳过。 */
+/* 从 p 起一个词的结束位置。
+ *
+ * 空格和斜杠断词。另外句点后紧跟大写字母也断，句点留在前一个词里 ——
+ * 游戏会把缩写点后的空格吃掉："Mot. Corps" -> "Mot.Corps"，
+ * 多句点的还连成一片："Mot. Nbl.W. Werfer" -> "Mot.Nbl.W.Werfer"。
+ * 这样断开后，"Nbl." 和 "W." 是两个词，但贪心匹配取原文切片
+ * 就能拼回 "Nbl.W." 这个完整条目。 */
+static int word_end(const wchar_t *t, int p, int cut)
+{
+    while (p < cut) {
+        if (t[p] == L' ' || t[p] == L'/') break;
+        if (t[p] == L'.' && p + 1 < cut &&
+            ((t[p + 1] >= L'A' && t[p + 1] <= L'Z') ||
+             (t[p + 1] >= L'a' && t[p + 1] <= L'z')))
+            return p + 1;
+        p++;
+    }
+    return p;
+}
+
 static int skip_words(const wchar_t *t, int from, int cut, int nw)
 {
     int p = from, cnt = 0;
     while (p < cut && cnt < nw) {
         while (p < cut && (t[p] == L' ' || t[p] == L'/')) p++;
-        while (p < cut && t[p] != L' ' && t[p] != L'/') p++;
+        if (p >= cut) break;
+        p = word_end(t, p, cut);
         cnt++;
     }
     return p;
@@ -1256,12 +1277,22 @@ static wchar_t *dt_check_raw(wchar_t *text)
         for (int cut = 1; cut < tn - 1; cut++) {
             /* 分隔符可以是空格，也可以是斜杠（"1/West Wall" 这种
              * 意大利/德军分队的写法）。空格不能连续。 */
+            /* off = 分隔符占的字符数。空格/斜杠是 1。
+             * 句点后紧跟大写字母时是 0：游戏吃掉了缩写点后的空格
+             * （"Mot. Corps" -> "Mot.Corps"），句点要留在左边。 */
+            int off;
             if (text[cut] == L'/') {
-                /* 斜杠分隔，直接切 */
-            } else if (text[cut] != L' ' || text[cut - 1] == L' ') {
+                off = 1;
+            } else if (text[cut] == L' ' && text[cut - 1] != L' ') {
+                off = 1;
+            } else if (text[cut - 1] == L'.' &&
+                       ((text[cut] >= L'A' && text[cut] <= L'Z') ||
+                        (text[cut] >= L'a' && text[cut] <= L'z'))) {
+                off = 0;
+            } else {
                 continue;
             }
-            int slen = tn - cut - 1;
+            int slen = tn - cut - off;
             if (slen < 2) continue;
 
             /* 空格分隔、纯数字前缀、后缀是**单个单词** -> 数量不是番号。
@@ -1283,7 +1314,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
                 if (g_zh[i].klen != slen) continue;
                 int ok = 1;
                 for (int z = 0; z < slen; z++) {
-                    if (lc_w(text[cut + 1 + z]) !=
+                    if (lc_w(text[cut + off + z]) !=
                         lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) {
                         ok = 0; break;
                     }
@@ -1318,7 +1349,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     if (g_zh[i].key[slen] == ' ') continue;
                     int ok = 1;
                     for (int z = 0; z < slen; z++) {
-                        if (lc_w(text[cut + 1 + z]) !=
+                        if (lc_w(text[cut + off + z]) !=
                             lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) {
                             ok = 0; break;
                         }
@@ -1380,9 +1411,7 @@ static wchar_t *dt_check_raw(wchar_t *text)
                 }
                 pre[pn] = 0;
                 while (st < cut) {
-                    int en = st;
-                    /* 分隔符可以是空格或斜杠（"I/Stettin Heimat"） */
-                    while (en < cut && text[en] != L' ' && text[en] != L'/') en++;
+                    int en = word_end(text, st, cut);
                     int wl = en - st;
                     if (wl <= 0) { st = en + 1; continue; }
 

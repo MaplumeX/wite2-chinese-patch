@@ -62,6 +62,36 @@ def ob_suffixes():
     return out
 
 
+def build_word_variants(dic, table):
+    """单词级：缩写 -> 译文，译文取自全称的译文。
+
+    部队名在窄控件里既会整体缩写，也会被逐词缩写再截断，
+    于是出现 "XXXXVI Mot.Cr"（句点后空格被吃掉）和 "Art."（带点）这类形态。
+    与其一条条补，不如把每个缩写的单词译文都确定性地生成出来：
+
+        Artillery -> 炮兵        （已手写）
+        Art       -> 炮兵        （生成）
+        Art.      -> 炮兵        （生成，带点形态）
+
+    只在缩写本身查不到任何词义时才生成，不动已有条目。
+    """
+    existing = {k for k in dic if not k.startswith("_")}
+    out = {}
+    for full, ab in table.items():
+        val = dic.get(full)
+        if not val:
+            continue
+        # 缩写带不带点两种形态都会出现。表里有的带点（"Mot."），
+        # 有的不带（"Art"），游戏显示时两种都能遇到。
+        cands = {ab, ab.rstrip("."), ab + "."}
+        for cand in cands:
+            if len(cand) < 2:
+                continue
+            if cand not in existing and cand not in out:
+                out[cand] = (val, full)
+    return out
+
+
 def build_variants(dic, table, scope):
     """对作用域内的多词 key 生成缩写形态。
 
@@ -100,7 +130,11 @@ def main():
           % (len(table), len(scope), len([k for k in dic if not k.startswith("_")])))
 
     variants = build_variants(dic, table, scope)
-    print("可生成缩写变体 %d 条：" % len(variants))
+    words = build_word_variants(dic, table)
+    for k, v in words.items():
+        variants.setdefault(k, v)
+    print("可生成缩写变体 %d 条（其中单词级 %d 条）："
+          % (len(variants), len(words)))
     for k, (v, src) in list(variants.items())[:30]:
         print("   %-30r %-16s  (来自 %r)" % (k, v, src))
 

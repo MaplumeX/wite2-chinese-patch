@@ -190,7 +190,42 @@ CS_KEYS = {"Port","Rail","Road","City","Town","Airfield","Coast",
            "Major","Minor","None","Snow","Mud"}
 
 
-def dt_check(text, entries):
+def _split_tokens(head):
+    """把番号部分切成 token，句点后可断。
+
+    游戏会把缩写点后的空格吃掉："Mot. Corps" -> "Mot.Corps"，
+    再按控件宽度截断成 "Mot.Cr"。多句点的会连成一片：
+    "Mot. Nbl.W. Werfer" -> "Mot.Nbl.W.Werfer"。
+
+    断点放在"."之后（句点留给前一个 token），这样 "Nbl." 和 "W."
+    是两个 token，但贪心匹配取原文切片就能拼出 "Nbl.W." 这个完整条目。
+    """
+    out = []
+    i = 0
+    n = len(head)
+    while i < n:
+        if head[i] == "/":
+            out.append((i, i + 1, "/"))
+            i += 1
+            continue
+        if head[i] == " ":
+            # 空格不单独成 token，由调用方的 head[st0-1] == " " 判断保留
+            i += 1
+            continue
+        j = i
+        while j < n:
+            if head[j] in " /":
+                break
+            if head[j] == "." and j + 1 < n and head[j + 1].isalpha():
+                j += 1
+                break
+            j += 1
+        out.append((i, j, head[i:j]))
+        i = j
+    return out
+
+
+def dt_check(text, entries, _depth=0):
     """与 C 代码一致: 整串精确 -> 剥后缀 -> 数字模式 -> 截断前缀"""
     if not text:
         return text, None
@@ -258,11 +293,18 @@ def dt_check(text, entries):
         tn -= 1
     tail = text[tn:]
     for cut in range(lead + 1, tn - 1):
+        # off = 分隔符占的字符数。空格/斜杠是 1。
+        # 句点后紧跟大写字母时是 0：游戏吃掉了缩写点后的空格
+        # （"Mot. Corps" -> "Mot.Corps"），句点要留在左边。
         if text[cut] == "/":
-            pass
-        elif text[cut] != " " or text[cut - 1] == " ":
+            off = 1
+        elif text[cut] == " " and text[cut - 1] != " ":
+            off = 1
+        elif text[cut - 1] == "." and text[cut].isalpha():
+            off = 0
+        else:
             continue
-        suf = text[cut + 1:tn]
+        suf = text[cut + off:tn]
         if len(suf) < 2:
             continue
         sl = suf.lower()
@@ -317,8 +359,7 @@ def dt_check(text, entries):
             #   "1/16th (158th Res) ..." -> "(158th Res)" 被拆
             # 现在从当前位置起试最长的词组合，命中就用，否则退一个词。
             # 这样多词术语、括号注释、斜杠分隔都能整段命中。
-            toks = [(m.start(), m.end(), m.group())
-                    for m in re.finditer(r"[^\s/]+|/", head)]
+            toks = _split_tokens(head)
             parts = []
             nTok = nMiss = 0
             k = 0
@@ -346,8 +387,13 @@ def dt_check(text, entries):
                     if any(x[2] == "/" for x in seg):
                         continue
                     phrase = head[seg[0][0]:seg[-1][1]]
-                    # 段内必须是连续原文（只隔单个空格）
-                    if phrase.count("  ") or phrase != " ".join(x[2] for x in seg):
+                    # 段内必须是连续原文。两种连法都算：
+                    #   用空格连（正常分词）
+                    #   直接连（句点吃掉了空格，"Nbl."+"W." -> "Nbl.W."）
+                    if phrase.count("  "):
+                        continue
+                    if (phrase != " ".join(x[2] for x in seg)
+                            and phrase != "".join(x[2] for x in seg)):
                         continue
                     pl = phrase.lower()
                     for kk, vv in entries:
@@ -586,6 +632,13 @@ CASES = [
     ("Mech Div", "机械化师", "缩写 Mnt/Mech"),
     ("IT Mnt Div", "意大利山地师", "国籍缩写 + 兵种缩写"),
     ("4th Mnt Di", "第4山地师", "缩写 + 截断"),
+    # 句点粘连：游戏吃掉缩写点后的空格（"Mot. Corps" -> "Mot.Corps"），
+    # 多句点的还连成一片（"Mot.Nbl.W.Bn"）。切分点和分词器都要认句点，
+    # 句点留给前一个词，这样贪心匹配取原文切片能拼回完整条目。
+    ("XXXXVI Mot.Cr", "第46摩托化军", "句点粘连 + 截断"),
+    ("XXXXVI Mot.Corps", "第46摩托化军", "句点粘连"),
+    ("XXXXVI Pz.Cr", "第46装甲军", "句点粘连 + 缩写"),
+    ("1 Mot.Nbl.W.Bn", "第1摩托化火箭炮营", "多句点缩写"),
     # 数据文件里的显示文本（Nations/GroundTypes/AirProfiles）
     ("Soviet Union", "苏联", "国家名"),
     ("Rifle Squad", "步兵班", "地面单位类型（Rifle 统一译步兵）"),
