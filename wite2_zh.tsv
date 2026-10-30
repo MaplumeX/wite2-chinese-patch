@@ -775,7 +775,7 @@ AIR TRANSFER	空转
 GS-on	对地支援-开
 GS-off	对地支援-关
 FILTER	筛选
-GROUND	地面	d
+GROUND	地面
 ALL	全部
 CUSTOM	自定义
 AIR	空中
@@ -823,21 +823,21 @@ ESCORT	护航
 SWEEP	扫荡
 TRAIN	训练
 RECON	侦察
-V-WEAPON	V型武器	d
+V-WEAPON	V型武器
 V-W LAUNCH	V型发射
-VEHICLE	车辆	d
-ARMAMENT	军备	d
-FUEL	燃料	d
-RESOURCE	资源	d
-OIL	石油	d
-RAILYARD	铁路场站	d
-MANPOWER	人力	d
-AIRCRAFT	飞机	d
+VEHICLE	车辆
+ARMAMENT	军备
+FUEL	燃料
+RESOURCE	资源
+OIL	石油
+RAILYARD	铁路场站
+MANPOWER	人力
+AIRCRAFT	飞机
 AFV	装甲车
 FERRY	渡运
 INTERDICT	遮断
 RAILWAY	铁路
-U-BOAT	潜艇	d
+U-BOAT	潜艇
 NIGHT ONLY	仅夜间
 DAY & NIGHT	昼夜
 MIX MISSION	混合任务
@@ -1628,8 +1628,8 @@ Naval Patrol Sorties	海上巡逻架次
 Sorties Per One Loss	每损失一架次的出击数
 Difficulty: CHALLENGING	难度：挑战
 Difficulty: IMPOSSIBLE	难度：不可能
-CHALLENGING	挑战
-IMPOSSIBLE	不可能
+CHALLENGING	挑战	d
+IMPOSSIBLE	不可能	d
 January	1月
 February	2月
 March	3月
@@ -2052,7 +2052,7 @@ Game event year (1941-1945)	游戏事件年（1941-1945）
 GND Index	地面索引
 Grab Empty Hexes	夺取空白六角格
 Heavy Industry	重工业
-HEAVY INDUSTRY	重工业	d
+HEAVY INDUSTRY	重工业
 Heavy-Urban	重型城区
 Hex Art	六角格图形
 Hex Art:	六角格图形：
@@ -3381,7 +3381,7 @@ WEATHER ZONE	天气区域
 WITE2 STEEL INFERNO	WITE2 钢铁炼狱
 LIGHT WEAPONS POOL UPGRADES	轻武器储备升级
 Climate: Temperate Humid	气候：温带湿润
-Temperate Humid	温带湿润
+Temperate Humid	温带湿润	d
 Climate: Dry	气候：干燥
 Climate: Cold	气候：寒冷
 Climate: Arctic	气候：极寒
@@ -3973,7 +3973,7 @@ AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS   
 ### ERROR : wfunit.dat failed to save ###	### 错误：wfunit.dat 保存失败 ###
 ### ERROR : wfcontrol.dat failed to save ###	### 错误：wfcontrol.dat 保存失败 ###
 ### ERROR : wfmaptext.dat failed to save ###	### 错误：wfmaptext.dat 保存失败 ###
-AMMO	弹药	d
+AMMO	弹药
 AUTO	自动
 AUTO:	自动：
 AXIS	轴心
@@ -3994,7 +3994,7 @@ MARKED	已标记
 MONTH	月份
 MOTOR	摩托化
 MULTI	多用途
-NAVAL	海军	d
+NAVAL	海军
 NATION	国家
 NEXT	下一个
 PLAYER	玩家
@@ -4150,7 +4150,7 @@ FrRec	接收
 FrLost	损失
 VehRec	车辆接收
 UNITS	部队
-NONE	无	d
+NONE	无
 CONDITION	条件
 5 - LW	5 - 空军
 5 - LW 	5 - 空军 
@@ -5541,21 +5541,21 @@ spanish-el salvador	萨尔瓦多西班牙语
 spanish-puerto rico	波多黎各西班牙语
 spanish-dominican republic	多米尼加西班牙语
 spanish-panama	巴拿马西班牙语
-Rain	降雨
-Heavy Rain	大雨
-Cold	寒冷
-Snowfall	降雪
-Light Mud	轻度泥泞
-Heavy Mud	重度泥泞
-Light Snow	小雪
-Heavy Snow	大雪
-Humid Cold	湿润寒冷
-Humid	湿润
-Humid Warm	湿润温暖
-Temperate Dry	温带干燥
-Tropical Maritime	热带海洋性
-Arctic Maritime	北极海洋性
-Tropical Continental	热带大陆性
+Rain	降雨	d
+Heavy Rain	大雨	d
+Cold	寒冷	d
+Snowfall	降雪	d
+Light Mud	轻度泥泞	d
+Heavy Mud	重度泥泞	d
+Light Snow	小雪	d
+Heavy Snow	大雪	d
+Humid Cold	湿润寒冷	d
+Humid	湿润	d
+Humid Warm	湿润温暖	d
+Temperate Dry	温带干燥	d
+Tropical Maritime	热带海洋性	d
+Arctic Maritime	北极海洋性	d
+Tropical Continental	热带大陆性	d
 Crps	军
 Div	师
 Bde	旅
@@ -5585,7 +5585,7 @@ GROUND CHASSIS	地面底盘	d
 AIRFRAME	机体	d
 RESOURCES	资源	d
 SYNTHETIC FUEL	合成燃料	d
-PORT	港口	d
+PORT	港口
 V-WEAPON LAUNCH	V武器发射场	d
 U-BOAT PEN	潜艇坞	d
 CHASSIS	底盘	d
@@ -5602,20 +5602,20 @@ MID RECON	中空侦察	d
 HIGH RECON	高空侦察	d
 RADAR	雷达	d
 NAVAL RANGE	海上航程	d
-Polar	极地
-Arid Steppes	干旱草原
-Arid Desert	干旱沙漠
-Polar Maritime	极地海洋性
-Polar Continental	极地大陆性
-mP	极地海洋
-mT	热带海洋
-mA	北极海洋
-cP	极地大陆
-cT	热带大陆
-English	英语
-French	法语
-Spanish	西班牙语
-EASY	简单
-HARD	困难
+Polar	极地	d
+Arid Steppes	干旱草原	d
+Arid Desert	干旱沙漠	d
+Polar Maritime	极地海洋性	d
+Polar Continental	极地大陆性	d
+mP	极地海洋	d
+mT	热带海洋	d
+mA	北极海洋	d
+cP	极地大陆	d
+cT	热带大陆	d
+English	英语	d
+French	法语	d
+Spanish	西班牙语	d
+EASY	简单	d
+HARD	困难	d
 Easy	简单
 Hard	困难

@@ -173,8 +173,19 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
     DWORD *offs = (DWORD *)malloc(sizeof(DWORD) * 256);
     int cnt = 0;
     for (int d = 0; d < g_ndic; d++) {
-        /* secId: 1 = .rdata, 2 = .data；条目的 sec 为 0 表示两者都改 */
-        if (g_dic[d].sec && g_dic[d].sec != secId) continue;
+        /* secId: 1 = .rdata, 2 = .data
+         *
+         * .data 只处理显式标记为 dataOnly 的词。否则 5000+ 个普通词会
+         * 把 356 KB 的段各扫一遍（合计 2 GB），启动明显变慢，
+         * 而它们本来就不在 .data 里。
+         *
+         * .rdata 跳过 dataOnly 词：这些词在 .rdata 有同名枚举副本，
+         * 不能碰。 */
+        if (secId == 2) {
+            if (g_dic[d].sec != 2) continue;
+        } else {
+            if (g_dic[d].sec == 2) continue;
+        }
         const wchar_t *k = g_dic[d].key;
         const wchar_t *v = g_dic[d].val;
         int klen = (int)wcslen(k);
@@ -229,8 +240,16 @@ static void patch_all(HMODULE exe)
         if (strcmp(nm, ".rdata") == 0) secId = 1;
         else if (strcmp(nm, ".data") == 0) secId = 2;
         else continue;
-        patch_section((BYTE *)exe + sec->VirtualAddress,
-                      sec->Misc.VirtualSize, nm, secId);
+
+        /* 必须取 VirtualSize 和 SizeOfRawData 的较小值。
+         * .data 的 VirtualSize 是 0x5AF1FAC（90 MB），因为未初始化的
+         * BSS 合并在里面；而真实初始化数据只有 0x56E00（356 KB）。
+         * 拿 VirtualSize 当扫描长度会让 5619 个词各扫 90 MB
+         * （合计 500 GB），启动直接卡死，日志停在 .rdata 那一行。 */
+        DWORD span = sec->Misc.VirtualSize;
+        if (sec->SizeOfRawData && sec->SizeOfRawData < span)
+            span = sec->SizeOfRawData;
+        patch_section((BYTE *)exe + sec->VirtualAddress, span, nm, secId);
     }
 }
 

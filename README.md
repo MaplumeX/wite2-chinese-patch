@@ -368,6 +368,30 @@ python tools/check_danger.py --fix    # 从词典删除
 `patch_all` 现在同时走 `.rdata` 和 `.data`，
 `inventory.py --data` 可以单独清点该段。
 
+### `.data` 的 VirtualSize 是陷阱
+
+```
+段名      VirtualSize   SizeOfRawData
+.data     0x5AF1FAC     0x56E00
+          ↑ 90 MB       ↑ 356 KB
+```
+
+`.data` 的 `VirtualSize` 把未初始化的 BSS 也算进去了，是 90 MB。
+真实初始化数据只有 356 KB，全部落在 `SizeOfRawData` 内。
+
+拿 `VirtualSize` 当扫描长度会让 5619 个词各扫 90 MB（合计约 500 GB），
+启动直接卡死，日志停在 `.rdata` 那一行，`.data` 永远跑不到。
+所以取两者较小值：
+
+```c
+DWORD span = sec->Misc.VirtualSize;
+if (sec->SizeOfRawData && sec->SizeOfRawData < span)
+    span = sec->SizeOfRawData;
+```
+
+另外 `.data` 只处理显式标记的词。否则 5000+ 个普通词会把 356 KB
+的段各扫一遍，白花 2 GB 扫描量。
+
 ### 按段作用域（`_dataOnly`）
 
 同一批工厂类型名在 `.rdata` 里另有**同名枚举副本**：
@@ -395,6 +419,18 @@ PORT<TAB>港口<TAB>d
 
 `d` = 只改 `.data`，`r` = 只改 `.rdata`，空 = 两者都改。
 `check_danger.py` 认得这个标记，不会把已隔离的条目算成危险词条。
+
+**`_dataOnly` 只放"仅在 `.data` 出现"的词。** 两段都有的词
+（`PORT`、`NONE`、`OIL`、`FUEL`、`RAILYARD`、`MANPOWER`、`RESOURCE`、
+`AIRCRAFT`、`GROUND`）必须继续改 `.rdata`——它们在 `fb79222` 版
+就是这么翻的，实测正常。曾经把它们一起塞进 `_dataOnly`，结果
+`.rdata` 少翻 197 处（`NONE` 一个词就 33 处），表现为"很多地方
+的翻译突然丢了"。
+
+`PORT` 为什么安全？`patch_section` 只替换整串（前后必须是 NUL），
+路径里 `//Tiles//PORT//` 的 `PORT` 前面是 `/`，永远命中不了。
+真正会出事的是 `WATER`、`RIVER` 这类作为独立字符串被代码当查找键
+的地形枚举，改了地图渲染拿不到图形，水体变黑。
 
 ### 大小写敏感
 

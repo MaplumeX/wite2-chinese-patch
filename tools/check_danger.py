@@ -132,12 +132,19 @@ def looks_like_identifier(k):
 
 # 地形/图形/资源枚举名。这些全大写短词被游戏用来查找地块图形资源
 # 和地形类型，改了会导致地图渲染异常（例如水体变黑）。
+# 纯地形枚举。改了会让地图渲染拿不到 //Tiles//<地形>// 下的图形，
+# 水体变黑就是这么来的（WATER / RIVER）。
+#
+# 注意 PORT 和 NONE 不在这里。它们是资源/工厂类型名，虽然也在 .rdata
+# 出现，但 patch_section 只替换整串（前后必须是 NUL），路径里的
+# //Tiles//PORT// 前面是 '/'，永远不会被命中，所以安全。fb79222 版
+# 实测无副作用，不要因为名字全大写就误判。
 ENUM_TERRAIN = {
     "WATER", "CLEAR", "ROUGH", "MOUNTAIN", "SWAMP", "WOODS", "FOREST",
     "CITY", "URBAN", "BOCAGE", "TUNDRA", "DESERT", "SAND", "IMPASSABLE",
     "POLDER", "HVY_URBAN", "HEAVY_URBAN", "RIVER", "RAIL", "ROAD",
-    "BORDER", "COAST", "TOWN", "PORT", "AIRFIELD", "SITE", "DEPOT",
-    "MAJOR", "MINOR", "NONE", "NON_MOT", "MOT",
+    "BORDER", "COAST", "TOWN", "AIRFIELD", "SITE", "DEPOT",
+    "MAJOR", "MINOR", "NON_MOT", "MOT",
 }
 
 
