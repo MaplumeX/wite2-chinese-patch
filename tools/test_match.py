@@ -578,6 +578,18 @@ CASES = [
     ("4th Mnt Div", "第4山地师", "山地师缩写"),
     ("4th Mtn Div", "第4山地师", "山地师缩写变体"),
     ("4th Inf Div", "第4步兵师", "步兵师缩写"),
+    # 游戏有 118 对硬编码缩写（exe 0x5CEC14），同一部队有两种形态。
+    # 之前只翻全称，缩写形态整片漏掉 —— 这是"手写了译文却还看到英文"
+    # 的真正原因。缩写译文由 tools/abbr_variants.py 从全称复用生成。
+    ("9th Pz Div", "第9装甲师", "缩写 Pz Div"),
+    ("113th Inf Div", "第113步兵师", "缩写 Inf Div"),
+    ("Mech Div", "机械化师", "缩写 Mnt/Mech"),
+    ("IT Mnt Div", "意大利山地师", "国籍缩写 + 兵种缩写"),
+    ("4th Mnt Di", "第4山地师", "缩写 + 截断"),
+    # 数据文件里的显示文本（Nations/GroundTypes/AirProfiles）
+    ("Soviet Union", "苏联", "国家名"),
+    ("Rifle Squad", "步兵班", "地面单位类型（Rifle 统一译步兵）"),
+    ("CW Heavy Bomber", "英联邦重型轰炸机", "机型分类"),
     ("255th Infantry Division", "第255步兵师", "阿拉伯数字照常转"),
     # 序数后缀 st/nd/rd/th 全部要能识别。C 里边界写成 i+2 < len 时
     # 只有 1st 侥幸通过，79th 会退回逐词翻译变成 "79th步兵师"。
