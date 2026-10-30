@@ -343,6 +343,12 @@ static void dict_build(void)
             key[klen++] = (char)kw[j];
         }
         if (!ok || klen < 3) continue;
+        /* key[] 是栈上数组，循环退出时没有写终止符。
+         * 不补这个 0，下面 memcpy(kc, key, klen+1) 会把栈上的
+         * 未初始化字节当终止符复制走，日志里就会出现
+         * "OctM"、"Difficulty: NORMALr"、"Road to Karelia...乱码"。
+         * 匹配本身不受影响（用 klen 单独记长度），但这是未定义行为。 */
+        key[klen] = 0;
 
         int wlen = 0;
         while (vw[wlen]) wlen++;
