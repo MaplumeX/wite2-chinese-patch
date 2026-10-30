@@ -37,6 +37,7 @@ TSV = os.path.join(ROOT, "wite2_zh.tsv")
 FONT_DIR = os.path.join(ROOT, "Dat", "Fonts")
 FONT_FILE = "wite2_zh.ttf"
 SRC_TTC = r"C:\Windows\Fonts\msyh.ttc"   # 中文字形来源
+BASE_TTF = r"C:\Windows\Fonts\tahoma.ttf" # 仅取其垂直度量，不取字形
 FAMILY = "WITE2ZH"
 PUNCT = "，。：；！？、（）【】《》…—～·“”‘’"
 
@@ -170,6 +171,32 @@ def build_font(chars, check_only=False):
     sub = subset.Subsetter(options=opts)
     sub.populate(text="".join(sorted(chars)))
     sub.subset(font)
+
+    # 垂直度量对齐 Tahoma。
+    #
+    # 游戏用 GetTextExtentPoint32W 实际测量文本，但行高取自字体的
+    # hhea/OS-2 度量。微软雅黑行高 1.320 em，Tahoma 1.207 em，高 9.4%：
+    #
+    #   Tahoma    asc 2049  desc -423  -> 1.207 em
+    #   雅黑      asc 2167  desc -536  -> 1.320 em
+    #
+    # 按 Tahoma 行高设计的框装不下，表现为文字偏下、超出框外、多行
+    # 时行距不均。改成 Tahoma 的值后与原始布局一致。
+    #
+    # 安全性: 只改度量，不动字形轮廓和 hinting。实测中文字形范围
+    # -0.172..0.847 em，Tahoma 的 desc -0.207 em 完全容纳，不会裁字。
+    th = TTFont(BASE_TTF)
+    font["hhea"].ascent = th["hhea"].ascent
+    font["hhea"].descent = th["hhea"].descent
+    font["hhea"].lineGap = th["hhea"].lineGap
+    so, to = font["OS/2"], th["OS/2"]
+    so.sTypoAscender = to.sTypoAscender
+    so.sTypoDescender = to.sTypoDescender
+    so.sTypoLineGap = to.sTypoLineGap
+    so.usWinAscent = to.usWinAscent
+    so.usWinDescent = to.usWinDescent
+    print("垂直度量已对齐 Tahoma: asc=%d desc=%d"
+          % (font["hhea"].ascent, font["hhea"].descent))
 
     nt = font["name"]
     for rec in list(nt.names):
