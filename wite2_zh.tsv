@@ -3139,7 +3139,7 @@ Koluft	空军联络
 AC TYPE	飞机类型
 AP AXIS	轴心行政点
 AP SOVIET	苏联行政点
-ARMAMENTS	军备	d
+ARMAMENTS	军备
 ARMY LEVEL	集团军级
 AXIS MAJOR	轴心重大胜利
 AXIS MINOR	轴心次要胜利
@@ -3915,7 +3915,7 @@ NON-MOT	非摩托化
 Motorized	摩托化
 Infantry	步兵
 INFANTRY	步兵
-VEHICLES	车辆	d
+VEHICLES	车辆
 Elements	单位
 Location	地点
 Location:	地点：
@@ -3929,7 +3929,7 @@ AVERAGE	平均
 AVERAGE ROAD	中等道路
 FACTORY	工厂
 FIGHTER	战斗机
-SYNTH FUEL	合成燃料	d
+SYNTH FUEL	合成燃料
 Active	活动
 Custom	自定义
 Device	装备

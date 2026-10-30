@@ -5639,7 +5639,6 @@
     "AIRFRAME",
     "AMMO",
     "ARMAMENT",
-    "ARMAMENTS",
     "CHASSIS",
     "FUEL",
     "GROUND",
@@ -5663,7 +5662,6 @@
     "RESOURCE",
     "RESOURCES",
     "SPEED",
-    "SYNTH FUEL",
     "SYNTHETIC FUEL",
     "U-BOAT",
     "U-BOAT PEN",
@@ -5672,8 +5670,7 @@
     "V-WEAPON",
     "V-WEAPON LAUNCH",
     "V-WPN",
-    "VEHICLE",
-    "VEHICLES"
+    "VEHICLE"
   ],
   "EASY": "简单",
   "HARD": "困难",

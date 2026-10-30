@@ -598,6 +598,86 @@ static wchar_t *dt_check(wchar_t *text)
         return g_pool[slot];
     }
 
+    /* ---------- 策略 1.5: 剥离尾部空格后精确匹配 ----------
+     * 界面用空格填充对齐，绘制出来的串常带尾部空格：
+     *   "1941 Campaign "   (剧本名从 .scn 文件名派生，列表里补空格)
+     *   "Turn 5      "
+     * 不剥尾部空格会完全失配，表现为“有的翻了有的没翻”。
+     * 译文后面补回同样多的空格，保持原有对齐。 */
+    {
+        int tn = len;
+        while (tn > 0 && text[tn - 1] == L' ') tn--;
+        if (tn > 0 && tn < len) {
+            for (int i = 0; i < g_nzh; i++) {
+                if (g_zh[i].klen != tn) continue;
+                int ok = 1;
+                for (int z = 0; z < tn; z++) {
+                    wchar_t a = text[z];
+                    wchar_t b = (wchar_t)(unsigned char)g_zh[i].key[z];
+                    if (g_zh[i].cs) {
+                        if (a != b) { ok = 0; break; }
+                    } else {
+                        if (lc_w(a) != lc_w(b)) { ok = 0; break; }
+                    }
+                }
+                if (!ok) continue;
+
+                int pad = len - tn;
+                if (g_zh[i].wlen + pad + 1 > 250) break;
+                slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+                wchar_t *out = g_pool[slot];
+                memcpy(out, g_zh[i].wtext, g_zh[i].wlen * sizeof(wchar_t));
+                for (int z = 0; z < pad; z++) out[g_zh[i].wlen + z] = L' ';
+                out[g_zh[i].wlen + pad] = 0;
+                InterlockedIncrement(&g_dtHits);
+                return out;
+            }
+        }
+    }
+
+    /* ---------- 策略 1.6: 剥离文件扩展名后精确匹配 ----------
+     * 剧本名从 .scn 文件名派生，某些界面会把扩展名一起画出来：
+     *   "1941 Campaign.scn" -> "1941 Campaign"
+     */
+    {
+        static const char *exts[] = {
+            ".scn", ".dat", ".txt", ".csv", ".sav", ".psv", ".ini"
+        };
+        for (int e = 0; e < (int)(sizeof(exts) / sizeof(exts[0])); e++) {
+            int el = (int)strlen(exts[e]);
+            if (len <= el) continue;
+            int ok = 1;
+            for (int z = 0; z < el; z++) {
+                if (lc_w(text[len - el + z]) !=
+                    lc_w((wchar_t)(unsigned char)exts[e][z])) { ok = 0; break; }
+            }
+            if (!ok) continue;
+
+            int plen = len - el;
+            while (plen > 0 && text[plen - 1] == L' ') plen--;
+            for (int i = 0; i < g_nzh; i++) {
+                if (g_zh[i].klen != plen) continue;
+                int m = 1;
+                for (int z = 0; z < plen; z++) {
+                    wchar_t a = text[z];
+                    wchar_t b = (wchar_t)(unsigned char)g_zh[i].key[z];
+                    if (g_zh[i].cs) {
+                        if (a != b) { m = 0; break; }
+                    } else {
+                        if (lc_w(a) != lc_w(b)) { m = 0; break; }
+                    }
+                }
+                if (!m) continue;
+                slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+                memcpy(g_pool[slot], g_zh[i].wtext,
+                       (g_zh[i].wlen + 1) * sizeof(wchar_t));
+                InterlockedIncrement(&g_dtHits);
+                return g_pool[slot];
+            }
+            break;
+        }
+    }
+
     /* ---------- 策略 2: 剥离尾部后缀后精确匹配 ----------
      * "LI Corps (1/5)"      -> 前缀 "LI Corps"
      * "16th MD   ( 24.9 )"  -> 前缀 "16th MD"
@@ -612,6 +692,8 @@ static wchar_t *dt_check(wchar_t *text)
             if (text[z] == L' ' && text[z + 1] == L'(') { cut = z; break; }
             /* 空格后跟斜杠(如 " / Det") */
             if (text[z] == L' ' && text[z + 1] == L'/') { cut = z; break; }
+            /* 空格后跟点(如 "1941 Campaign .scn") */
+            if (text[z] == L' ' && text[z + 1] == L'.') { cut = z; break; }
         }
         if (cut >= 3) {
             int plen = cut;

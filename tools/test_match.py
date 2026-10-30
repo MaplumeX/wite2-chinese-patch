@@ -111,10 +111,52 @@ def dt_check(text, entries):
         elif k.lower() == tl:
             return v, "exact"
 
+    # 策略 1.5: 剥离尾部空格后精确匹配
+    # 界面用空格填充对齐，绘制出的串常带尾部空格：
+    #   "1941 Campaign "   (剧本名从 .scn 文件名派生)
+    # 不剥尾部空格会完全失配，表现为"有的翻了有的没翻"。
+    tn = n
+    while tn > 0 and text[tn - 1] == " ":
+        tn -= 1
+    if 0 < tn < n:
+        prefix = text[:tn]
+        pl = prefix.lower()
+        for k, v in entries:
+            if len(k) != tn:
+                continue
+            if k in CS_KEYS:
+                if k == prefix:
+                    return v + text[tn:], "trail-cs"
+            elif k.lower() == pl:
+                return v + text[tn:], "trail"
+
+    # 策略 1.6: 剥离文件扩展名后精确匹配
+    # "1941 Campaign.scn" -> "1941 Campaign"
+    for ext in (".scn", ".dat", ".txt", ".csv", ".sav", ".psv", ".ini"):
+        el = len(ext)
+        if n <= el:
+            continue
+        if text[n - el:].lower() != ext:
+            continue
+        plen = n - el
+        while plen > 0 and text[plen - 1] == " ":
+            plen -= 1
+        prefix = text[:plen]
+        pl = prefix.lower()
+        for k, v in entries:
+            if len(k) != plen:
+                continue
+            if k in CS_KEYS:
+                if k == prefix:
+                    return v, "ext-cs"
+            elif k.lower() == pl:
+                return v, "ext"
+        break
+
     # 策略 2: 剥离尾部后缀
     cut = -1
     for z in range(n - 1):
-        if text[z] == " " and text[z + 1] in " (/":
+        if text[z] == " " and text[z + 1] in " (/.\n":
             cut = z
             break
     if cut >= 3:
@@ -188,6 +230,14 @@ CASES = [
     ("Air Groups", "飞行队", "复数必须和单数一致"),
     ("Air Base", "航空基地", "单数"),
     ("Air Bases", "航空基地", "复数必须和单数一致"),
+    # 尾部空格 / 扩展名: 剧本名从 .scn 文件名派生，
+    # 界面用空格填充对齐，绘制出的串常带尾部空格。
+    ("1941 Campaign", "1941年战役", "整串精确"),
+    ("1941 Campaign ", "1941年战役 ", "尾部空格要保留对齐"),
+    ("1941 Campaign   ", "1941年战役   ", "多个尾部空格也要保留"),
+    ("1941 Campaign.scn", "1941年战役", "剥离扩展名"),
+    ("1941 Campaign .scn", "1941年战役", "扩展名前有空格"),
+    ("foo.scn", "foo.scn", "词典里没有的不能乱改"),
 ]
 
 
