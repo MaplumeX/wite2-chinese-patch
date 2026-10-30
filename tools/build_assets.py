@@ -3,24 +3,22 @@
 """
 生成字体子集 + 翻译表
 
-字体以 Tahoma 为基底，只把中文字形插进去。
+直接对微软雅黑做子集，不混用其他字体。
 
-为什么不能直接换微软雅黑做基底: 游戏按固定像素布局，字宽变了位置就偏。
-微软雅黑的 ASCII 字符比 Tahoma 宽很多，而且个别字符差异极大:
-
-    M  +26.8%      A  +17.3%      W  +12.8%
-    I  -21.2%      :  -31.9%      .  -20.5%
-    平均 +4.4%
-
-表现就是标签偏左偏右。用 Tahoma 做基底后，ASCII 度量与游戏原始布局
-完全一致，只有中文字形是新增的（宽度 1.0 em，标准全宽）。
+曾经试过以 Tahoma 为基底、只插入中文字形，想保留原始 ASCII 度量。
+这个方向是错的: Tahoma 自带 TrueType hinting 程序（fpgm/prep/cvt），
+应用到微软雅黑那些没有 hinting 的轮廓上会破坏渲染，表现为字形残缺
+和漏字。混两种字体的 hinting 不可行。
 
 字形覆盖:
-  1. 完整 ASCII（Tahoma 自带）
+  1. 完整 ASCII
   2. zh_dict.json 译文用字
   3. scen_trans.py 剧本描述用字
   4. GB2312 一级常用字 3755 —— 部队名/司令部名是运行时拼接的，
      拼出来的字可能不在词典里
+
+注意: 中文译文比英文短，居中/右对齐的标签位置会随之变化。
+这是翻译本身带来的，不是字体问题，调字体解决不了。
 
 用法:
     python tools/build_assets.py           生成 TSV 和字体
@@ -39,7 +37,6 @@ TSV = os.path.join(ROOT, "wite2_zh.tsv")
 FONT_DIR = os.path.join(ROOT, "Dat", "Fonts")
 FONT_FILE = "wite2_zh.ttf"
 SRC_TTC = r"C:\Windows\Fonts\msyh.ttc"   # 中文字形来源
-BASE_TTF = r"C:\Windows\Fonts\tahoma.ttf" # 基底: 保留原始 ASCII 度量
 FAMILY = "WITE2ZH"
 PUNCT = "，。：；！？、（）【】《》…—～·“”‘’"
 
@@ -140,95 +137,41 @@ def verify_tsv():
 
 
 def build_font(chars, check_only=False):
-    """以 Tahoma 为基底，把中文字形插进去。
+    """对微软雅黑做子集。
 
-    Tahoma 只含拉丁字符，中文码位从微软雅黑取字形和轮廓。
-    中文 advance 固定 1.0 em（2048），是标准全宽。
-
-    ASCII 度量完全不动 —— 这是修复标签偏移的关键。
+    不要改成"Tahoma 基底 + 插入中文字形"。试过，失败:
+    Tahoma 自带 TrueType hinting（fpgm/prep/cvt），应用到微软雅黑
+    那些没有 hinting 的轮廓上会破坏渲染，表现为字形残缺和漏字。
+    两种字体的 hinting 不能混。
     """
-    from fontTools.ttLib import TTFont
-    import copy
+    from fontTools.ttLib import TTCollection, TTFont
+    from fontTools import subset
 
-    base = TTFont(BASE_TTF)
-    src = TTFont(SRC_TTC, fontNumber=0)
+    coll = TTCollection(SRC_TTC, lazy=False)
+    font = coll.fonts[0]
+    cmap = font.getBestCmap()
 
-    if base["head"].unitsPerEm != src["head"].unitsPerEm:
-        raise SystemExit("unitsPerEm 不一致，无法直接合并")
-
-    bcmap = base.getBestCmap()
-    scmap = src.getBestCmap()
-    bglyf = base["glyf"]
-    sglyf = src["glyf"]
-    order = base.getGlyphOrder()
-    added = 0
-    missing_src = []
-
-    def ensure_glyph(cp):
-        """把 cp 的字形（含复合字形依赖）复制到基底字体，返回字形名。"""
-        nonlocal added
-        name = "uni%04X" % cp
-        if name in bglyf.glyphs:
-            return name
-        if cp not in scmap:
-            return None
-        sg = scmap[cp]
-        g = sglyf[sg]
-        # 复合字形：先把依赖的字形复制过来并重命名
-        if g.isComposite():
-            for comp in g.components:
-                cname = comp.glyphName
-                if cname in bglyf.glyphs:
-                    continue
-                try:
-                    ccp = src.getReverseGlyphMap()[cname]
-                except KeyError:
-                    ccp = None
-                if ccp is None:
-                    continue
-                ensure_glyph(ccp)
-                if ("uni%04X" % ccp) in bglyf.glyphs:
-                    comp.glyphName = "uni%04X" % ccp
-        bglyf.glyphs[name] = copy.deepcopy(g)
-        order.append(name)
-        # 中文全宽 1.0 em；lsb 沿用源字体
-        base["hmtx"][name] = (2048, src["hmtx"][sg][1])
-        added += 1
-        return name
-
-    for ch in sorted(chars):
-        cp = ord(ch)
-        if cp < 0x80:
-            continue                      # ASCII 用 Tahoma 自带
-        if cp in bcmap:
-            continue                      # Tahoma 已有
-        nm = ensure_glyph(cp)
-        if nm is None:
-            missing_src.append(ch)
-            continue
-        for tbl in base["cmap"].tables:
-            if tbl.isUnicode():
-                tbl.cmap[cp] = nm
-
+    miss = sorted(c for c in chars if ord(c) not in cmap)
     print("需要字符 %d 个 (汉字 %d)"
           % (len(chars), len([c for c in chars if ord(c) > 0x7F])))
-    print("从微软雅黑插入 %d 个字形" % added)
-    if missing_src:
-        print("源字体缺 %d 个: %s"
-              % (len(missing_src), "".join(missing_src[:40])))
+    if miss:
+        print("源字体缺 %d 个: %s" % (len(miss), "".join(miss[:40])))
     else:
         print("源字体无缺字")
 
     if check_only:
         return
 
-    # 删掉 hdmx：它缓存了每个字号的逐字符宽度，新增字形不在表里
-    # 会让某些字号取到错误的度量，表现为间距不均匀。
-    for t in ("hdmx", "LTSH", "VDMX", "DSIG"):
-        if t in base:
-            del base[t]
+    opts = subset.Options()
+    opts.layout_features = ["*"]
+    opts.name_IDs = ["*"]
+    opts.notdef_outline = True
+    opts.drop_tables += ["DSIG"]
+    sub = subset.Subsetter(options=opts)
+    sub.populate(text="".join(sorted(chars)))
+    sub.subset(font)
 
-    nt = base["name"]
+    nt = font["name"]
     for rec in list(nt.names):
         if rec.nameID in (1, 16):
             rec.string = FAMILY
@@ -239,25 +182,11 @@ def build_font(chars, check_only=False):
         elif rec.nameID == 3:
             rec.string = FAMILY + ";v1.0"
 
-    # 子集化: Tahoma 自带 4495 字形（含大量拉丁扩展、希腊、西里尔），
-    # 我们只需要 ASCII + 中文。裁掉能省一半体积。
-    from fontTools import subset as _sub
-    keep = set(chars) | {chr(c) for c in range(0x20, 0x7F)}
-    opts = _sub.Options()
-    opts.layout_features = ["*"]
-    opts.name_IDs = ["*"]
-    opts.notdef_outline = True
-    opts.drop_tables += ["DSIG"]
-    subber = _sub.Subsetter(options=opts)
-    subber.populate(text="".join(sorted(keep)))
-    subber.subset(base)
-
     os.makedirs(FONT_DIR, exist_ok=True)
     out = os.path.join(FONT_DIR, FONT_FILE)
-    base.save(out)
-    from fontTools.ttLib import TTFont as _T
+    font.save(out)
     print("字体 %d 字形, %d 字节 -> %s"
-          % (len(_T(out).getBestCmap()), os.path.getsize(out),
+          % (len(TTFont(out).getBestCmap()), os.path.getsize(out),
              os.path.relpath(out, ROOT)))
 
 
