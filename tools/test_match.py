@@ -77,6 +77,34 @@ def norm_expand(s, state=None):
     return "".join(out)
 
 
+SHORT_PRE = {
+    "HQ": "司令部", "SP": "自行", "AA": "防空", "MG": "机枪",
+    "LW": "空军", "SS": "党卫军", "FF": "自由法国", "BR": "英国",
+    "US": "美国", "CA": "加拿大", "AU": "澳大利亚", "PO": "波兰",
+    "NZ": "新西兰", "BE": "比利时", "IN": "印度", "GR": "希腊",
+    "NE": "荷兰", "SA": "南非", "SU": "苏联", "RR": "铁路",
+    "GS": "通用勤务", "KM": "海军",
+}
+
+
+def conv_num_prefix(t):
+    """番号前缀: "113th" -> "第113", 罗马数字原样保留。返回 None 表示不是番号。"""
+    if len(t) >= 2 and all(c in "IVXLCDM" for c in t):
+        return t
+    i = 0
+    while i < len(t) and t[i].isdigit():
+        i += 1
+    if i == 0:
+        return None
+    for suf in ("st", "nd", "rd", "th"):
+        if t[i:i+2] == suf:
+            i += 2
+            break
+    if i != len(t):
+        return None
+    return "第" + t[:len(t)-i or None] if False else "第" + "".join(c for c in t if c.isdigit())
+
+
 def try_numbered(text):
     m = re.fullmatch(r"(\d{1,4})(st|nd|rd|th) ([A-Z]{1,4})", text)
     if not m:
@@ -152,6 +180,38 @@ def dt_check(text, entries):
             elif k.lower() == pl:
                 return v, "ext"
         break
+
+    # 策略 1.7: 尾部兵种短语匹配
+    # 遍历每个空格，右边当兵种短语查词典，左边当番号翻译
+    for cut in range(1, n - 1):
+        if text[cut] != " " or text[cut - 1] == " ":
+            continue
+        suf = text[cut + 1:]
+        if len(suf) < 3:
+            continue
+        sl = suf.lower()
+        hit = None
+        for k, v in entries:
+            if len(k) == len(suf) and k.lower() == sl:
+                hit = v
+                break
+        if hit is None:
+            continue
+        pre = conv_num_prefix(text[:cut])
+        if pre is None:
+            parts = []
+            for tok in text[:cut].split():
+                tl = tok.lower()
+                got = None
+                for k, v in entries:
+                    if len(k) == len(tok) and k.lower() == tl:
+                        got = v
+                        break
+                if got is None and len(tok) == 2:
+                    got = SHORT_PRE.get(tok.upper())
+                parts.append(got if got is not None else tok)
+            pre = "".join(parts)
+        return pre + hit, "unit"
 
     # 策略 2: 剥离尾部后缀
     cut = -1
@@ -238,6 +298,15 @@ CASES = [
     ("1941 Campaign.scn", "1941年战役", "剥离扩展名"),
     ("1941 Campaign .scn", "1941年战役", "扩展名前有空格"),
     ("foo.scn", "foo.scn", "词典里没有的不能乱改"),
+    # 部队名: 番号 + 兵种短语拆开处理
+    ("3rd Panzer Division", "第3装甲师", "阿拉伯数字番号"),
+    ("XXIV Panzer Corps", "XXIV装甲军", "罗马数字番号原样保留"),
+    ("HQ Panzer Corps", "司令部装甲军", "两字符前缀走小表"),
+    ("41 Tier 1a Panzer Division", "41型1a装甲师", "多词前缀逐词翻"),
+    ("German City Fortress", "德国城市要塞", "非数字前缀"),
+    ("5th Guards Airborne Corps", "第5近卫空降军", "近卫部队"),
+    ("Rum. Mountain Division", "罗马尼亚山地师", "国籍 + 兵种"),
+    ("Foo Bar Baz", "Foo Bar Baz", "无法识别的不动"),
 ]
 
 

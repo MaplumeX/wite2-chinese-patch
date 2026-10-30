@@ -158,6 +158,10 @@ SAFE_LABELS = {
     "UNITS", "CONDITION",
     # Köppen 气候分类代号（.data 里和 Polar Maritime 等长名配对显示）
     "mP", "mT", "mA", "cP", "cT",
+    # 部队编制缩写，只出现在部队名后缀里（"leFH Howitzer Battalion"）。
+    # 已核实不在 .rdata 作为独立枚举出现；zbV 例外，它是空军部队
+    # 类型枚举（邻居 FAGr/Transport/TG/NJG），所以没进词典。
+    "PzG", "leFH", "sFH",
 }
 
 def data_only_keys():

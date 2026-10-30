@@ -821,6 +821,81 @@ static const struct { const char *ab; const wchar_t *zh; } DIVAB[] = {
 #define N_DIVAB ((int)(sizeof(DIVAB)/sizeof(DIVAB[0])))
 
 /* 返回写入 out 的宽字符数, 0 表示不匹配 */
+
+/* 把英文序数前缀转成中文: "113th " -> "第113", "3rd " -> "第3"。
+ * 也接受纯数字 "5 " 和罗马数字 "XXIV "（军级番号，原样保留）。
+ * 返回写出的字符数，0 表示不是可识别的前缀。 */
+
+/* 两字符前缀。dict_build 要求 key 长度 >= 3（避免误匹配），
+ * 所以 HQ/SP/AA 这类进不了主词典，番号前缀需要单独一张小表。 */
+static const char *g_shortPre[] = {
+    "HQ", "SP", "AA", "MG", "LW", "SS", "FF", "BR", "US", "CA", "AU",
+    "PO", "NZ", "BE", "IN", "GR", "NE", "SA", "SU", "RR", "GS", "KM"
+};
+static const char *g_shortZh[] = {
+    "司令部", "自行", "防空", "机枪",
+    "空军", "党卫军", "自由法国",
+    "英国", "美国", "加拿大", "澳大利亚",
+    "波兰", "新西兰", "比利时", "印度",
+    "希腊", "荷兰", "南非", "苏联",
+    "铁路", "通用勤务", "海军"
+};
+
+/* 查两字符前缀，返回 UTF-16 译文指针，无则 NULL */
+static const wchar_t *lookup_short(const wchar_t *t, int len)
+{
+    if (len != 2) return NULL;
+    static wchar_t buf[24][8];
+    static int init = 0;
+    if (!init) {
+        init = 1;
+        for (int i = 0; i < (int)(sizeof(g_shortZh)/sizeof(g_shortZh[0])); i++) {
+            int n = MultiByteToWideChar(CP_UTF8, 0, g_shortZh[i], -1,
+                                        buf[i], 8);
+            if (n <= 0) buf[i][0] = 0;
+        }
+    }
+    for (int i = 0; i < (int)(sizeof(g_shortPre)/sizeof(g_shortPre[0])); i++) {
+        if (lc_w(t[0]) != lc_w((wchar_t)g_shortPre[i][0])) continue;
+        if (lc_w(t[1]) != lc_w((wchar_t)g_shortPre[i][1])) continue;
+        return buf[i];
+    }
+    return NULL;
+}
+
+static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
+{
+    int i = 0, o = 0;
+    /* 罗马数字: 原样保留，前面不加"第"（"XXIV Panzer Corps" -> "XXIV装甲军"） */
+    int allRoman = (len > 0);
+    for (i = 0; i < len; i++) {
+        wchar_t c = t[i];
+        if (!((c >= L'I' && c <= L'L') || c == L'V' || c == L'X' || c == L'C' ||
+              c == L'D' || c == L'M')) { allRoman = 0; break; }
+    }
+    if (allRoman && len >= 2 && o + len < cap) {
+        for (i = 0; i < len; i++) out[o++] = t[i];
+        out[o] = 0;
+        return o;
+    }
+
+    /* 阿拉伯数字，可带 st/nd/rd/th 后缀 */
+    i = 0;
+    if (o + 1 < cap) out[o++] = L'第';
+    while (i < len && t[i] >= L'0' && t[i] <= L'9') {
+        if (o + 1 >= cap) break;
+        out[o++] = t[i++];
+    }
+    if (i == 0) return 0;              /* 没有数字 */
+    /* 跳过序数后缀 */
+    if (i + 1 < len && t[i] == L's' && t[i+1] == L't') i += 2;
+    else if (i + 2 < len && t[i] == L'n' && t[i+1] == L'd') i += 2;
+    else if (i + 2 < len && t[i] == L'r' && t[i+1] == L'd') i += 2;
+    else if (i + 2 < len && t[i] == L't' && t[i+1] == L'h') i += 2;
+    out[o] = 0;
+    return (i == len) ? o : 0;         /* 必须正好用完前缀 */
+}
+
 static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
 {
     int i = 0;
@@ -1088,6 +1163,100 @@ static wchar_t *dt_check_raw(wchar_t *text)
         if (n <= 40)
             logfmt("[dt-fmt] \"%s\" -> %d wchars\n", e->key, e->wlen);
         return g_pool[slot];
+    }
+
+    /* ---------- 策略 1.7: 尾部兵种短语匹配 ----------
+     *
+     * 部队显示名 = 番号 + 兵种编制:
+     *   "3rd Panzer Division"        -> 第3装甲师
+     *   "XXIV Panzer Corps"          -> XXIV装甲军
+     *   "HQ Panzer Corps"            -> 司令部装甲军
+     *   "41 Tier 1a Panzer Division" -> 41型1a装甲师
+     *
+     * 逐个录入 8766 个单位的完整名不现实，剧本新增单位又会漏。
+     * 所以拆开处理: 遍历每个空格位置，把右边当作"兵种短语"查词典，
+     * 左边当番号翻译。从最长的后缀开始试，第一个命中就用。
+     *
+     * 番号翻译: 纯数字/序数转"第N"，其余逐词查词典，查不到的保留原文。
+     * 只在后缀确实命中词典时才生效，不会误伤普通句子。 */
+    {
+        for (int cut = 1; cut < len - 1; cut++) {
+            if (text[cut] != L' ' || text[cut - 1] == L' ') continue;
+            int slen = len - cut - 1;
+            if (slen < 3) continue;
+
+            int found = -1;
+            for (int i = 0; i < g_nzh; i++) {
+                if (g_zh[i].klen != slen) continue;
+                int ok = 1;
+                for (int z = 0; z < slen; z++) {
+                    if (lc_w(text[cut + 1 + z]) !=
+                        lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) {
+                        ok = 0; break;
+                    }
+                }
+                if (ok) { found = i; break; }
+            }
+            if (found < 0) continue;
+
+            /* 番号部分: 纯数字优先，否则逐词翻译 */
+            wchar_t pre[128];
+            int pn = conv_num_prefix(text, cut, pre, 128);
+            if (pn == 0) {
+                pn = 0;
+                int st = 0;
+                while (st < cut) {
+                    int en = st;
+                    while (en < cut && text[en] != L' ') en++;
+                    int wl = en - st;
+                    int hit = -1;
+                    for (int i = 0; i < g_nzh && wl >= 3; i++) {
+                        if (g_zh[i].klen != wl) continue;
+                        int ok = 1;
+                        for (int z = 0; z < wl; z++) {
+                            if (lc_w(text[st + z]) !=
+                                lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) {
+                                ok = 0; break;
+                            }
+                        }
+                        if (ok) { hit = i; break; }
+                    }
+                    const wchar_t *sp2 = (hit < 0) ? lookup_short(text + st, wl)
+                                                   : NULL;
+                    if (sp2 && sp2[0]) {
+                        int w2 = 0;
+                        while (sp2[w2]) w2++;
+                        if (pn + w2 + 2 >= 128) { pn = 0; break; }
+                        memcpy(pre + pn, sp2, w2 * sizeof(wchar_t));
+                        pn += w2;
+                    } else if (hit >= 0) {
+                        if (pn + g_zh[hit].wlen + 2 >= 128) { pn = 0; break; }
+                        memcpy(pre + pn, g_zh[hit].wtext,
+                               g_zh[hit].wlen * sizeof(wchar_t));
+                        pn += g_zh[hit].wlen;
+                    } else {
+                        if (pn + wl + 2 >= 128) { pn = 0; break; }
+                        memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
+                        pn += wl;
+                    }
+                    pre[pn] = 0;
+                    st = en + 1;
+                }
+            }
+            if (pn <= 0) continue;
+
+            if (pn + g_zh[found].wlen + 1 > 250) break;
+            slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+            wchar_t *o2 = g_pool[slot];
+            memcpy(o2, pre, pn * sizeof(wchar_t));
+            memcpy(o2 + pn, g_zh[found].wtext,
+                   (g_zh[found].wlen + 1) * sizeof(wchar_t));
+            LONG h = InterlockedIncrement(&g_dtHits);
+            if (h <= 40)
+                logfmt("[dt-unit] \"%s\" -> %d wchars\n",
+                       g_zh[found].key, g_zh[found].wlen);
+            return o2;
+        }
     }
 
     /* ---------- 策略 2: 剥离尾部后缀后精确匹配 ----------
