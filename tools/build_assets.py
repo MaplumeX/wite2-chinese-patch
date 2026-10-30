@@ -51,6 +51,24 @@ def collect_chars():
     except ImportError:
         print("警告: 找不到 scen_trans.py, 剧本汉字不会进字体")
 
+    # 完整 GB2312 汉字（一级 3755 + 二级 3008）。
+    #
+    # 只收词典用字是不够的：部队名和司令部名是运行时拼接的
+    # （数字 + 兵种缩写 + 编制层级），拼出来的字可能不在词典里。
+    # 缺字时字形回退到 .notdef，显示成空白或方块，看起来就像
+    # “排版错乱”——尤其是「上级司令部：XXX」这种 XXX 部分。
+    # 6763 字全部收进来，字体约 3-4 MB，完全不值得省。
+    gb = 0
+    for hi in range(0xB0, 0xF8):
+        for lo in range(0xA1, 0xFF):
+            try:
+                ch = bytes([hi, lo]).decode("gb2312")
+            except UnicodeDecodeError:
+                continue
+            chars.add(ch)
+            gb += 1
+    print("GB2312 汉字 %d 个已纳入" % gb)
+
     return chars
 
 

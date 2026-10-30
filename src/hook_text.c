@@ -316,6 +316,193 @@ static int g_dtLog = 0;
 static wchar_t g_pool[POOL][256];
 static volatile LONG g_poolIdx = 0;
 
+/* ===== 格式串模板匹配 =====
+ *
+ * 游戏在绘制前会先 sprintf 再交给绘制函数，所以绘制层看到的永远是
+ * 实例化后的文本：
+ *
+ *   词典里      绘制层看到
+ *   HQ Type: %d   ->  "HQ Type: 3"
+ *   %d HQs        ->  "12 HQs"
+ *   Turn %d  %s   ->  "Turn 5   xxx"
+ *
+ * 整串精确匹配永远命不中这些。所以把带 % 的 key 单独存一份，
+ * 用占位符当通配符来匹配。
+ */
+typedef struct { int idx; } FmtIdx;
+static int g_fmt[MAXZH];
+static int g_nfmt = 0;
+
+static wchar_t lc_w(wchar_t c);   /* 定义在下面，这里先声明 */
+
+/* 占位符: % 后面跟可选修饰符，最后是转换字符 */
+static int is_conv(wchar_t c)
+{
+    return c == L'd' || c == L'i' || c == L'u' || c == L's' ||
+           c == L'f' || c == L'x' || c == L'X' || c == L'c' || c == L'%';
+}
+
+/* 匹配一个占位符，返回消耗的字符数；0 = 不匹配。
+ * out/outlen 用于把实际匹配到的文本回写（可能为 NULL）。 */
+static int match_ph(const wchar_t *t, int len, wchar_t conv,
+                    const wchar_t **out, int *outlen)
+{
+    if (len <= 0) return 0;
+    int n = 0;
+    if (conv == L'd' || conv == L'i' || conv == L'u' || conv == L'x' ||
+        conv == L'X') {
+        if (t[0] == L'-' || t[0] == L'+') n = 1;
+        int d = n;
+        while (n < len && t[n] >= L'0' && t[n] <= L'9') n++;
+        if (n == d) return 0;              /* 至少要有一位数字 */
+        if (conv == L'x' || conv == L'X') {
+            while (n < len && ((t[n] >= L'0' && t[n] <= L'9') ||
+                   (t[n] >= L'a' && t[n] <= L'f') ||
+                   (t[n] >= L'A' && t[n] <= L'F'))) n++;
+        }
+    } else if (conv == L's') {
+        /* 贪婪，调用者靠后续字面量回退 */
+        n = len;
+    } else if (conv == L'c') {
+        n = 1;
+    } else {
+        return 0;
+    }
+    if (out) { *out = t; *outlen = n; }
+    return n;
+}
+
+
+/* 精确查词（整串、大小写不敏感）。给格式串的 %s 回填用：
+ * "Difficulty: %s" + "IMPOSSIBLE" 需要把 IMPOSSIBLE 也翻掉，
+ * 否则会得到「难度：IMPOSSIBLE」这种半中半英。 */
+static int lookup_exact(const wchar_t *s, int len, wchar_t *out, int cap)
+{
+    for (int i = 0; i < g_nzh; i++) {
+        if (g_zh[i].klen != len) continue;
+        int ok = 1;
+        for (int z = 0; z < len; z++) {
+            wchar_t a = s[z];
+            wchar_t b = (wchar_t)(unsigned char)g_zh[i].key[z];
+            if (g_zh[i].cs) { if (a != b) { ok = 0; break; } }
+            else if (lc_w(a) != lc_w(b)) { ok = 0; break; }
+        }
+        if (!ok) continue;
+        if (g_zh[i].wlen + 1 > cap) return 0;
+        memcpy(out, g_zh[i].wtext, (g_zh[i].wlen + 1) * sizeof(wchar_t));
+        return 1;
+    }
+    return 0;
+}
+
+/* 拿 key 和 text 做模板匹配。命中则把译文写进 out（含占位符回填）。 */
+static int fmt_match(const char *key, const wchar_t *val,
+                     const wchar_t *text, int len, wchar_t *out, int cap)
+{
+    /* 收集占位符实际匹配到的文本 */
+    const wchar_t *vals[16];
+    int vlens[16];
+    int nvals = 0;
+
+    const wchar_t *t = text;
+    int tl = len;
+    int ki = 0;
+
+    while (key[ki]) {
+        if (key[ki] != L'%') {
+            if (tl <= 0) return 0;
+            if (lc_w(*t) != lc_w((wchar_t)(unsigned char)key[ki])) return 0;
+            t++; tl--; ki++;
+            continue;
+        }
+        /* 解析占位符: %[flags][width][.prec]conv */
+        int k2 = ki + 1;
+        while (key[k2] && !is_conv(key[k2])) k2++;
+        if (!key[k2]) return 0;
+        wchar_t conv = key[k2];
+        ki = k2 + 1;
+        if (conv == L'%') {
+            if (tl <= 0 || *t != L'%') return 0;
+            t++; tl--;
+            continue;
+        }
+        if (nvals >= 16) return 0;
+
+        const wchar_t *got = NULL;
+        int gotlen = 0;
+        if (conv == L's') {
+            /* 找下一个字面量在 text 中的位置 */
+            int next_lit = ki;
+            while (key[next_lit] && key[next_lit] != L'%') next_lit++;
+            int litlen = next_lit - ki;
+            int take = -1;
+            if (litlen == 0) {
+                take = tl;                  /* 末尾 %s 吃掉剩余 */
+            } else {
+                for (int p = 0; p + litlen <= tl; p++) {
+                    int ok = 1;
+                    for (int z = 0; z < litlen; z++)
+                        if (lc_w(t[p + z]) !=
+                            lc_w((wchar_t)(unsigned char)key[ki + z])) { ok = 0; break; }
+                    if (ok) { take = p; break; }
+                }
+                if (take < 0) return 0;
+            }
+            got = t; gotlen = take;
+            t += take; tl -= take;
+        } else {
+            int adv = match_ph(t, tl, conv, &got, &gotlen);
+            if (!adv) return 0;
+            t += adv; tl -= adv;
+        }
+        vals[nvals] = got; vlens[nvals] = gotlen; nvals++;
+    }
+
+    if (tl != 0) return 0;                  /* text 必须刚好用完 */
+
+    /* 回填译文 */
+    int o = 0, vi = 0;
+    for (int j = 0; val[j]; j++) {
+        if (val[j] != L'%') {
+            if (o + 1 >= cap) return 0;
+            out[o++] = val[j];
+            continue;
+        }
+        int j2 = j + 1;
+        while (val[j2] && !is_conv(val[j2])) j2++;
+        if (!val[j2]) return 0;
+        if (val[j2] == L'%') {
+            if (o + 1 >= cap) return 0;
+            out[o++] = L'%';
+            j = j2;
+            continue;
+        }
+        if (vi >= nvals) return 0;
+        /* %s 的内容再查一次词典: "Difficulty: %s" + "IMPOSSIBLE"
+         * 要得到「难度：不可能」，而不是「难度：IMPOSSIBLE」。 */
+        wchar_t sub[256];
+        int used = 0;
+        if (val[j2] == L's' && vlens[vi] > 0 &&
+            lookup_exact(vals[vi], vlens[vi], sub, 256)) {
+            for (int z = 0; sub[z]; z++) {
+                if (o + 1 >= cap) return 0;
+                out[o++] = sub[z];
+            }
+            used = 1;
+        }
+        if (!used) {
+            for (int z = 0; z < vlens[vi]; z++) {
+                if (o + 1 >= cap) return 0;
+                out[o++] = vals[vi][z];
+            }
+        }
+        vi++;
+        j = j2;
+    }
+    out[o] = 0;
+    return 1;
+}
+
 /* 大小写敏感词表: 首字母大写是显示标签, 全大写是资源/枚举名 */
 static int is_cs_key(const char *k)
 {
@@ -383,7 +570,14 @@ static void dict_build(void)
         }
         g_zh[b + 1] = t;
     }
-    logfmt("[zh] %d entries ready\n", g_nzh);
+
+    /* 排序后再建格式串索引，保持长 key 优先 */
+    for (int i = 0; i < g_nzh; i++) {
+        if (strchr(g_zh[i].key, '%'))
+            if (g_nfmt < MAXZH) g_fmt[g_nfmt++] = i;
+    }
+
+    logfmt("[zh] %d entries ready (%d format templates)\n", g_nzh, g_nfmt);
 }
 
 /* 大小写不敏感比较: 游戏有些串在 .rdata 里是大写开头, 绘制时变小写,
@@ -719,6 +913,33 @@ static wchar_t *dt_check(wchar_t *text)
             }
             break;
         }
+    }
+
+    /* ---------- 策略 1.4: 格式串模板匹配 ----------
+     *
+     * 游戏绘制前会先 sprintf，所以绘制层看到的是实例化后的文本：
+     *   "HQ Type: %d"   ->  "HQ Type: 3"
+     *   "%d HQs"        ->  "12 HQs"
+     * 整串精确匹配命不中，但占位符当通配符就能。
+     * 放在精确匹配之后、其余策略之前：字面量最多，误匹配风险最小。 */
+    for (int f = 0; f < g_nfmt; f++) {
+        ZhEntry *e = &g_zh[g_fmt[f]];
+        /* 快速剪枝: 模板至少要比实际串短（占位符吃掉至少 1 个） */
+        if (e->klen > len) continue;
+        slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+        if (!fmt_match(e->key, e->wtext, text, len, g_pool[slot], 250))
+            continue;
+        /* 输出和原文一模一样就跳过。像 "%d,%d" 这种模板
+         * 会把 "12,34" 原样吐回来，占着槽位还拖慢后续匹配。 */
+        int same = 1;
+        for (int z = 0; z <= len; z++) {
+            if (g_pool[slot][z] != text[z]) { same = 0; break; }
+        }
+        if (same) continue;
+        LONG n = InterlockedIncrement(&g_dtHits);
+        if (n <= 40)
+            logfmt("[dt-fmt] \"%s\" -> %d wchars\n", e->key, e->wlen);
+        return g_pool[slot];
     }
 
     /* ---------- 策略 2: 剥离尾部后缀后精确匹配 ----------
