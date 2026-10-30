@@ -211,9 +211,13 @@ static void patch_all(HMODULE exe)
     for (int i = 0; i < nt->FileHeader.NumberOfSections; i++, sec++) {
         char nm[9] = {0};
         memcpy(nm, sec->Name, 8);
-        if (strcmp(nm, ".rdata") != 0) continue;
-        patch_section((BYTE *)exe + sec->VirtualAddress, sec->Misc.VirtualSize, nm);
-        break;
+        /* .rdata: 界面文本
+         * .data : 天气/气候名称等运行时初始化的字符串表
+         *         （Clear / Rain / Heavy Rain / Snowfall / Blizzard
+         *          以及 Temperate Humid 这类气候带名都在这里） */
+        if (strcmp(nm, ".rdata") != 0 && strcmp(nm, ".data") != 0) continue;
+        patch_section((BYTE *)exe + sec->VirtualAddress,
+                      sec->Misc.VirtualSize, nm);
     }
 }
 
@@ -246,8 +250,8 @@ static void patch_all(HMODULE exe)
  *   不改任何游戏数据, 只在这一次调用里换指针 -> 零副作用。
  */
 
-#define MAXZH 2048
-typedef struct { char *key; int klen; wchar_t *wtext; int wlen; } ZhEntry;
+#define MAXZH 8192
+typedef struct { char *key; int klen; wchar_t *wtext; int wlen; int cs; } ZhEntry;
 static ZhEntry g_zh[MAXZH];
 static int g_nzh = 0;
 
@@ -261,6 +265,20 @@ static int g_dtLog = 0;
 #define POOL 32
 static wchar_t g_pool[POOL][256];
 static volatile LONG g_poolIdx = 0;
+
+/* 大小写敏感词表: 首字母大写是显示标签, 全大写是资源/枚举名 */
+static int is_cs_key(const char *k)
+{
+    static const char *cs[] = {
+        "Port", "Rail", "Road", "City", "Town", "Airfield", "Coast",
+        "River", "Water", "Swamp", "Forest", "Woods", "Mountain",
+        "Urban", "Desert", "Tundra", "Sand", "Border", "Clear", "Rough",
+        "Major", "Minor", "None", "Snow", "Mud",
+    };
+    for (int i = 0; i < (int)(sizeof(cs)/sizeof(cs[0])); i++)
+        if (strcmp(k, cs[i]) == 0) return 1;
+    return 0;
+}
 
 static void dict_build(void)
 {
@@ -290,6 +308,11 @@ static void dict_build(void)
         g_zh[g_nzh].klen = klen;
         g_zh[g_nzh].wtext = wc;
         g_zh[g_nzh].wlen = wlen;
+        /* 地形/资源词必须大小写敏感。
+         * .rdata 里 "Port"(显示标签) 和 "PORT"(资源枚举) 是两个不同的串，
+         * 前者该翻成"港口"，后者用于查找 //Tiles//PORT// 下的图形，
+         * 翻了会让地图渲染出错。 */
+        g_zh[g_nzh].cs = is_cs_key(kc);
         g_nzh++;
     }
 
@@ -543,7 +566,13 @@ static wchar_t *dt_check(wchar_t *text)
         if (g_zh[i].klen != len) continue;
         int ok = 1;
         for (int z = 0; z < len; z++) {
-            if (lc_w(text[z]) != lc_w((wchar_t)(unsigned char)g_zh[i].key[z])) { ok = 0; break; }
+            wchar_t a = text[z];
+            wchar_t b = (wchar_t)(unsigned char)g_zh[i].key[z];
+            if (g_zh[i].cs) {
+                if (a != b) { ok = 0; break; }
+            } else {
+                if (lc_w(a) != lc_w(b)) { ok = 0; break; }
+            }
         }
         if (!ok) continue;
 

@@ -17,7 +17,7 @@
 | 部队番号：部队列表 | ✅ 可用 |
 | 部队番号：简略信息面板 | ✅ 可用（缩写/截断自动匹配） |
 | 抗游戏更新 | ✅ 只需补翻新增条目 |
-| 翻译进度 | 界面 2417 条 + 剧本描述 23 个文件 |
+| 翻译进度 | 界面 5584 条 + 剧本描述 23 个文件 |
 
 **技术框架已完整跑通。** 界面文本从 exe 的 `.rdata` 完整挖出，
 玩家实际能看到的文本基本都翻了；剩余主要是编辑器专用指令和内部调试串。
@@ -281,6 +281,78 @@ python tools/term_review.py check    # 检查词根译法一致性
 的不同译法，用来发现单复数不一致之类的问题（例如 `Air Group` 和
 `Air Groups` 曾经分别译成「飞行队」和「航空队」）。
 
+### 找出遗漏的界面文本
+
+```bash
+python tools/inventory.py             # 完整清点 .rdata，按 22 类统计
+python tools/inventory.py --todo      # 待翻译清单
+python tools/inventory.py --blocked   # 核对排除项是否合理
+python tools/vocab.py                 # 自举词表法待翻清单
+python tools/triage.py                # 细分类器
+python tools/scan_ui.py --stats       # 覆盖率
+```
+
+这几个工具解决的是同一个问题：**怎么知道还有多少界面文本没翻**。
+
+`inventory.py` 的思路是"精确列出不能翻的，其余全翻"——比"猜哪些是界面文本"漏得少。
+排除项分 22 类（地形枚举、配置键名、HTTP 头、MIME 类型、编辑器提示、剧本代号…），
+每类都注明原因，`--blocked` 可以逐条核对。
+
+`vocab.py` 用**自举词表**：从已确认的 5000+ 条译文里提取英文词汇，
+再用它判断新串。这样能自动学会游戏的界面用语，而不是靠手写正则。
+它迭代到收敛——每轮把新发现的串里的词加进词表，再扫一遍。
+
+### 防止翻译破坏游戏
+
+```bash
+python tools/check_danger.py          # 列出危险词条
+python tools/check_danger.py --fix    # 从词典删除
+```
+
+`.rdata` 里混着三类东西，只有第一类能改：
+
+| 类型 | 例子 | 改了会怎样 |
+|---|---|---|
+| 显示文本 | `Game Options` | 正常翻译 |
+| 配置键名 | `SoundFx`、`SfxGroupVolume` | **游戏读不到设置，声音消失** |
+| 地形/资源枚举 | `WATER`、`RIVER` | **地图渲染出错，水体变黑** |
+
+判定规则：
+
+- **规则 B** — 驼峰标识符（`SoundFx`、`buildLimit`）或含下划线
+- **规则 C** — 在游戏配置文件里作为键名出现，且符合规则 B
+- **规则 D** — 全大写地形/资源枚举名
+
+规则 B 只认驼峰和下划线，**不认首字母大写的普通单词**——`Supply`、`Moscow`
+这些也是显示文本，配置文件注释里也会出现。
+
+白名单 `SAFE_LABELS` 收录形式像标识符但确认是显示文本的条目
+（`FrRec`、`NONE`、`AirGroups`），判断依据是 `.rdata` 里的邻居：
+邻居是 `Depots`/`Range`/`MP` 说明是表格列标题，邻居是 `IMPASSABLE`/`//Tiles//`
+说明是枚举。
+
+### 大小写敏感
+
+地形词有大小写两种形式，用途完全不同：
+
+```
+生产界面:  ... | Port | Rail | Railyard     ← 显示标签，该翻
+资源路径:  //Tiles//PORT//PortSymbol.tga    ← 枚举，不能翻
+```
+
+`.rdata` 改写用 `memcmp`，天然大小写敏感，只改 `Port`。
+但绘制层是大小写不敏感，会误伤 `PORT`。
+
+解法是给 `ZhEntry` 加 `cs` 字段，对地形词启用精确比较：
+
+```c
+if (g_zh[i].cs) {
+    if (a != b) { ok = 0; break; }              // 精确
+} else {
+    if (lc_w(a) != lc_w(b)) { ok = 0; break; }  // 不敏感
+}
+```
+
 ### 收集游戏实际绘制的文本
 
 游戏目录放一个空的 `wite2_collect.ini`，跑游戏，会生成 `wite2_strings.txt`。
@@ -348,11 +420,16 @@ VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 2. **`.dat` 文件无法静态修改**
    自研流密码，已确认不可静态破解。补丁走的是运行时绘制层。
 
-3. **`unitInfo.csv` 未处理**
+3. **`.data` 段只翻译了天气/气候**
+   天气（`Rain`/`Snowfall`/`Blizzard`）和气候带（`Temperate Humid` 等）
+   在 `.data` 段而非 `.rdata`，已纳入改写范围。该段还有约 150 条字符串，
+   未逐条核查。
+
+4. **`unitInfo.csv` 未处理**
    1168 段部队历史描述（含 `<cr>` `<i>` `<b>` `<url>` 标记）尚未翻译。
    这是纯数据文件，同样可以直接改，不需要逆向。
 
-4. **需要 32 位编译器**
+5. **需要 32 位编译器**
    游戏是 x86 程序，DLL 必须 `-MACHINE:X86`。
 
 ---
@@ -367,6 +444,11 @@ tools/review.py          翻译校对工具（导出/导入/覆盖率/待译清�
 tools/test_match.py      离线验证匹配逻辑（不跑游戏）
 tools/term_review.py     术语审校表（按类别导出/导入/一致性检查）
 tools/find_gaps.py       找出翻译后仍残留英文的串
+tools/inventory.py       完整清点 .rdata（22 类分类 + 排除核对）
+tools/vocab.py           自举词表法找遗漏（迭代到收敛）
+tools/triage.py          细分类器
+tools/scan_ui.py         界面文本覆盖率
+tools/check_danger.py    检测危险词条（配置键/枚举）
 tools/scen_localize.py   剧本描述汉化（读写 Dat/Scen/*.txt）
 tools/deploy.py          部署到游戏目录（--check / --restore）
 tools/restore_game.py    从备份还原游戏 .dat 和 CSV
@@ -385,7 +467,7 @@ build.bat                构建脚本（编译/资产/验证/部署）
 
 ```
 === WITE2 中文化 v4 (内存改写) ===
-词典: 2417 条
+词典: 5584 条
 [patch] .rdata: 改写 281 处
 改写 281 处, 译文过长跳过 0 条, 未找到 3 条
 [zh] 183 entries ready

@@ -88,6 +88,12 @@ def try_numbered(text):
     return "第%s%s" % (m.group(1), zh)
 
 
+CS_KEYS = {"Port","Rail","Road","City","Town","Airfield","Coast",
+           "River","Water","Swamp","Forest","Woods","Mountain",
+           "Urban","Desert","Tundra","Sand","Border","Clear","Rough",
+           "Major","Minor","None","Snow","Mud"}
+
+
 def dt_check(text, entries):
     """与 C 代码一致: 整串精确 -> 剥后缀 -> 数字模式 -> 截断前缀"""
     if not text:
@@ -97,7 +103,12 @@ def dt_check(text, entries):
     # 策略 1: 整串精确(大小写不敏感)
     tl = text.lower()
     for k, v in entries:
-        if len(k) == n and k.lower() == tl:
+        if len(k) != n:
+            continue
+        if k in CS_KEYS:
+            if k == text:
+                return v, "exact-cs"
+        elif k.lower() == tl:
             return v, "exact"
 
     # 策略 2: 剥离尾部后缀

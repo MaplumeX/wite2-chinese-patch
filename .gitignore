@@ -44,6 +44,14 @@ _ui_todo.txt
 _prose_todo.txt
 _term_dump.txt
 todo_dump.txt
+_other.txt
+_all_miss.txt
+_r3.txt
+_r2.txt
+_todo*.txt
+triage_todo.csv
+inventory_todo.csv
+scan_ui.csv
 _todo_full.txt
 _prev_*.txt
 _preview.txt
