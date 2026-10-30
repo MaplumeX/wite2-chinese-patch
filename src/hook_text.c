@@ -176,7 +176,19 @@ static void patch_section(BYTE *base, DWORD size, const char *secName)
         if (n == 0) { g_notFound++; continue; }
 
         for (int j = 0; j < n; j++) {
-            wchar_t *p = (wchar_t *)(base + offs[j]);
+            /* 只替换**完整**的 NUL 结尾字符串。
+             * 自由子串替换会把 "Climate: Humid" 里的 "Climate: "
+             * 换成 "气候：" 留下 "气候：Humid"。 */
+            DWORD off = offs[j];
+            wchar_t *p = (wchar_t *)(base + off);
+            if (off >= sizeof(wchar_t)) {
+                wchar_t prev = *(wchar_t *)(base + off - sizeof(wchar_t));
+                if (prev != 0) continue;
+            }
+            if (off + (DWORD)(klen + 1) * sizeof(wchar_t) <= size) {
+                wchar_t next = *(wchar_t *)(base + off + klen * sizeof(wchar_t));
+                if (next != 0) continue;
+            }
             memcpy(p, v, vlen * sizeof(wchar_t));
             memset(p + vlen, 0, (klen - vlen + 1) * sizeof(wchar_t));
             cnt++;

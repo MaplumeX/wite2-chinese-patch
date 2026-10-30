@@ -212,31 +212,36 @@ python tools/scen_localize.py restore  # 还原原始文件
 build.bat
 ```
 
+一条命令完成：编译 DLL → 生成翻译表和字体 → 跑回归测试 → 部署到游戏目录。
+
 需要 Visual Studio 2019/2022 + C++ 桌面开发。游戏是 x86，必须 `-MACHINE:X86`。
 
-### 2. 部署
+只想做其中一步：
 
 ```bash
-python scripts/build_all.py
+build.bat dll        # 只编译
+build.bat assets     # 只生成翻译表和字体
+build.bat check      # 只跑验证
+build.bat deploy     # 只部署
 ```
 
-它会生成翻译表和字体子集，并部署到游戏目录。
+### 2. 检查部署状态
 
-手动方式：
+```bash
+python tools/deploy.py --check
+```
 
-1. `build/version.dll` → 游戏根目录
-2. `wite2_zh.tsv` → 游戏根目录
-3. 生成 `Dat/Fonts/wite2_zh.ttf`，改好 `Dat/GuiFonts.json`（指向 `WITE2ZH`）
+会报告每个文件是否与构建产物一致、`GuiFonts.json` 有多少字体指向
+`WITE2ZH`、剧本描述有多少已汉化。
 
 ### 3. 卸载
 
-删除游戏目录下的 `version.dll`、`wite2_zh.tsv`，然后：
+删除游戏目录下的 `version.dll`、`wite2_zh.tsv`、`Dat/Fonts/wite2_zh.ttf`，然后：
 
 ```bash
-python scripts/build_all.py --restore
+python tools/deploy.py --restore     # 还原 GuiFonts.json
+python tools/scen_localize.py restore # 还原剧本描述
 ```
-
-还原 `Dat/GuiFonts.json` 和 `Dat/FontConfig.txt`。
 
 ---
 
@@ -298,8 +303,7 @@ python tools/term_review.py check    # 检查词根译法一致性
 
 ### 改完必须重新生成字体
 
-新增汉字如果不在字体子集里，游戏会显示空白或方块。`scripts/build_all.py`
-会重新生成。
+新增汉字如果不在字体子集里，游戏会显示空白或方块。`build.bat` 会自动重新生成。
 
 ---
 
@@ -332,7 +336,7 @@ VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 1. **绘制函数 RVA `0x45CE60` 可能变**。补丁启动时会校验序言签名
    `83 EC 38 56 8B F1`，不匹配就打印 `[dt] sig mismatch` 并跳过 hook——
    游戏照常运行，只是没汉化。这时需要重新定位。
-2. **`GuiFonts.json` 可能被覆盖**，重跑 `build_all.py` 即可。
+2. **`GuiFonts.json` 可能被覆盖**，重跑 `build.bat deploy` 即可。
 
 ---
 
@@ -364,15 +368,13 @@ tools/test_match.py      离线验证匹配逻辑（不跑游戏）
 tools/term_review.py     术语审校表（按类别导出/导入/一致性检查）
 tools/find_gaps.py       找出翻译后仍残留英文的串
 tools/scen_localize.py   剧本描述汉化（读写 Dat/Scen/*.txt）
-tools/dump_code.c        诊断工具：dump 解密后的代码段（逆向用）
-tools/extract_strings.py 从 exe 提取 UTF-16 界面文本
-tools/make_subset_font.py 字体子集化
-scripts/build_all.py     一键构建
+tools/deploy.py          部署到游戏目录（--check / --restore）
+tools/restore_game.py    从备份还原游戏 .dat 和 CSV
 zh_dict.json             翻译源文件（权威数据）
 scen_trans.py            剧本描述翻译表
 wite2_zh.tsv             生成的翻译表（部署到游戏目录）
 校对流程.md              校对流程详细说明
-build.bat                编译脚本
+build.bat                构建脚本（编译/资产/验证/部署）
 ```
 
 ---

@@ -19,6 +19,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+SRC = os.path.join(ROOT, "scen_txt")          # 原始英文备份
 GAME = r"G:\SteamLibrary\steamapps\common\Gary Grigsby's War in the East 2"
 DEST = os.path.join(GAME, "Dat", "Scen")
 
@@ -67,8 +68,7 @@ def translate_line(line):
 
 
 def iter_files():
-    """直接读游戏目录, 仓库里不放游戏原文"""
-    for f in sorted(glob.glob(os.path.join(DEST, "*.txt"))):
+    for f in sorted(glob.glob(os.path.join(SRC, "*.txt"))):
         yield os.path.basename(f), f
 
 
@@ -108,9 +108,7 @@ def cmd_apply():
         print("已备份原始文件 -> _scen_backup/")
 
     done = miss = 0
-    for name, _ in iter_files():
-        path = os.path.join(bak, name) if os.path.exists(
-            os.path.join(bak, name)) else os.path.join(DEST, name)
+    for name, path in iter_files():
         with open(path, encoding="utf-8") as fh:
             lines = fh.readlines()
 
