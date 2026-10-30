@@ -88,6 +88,20 @@ SHORT_PRE = {
 }
 
 
+def is_split_index(tok, after):
+    """拆分编号：斜杠前不带序数后缀的纯数字（"3/213th" 里的 3）。
+
+    游戏把部队拆成 1/2/3 三个分遣队，这个数字是分遣队序号不是番号。
+    但斜杠右边必须是"数字+序数后缀"，才说明右边是番号。
+    反例 "1/West Wall"：右边是地名，1 是番号，要转成"第1西墙"。
+    """
+    if not (1 <= len(tok) <= 3) or not tok.isdigit():
+        return False
+    if not after.startswith("/"):
+        return False
+    return re.match(r"/\d+(?:th|st|nd|rd)", after) is not None
+
+
 ROMAN_VAL = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
 
 
@@ -249,12 +263,21 @@ def dt_check(text, entries):
         while head and head[0] in "-+—":
             mark += head[0]
             head = head[1:].lstrip(" ") if len(head) > 1 else ""
-        pre = conv_num_prefix(head)
+        if text[cut] == "/" and is_split_index(head, text[cut:]):
+            # 分遣队序号，保留原样并把斜杠写出去
+            pre = head + "/"
+        else:
+            pre = conv_num_prefix(head)
         if pre is None:
             parts = []
-            for tok in re.findall(r"[^\s/]+|/", head):
+            for mo in re.finditer(r"[^\s/]+|/", head):
+                tok = mo.group()
                 if tok == "/":
                     parts.append("/")
+                    continue
+                nxt = head[mo.end():]
+                if is_split_index(tok, nxt):
+                    parts.append(tok)
                     continue
                 num = conv_num_prefix(tok)
                 if num is not None:
@@ -380,6 +403,12 @@ CASES = [
     # 逐词分支也要转数字，否则 "- 654th ..." 里的 654th 会原样保留
     ("- 654th Mot. Panzerjaeger Battalion",
      "-第654摩托化装甲猎兵营", "层级标记后的数字番号"),
+    # 拆分编号：游戏把部队拆成 1/2/3 三个分遣队，斜杠左边是序号不是番号。
+    # 判据是斜杠右边必须是"数字+序数后缀"，否则左边就是番号。
+    ("3/213th Security Division", "3/第213警备师", "拆分编号保留"),
+    ("2/6th Guards", "2/第6近卫", "拆分编号 + 词典命中的尾串"),
+    ("1/998th Ost", "1/第998东方", "拆分编号 + 词典命中的尾串"),
+    ("1/West Wall", "第1西墙", "斜杠右边非番号时左边是番号"),
     ("255th Infantry Division", "第255步兵师", "阿拉伯数字照常转"),
     # 序数后缀 st/nd/rd/th 全部要能识别。C 里边界写成 i+2 < len 时
     # 只有 1st 侥幸通过，79th 会退回逐词翻译变成 "79th步兵师"。

@@ -816,6 +816,37 @@ static int roman_to_int(const wchar_t *t, int len)
     return total;
 }
 
+/* 拆分编号判定。
+ *
+ * 游戏把部队拆成 1/2/3 三个分遣队，名字写成 "3/213th Security Division"。
+ * 这里的 3 是分遣队序号，不是番号；213th 才是番号。
+ * 如果两个都转成 "第N"，会变成 "第3/第213警备师"，读起来像两个并列番号。
+ *
+ * 判据: 斜杠左边、不带序数后缀的纯数字。带了 th/st/nd/rd 就是番号，
+ * 例如 "1/16th" 里的 16th 仍要转成 "第16"。
+ */
+static int is_split_index(const wchar_t *t, int len, const wchar_t *next)
+{
+    int i, d;
+    const wchar_t *p;
+    if (len < 1 || len > 3) return 0;
+    if (!next || *next != L'/') return 0;
+    for (i = 0; i < len; i++)
+        if (t[i] < L'0' || t[i] > L'9') return 0;
+
+    /* 斜杠右边必须紧跟"数字+序数后缀"，才说明右边是番号、左边是分遣队
+     * 序号。反例是 "1/West Wall"（意大利第1西墙师）：右边是地名，
+     * 左边 1 是番号，要转成 "第1西墙" 而不是保留成 "1/西墙"。 */
+    p = next + 1;
+    d = 0;
+    while (*p >= L'0' && *p <= L'9') { p++; d++; }
+    if (d == 0) return 0;
+    if (!((p[0] == L't' && p[1] == L'h') || (p[0] == L's' && p[1] == L't') ||
+          (p[0] == L'n' && p[1] == L'd') || (p[0] == L'r' && p[1] == L'd')))
+        return 0;
+    return 1;
+}
+
 static int conv_num_prefix(const wchar_t *t, int len, wchar_t *out, int cap)
 {
     int i = 0, o = 0;
@@ -1197,7 +1228,14 @@ static wchar_t *dt_check_raw(wchar_t *text)
             int pn = 0;
             while (pn < cut && pn < 8 && text[pn] == L' ') pre[pn] = L' ', pn++;
             pre[pn] = 0;
-            {
+            if (is_split_index(text + pn, cut - pn, text + cut)) {
+                /* "2/6th Guards" 在斜杠处切分时，左边的 2 是分遣队序号，
+                 * 保留原样并把斜杠一起写出去，否则会得到 "第2第6近卫"。 */
+                int k2 = cut - pn;
+                memcpy(pre + pn, text + pn, k2 * sizeof(wchar_t));
+                pn += k2;
+                if (pn + 2 < 128) { pre[pn++] = L'/'; pre[pn] = 0; }
+            } else {
                 wchar_t tmp[128];
                 int tn = conv_num_prefix(text + pn, cut - pn, tmp, 128);
                 if (tn > 0) {
@@ -1228,6 +1266,19 @@ static wchar_t *dt_check_raw(wchar_t *text)
                     /* 数字番号先转换。逐词分支原来只查词典，导致
                      * "- 654th Mot. Panzerjaeger Battalion" 里的
                      * 654th 查不到就原样保留，成了 "- 654th摩托化..."。 */
+                    if (is_split_index(text + st, wl, text + en)) {
+                        /* 分遣队序号，原样保留数字 */
+                        if (pn + wl + 2 >= 128) { pn = 0; break; }
+                        memcpy(pre + pn, text + st, wl * sizeof(wchar_t));
+                        pn += wl;
+                        pre[pn] = 0;
+                        if (en < cut && pn + 2 < 128) {
+                            pre[pn++] = text[en];
+                            pre[pn] = 0;
+                        }
+                        st = en + 1;
+                        continue;
+                    }
                     {
                         wchar_t ntmp[24];
                         int nn = conv_num_prefix(text + st, wl, ntmp, 24);
