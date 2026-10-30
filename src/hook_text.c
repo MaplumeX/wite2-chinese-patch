@@ -322,14 +322,80 @@ static int g_layoutLog = 0;
  * 不同字号的界面这个值会不同，若某处过修/欠修就调这里。 */
 #define PX_PER_EM 17.3f
 
-/* 已知的右对齐列右边缘（像素，实测）。
- * 目前只有游戏选项界面的标签列。发现新的右对齐列就往这里加一条，
- * 同时用 wite2_layout.txt 里的右边缘分布核对。 */
-static const float g_rightEdges[] = { 541.0f };
-
-/* 判定容差。实测该列的右边缘在 540.2..545.9 之间，取 ±6 可覆盖，
+/* 判定容差。实测选项列右边缘在 540.2..545.9，取 ±6 可覆盖，
  * 又不会把居中的标签页（785.9）误纳进来。 */
 #define EDGE_TOL 6.0f
+
+/* ===== 右对齐列的自动识别 =====
+ *
+ * 逐个界面手工测量太慢，而且漏一个就出问题。改成运行时自己学。
+ *
+ * 判据来自实测数据。同一列里:
+ *
+ *   右对齐:  x 随文字长度变化，右边缘恒定
+ *            x0=301..452 -> 右边缘 541
+ *   左对齐:  x 恒定，右边缘随文字长度变化
+ *            x0=847       -> 右边缘 31 个不同值
+ *
+ * 所以「右边缘聚成一簇、且簇内 x0 有多个不同值、且宽度也有多个
+ * 不同值」就判定为右对齐。三个条件缺一不可:
+ *
+ *   只要求右边缘相同 -> 左对齐列里宽度相近的几条会误判
+ *   只要求 x0 变化   -> 居中的标题也会满足
+ *
+ * 游戏每帧重绘，所以第一帧学到之后立刻生效，视觉上没有延迟。
+ */
+#define EDGE_SLOTS 48
+
+typedef struct {
+    float right;
+    float x0[4];
+    int   nx0;
+    int   ow[2];
+    int   now;
+    int   hits;
+} EdgeSlot;
+
+static EdgeSlot g_edges[EDGE_SLOTS];
+static int g_nEdges = 0;
+
+/* 记录一条样本，返回是否判定为右对齐列 */
+static int edge_learn(float right, float x0, int ow)
+{
+    EdgeSlot *s = NULL;
+    for (int i = 0; i < g_nEdges; i++) {
+        float d = right - g_edges[i].right;
+        if (d > -EDGE_TOL && d < EDGE_TOL) { s = &g_edges[i]; break; }
+    }
+    if (!s) {
+        if (g_nEdges >= EDGE_SLOTS) return 0;
+        s = &g_edges[g_nEdges++];
+        s->right = right;
+        s->nx0 = 0;
+        s->now = 0;
+        s->hits = 0;
+    }
+    s->hits++;
+
+    int seen = 0;
+    for (int i = 0; i < s->nx0; i++) {
+        float d = x0 - s->x0[i];
+        if (d > -1.0f && d < 1.0f) { seen = 1; break; }
+    }
+    if (!seen && s->nx0 < 4) s->x0[s->nx0++] = x0;
+
+    seen = 0;
+    for (int i = 0; i < s->now; i++) {
+        if (s->ow[i] == ow) { seen = 1; break; }
+    }
+    if (!seen && s->now < 2) s->ow[s->now++] = ow;
+
+    return (s->hits >= 3 && s->nx0 >= 2 && s->now >= 2);
+}
+
+/* 已知的右对齐列右边缘（像素，实测）。作为种子，让第一次绘制就正确，
+ * 不必等 edge_learn 学出来。新发现的边缘可以往这里补。 */
+static const float g_rightEdges[] = { 541.0f };
 static int g_layoutCount = 0;
 
 /* 替换用的缓冲池: 每次调用占一个槽, 调用返回后才复用 */
@@ -1256,6 +1322,7 @@ static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
                 float d = right - g_rightEdges[e];
                 if (d > -EDGE_TOL && d < EDGE_TOL) { hit = 1; break; }
             }
+            if (!hit) hit = edge_learn(right, x0, wo);
             if (hit) {
                 dx = (float)(wo - wr) * (PX_PER_EM / 256.0f);
                 *(float *)&stk[1] = x0 + dx;
@@ -1411,21 +1478,53 @@ static int install_drawtext_hook(HMODULE exe, DWORD rva)
 }
 
 /* ================= 入口 ================= */
-static DWORD WINAPI init_thread(LPVOID param)
+/* ===== 补丁时机 =====
+ *
+ * 必须尽早。之前是 Sleep(2000) 之后再改 .rdata，结果对界面文本几乎
+ * 无效 —— 游戏在启动阶段就把字符串复制进了自己的结构，2 秒后改
+ * .rdata 已经晚了。
+ *
+ * 证据: "Fog of War" 在 .rdata 0x5B5DB0 是干净的完整串（前后都是 NUL），
+ * 改写后绘制层日志里 ow 仍是英文宽度 1362，说明游戏画的是自己的副本。
+ *
+ * 后果不只是"改了没用": 所有可见翻译都得靠绘制层临时换指针，而绘制
+ * 坐标是游戏按英文宽度算好的，换成长度不同的中文就必然错位。
+ *
+ * 所以改成在 DllMain(DLL_PROCESS_ATTACH) 里立刻改。这时游戏代码一行
+ * 都还没跑，它之后复制的就是中文，测量、排版、换行全按中文算，
+ * 对齐问题从根上消失。
+ *
+ * .rdata 在磁盘上是明文（已核实），所以早期改写可行。
+ */
+static void patch_early(void)
 {
     dict_load();
     logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条 (.data 专用 %d 条)\n",
            g_ndic, g_nDataOnly);
 
-    Sleep(2000);
-
     HMODULE exe = GetModuleHandleA(NULL);
-    if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return 0; }
+    if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return; }
 
     patch_all(exe);
 
     logfmt("\n改写 %d 处, 译文过长跳过 %d 条, 未找到 %d 条\n",
            g_patched, g_tooLong, g_notFound);
+}
+
+static DWORD WINAPI init_thread(LPVOID param)
+{
+    /* .rdata 已在 DllMain 里改完。这里等游戏起来再装绘制层 hook，
+     * 用来兜底运行时拼接的串（部队名、剧本名等）。 */
+    Sleep(2000);
+
+    HMODULE exe = GetModuleHandleA(NULL);
+    if (!exe) return 0;
+
+    /* 安全网: 早期补丁万一没生效（比如游戏自己重新加载了段），
+     * 这里再补一次。patch_section 只匹配原文，已是中文的不会再改，
+     * 所以重复调用是幂等的。 */
+    patch_all(exe);
+
 
     /* 阶段2: 绘制层替换文本指针 */
     dict_build();
@@ -1462,6 +1561,8 @@ BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID reserved)
 {
     if (reason == DLL_PROCESS_ATTACH) {
         DisableThreadLibraryCalls(hinst);
+        /* 先改 .rdata（游戏还没跑），再起线程装绘制层 hook。 */
+        patch_early();
         HANDLE h = CreateThread(NULL, 0, init_thread, NULL, 0, NULL);
         if (h) CloseHandle(h);
     }
