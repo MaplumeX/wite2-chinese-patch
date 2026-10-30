@@ -90,6 +90,7 @@ FWD(UINT,  VerLanguageNameW,           (DWORD a, LPWSTR b, UINT c), (a,b,c))
 typedef struct { wchar_t *key; wchar_t *val; int sec; } Pair;
 static Pair g_dic[MAXENT];
 static int  g_ndic = 0;
+static int  g_nDataOnly = 0;
 
 static wchar_t *u8w(const char *s, int n)
 {
@@ -113,12 +114,29 @@ static void dict_load(void)
         char *en = line, *zh = t + 1;
         size_t zl = strlen(zh);
         while (zl && (zh[zl-1] == '\n' || zh[zl-1] == '\r')) zh[--zl] = 0;
+
+        /* 可选第三列: 作用域标记
+         *   d = 只改 .data（天气/气候/飞机数据列这类只在 .data 出现的词）
+         *   r = 只改 .rdata
+         *   空 = .rdata 和 .data 都改
+         * 不剥掉这一列，译文会带上 "\td"，界面上显示成“大雨d”。 */
+        int sec = 0;
+        char *sp = strchr(zh, '\t');
+        if (sp) {
+            *sp = 0;
+            zl = strlen(zh);
+            if (sp[1] == 'd') sec = 2;
+            else if (sp[1] == 'r') sec = 1;
+        }
+
         size_t el = strlen(en);
         if (!el || !zl) continue;
         wchar_t *k = u8w(en, (int)el), *v = u8w(zh, (int)zl);
         if (!k || !v) { free(k); free(v); continue; }
         g_dic[g_ndic].key = k;
         g_dic[g_ndic].val = v;
+        g_dic[g_ndic].sec = sec;
+        if (sec == 2) g_nDataOnly++;
         g_ndic++;
     }
     fclose(f);
@@ -913,7 +931,8 @@ static int install_drawtext_hook(HMODULE exe, DWORD rva)
 static DWORD WINAPI init_thread(LPVOID param)
 {
     dict_load();
-    logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条\n", g_ndic);
+    logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条 (.data 专用 %d 条)\n",
+           g_ndic, g_nDataOnly);
 
     Sleep(2000);
 

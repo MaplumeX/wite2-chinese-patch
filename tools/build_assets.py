@@ -71,6 +71,43 @@ def build_tsv():
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     print("翻译表 %d 条 -> %s" % (len(zh), os.path.basename(TSV)))
+    verify_tsv()
+
+
+def verify_tsv():
+    """回读 TSV，模拟 C 的 dict_load，检查列解析没漏。
+
+    真实事故：dict_load 没剥第三列，译文带上了 "\\td"，
+    界面上显示成「大雨d」。这种错误写词典时看不出来，
+    只有实际跑游戏才会暴露，所以在这里拦。
+    """
+    bad = []
+    n = 0
+    with open(TSV, "rb") as f:
+        for raw in f:
+            line = raw.rstrip(b"\r\n")
+            if not line or line.startswith(b"#"):
+                continue
+            if b"\t" not in line:
+                continue
+            n += 1
+            en, rest = line.split(b"\t", 1)
+            cols = rest.split(b"\t")
+            if len(cols) > 2:
+                bad.append((en.decode("utf-8", "replace"), "列数 %d" % len(cols)))
+                continue
+            zh = cols[0]
+            if len(cols) == 2 and cols[1] not in (b"d", b"r"):
+                bad.append((en.decode("utf-8", "replace"),
+                            "作用域标记 %r" % cols[1]))
+            if b"\t" in zh:
+                bad.append((en.decode("utf-8", "replace"), "译文含 tab"))
+    if bad:
+        print("TSV 列解析异常 %d 条：" % len(bad))
+        for en, why in bad[:10]:
+            print("  %-40r %s" % (en, why))
+    else:
+        print("TSV 校验通过（%d 条，列结构正常）" % n)
 
 
 def build_font(chars, check_only=False):
