@@ -2,24 +2,29 @@
 """分析布局诊断日志
 
 游戏目录放一个空的 wite2_layout.ini，跑游戏，打开游戏选项界面，
-会生成 wite2_layout.txt。用这个脚本对比「测量宽度」和「绘制坐标」。
+会生成 wite2_layout.txt。
 
-关键判断:
-  - 同一列的所有文本，DRAW x 是否相同
-      相同 -> 左对齐，中文窄就是结束得早，不是坐标偏移
-      不同 -> 居中对齐，x = 中心 - 宽度/2，中文窄则左边缘右移
-  - MEASURE 的 cx 是否与字体度量吻合
-      吻合 -> 游戏用的是实测宽度，没有缓存英文宽度
+数据来源: 0x45CE60 绘制函数的栈参数。游戏用自建字体图集 + D3D 渲染，
+不走 GDI 的 ExtTextOutW，所以只能从这个函数拿坐标。
+
+日志格式:
+    DRAW a1=200 a2=350 a3=0 a5=0 n=12 战争迷雾
+
+a1..a5 是 5 个栈参数的原始值。哪个是 x、哪个是 y 要看数值范围：
+  - 屏幕宽度约 1280，y 一般 < 768
+  - a3 常见小整数（对齐标志/颜色索引）
+  - a5 可能是 flags
 
 用法:
-    python tools/layout_report.py              概要
-    python tools/layout_report.py --col 200    只看 x 附近的条目
-    python tools/layout_report.py --diff       和英文原文宽度对比
+    python tools/layout_report.py            概要 + 参数含义推断
+    python tools/layout_report.py --args     每个参数的取值范围
+    python tools/layout_report.py --col a1   按某个参数分组看是否恒定
 """
 
 import io
 import json
 import os
+import re
 import sys
 from collections import defaultdict
 
@@ -29,38 +34,22 @@ GAME = r"G:\SteamLibrary\steamapps\common\Gary Grigsby's War in the East 2"
 LOG = os.path.join(GAME, "wite2_layout.txt")
 DICT = os.path.join(ROOT, "zh_dict.json")
 
+LINE = re.compile(r"^DRAW\s+a1=(-?\d+)\s+a2=(-?\d+)\s+a3=(-?\d+)\s+"
+                  r"a5=(-?\d+)\s+n=(\d+)\s+(.*)$")
+
 
 def load():
     if not os.path.exists(LOG):
         print("找不到 %s" % LOG)
-        print("先放一个空的 wite2_layout.ini 到游戏目录，跑游戏，"
-              "打开游戏选项界面。")
         return None
     rows = []
     with io.open(LOG, encoding="utf-8", errors="replace") as f:
         for line in f:
-            line = line.rstrip("\r\n")
-            if not line:
+            m = LINE.match(line.rstrip("\r\n"))
+            if not m:
                 continue
-            # DRAW     123    45  n= 12  text
-            parts = line.split(None, 4)
-            if len(parts) < 5:
-                continue
-            kind, a, b = parts[0], parts[1], parts[2]
-            rest = parts[3] + " " + parts[4]
-            n = 0
-            if rest.startswith("n="):
-                try:
-                    n = int(rest[2:].split()[0])
-                except ValueError:
-                    n = 0
-                text = rest.split(None, 1)[1] if " " in rest else ""
-            else:
-                text = parts[4]
-            try:
-                rows.append((kind, int(a), int(b), n, text))
-            except ValueError:
-                continue
+            rows.append((int(m.group(1)), int(m.group(2)), int(m.group(3)),
+                         int(m.group(4)), int(m.group(5)), m.group(6)))
     return rows
 
 
@@ -68,44 +57,66 @@ def main():
     rows = load()
     if rows is None:
         return 1
-
-    draws = [r for r in rows if r[0] == "DRAW"]
-    meas = [r for r in rows if r[0] == "MEASURE"]
-    print("记录: 绘制 %d 条, 测量 %d 条" % (len(draws), len(meas)))
-    if not draws:
-        print("没有绘制记录。诊断钩子可能没生效，看 wite2_hook.txt 有没有")
-        print("  [layout] 诊断开启")
+    print("记录 %d 条" % len(rows))
+    if not rows:
+        print("日志为空。确认 wite2_layout.ini 存在，且这次 DLL 已部署。")
         return 1
 
-    if "--col" in sys.argv:
-        want = int(sys.argv[sys.argv.index("--col") + 1])
-        sel = [r for r in draws if abs(r[1] - want) <= 6]
-        print("\n=== x ≈ %d 的条目 (%d 条) ===" % (want, len(sel)))
-        for _, x, y, n, t in sorted(sel, key=lambda r: r[2]):
-            print("  y=%-4d x=%-4d n=%-3d %r" % (y, x, n, t))
+    names = ["a1", "a2", "a3", "a5"]
+    vals = [[r[i] for r in rows] for i in range(4)]
+
+    print("\n=== 各参数取值范围 ===")
+    for nm, v in zip(names, vals):
+        uniq = len(set(v))
+        print("  %-3s  min=%-6d max=%-6d 不同值 %-4d  %s"
+              % (nm, min(v), max(v), uniq,
+                 "可能是 x（随文本变化）" if uniq > len(rows) * 0.5
+                 else "恒定或少量取值"))
+
+    # 哪个参数像 x: 值域在 0..1400，且随文本变化
+    print("\n=== 候选坐标轴 ===")
+    for nm, v in zip(names, vals):
+        span = max(v) - min(v)
+        if 100 < max(v) < 2000 and span > 50:
+            print("  %-3s 值域 %d..%d，跨度 %d  -> 很可能是 x 或 y"
+                  % (nm, min(v), max(v), span))
+
+    if "--args" in sys.argv:
+        print("\n=== 每条记录的原始参数 ===")
+        for a1, a2, a3, a5, n, t in rows[:40]:
+            print("  a1=%-6d a2=%-6d a3=%-4d a5=%-4d n=%-3d %r"
+                  % (a1, a2, a3, a5, n, t))
         return 0
 
-    # 按 x 聚簇: 左对齐的列 x 相同
-    byx = defaultdict(list)
-    for _, x, y, n, t in draws:
-        byx[x].append((y, n, t))
-    print("\n=== 绘制 x 坐标分布 ===")
-    for x in sorted(byx, key=lambda v: -len(byx[v]))[:12]:
-        ys = sorted(r[0] for r in byx[x])
-        print("  x=%-5d %3d 条  y=%d..%d" % (x, len(byx[x]), ys[0], ys[-1]))
+    which = "a1"
+    if "--col" in sys.argv:
+        which = sys.argv[sys.argv.index("--col") + 1]
+    idx = names.index(which)
 
-    # 关键判断: 同一列内 x 是否恒定
-    print("\n=== 同一列内 x 是否恒定 ===")
-    multi = [x for x in byx if len(byx[x]) >= 4]
-    if multi:
-        for x in sorted(multi, key=lambda v: -len(byx[v]))[:6]:
-            widths = [r[1] for r in byx[x]]
-            print("  x=%-5d %d 条, 宽度 %d..%d 字 -> x %s"
-                  % (x, len(byx[x]), min(widths), max(widths),
-                     "恒定（左对齐）" if len(set(
-                         abs(v - x) for v in widths)) == 1 else "有浮动"))
-    else:
-        print("  没有足够长的列可判断")
+    print("\n=== 按 %s 分组（判断对齐方式） ===" % which)
+    groups = defaultdict(list)
+    for r in rows:
+        groups[r[idx]].append(r)
+    big = sorted(groups.items(), key=lambda kv: -len(kv[1]))[:8]
+    for key, g in big:
+        ns = [r[4] for r in g]
+        others = [r[1 - idx if idx < 2 else 0] for r in g]
+        print("  %s=%-6d %2d 条  文本长度 %d..%d  另一轴 %d..%d"
+              % (which, key, len(g), min(ns), max(ns),
+                 min(others), max(others)))
+
+    # 关键: 同一 x 的多条记录，长度不同 -> 左对齐则 x 相同
+    print("\n=== 同一 %s 下长度差异很大的条目 ===" % which)
+    for key, g in big:
+        if len(g) < 3:
+            continue
+        ns = [r[4] for r in g]
+        if max(ns) - min(ns) < 4:
+            continue
+        print("  %s=%d:" % (which, key))
+        for r in sorted(g, key=lambda r: r[4])[:8]:
+            print("      n=%-3d %r" % (r[4], r[5]))
+        break
 
     if "--diff" in sys.argv:
         with io.open(DICT, encoding="utf-8") as f:
@@ -115,19 +126,18 @@ def main():
             if k.startswith("_") or str(v).startswith("----"):
                 continue
             rev.setdefault(v, k)
-        print("\n=== 译文 vs 原文（字符数） ===")
-        print("  %-28s %-28s %s" % ("译文", "原文", "差"))
+        print("\n=== 译文 vs 原文 ===")
         shown = 0
-        for _, x, y, n, t in draws:
-            if t not in rev or shown >= 20:
+        for a1, a2, a3, a5, n, t in rows:
+            if t not in rev or shown >= 25:
                 continue
             en = rev[t]
             if en == t:
                 continue
-            print("  %-28r %-28r %+d" % (t, en, n - len(en)))
+            print("  n=%-3d %-24r <- %r" % (n, t, en))
             shown += 1
-        if shown == 0:
-            print("  （绘制文本都直接匹配原文，说明替换没生效）")
+        if not shown:
+            print("  （没有匹配，可能替换没生效）")
     return 0
 
 

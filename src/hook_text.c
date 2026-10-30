@@ -311,6 +311,10 @@ static volatile LONG g_dtHits = 0;
 static int g_logBudget = 0;
 static int g_dtLog = 0;
 
+/* 布局诊断开关（见 dt_check2） */
+static int g_layoutLog = 0;
+static int g_layoutCount = 0;
+
 /* 替换用的缓冲池: 每次调用占一个槽, 调用返回后才复用 */
 #define POOL 32
 static wchar_t g_pool[POOL][256];
@@ -798,7 +802,68 @@ static int try_numbered(const wchar_t *text, int len, wchar_t *out, int cap)
  *   4. 截断前缀 (严格条件)                  <- "Army Grp. Sout"
  * 不再做任意位置的子串替换。
  */
-static wchar_t *dt_check(wchar_t *text)
+/* ===== 宽度表: 让译文占位宽度和原文一致 =====
+ *
+ * 为什么需要: 游戏先算好绘制坐标再调绘制函数。
+ *
+ *   x = 中心 - 原文宽度/2        （居中）
+ *   x = 右边 - 原文宽度          （右对齐）
+ *
+ * 我在绘制这一刻把英文换成中文，但 x 已经按英文宽度算定了。
+ * 中文窄得多（"Fog of War" 5.33 em -> 战争迷雾 4.0 em），
+ * 从同一个 x 开始画，视觉中心就落到左边:
+ *
+ *   目标中心 530，x=452，中文 4em -> 视觉中心 452+65 = 517，偏左 13px
+ *
+ * 修法: 给译文补尾随空格凑够原文宽度。空格不显形，但占位宽度参与
+ * 居中计算，所以三种对齐方式都能修正。左对齐时补空格无副作用。
+ */
+static const unsigned char g_asciiW[95] = {
+    76, 80, 112, 163, 150, 228, 223, 66, 86, 86, 116, 190, 62, 111, 62, 109,
+    150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 62, 62, 190, 190, 190, 124,
+    255, 180, 161, 171, 195, 141, 136, 190, 198, 75, 101, 162, 131, 250, 208, 209,
+    157, 209, 167, 148, 147, 191, 173, 255, 165, 154, 159, 86, 106, 86, 190, 115,
+    76, 142, 164, 128, 164, 145, 89, 164, 158, 68, 68, 139, 68, 240, 158, 163,
+    164, 164, 98, 118, 95, 158, 134, 202, 130, 136, 126, 86, 69, 86, 190,
+};
+
+/* 单个字符宽度，单位 1/256 em */
+static int char_w(wchar_t c)
+{
+    if (c >= 0x20 && c < 0x7F) return g_asciiW[c - 0x20];
+    /* CJK 及全角标点: 标准全宽 */
+    if (c >= 0x2E80) return 256;
+    return 128;
+}
+
+static int text_w(const wchar_t *s)
+{
+    int t = 0;
+    for (int i = 0; s[i]; i++) t += char_w(s[i]);
+    return t;
+}
+
+/* 把 rep 用尾随空格补齐到 orig 的宽度，写进 dst。
+ * 只补不裁: 中文比原文窄才需要补；比原文宽就不动（宁可不居中也不截断）。 */
+static void pad_to_width(const wchar_t *rep, const wchar_t *orig,
+                         wchar_t *dst, int cap)
+{
+    int i = 0;
+    for (; rep[i] && i < cap - 1; i++) dst[i] = rep[i];
+    dst[i] = 0;
+
+    int wo = text_w(orig), wr = text_w(rep);
+    if (wr >= wo) return;
+
+    const int sp = g_asciiW[0];          /* 空格宽度 */
+    int need = (wo - wr) / sp;
+    if (need <= 0) return;
+    if (i + need >= cap - 1) need = cap - 2 - i;
+    for (int k = 0; k < need; k++) dst[i + k] = L' ';
+    dst[i + need] = 0;
+}
+
+static wchar_t *dt_check_raw(wchar_t *text)
 {
     if (!text) return text;
     InterlockedIncrement(&g_dtCalls);
@@ -1099,6 +1164,63 @@ static wchar_t *dt_check(wchar_t *text)
     return text;
 }
 
+/* 对外入口: 替换文本，并把宽度补齐到原文。
+ *
+ * 只有真的发生了替换才补空格。.rdata 里已经被改写成中文的串，
+ * dt_check_raw 找不到匹配会原样返回，此时不该补 —— 游戏是按
+ * 中文宽度算的坐标，本来就是对的。 */
+static wchar_t *dt_check(wchar_t *text)
+{
+    wchar_t *rep = dt_check_raw(text);
+    if (!rep || rep == text) return rep;
+
+    int slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+    pad_to_width(rep, text, g_pool[slot], 250);
+    return g_pool[slot];
+}
+
+/* ================= 绘制坐标诊断 =================
+ *
+ * 游戏不用 GDI 画字。它的错误串里出现 "font atlas LockRect failure"、
+ * "Render3DText Lock failure"，说明是自建字体图集 + D3D 渲染。
+ * 所以钩 GDI32 的 ExtTextOutW 一次都不会命中（实测如此）。
+ *
+ * 真正的位置信息在 0x45CE60 的栈参数里。函数签名是 __thiscall
+ * ret 0x14（5 个栈参数）:
+ *   [orig+0x00] 返回地址
+ *   [orig+0x04] arg1
+ *   [orig+0x08] arg2
+ *   [orig+0x0C] arg3
+ *   [orig+0x10] arg4 = wchar_t* 文本
+ *   [orig+0x14] arg5
+ *
+ * 把 5 个参数全记下来，再结合文本内容就能判断对齐方式。
+ */
+static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
+{
+    wchar_t *r = dt_check(text);
+    if (!g_layoutLog || g_layoutCount > 4000 || !r) return r;
+    if (!text || !stk) return r;
+
+    int n = 0;
+    while (n < 200 && text[n]) n++;
+    if (n < 2) return r;
+
+    g_layoutCount++;
+    char u8[1024];
+    int m = WideCharToMultiByte(CP_UTF8, 0, text, n, u8, sizeof(u8) - 1,
+                                NULL, NULL);
+    if (m <= 0) return r;
+    u8[m] = 0;
+
+    FILE *f = fopen("wite2_layout.txt", "ab");
+    if (!f) return r;
+    fprintf(f, "DRAW a1=%-6d a2=%-6d a3=%-6d a5=%-6d n=%-3d %s\r\n",
+            (int)stk[1], (int)stk[2], (int)stk[3], (int)stk[5], n, u8);
+    fclose(f);
+    return r;
+}
+
 /* 钩子: 换掉栈上的文本指针后跳到 trampoline */
 __declspec(naked) static void drawtext_hook(void)
 {
@@ -1107,12 +1229,13 @@ __declspec(naked) static void drawtext_hook(void)
         push eax
         push ecx
         push edx
-        /* 16 字节压栈后, 原 [esp+0x10] 变成 [esp+0x20] */
-        mov  eax, dword ptr [esp + 0x20]
-        push eax
-        call dt_check
-        add  esp, 4
-        mov  dword ptr [esp + 0x20], eax
+        /* 压了 16 字节, 现在 [esp+16] 就是入口时的 esp（指向返回地址） */
+        lea  eax, [esp + 16]
+        push eax                        /* arg2: 原始栈指针，用来读绘制坐标 */
+        push dword ptr [eax + 0x10]     /* arg1: 文本指针 ([orig+0x10] = 第4个栈参数) */
+        call dt_check2
+        add  esp, 8
+        mov  dword ptr [esp + 0x20], eax   /* 写回文本指针 */
         pop  edx
         pop  ecx
         pop  eax
@@ -1140,8 +1263,6 @@ typedef BOOL (WINAPI *pGetTextExtent)(HDC, LPCWSTR, int, LPSIZE);
 
 static pExtTextOutW   g_origExtTextOut = NULL;
 static pGetTextExtent g_origGetExtent = NULL;
-static int g_layoutLog = 0;
-static int g_layoutCount = 0;
 
 static void layout_dump(const char *kind, int a, int b,
                         const wchar_t *s, int n)
@@ -1257,10 +1378,9 @@ static DWORD WINAPI init_thread(LPVOID param)
             fclose(lf);
             g_layoutLog = 1;
             remove("wite2_layout.txt");
-            install_iat_hook(exe, 0x50C094, (void *)hook_ExtTextOutW,
-                             (void **)&g_origExtTextOut);
-            install_iat_hook(exe, 0x50C04C, (void *)hook_GetTextExtent,
-                             (void **)&g_origGetExtent);
+            /* 不钩 GDI32: 游戏用自建字体图集 + D3D 渲染，不走
+             * ExtTextOutW。实测钩了零命中。坐标从 0x45CE60
+             * 的栈参数拿（见 dt_check2）。 */
             logfmt("[layout] 诊断开启 -> wite2_layout.txt\n");
         }
     }
