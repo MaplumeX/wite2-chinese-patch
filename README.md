@@ -1086,6 +1086,119 @@ python tools/add_unit_labels2.py     # 第二批 31 条
 已全部对齐（`Sec`→警备、`AirLnd`→空降），`add_unit_labels2.py` 里
 加了一致性检查表，以后加新缩写会报冲突而不静默采用。
 
+### `.data` 里还有一套独立的标签表
+
+玩家报告“部队详情里仍有 `Machinegun` 英文”。全 exe 搜索发现：
+
+```
+'machinegun'  1 处  ->  .data 文件偏移 0x64F4C4  (VA 0xA506C4)
+'Machine Gun' 6 处  ->  .rdata  UTF-16 2 处 + ASCII 4 处
+```
+
+`.rdata` 里只有带空格的 `Machine Gun`，**无空格的 `Machinegun` 只存在于
+`.data`**。玩家看到的是无空格那个，说明部队详情这一屏走的是 `.data` 表。
+
+前面所有扫描器只扫 `.rdata`，所以整张 `.data` 表都没被覆盖。补扫后发现
+`.data` 里有三张平行的兵种标签表（VA，ASCII，步长 `0x14`）：
+
+| 地址 | 内容 |
+|---|---|
+| `0xA503A4-0xA50444` | Infantry / Artillery / SP Weapon / Mech. Infantry / … |
+| `0xA50520-0xA50714` | none / Armor / … / **Machinegun** / **Air base** / Naval |
+| `0xA50840-0xA508B8` | none / Combat / HQ / Support / Partisan / Multi-Role / City Fort |
+
+两套表**拼写不一样**，这本身就是证据——它们是独立维护的：
+
+```
+.rdata  'Machine Gun'        .data  'Machinegun'      ← 少个空格
+.rdata  'Air Base'           .data  'Air base'       ← b 小写
+.rdata  'Corps HQ'           .data  'Corp HQ'        ← 少个 s
+.rdata  'Motorized'          .data  'Motorized Infantry'
+```
+
+而且**大小写不敏感命中的词不用补**：`Armor`/`Naval`/`Air base`/
+`Multi-Role`/`City Fort` 词典里已有 `armor`/`NAVAL`/`Air Base`/…，
+绘制层查词忽略大小写，能命中。真正缺的只有 3 条。
+
+### 绘制层的“断章取义”风险
+
+这是个真问题，而且比预想的严重。绘制层是按**整串精确匹配**查词：
+
+* 好处：不会像子串替换那样误伤（`Turn` 不会把 `Return` 改掉）。
+* 坏处：**同一个英文串只能有一个译文**，不管它出现在哪个界面。
+
+#### 实例：两个差点弄错的陷阱
+
+这两个是我准备加进词典时拦下来的：
+
+```
+'Major'   0x9A28C4   邻居 'Minor'(次要) / 'Impass' / 'River Art Idx'
+                     -> 地图文字编辑器的「主要河流」，不是军衔
+'Private' 0x9DF3B4   邻居 'StepMaxTime' / 'ChallengePassword'
+                     -> PBEM 存档的 JSON 字段名，不是军衔
+```
+
+如果按“英语词典直觉”去翻，会得到「少校河流」和「列兵存档」。
+已记在 `zh_dict.json` 的 `_ambiguous` 元数据里，附地址和原因。
+
+#### 实例：候选提取把非界面表也扫进来了
+
+```
+'Range' @ 0x913C8C   邻居 'Proxy-Authorization' / 'Referer' / 'Retry-After'
+                     -> 这是 HTTP 请求头表，被当成 UI 词汇译成了「射程」
+```
+
+HTTP 头永远不会被绘制，所以这条当前无害；但它说明**候选来源必须
+按区段鉴别**，不能只看“是不是可读 ASCII”。
+
+#### 实例：大小写变体把同一概念拆成两个译法
+
+游戏在网格/表头里用全大写（`PRIORITY`），在普通标签里用首字母大写
+（`Priority`）。词典把它们当独立键，分批补词就漂了。实测 **15 组**：
+
+```
+Airbase  航空基地  vs  AirBase/Air Base  空军基地     ← 漂移
+Priority 优先     vs  PRIORITY/Pri      优先级      ← 漂移
+NORMAL   普通     vs  Normal            正常        ← 漂移
+AIR LOSSES 空战损失 vs Air Losses        空中损失     ← 漂移
+flak     高炮     vs  Flak              高射炮      ← 漂移
+on the ground 地面 vs On The Ground     在地面      ← 漂移（「地面」已被 Ground 占用）
+POOL     储备     vs  Pool              储备池      ← 漂移
+---
+RANGE 航程 / Range 射程          飞机航程 vs 火炮射程    ← 语义确实不同，保留
+MP 移动力 / mP 极地海洋性         移动点 vs 气候代码     ← 同形不同义，保留
+RD. 步兵师 / Rd. 道路             番号 vs 道路         ← 保留
+MEDIUM 中 / Medium 中型           档位 vs 尺寸等级      ← 保留
+ACTIVE 激活 / Active 活动         按钮态 vs 事件条件     ← 保留
+BLUE 蓝 / RED 红 / white 白       短译供窄网格          ← 宽度受限，保留
+```
+
+前 7 组已由 `tools/fix_case_drift.py` 统一，后 6 组连同理由记在
+`_caseDriftKept` 里，防止以后被“好心”统一掉。
+
+#### 为什么暂时不加入上下文参数
+
+钩子**能**拿到上下文——它已经为了区域采集算出了当前控件：
+
+```c
+ui   = exe + 0x0E72800
+idx  = [ui + 0x200]                 // 当前控件索引
+arr  = [ui + 0x218]                 // 控件数组，元素 0x30
+ctl  = [arr + idx*0x30 + 0x20]      // 控件本体，[ctl] 是 vtable
+```
+
+所以技术上可以给词条加“只在某个控件 vtable / 索引下生效”的限定。
+但**现在不做**，理由：
+
+1. 没有确认的冲突实例。上面两个陷阱已经靠“不加”解决了。
+2. 现有 `wite2_regions.tsv` 是旧版本抓的，`ctl_vt` 列全 `0`，
+   无法用它判定哪些词条真的需要分上下文。
+3. 改动会碰全部 6104 条共用的匹配路径，回归风险大于收益。
+
+触发条件：一旦在实测中确认某串在两个界面必须不同译法，就加一个
+**独立的高优先级覆盖表**（按 `(text, ui_idx)` 或 `(text, ctl_vt)` 命
+中，命中不了就落到原全局词典），不碰现有路径。
+
 ---
 
 ## 调试
