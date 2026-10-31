@@ -137,7 +137,7 @@ SET COLOR	设置颜色
 Axis Control	轴心控制
 Soviet	苏联	t
 Axis	轴心	t
-Germany	德国
+Germany	德国	t
 Starting player	起始玩家
 Starting Zoom Level	初始缩放级别
 Axis Player:	轴心玩家：
@@ -1444,7 +1444,7 @@ Soviet Decisive Victory	苏联决定性胜利
 Soviet Minor Victory	苏联次要胜利
 Fuel Refinery	炼油厂
 National Air Reserve	国家航空储备
-Synthetic Fuel	合成燃料
+Synthetic Fuel	合成燃料	t
 Unit Upkeep	部队维护
 Factory Upkeep	工厂维护
 Supply Used (t)	补给消耗（吨）
@@ -1457,7 +1457,7 @@ Fuel Need (t)	燃料需求（吨）
 Fuel Used (t)	燃料消耗（吨）
 Fuel Prod (t)	燃料生产（吨）
 Fuel Store (t)	燃料储存（吨）
-Soviet Union	苏联
+Soviet Union	苏联	t
 Resource Stores + Pool:	资源储存+储备：
 Vehicles in Units:	部队中车辆：
 Vehicles in Repair:	修理中车辆：
@@ -1613,11 +1613,11 @@ Army Group South Ukraine	南乌克兰集团军群
 Belgrade	贝尔格莱德
 Minsk	明斯克	t
 Rostov	罗斯托夫	t
-Leningrad	列宁格勒
+Leningrad	列宁格勒	t
 Kiev	基辅	t
 Kharkov	哈尔科夫
 Stalingrad	斯大林格勒
-Sevastopol	塞瓦斯托波尔
+Sevastopol	塞瓦斯托波尔	t
 Odessa	敖德萨	t
 Dnepr River	第聂伯河
 Dnepr	第聂伯河	t
@@ -1625,15 +1625,15 @@ Don River	顿河
 Volga	伏尔加河	t
 Crimea	克里米亚	t
 Caucasus	高加索
-Hungary	匈牙利
-Rumania	罗马尼亚
+Hungary	匈牙利	t
+Rumania	罗马尼亚	t
 Rumanian	罗马尼亚
-Bulgaria	保加利亚
+Bulgaria	保加利亚	t
 Bulgarians	保加利亚人
 Serbia	塞尔维亚	t
 Macedonia	马其顿
 Greece	希腊	t
-Yugoslavia	南斯拉夫
+Yugoslavia	南斯拉夫	t
 Yugoslavian	南斯拉夫
 partisan	游击队
 partisans	游击队
@@ -1655,10 +1655,10 @@ OK	确定	t
 Panzergren	装甲掷弹兵
 Armored Train	装甲列车
 Field Gun	野炮
-AT Gun	反坦克炮
+AT Gun	反坦克炮	t
 AA Gun	高射炮
 Machine Gun	机枪
-Rifle Squad	步兵班
+Rifle Squad	步兵班	t
 Level Bomber	水平轰炸机
 Tactical Bomber	战术轰炸机
 Torpedo Bomber	鱼雷轰炸机
@@ -1688,10 +1688,10 @@ Hun	匈牙利	t
 Rum	罗马尼亚	t
 Romania	罗马尼亚
 Romanian	罗马尼亚
-Finland	芬兰
+Finland	芬兰	t
 Finnish	芬兰
 Fin	芬兰	t
-Slovakia	斯洛伐克
+Slovakia	斯洛伐克	t
 Slovakian	斯洛伐克
 Croatia	克罗地亚
 Russia	俄罗斯	t
@@ -1732,7 +1732,7 @@ Zaporozhye	扎波罗热
 Nuremberg	纽伦堡
 Krolevets	克罗列韦茨
 Voronezh	沃罗涅日
-Kalinin	加里宁
+Kalinin	加里宁	t
 Berlin	柏林	t
 Tula	图拉	t
 Grozny	格罗兹尼	t
@@ -1985,7 +1985,7 @@ Game event probability (0-100)	游戏事件概率（0-100）
 Game event year (1941-1945)	游戏事件年（1941-1945）
 GND Index	地面索引
 Grab Empty Hexes	夺取空白六角格
-Heavy Industry	重工业
+Heavy Industry	重工业	t
 HEAVY INDUSTRY	重工业
 Heavy-Urban	重型城区
 Hex Art	六角格图形
@@ -2416,7 +2416,7 @@ Air Base Unit:	航空基地单位：
 Airbase damage	航空基地损伤
 Air Units	航空单位
 Air Groups:	飞行队：
-Air Support	空中支援
+Air Support	空中支援	t
 Air & Ground	空中与地面
 Air Directive :	空中指令：
 Air HQ	空军司令部
@@ -3851,7 +3851,7 @@ Day Only	仅白天
 Night Only	仅夜间
 Day & Night	昼夜
 Hex on map	地图上的六角格
-Railyard	铁路场站
+Railyard	铁路场站	t
 upgrade	升级
 Impassable / Motorized	不可通行 / 摩托化
 Impassable / Non-Motorized	不可通行 / 非摩托化
@@ -4321,7 +4321,7 @@ New Product	新产品
 Capacity set on empty factory slot	在空工厂槽位设置产能
 Oil Store	石油储存
 Oil storage	石油储存
-Oil Production	石油生产
+Oil Production	石油生产	t
 Oil production	石油生产
 Oil requirements	石油需求
 Oil Stores Req	石油储存需求
@@ -4333,7 +4333,7 @@ Fuel Percentage	燃料百分比
 Fuel Received	燃料接收
 Resource Store	资源储存
 Resource storage	资源储存
-Resource Production	资源生产
+Resource Production	资源生产	t
 Resource production	资源生产
 Resource requirements	资源需求
 Resource Stores Req	资源储存需求
@@ -4941,7 +4941,7 @@ AF Bombed	机场被轰炸
 airfield was BOMBED	机场被轰炸
 Anti-Soft	对软目标
 Anti-Armor	反装甲
-SP Artillery	自行炮兵
+SP Artillery	自行炮兵	t
 SP Gun	自行火炮
 Self-Propelled Gun	自行火炮
 Infantry Weapon	步兵武器
@@ -5311,7 +5311,7 @@ D UtlL	守方通用机损失
 . Size 	。规模 
 Custom (	自定义（
 Armaments production	军备生产
-Armaments Production	军备生产
+Armaments Production	军备生产	t
 Enter Axis Allies Production Usage %% (1-100)	输入轴心盟国生产使用 %%（1-100）
 Enter %s Production Usage %% (1-100)	输入%s生产使用 %%（1-100）
 Enter production multiplier	输入生产倍率
@@ -5322,7 +5322,7 @@ Enter W Allies Production Usage % (1-100)	输入西方盟军生产使用 %（1-1
 Enter Axis Production Usage % (1-100)	输入轴心生产使用 %（1-100）
 Show Production for %s.	显示%s的生产。
  %s production damaged %d%% 	 %s生产受损 %d%% 
-Machinegun	机枪
+Machinegun	机枪	t
 Machinegun Units	机枪单位
 Machine Gun Units	机枪单位
 Machinegun Unit	机枪单位
@@ -5700,7 +5700,7 @@ Bicycle Recon Battalion	自行车侦察营
 Bicycle Road Construction Battalion	自行车道路建设营
 Brandenburger Battalion	勃兰登堡营
 Breakthrough Artillery Division	突破炮兵师
-Brigade	旅
+Brigade	旅	t
 Bul. Air Base	保加利亚航空基地
 Bul. Anti-Aircraft Regiment	保加利亚防空团
 Bul. Armored Battalion	保加利亚装甲营
@@ -6505,7 +6505,7 @@ Lehr	教导	t
 Beute	缴获	t
 Heimat	本土	t
 Alarm	应急	t
-Eisenbahn	铁道
+Eisenbahn	铁道	t
 Autotransportabile	摩托化运输
 Pol.	波兰	t
 RSI	意大利社会共和国	t
@@ -6695,7 +6695,7 @@ Birmingham	伯明翰
 Bradford	布拉德福德
 Chatham	查塔姆
 Croydon	克罗伊登
-Douglas	道格拉斯
+Douglas	道格拉斯	t
 Dover	多佛	t
 Falmouth	法尔茅斯
 Glasgow	格拉斯哥
@@ -6841,7 +6841,7 @@ Anzio	安齐奥	t
 Athens	雅典	t
 Baden	巴登	t
 Baltic	波罗的海	t
-Bologna	博洛尼亚
+Bologna	博洛尼亚	t
 Boulogne	布洛涅
 Bourges	布尔日
 Brest	布列斯特	t
@@ -6850,7 +6850,7 @@ Brindisi	布林迪西
 Brussels	布鲁塞尔
 Bydgoszcz	比得哥什
 Copenhagen	哥本哈根
-Denmark	丹麦
+Denmark	丹麦	t
 Exeter	埃克塞特	t
 Feldherrnhalle Nr. 1	统帅堂第1
 Feldherrnhalle Nr. 2	统帅堂第2
@@ -6874,14 +6874,14 @@ Turin	都灵	t
 Venice	威尼斯	t
 Vilnius	维尔纽斯
 Zagreb	萨格勒布	t
-Oranienbaum	奥拉宁鲍姆
-Constantine	君士坦丁
+Oranienbaum	奥拉宁鲍姆	t
+Constantine	君士坦丁	t
 Alger	阿尔及尔	t
-Maroc March	摩洛哥行军
-Oran March	奥兰行军
-Military Railway	军用铁路
-SU Rail	苏联铁路
-Soviet City	苏联城市
+Maroc March	摩洛哥行军	t
+Oran March	奥兰行军	t
+Military Railway	军用铁路	t
+SU Rail	苏联铁路	t
+Soviet City	苏联城市	t
 Guards	近卫	t
 Training	训练
 Expeditionary	远征
@@ -6925,7 +6925,7 @@ Linz	林茨	t
 Dessau	德绍	t
 Wiener Neustadt	维也纳新城
 Moosbierbaum	莫斯比尔鲍姆
-Support	支援
+Support	支援	t
 Tier	型	t
 German	德国	t
 City	城市	t
@@ -7064,7 +7064,7 @@ Budakeszi	布达凯西
 Budaors	布道尔什
 Bungay	邦吉	t
 Bykhov	贝霍夫	t
-Bátaszék	巴塔塞克
+Bátaszék	巴塔塞克	t
 Cadet	卡代	t
 Calais	加来	t
 Camigliatello	卡米利亚泰洛
@@ -7112,7 +7112,7 @@ Deanland	迪恩兰
 Debden	德布登	t
 Debrecen	德布勒森
 Decimomannu	德奇莫曼努
-Demidov	杰米多夫
+Demidov	杰米多夫	t
 Derna	德尔纳	t
 Detling	德特林
 Digby	迪格比	t
@@ -7174,7 +7174,7 @@ Friuli'	弗留利
 Frolovo	弗罗洛沃
 Ferschweiler	费尔施魏勒
 Finsterwalde-Schacksdorf	芬斯特瓦尔德-沙克斯多夫
-Flensburg	弗伦斯堡
+Flensburg	弗伦斯堡	t
 Florennes	弗洛雷讷
 Floridsdorf	弗洛里茨多夫
 Focsani	福克沙尼
@@ -7246,7 +7246,7 @@ Guben	古本	t
 Guestrow	居斯特罗
 Guetersloh	居特斯洛
 Gymnich	吉姆尼希
-Hajdúszoboszló	豪伊杜索博斯洛
+Hajdúszoboszló	豪伊杜索博斯洛	t
 Halesworth	黑尔斯沃思
 Hani	哈尼	t
 Hapsal	哈普萨卢	t
@@ -7382,7 +7382,7 @@ Karlsbad	卡尔斯巴德
 Kassel	卡塞尔	t
 Kaufbeuren	考夫博伊伦
 Kemi	凯米	t
-Kemijärvi	凯米耶尔维
+Kemijärvi	凯米耶尔维	t
 Kiel	基尔	t
 Kielce	凯尔采	t
 Kirkenes	希尔克内斯
@@ -7467,7 +7467,7 @@ Luebben	吕本
 Lueneburg	吕讷堡
 Luonetjarvi	卢奥内耶尔维
 Lupo'	卢波	t
-Luxembourg	卢森堡
+Luxembourg	卢森堡	t
 Lyck	吕克	t
 Lyon	里昂	t
 Makeevka	马克耶夫卡
@@ -7555,7 +7555,7 @@ Nelidovo	涅利多沃
 Netheravon	内瑟拉文
 Newchurch	纽彻奇
 Newtownards	纽敦纳兹
-Nikolaev	尼古拉耶夫
+Nikolaev	尼古拉耶夫	t
 Northolt	诺霍尔特
 Novgorod-Volynsky	沃伦斯基新城
 Novgorord	诺夫哥罗德
@@ -7652,7 +7652,7 @@ Portreath	波特里思
 Povoletto	波沃莱托
 Predannack	普雷达纳克
 Prokhladny	普罗赫拉德内
-Proskurov	普罗斯库罗夫
+Proskurov	普罗斯库罗夫	t
 Protville	普罗维尔
 Provisional	临时
 Pruzhany	普鲁扎内
@@ -7813,7 +7813,7 @@ Schippenbeil	希彭拜尔
 Schleissheim	施莱斯海姆
 Schlesien	西里西亚
 Schleswig	石勒苏益格
-Schmalz	施马尔茨
+Schmalz	施马尔茨	t
 Schoenefeld	舍讷费尔德
 Schoenwalde	舍恩瓦尔德
 Schongau	雄高
@@ -7945,7 +7945,7 @@ Voroshilovgrav	伏罗希洛夫格勒
 Voznesensk	沃兹涅先斯克
 Vyazma	维亚济马	t
 Vyborg	维堡	t
-Várpalota	瓦尔帕洛塔
+Várpalota	瓦尔帕洛塔	t
 Vailly-sur-Aisne	艾讷河畔瓦伊
 Valence	瓦朗斯
 Valenciennes	瓦朗谢讷
@@ -8316,7 +8316,7 @@ CSIR Italian Air Bde	意大利远征军航空旅
 503rd (FHH)	第503（FHH）
 CARS	CARS	t
 CSIR	CSIR	t
-Andrews	安德鲁斯
+Andrews	安德鲁斯	t
 Angers	昂热	t
 Arenberg	阿伦贝格
 Autun	欧坦	t
@@ -9190,191 +9190,191 @@ BR Railway Const. Grp.	英国铁路建设群
 US Arm. Div	美国装甲师
 US Tank Destroyer Bn	美国坦克歼击营
 IT Cav Rgt	意大利骑兵团
-Belgium	比利时
-Netherlands	荷兰
+Belgium	比利时	t
+Netherlands	荷兰	t
 Poland	波兰	t
 USA	美国	t
-America	美国
-Britain	英国
+America	美国	t
+Britain	英国	t
 Canada	加拿大	t
 India	印度	t
-Australia	澳大利亚
-Free French	自由法国
-South Africa	南非
-WA Italy	西方盟国意大利
+Australia	澳大利亚	t
+Free French	自由法国	t
+South Africa	南非	t
+WA Italy	西方盟国意大利	t
 Brazil	巴西	t
-Commonwealth	英联邦
+Commonwealth	英联邦	t
 France	法国	t
-New Zealand	新西兰
-Morocco	摩洛哥
-Axis Generic	轴心通用
-Vichy France	维希法国
+New Zealand	新西兰	t
+Morocco	摩洛哥	t
+Axis Generic	轴心通用	t
+Vichy France	维希法国	t
 Sweden	瑞典	t
-Ireland	爱尔兰
-Iceland	冰岛
-Switzerland	瑞士
-Andorra	安道尔
-Albania	阿尔巴尼亚
+Ireland	爱尔兰	t
+Iceland	冰岛	t
+Switzerland	瑞士	t
+Andorra	安道尔	t
+Albania	阿尔巴尼亚	t
 Turkey	土耳其	t
-Portugal	葡萄牙
+Portugal	葡萄牙	t
 Spain	西班牙	t
 Iraq	伊拉克	t
-Algeria	阿尔及利亚
-Tunisia	突尼斯
+Algeria	阿尔及利亚	t
+Tunisia	突尼斯	t
 Lybia	利比亚	t
 Egypt	埃及	t
 Syria	叙利亚	t
-Lebanon	黎巴嫩
-Transjordan	外约旦
-Palestine	巴勒斯坦
-Saudi Arabia	沙特阿拉伯
+Lebanon	黎巴嫩	t
+Transjordan	外约旦	t
+Palestine	巴勒斯坦	t
+Saudi Arabia	沙特阿拉伯	t
 Kuwait	科威特	t
 Iran	伊朗	t
 Cyprus	塞浦路斯	t
-Infantry-AT	步兵反坦克组
-Cavalry Squad	骑兵班
+Infantry-AT	步兵反坦克组	t
+Cavalry Squad	骑兵班	t
 Mortar	迫击炮	t
-Mech-Inf Squad	机械化步兵班
-Medium Flak	中型高射炮
-Artillery	火炮
-Naval Gun	舰炮
-Armored Car	装甲车
-Light Tank	轻型坦克
-Medium Tank	中型坦克
-Heavy Tank	重型坦克
-CS Tank	近战支援坦克
-Motor-Inf Squad	摩托化步兵班
-Flame Tank	喷火坦克
-Assault Gun	突击炮
-Mech-Engr Squad	机械化工兵班
-Engineer Squad	工兵班
-SP Flak	自行高射炮
-HT AT-Gun	半履带反坦克炮
-Mech MG Section	机械化机枪组
-HT CS-Howitzer	半履带近战支援榴弹炮
-Special Forces	特种部队
-Marine Commando	海军陆战突击队
-Airborne Engineer	空降工兵
-SP AAMG	自行高射机枪
+Mech-Inf Squad	机械化步兵班	t
+Medium Flak	中型高射炮	t
+Artillery	火炮	t
+Naval Gun	舰炮	t
+Armored Car	装甲车	t
+Light Tank	轻型坦克	t
+Medium Tank	中型坦克	t
+Heavy Tank	重型坦克	t
+CS Tank	近战支援坦克	t
+Motor-Inf Squad	摩托化步兵班	t
+Flame Tank	喷火坦克	t
+Assault Gun	突击炮	t
+Mech-Engr Squad	机械化工兵班	t
+Engineer Squad	工兵班	t
+SP Flak	自行高射炮	t
+HT AT-Gun	半履带反坦克炮	t
+Mech MG Section	机械化机枪组	t
+HT CS-Howitzer	半履带近战支援榴弹炮	t
+Special Forces	特种部队	t
+Marine Commando	海军陆战突击队	t
+Airborne Engineer	空降工兵	t
+SP AAMG	自行高射机枪	t
 AAMG	高射机枪	t
 Rocket	火箭炮	t
-Heavy Artillery	重型火炮
-Light Flak	轻型高射炮
-Heavy Flak	重型高射炮
-Amphibious Tank	两栖坦克
-MSW Tank	扫雷坦克
-Engineer Tank	工兵坦克
-Airborne Squad	空降班
-SP Inf-Gun	自行步兵炮
-SMG Squad	冲锋枪班
-Carrier-Inf Squad	运输车步兵班
-Air Landing Section	机降分队
-Heavy AT Gun	重型反坦克炮
-Light AT Gun	轻型反坦克炮
-Heavy Infantry Gun	重型步兵炮
-Light Artillery	轻型火炮
-Airborne Tank	空降坦克
-Recon Jeep	侦察吉普
-Motorcycle Squad	摩托车班
-Ski Squad	滑雪班
-Security Squad	警备班
-Partisan Squad	游击队班
-Naval Rifle Squad	海军步枪班
-Labor Squad	劳工班
-Medium Field Gun	中型野战炮
-SP Rocket Launcher	自行火箭炮
-Light Mortar	轻型迫击炮
-Heavy Mortar	重型迫击炮
-SP AT Gun	自行反坦克炮
-Tank Destroyer	坦克歼击车
-Hvy Tank Destroyer	重型坦克歼击车
-Infantry Gun	步兵炮
-Infantry Tank	步兵坦克
-Cavalry Tank	骑兵坦克
-Hvy Cavalry Tank	重型骑兵坦克
-Hvy Assault Gun	重型突击炮
-Lt Tank Destroyer	轻型坦克歼击车
-CS Cavalry Tank	近战支援骑兵坦克
-CS Infantry Tank	近战支援步兵坦克
-Light Armored Car	轻型装甲车
-GE Generic	德国通用
-GE S-E Fighter	德国单发战斗机
-GE Light Bomber	德国轻型轰炸机
-GE Medium Bomber	德国中型轰炸机
-GE Tac Recon	德国战术侦察机
-GE Transport	德国运输机
-GE Strat Recon	德国战略侦察机
-GE M-E Fighter	德国双发战斗机
-GE Biplane Bomber	德国双翼轰炸机
-IT Generic	意大利通用
-IT Fighter	意大利战斗机
-IT Bomber/Tpt	意大利轰炸/运输机
-IT Recon	意大利侦察机
-FI Fighter	芬兰战斗机
-FI Bomber	芬兰轰炸机
-FI Recon	芬兰侦察机
-CW Generic	英联邦通用
-CW Heavy Bomber	英联邦重型轰炸机
-CW Fighter	英联邦战斗机
-CW Transport	英联邦运输机
-CW Bomber Tpt	英联邦轰炸运输机
-CW L/M Bomber	英联邦轻中型轰炸机
-CW NFighter/Recce	英联邦夜间战斗/侦察机
-CW Patrol	英联邦巡逻机
-CW Flying Boat	英联邦水上飞机
-CW Strat Recce	英联邦战略侦察机
-US Generic	美国通用
-US Fighter	美国战斗机
-US Light Bomber	美国轻型轰炸机
-US Medium Bomber	美国中型轰炸机
-US Heavy Bomber	美国重型轰炸机
-US Troop Carrier	美国运兵机
-US Tac Recon	美国战术侦察机
-US Photo Recon	美国照相侦察机
-US Combat Mapping	美国战斗测绘机
-US Night Fighter	美国夜间战斗机
-US Dive Bomber	美国俯冲轰炸机
-US Patrol	美国巡逻机
-US Very Heavy Bomber	美国超重型轰炸机
-RU Fighter	苏联战斗机
-RU Bomber	苏联轰炸机
-RU Attack/DB	苏联攻击/俯冲轰炸机
-RU Recon	苏联侦察机
-RU Transport	苏联运输机
-RU Seaplane	苏联水上飞机
-BU Fighter	保加利亚战斗机
-BU Bomber	保加利亚轰炸机
-BU Recon	保加利亚侦察机
-HU Fighter	匈牙利战斗机
-HU Bomber	匈牙利轰炸机
-HU Recon	匈牙利侦察机
-HU Transport	匈牙利运输机
-SL Fighter	斯洛伐克战斗机
-SL Bomber	斯洛伐克轰炸机
-SL Recon	斯洛伐克侦察机
-SOV Generic	苏联通用
-SOV Fighter	苏联战斗机
-SOV Bomber	苏联轰炸机
-SOV Ground Attack	苏联对地攻击机
-SOV Long-Range Bomber	苏联远程轰炸机
-SOV Biplane Bomber	苏联双翼轰炸机
-SOV Biplane Recon	苏联双翼侦察机
-SOV Biplane Transport	苏联双翼运输机
-SOV Transport	苏联运输机
-SOV Naval	苏联海军航空兵
-SOV Strat Recon	苏联战略侦察机
-SOV Tac Recon	苏联战术侦察机
-Assault Squad	突击班
-Assault Tank	突击坦克
-Cargo Ship	货船
-Flame APC	喷火装甲输送车
-Fuel Dump	燃料库
-Recon Halftrack	侦察半履带车
-Recon Tank	侦察坦克
-Supply Dump	补给库
-Troop Ship	运兵船
-V-Weapons Launcher	V型武器发射架
-ITA Attack/DB	意大利攻击/俯冲轰炸机
+Heavy Artillery	重型火炮	t
+Light Flak	轻型高射炮	t
+Heavy Flak	重型高射炮	t
+Amphibious Tank	两栖坦克	t
+MSW Tank	扫雷坦克	t
+Engineer Tank	工兵坦克	t
+Airborne Squad	空降班	t
+SP Inf-Gun	自行步兵炮	t
+SMG Squad	冲锋枪班	t
+Carrier-Inf Squad	运输车步兵班	t
+Air Landing Section	机降分队	t
+Heavy AT Gun	重型反坦克炮	t
+Light AT Gun	轻型反坦克炮	t
+Heavy Infantry Gun	重型步兵炮	t
+Light Artillery	轻型火炮	t
+Airborne Tank	空降坦克	t
+Recon Jeep	侦察吉普	t
+Motorcycle Squad	摩托车班	t
+Ski Squad	滑雪班	t
+Security Squad	警备班	t
+Partisan Squad	游击队班	t
+Naval Rifle Squad	海军步枪班	t
+Labor Squad	劳工班	t
+Medium Field Gun	中型野战炮	t
+SP Rocket Launcher	自行火箭炮	t
+Light Mortar	轻型迫击炮	t
+Heavy Mortar	重型迫击炮	t
+SP AT Gun	自行反坦克炮	t
+Tank Destroyer	坦克歼击车	t
+Hvy Tank Destroyer	重型坦克歼击车	t
+Infantry Gun	步兵炮	t
+Infantry Tank	步兵坦克	t
+Cavalry Tank	骑兵坦克	t
+Hvy Cavalry Tank	重型骑兵坦克	t
+Hvy Assault Gun	重型突击炮	t
+Lt Tank Destroyer	轻型坦克歼击车	t
+CS Cavalry Tank	近战支援骑兵坦克	t
+CS Infantry Tank	近战支援步兵坦克	t
+Light Armored Car	轻型装甲车	t
+GE Generic	德国通用	t
+GE S-E Fighter	德国单发战斗机	t
+GE Light Bomber	德国轻型轰炸机	t
+GE Medium Bomber	德国中型轰炸机	t
+GE Tac Recon	德国战术侦察机	t
+GE Transport	德国运输机	t
+GE Strat Recon	德国战略侦察机	t
+GE M-E Fighter	德国双发战斗机	t
+GE Biplane Bomber	德国双翼轰炸机	t
+IT Generic	意大利通用	t
+IT Fighter	意大利战斗机	t
+IT Bomber/Tpt	意大利轰炸/运输机	t
+IT Recon	意大利侦察机	t
+FI Fighter	芬兰战斗机	t
+FI Bomber	芬兰轰炸机	t
+FI Recon	芬兰侦察机	t
+CW Generic	英联邦通用	t
+CW Heavy Bomber	英联邦重型轰炸机	t
+CW Fighter	英联邦战斗机	t
+CW Transport	英联邦运输机	t
+CW Bomber Tpt	英联邦轰炸运输机	t
+CW L/M Bomber	英联邦轻中型轰炸机	t
+CW NFighter/Recce	英联邦夜间战斗/侦察机	t
+CW Patrol	英联邦巡逻机	t
+CW Flying Boat	英联邦水上飞机	t
+CW Strat Recce	英联邦战略侦察机	t
+US Generic	美国通用	t
+US Fighter	美国战斗机	t
+US Light Bomber	美国轻型轰炸机	t
+US Medium Bomber	美国中型轰炸机	t
+US Heavy Bomber	美国重型轰炸机	t
+US Troop Carrier	美国运兵机	t
+US Tac Recon	美国战术侦察机	t
+US Photo Recon	美国照相侦察机	t
+US Combat Mapping	美国战斗测绘机	t
+US Night Fighter	美国夜间战斗机	t
+US Dive Bomber	美国俯冲轰炸机	t
+US Patrol	美国巡逻机	t
+US Very Heavy Bomber	美国超重型轰炸机	t
+RU Fighter	苏联战斗机	t
+RU Bomber	苏联轰炸机	t
+RU Attack/DB	苏联攻击/俯冲轰炸机	t
+RU Recon	苏联侦察机	t
+RU Transport	苏联运输机	t
+RU Seaplane	苏联水上飞机	t
+BU Fighter	保加利亚战斗机	t
+BU Bomber	保加利亚轰炸机	t
+BU Recon	保加利亚侦察机	t
+HU Fighter	匈牙利战斗机	t
+HU Bomber	匈牙利轰炸机	t
+HU Recon	匈牙利侦察机	t
+HU Transport	匈牙利运输机	t
+SL Fighter	斯洛伐克战斗机	t
+SL Bomber	斯洛伐克轰炸机	t
+SL Recon	斯洛伐克侦察机	t
+SOV Generic	苏联通用	t
+SOV Fighter	苏联战斗机	t
+SOV Bomber	苏联轰炸机	t
+SOV Ground Attack	苏联对地攻击机	t
+SOV Long-Range Bomber	苏联远程轰炸机	t
+SOV Biplane Bomber	苏联双翼轰炸机	t
+SOV Biplane Recon	苏联双翼侦察机	t
+SOV Biplane Transport	苏联双翼运输机	t
+SOV Transport	苏联运输机	t
+SOV Naval	苏联海军航空兵	t
+SOV Strat Recon	苏联战略侦察机	t
+SOV Tac Recon	苏联战术侦察机	t
+Assault Squad	突击班	t
+Assault Tank	突击坦克	t
+Cargo Ship	货船	t
+Flame APC	喷火装甲输送车	t
+Fuel Dump	燃料库	t
+Recon Halftrack	侦察半履带车	t
+Recon Tank	侦察坦克	t
+Supply Dump	补给库	t
+Troop Ship	运兵船	t
+V-Weapons Launcher	V型武器发射架	t
+ITA Attack/DB	意大利攻击/俯冲轰炸机	t
 Cr	军	t
 Cps	军	t
 Div	师	t
@@ -9588,7 +9588,7 @@ Observation	观测
 Luftwaffe	空军
 Siege	攻城	t
 Amedeo	阿梅代奥	t
-Antonescu	安东内斯库
+Antonescu	安东内斯库	t
 MC.200 Saetta	MC.200 箭式
 Royal	皇家	t
 North Ukraine	北乌克兰

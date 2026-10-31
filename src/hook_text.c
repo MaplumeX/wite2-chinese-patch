@@ -282,8 +282,17 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
                 wchar_t next = *(wchar_t *)(base + off + klen * sizeof(wchar_t));
                 if (next != 0) continue;
             }
-            memcpy(p, v, vlen * sizeof(wchar_t));
-            memset(p + vlen, 0, (klen - vlen + 1) * sizeof(wchar_t));
+            /* 长度必须保持字节数完全一致。
+             * 译文短了就补空格（绘制时不计宽度，不影响排版），
+             * 这样终止符位置、后续字段偏移都不变。
+             * 曾经在这里 memset 补 0，把定长结构体里紧随其后的
+             * 指针字段清掉，游戏按野指针往 +0x3C 写就崩了。 */
+            {
+                int q;
+                for (q = 0; q < vlen; q++) p[q] = v[q];
+                for (; q < klen; q++) p[q] = L' ';
+                p[klen] = 0;
+            }
             cnt++;
             g_patched++;
             /* 明细入日志：崩溃后靠它对照哪个串被改错了。
