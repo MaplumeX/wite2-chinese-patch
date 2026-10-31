@@ -100,7 +100,7 @@ def cmd_deploy():
 
     # 清理可能残留的实验性开关文件
     for name in ("wite2_scan.ini", "wite2_collect.ini", "wite2_dryrun.ini",
-                 "wite2_prose.ini"):
+                 "wite2_prose.ini", "wite2_regions.ini"):
         p = os.path.join(GAME, name)
         if os.path.exists(p):
             os.remove(p)

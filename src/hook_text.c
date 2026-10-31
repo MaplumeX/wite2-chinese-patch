@@ -443,6 +443,258 @@ static DWORD g_curEsp = 0;
 static DWORD g_bt[BT_DEPTH];
 static volatile LONG g_capCount = 0;
 
+/* ===== 区域采集 =====
+ *
+ * 为什么需要: 3 帧栈链撑不起"这是哪个界面"。
+ *
+ * 0x4449A0 是文本排版/自动换行（入口 mov eax,0x1810; call _chkstk，
+ * 逐字符处理，上限 0x600），所有文本都从它流到 0x45CE60。它的唯一
+ * 调用点是 0x4450F9，位于 0x445020（列表项绘制）内。于是 hook 抓到的
+ * 3 帧全部落在"公共出口 -> 公共入口"之间，界面帧在更上面，而更上面
+ * 已经被 0xC0C0C0 这类栈填充值污染。实测 380 条捕获里，最粗的一条链
+ * 独占 186 条，横跨主菜单/剧本列表/部队详情/地图浮窗/编辑器。
+ *
+ * 可靠信号在控件管理器里（0x445020 和 0x4466D0 反复使用同一套寻址）:
+ *
+ *   ui   = exe + 0xE72800      (文件态 0x1272800，运行时被重定位)
+ *   idx  = [ui + 0x200]        当前控件索引
+ *   cap  = [ui + 0x21C]        控件总数
+ *   arr  = [ui + 0x218]        控件数组，元素 0x30 字节
+ *   elem = arr + idx*0x30
+ *   txt  = [elem + 0x1C]       文本子对象
+ *   ctl  = [elem + 0x20]       控件本体，[ctl] 是 vtable
+ *
+ * vtable 是精确地址匹配，假阳性几乎为零。.rdata 里有 542 个
+ * vtable-like 块，其中 17 个 40 槽的块很可能是 UI 控件类。控件类型
+ * （按钮/列表行/表头/输入框）比"哪个界面"更有翻译价值: 按钮要压到
+ * 2-4 字，表头压到 4-6 字，提示可以长。
+ *
+ * 第一版只读不写。偏移是从 0x445020 静态推出来的，运行时索引时机
+ * 可能不同，读失败就记 0 / -1，绝不影响游戏。
+ */
+#define UI_ROOT_RVA   0x0E72800
+#define UI_OFF_INDEX  0x200
+#define UI_OFF_CAP    0x21C
+#define UI_OFF_ARR    0x218
+#define UI_ELEM_SIZE  0x30
+#define UI_ELEM_TEXT  0x1C
+#define UI_ELEM_CTL   0x20
+#define REG_N         200000
+#define REG_HASH      262144
+
+static DWORD g_exeBase = 0;
+static int   g_regions = 0;
+static FILE *g_regFile = NULL;
+static unsigned *g_regSeen = NULL;
+static volatile LONG g_regCount = 0;
+static int   g_regProbed = 0;
+/* 控件管理器的实际地址。优先用栈上找到的那个 —— 0x1272800 这个
+ * 常量地址读出来字段全是 0，说明它不是真正的实例。 */
+static DWORD g_uimgr = 0;
+
+/* (text, this, x, y) 的哈希。同一帧里同一串会被重画几十次，
+ * 不去重的话 20 万行上限几秒就打满，后面的界面一条都记不进来。
+ * 实测一次完整浏览产生 20 万行原始记录，去重后只有 4 千条。 */
+static unsigned reg_hash(const wchar_t *t, int len, float x, float y,
+                         DWORD th)
+{
+    unsigned h = 2166136261u;
+    for (int i = 0; i < len; i++) { h ^= (unsigned)t[i]; h *= 16777619u; }
+    h ^= th;                      h *= 16777619u;
+    h ^= (unsigned)(int)(x * 4.0f); h *= 16777619u;
+    h ^= (unsigned)(int)(y * 4.0f); h *= 16777619u;
+    return h ? h : 1u;
+}
+
+static int reg_seen(const wchar_t *t, int len, float x, float y, DWORD th)
+{
+    unsigned h, start;
+    if (!g_regSeen) return 0;
+    h = reg_hash(t, len, x, y, th);
+    start = h % REG_HASH;
+    for (unsigned i = 0; i < REG_HASH; i++) {
+        unsigned idx = (start + i) % REG_HASH;
+        if (g_regSeen[idx] == 0) { g_regSeen[idx] = h; return 0; }
+        if (g_regSeen[idx] == h) return 1;
+    }
+    return 1;
+}
+
+/* 读一个 DWORD，失败返回 0。不把异常抛给调用方。 */
+static DWORD ui_rd(DWORD addr)
+{
+    DWORD v = 0;
+    if (!addr || (addr & 3)) return 0;
+    __try { v = *(volatile DWORD *)addr; }
+    __except (EXCEPTION_EXECUTE_HANDLER) { v = 0; }
+    return v;
+}
+
+/* 从栈上找控件管理器。
+ *
+ * 判据是 0x445020 里那三个字段同时成立:
+ *   [p+0x200] 当前索引   [p+0x21C] 总数   [p+0x218] 数组指针
+ * 三个字段同时落在这个范围内的概率极低。
+ *
+ * 0x445020 的 this 在 ecx，但它的栈帧里保存了 esi（=this），
+ * 所以从绘制入口往上扫 4KB 应该能扫到。 */
+static DWORD find_uimgr(DWORD *stk)
+{
+    DWORD found = 0;
+    __try {
+        for (int i = 0; i < 1024; i++) {
+            DWORD p = stk[i];
+            DWORD arr;
+            int cap, idx;
+            if (p < 0x10000 || p > 0x7FFFFFFF || (p & 3)) continue;
+            arr = ui_rd(p + UI_OFF_ARR);
+            cap = (int)ui_rd(p + UI_OFF_CAP);
+            idx = (int)ui_rd(p + UI_OFF_INDEX);
+            if (arr < 0x10000 || arr > 0x7FFFFFFF) continue;
+            if (cap <= 0 || cap > 10000) continue;
+            if (idx < 0 || idx >= cap) continue;
+            if (ui_rd(arr + UI_ELEM_CTL) == 0 &&
+                ui_rd(arr + UI_ELEM_TEXT) == 0) continue;
+            found = p;
+            break;
+        }
+    } __except (EXCEPTION_EXECUTE_HANDLER) {
+        /* 扫到栈顶了，保留已找到的 */
+    }
+    return found;
+}
+
+/* 宽串 -> 可读 UTF-8，非 ASCII 用 <XXXX> 转义，和 capture 一个格式。 */
+static int region_enc(char *out, int room, const wchar_t *s)
+{
+    int o = 0;
+    if (!s || room <= 12) return 0;
+    for (int i = 0; s[i] && i < 200; i++) {
+        wchar_t c = s[i];
+        if (c >= 0x20 && c < 0x7f) {
+            if (o >= room - 1) break;
+            out[o++] = (char)c;
+        } else {
+            int w;
+            if (o >= room - 12) break;
+            w = _snprintf(out + o, room - o, "<%04X>", (unsigned)c);
+            if (w <= 0) break;
+            o += w;
+        }
+    }
+    return o;
+}
+
+/* 每次绘制写一行。不去重 —— 同一个文本在不同控件上要分别统计，
+ * 这正是上下文翻译要的数据。 */
+static void region_write(const wchar_t *text, const wchar_t *dst, DWORD *stk)
+{
+    if (!g_regions || !g_regFile || !text || !stk) return;
+
+    {
+        int len = 0;
+        while (len < 200 && text[len]) len++;
+        if (len < 2) return;
+        if (reg_seen(text, len, *(float *)&stk[1], *(float *)&stk[2],
+                     g_curThis)) return;
+    }
+    if (InterlockedIncrement(&g_regCount) > REG_N) return;
+
+    DWORD this_ = g_curThis, this_vt = 0, font = 0;
+    DWORD ui = g_uimgr;
+    int idx = -1, capn = -1;
+    DWORD arr = 0, elem = 0, ctl = 0, ctl_vt = 0, txtobj = 0;
+
+    /* 常量地址读出来字段全 0，那就从栈上找真正的实例。只找一次。 */
+    if (!ui) {
+        ui = find_uimgr(stk);
+        if (ui) {
+            g_uimgr = ui;
+            logfmt("[regions] uimgr=%08X（栈上找到；常量地址 %08X 字段全 0）\n",
+                   (unsigned)ui, (unsigned)(g_exeBase + UI_ROOT_RVA));
+        }
+    }
+    if (!ui) ui = g_exeBase ? g_exeBase + UI_ROOT_RVA : 0;
+
+    if (ui) {
+        idx  = (int)ui_rd(ui + UI_OFF_INDEX);
+        capn = (int)ui_rd(ui + UI_OFF_CAP);
+        arr  = ui_rd(ui + UI_OFF_ARR);
+        if (arr && idx >= 0 && idx < capn && capn < 100000) {
+            elem   = arr + (DWORD)idx * UI_ELEM_SIZE;
+            txtobj = ui_rd(elem + UI_ELEM_TEXT);
+            ctl    = ui_rd(elem + UI_ELEM_CTL);
+            if (ctl) ctl_vt = ui_rd(ctl);
+        }
+    }
+    if (this_) {
+        this_vt = ui_rd(this_);
+        font    = ui_rd(this_ + 0xb8);
+    }
+
+    /* 第一次读到像样的控件信息时记一笔，方便判断偏移推得对不对。
+     * 全 0 说明 ui 指针或字段偏移不成立。 */
+    if (!g_regProbed) {
+        g_regProbed = 1;
+        logfmt("[regions] ui=%08X [ui]=%08X [ui+200]=%08X "
+               "[ui+218]=%08X [ui+21C]=%08X idx=%d cap=%d "
+               "ctl=%08X ctl_vt=%08X this=%08X [this]=%08X\n",
+               (unsigned)ui, (unsigned)ui_rd(ui),
+               (unsigned)ui_rd(ui + UI_OFF_INDEX),
+               (unsigned)ui_rd(ui + UI_OFF_ARR),
+               (unsigned)ui_rd(ui + UI_OFF_CAP),
+               idx, capn, (unsigned)ctl, (unsigned)ctl_vt,
+               (unsigned)this_, (unsigned)this_vt);
+    }
+
+    /* 把 elem 结构体前 0x30 字节（12 个 DWORD）整块记下来。
+     *
+     * 上一次采集发现 +0x20（控件本体）全是 0，而 +0x1C（文本子对象）
+     * 非 0 —— 说明绘制走的是 0x44508F 分支，this 就是文本子对象，
+     * 不是控件。元素结构里剩下的字段还没看过，类型/矩形/ID 很可能
+     * 就在里面。整块记下来，离线对比哪些字段对同一面板恒定、
+     * 哪些随控件变化，就能定位。 */
+    {
+        char elembuf[168];
+        int eo = 0;
+        elembuf[0] = 0;
+        if (elem) {
+            for (int k = 0; k < 12; k++) {
+                int wr = _snprintf(elembuf + eo, 16, "%08X,",
+                                   (unsigned)ui_rd(elem + (DWORD)k * 4));
+                if (wr <= 0) break;
+                eo += wr;
+            }
+            if (eo > 0) elembuf[eo - 1] = 0;
+        }
+
+        {
+            char line[1800];
+            int o = 0, w;
+            w = _snprintf(line, sizeof(line),
+                          "%08X\t%08X\t%08X\t%d\t%d\t%08X\t%08X\t%08X\t"
+                          "%.1f\t%.1f\t%d\t%d\t%08X\t",
+                          (unsigned)g_curRet, (unsigned)this_,
+                          (unsigned)this_vt,
+                          idx, capn, (unsigned)txtobj, (unsigned)ctl,
+                          (unsigned)ctl_vt,
+                          *(float *)&stk[1], *(float *)&stk[2],
+                          (int)stk[3], (int)stk[5], (unsigned)font);
+            if (w <= 0) return;
+            o = w;
+            o += region_enc(line + o, (int)sizeof(line) - o - 300, text);
+            line[o++] = '\t';
+            o += region_enc(line + o, (int)sizeof(line) - o - 60, dst);
+            line[o++] = '\t';
+            w = _snprintf(line + o, (int)sizeof(line) - o - 2, "%s", elembuf);
+            if (w > 0) o += w;
+            line[o++] = '\n';
+            fwrite(line, 1, o, g_regFile);
+            if ((g_regCount & 0xFF) == 0) fflush(g_regFile);
+        }
+    }
+}
+
 static unsigned cap_hash(const wchar_t *t, int len)
 {
     unsigned h = 2166136261u;
@@ -938,7 +1190,7 @@ static wchar_t *dt_check_body(wchar_t *text)
 
     int len = 0;
     while (len < 300 && text[len]) len++;
-    if (len < 3) return text;
+    if (len < 2) return text;
 
     collect_add(text, len);
 
@@ -1002,6 +1254,51 @@ static wchar_t *dt_check_body(wchar_t *text)
                 out[g_zh[i].wlen + pad] = 0;
                 InterlockedIncrement(&g_dtHits);
                 return out;
+            }
+        }
+    }
+
+    /* ---------- 策略 1.55: 剥离前导/尾随空格后精确匹配 ----------
+     * 列表和表格用前导空格做缩进，绘制出来的是 " MAP"、" Transfer"。
+     * 整串匹配要求长度相等，策略 1.5 只剥尾部，于是这类串全部漏翻。
+     * 实测一次界面浏览就有 225 处（MAP 82、Manual 27、transfer 22、
+     * Western Europe 15、Axis Reserves 11……）。
+     * 译文前后补回同样多的空格，缩进和对齐都不变。 */
+    {
+        int lead = 0, tn, trail;
+        while (lead < len && text[lead] == L' ') lead++;
+        tn = len - lead;
+        while (tn > 0 && text[lead + tn - 1] == L' ') tn--;
+        trail = len - lead - tn;
+        if ((lead || trail) && tn > 0) {
+            for (int i = 0; i < g_nzh; i++) {
+                if (g_zh[i].klen != tn) continue;
+                int ok = 1;
+                for (int z = 0; z < tn; z++) {
+                    wchar_t a = text[lead + z];
+                    wchar_t b = (wchar_t)(unsigned char)g_zh[i].key[z];
+                    if (g_zh[i].cs) {
+                        if (a != b) { ok = 0; break; }
+                    } else {
+                        if (lc_w(a) != lc_w(b)) { ok = 0; break; }
+                    }
+                }
+                if (!ok) continue;
+
+                if (lead + g_zh[i].wlen + trail + 1 > 250) break;
+                slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
+                {
+                    wchar_t *out = g_pool[slot];
+                    int o = 0;
+                    for (int z = 0; z < lead; z++) out[o++] = L' ';
+                    memcpy(out + o, g_zh[i].wtext,
+                           g_zh[i].wlen * sizeof(wchar_t));
+                    o += g_zh[i].wlen;
+                    for (int z = 0; z < trail; z++) out[o++] = L' ';
+                    out[o] = 0;
+                    InterlockedIncrement(&g_dtHits);
+                    return out;
+                }
             }
         }
     }
@@ -1312,6 +1609,10 @@ static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
 {
     wchar_t *r = dt_check(text);
     if (!text || !stk) return r;
+
+    /* 区域采集: 读控件管理器，记下这次绘制挂在哪一个控件上。
+     * 必须在 layout 开关判断之前 —— 两个诊断可以分开用。 */
+    region_write(text, r, stk);
 
     /* ===== 对齐修正 =====
      *
@@ -1671,6 +1972,8 @@ static void patch_early(void)
 
     HMODULE exe = GetModuleHandleA(NULL);
     if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return; }
+    /* 区域采集要用运行时基址重定位 0x1272800，先存下来。 */
+    g_exeBase = (DWORD)(DWORD_PTR)exe;
 
     install_crash_handler();
 
@@ -1751,6 +2054,32 @@ static DWORD WINAPI init_thread(LPVOID param)
                 logfmt("[capture] 全量捕获开启 -> wite2_capture.txt "
                        "text=%08X-%08X\n",
                        (unsigned)g_textLo, (unsigned)g_textHi);
+            }
+        }
+    }
+
+    /* 区域采集: 放空的 wite2_regions.ini 单独开；开了 capture 也自动开。
+     * 两个文件用途不同 —— capture 是"绘制过哪些串"（去重），
+     * regions 是"每个串挂在哪一个控件/槽位上"（不去重）。 */
+    {
+        FILE *rf = fopen("wite2_regions.ini", "rb");
+        int want = 0;
+        if (rf) { fclose(rf); want = 1; }
+        if (!want && g_capture) want = 1;
+        if (want) {
+            remove("wite2_regions.tsv");
+            g_regFile = fopen("wite2_regions.tsv", "wb");
+            g_regSeen = (unsigned *)calloc(REG_HASH, sizeof(unsigned));
+            if (g_regFile) {
+                g_regions = 1;
+                fprintf(g_regFile,
+                        "# ret\tthis\tthis_vt\tui_idx\tui_cap\ttxt_obj\t"
+                        "ctl\tctl_vt\tx\ty\tstyle\tflags\tfont\t"
+                        "text\tdst\n");
+                logfmt("[regions] 采集开启 -> wite2_regions.tsv "
+                       "ui=%08X\n", (unsigned)(g_exeBase + UI_ROOT_RVA));
+            } else {
+                logfmt("[regions] 打不开 wite2_regions.tsv\n");
             }
         }
     }

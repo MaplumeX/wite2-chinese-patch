@@ -467,6 +467,44 @@ if (g_zh[i].cs) {
 收集的是**游戏真正画出来的字符串**，比从 CSV 猜准确得多——
 CSV 里很多列存的是内部标识，而绘制文本才是玩家真实看到的东西。
 
+### 按控件采集文本区域
+
+`wite2_collect` 只知道"画了哪些串"，不知道"串挂在哪"。要精准翻译，
+需要知道每个串对应的控件类型和位置。
+
+游戏目录放一个空的 `wite2_regions.ini`（或直接开 `wite2_capture.ini`，
+它会把区域采集一起打开），跑一遍各个界面，会生成 `wite2_regions.tsv`：
+
+```
+ret this this_vt ui_idx ui_cap txt_obj ctl ctl_vt x y style flags font text dst
+```
+
+`ctl_vt` 是控件对象的 vtable。寻址来自 `0x445020`（列表项绘制）：
+
+```c
+ui   = exe + 0xE72800      // 文件态 0x1272800，运行时重定位
+idx  = [ui + 0x200]        // 当前控件索引
+cap  = [ui + 0x21C]
+arr  = [ui + 0x218]        // 控件数组，元素 0x30 字节
+ctl  = [arr + idx*0x30 + 0x20]   // 控件本体，[ctl] 就是 vtable
+```
+
+为什么不用调用链：`0x4449A0` 是文本排版/自动换行的公共出口，
+`0x445020` 是公共入口，3 帧栈链全部落在两者之间。实测 380 条捕获里
+最粗的一条链独占 186 条，横跨主菜单、剧本列表、部队详情、地图浮窗、
+编辑器。vtable 是精确地址匹配，假阳性几乎为零。
+
+离线分析：
+
+```bash
+python tools/region_report.py                  # 自动找 wite2_regions.tsv
+python tools/region_report.py --capture        # 回看旧 capture 数据
+```
+
+报告按控件 vtable、字体、槽位（同 vtable + 同 x,y）分组，并列出
+**跨控件重复出现的文本** —— 这些就是同一个英文在不同位置需要不同
+译法的候选（按钮要压到 2-4 字，表头 4-6 字，提示可以长）。
+
 ### 关于"译文过长"
 
 绘制层是整体换指针，文字**不会被截断**。但界面布局按原文长度排版，
@@ -558,6 +596,7 @@ tools/scan_ui.py         界面文本覆盖率
 tools/check_danger.py    检测危险词条（配置键/枚举）
 tools/scen_localize.py   剧本描述汉化（读写 Dat/Scen/*.txt）
 tools/deploy.py          部署到游戏目录（--check / --restore）
+tools/region_report.py   按绘制现场分区（控件 vtable / 字体 / 槽位）
 tools/restore_game.py    从备份还原游戏 .dat 和 CSV
 zh_dict.json             翻译源文件（权威数据）
 scen_trans.py            剧本描述翻译表
