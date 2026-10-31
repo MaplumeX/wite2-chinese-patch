@@ -74,7 +74,6 @@ Total Support	支援总计
 Total On Map	地图上总计
 MAX TOE	最大编制
 Ground Elements	地面单位
-ground elements	地面单位
 Unready	未就绪
 Isolated	被围
 In Supply	补给中
@@ -667,7 +666,6 @@ Fatigue	疲劳
 ai turn	AI 回合
 setting AD	设置空中指令
 auto naval	自动海军
-air directives	空中指令
 Continue	继续
 Pause	暂停	t
 on the ground	地面
@@ -1638,49 +1636,11 @@ Western Europe	西欧
 Balkans	巴尔干
 Eastern Front	东线
 German Front	德军战线
-theater boxes	战区
 theater box	战区
 Theater Box	战区
 Theater Boxes	战区
 Show Weather Screen	显示天气界面
 Show Order of Battle Screen	显示战斗序列界面
-hex control	六角格控制
-city owner change	城市归属变更
-save version	存档版本
-battles data	战斗数据
-battles statistics	战斗统计
-game events	游戏事件
-game victory	游戏胜利
-game statistical data	游戏统计数据
-map hex data	地图六角格数据
-map tile aplha	地图地块透明度
-map text profiles	地图文字档案
-aircraft profiles	飞机档案
-built data (ground)	已建造数据（地面）
-built data (air)	已建造数据（空中）
-built data turn (ground)	已建造回合数据（地面）
-built data turn (air)	已建造回合数据（空中）
-supply data	补给数据
-factory data	工厂数据
-amphib data	两栖数据
-scenario data	剧本数据
-losses by phase	分阶段损失
-pilot names	飞行员姓名
-air orders	空中命令
-air ops	空中作战
-air doctrines	空中条令
-ai scripts	AI脚本
-logistics events	后勤事件
-server messages	服务器消息
-button states	按钮状态
-object tags	对象标签
-rail usage	铁路使用
-transit pools (air)	过境储备（空中）
-transit pools (ground)	过境储备（地面）
-pools (air)	储备（空中）
-pools (ground)	储备（地面）
-replacements (air)	补充（空中）
-replacements (ground)	补充（地面）
 Show New Events	显示新事件
 Show Next TOE(OB) Upgrade	显示下一个编制升级
 Toggle Show Ground Element Mapping	切换地面单位映射显示
@@ -2627,7 +2587,7 @@ SCENARIO-INIT branch	剧本初始化分支
 SAVED-GAME branch	存档分支
 How Many:	数量：
 Can't open a file. 4	无法打开文件。
-### ERROR : game failed to save ###	### 错误：游戏保存失败 ###
+@### ERROR : game failed to save ###	### 错误：游戏保存失败 ###
 AC nation pool mismatch:	飞机国家储备不匹配：
 GE nation pool mismatch:	德国国家储备不匹配：
 Unable to recombine sub-units	无法重新合并下属部队
@@ -2772,13 +2732,8 @@ starting	起始
 transfer	转移
 vehicles	车辆
 vehicles from pool	从储备取车辆
-leaders	将领
-nations	国家
 location	地点
-flights	架次
-planes	飞机	t
 repairs	修理
-loadmap	载入地图
 title,	标题，
 text,	文本，
 id,	编号，
@@ -3321,9 +3276,11 @@ Disband this unit ~- return component elements to the replacement pool.	解散�
 Is leader available/enabled? Set false to disable (vacates command), true to re-enable.	将领是否可用？设为否将禁用（空出指挥），设为是可重新启用。
  Freight     Received    Used      To Units    Truck Use	 货运        接收        使用        至部队      卡车使用
                                  TURN        TOTAL	                                 回合           总计
+-----------------------Turn--------Game----- 	-----------------------回合--------游戏----- 
     TURN        GAME	    回合           游戏
      CBT        GHQ        AHQ        ABU        CAA        CON	     作战       地面司令部  空军司令部  航空基地   民航       建设
     RAIL       PORT	    铁路        港口
+---- Axis ----	---- 轴心 ----
 1000000 (auto)	1000000（自动）
 Axis High 370	轴心最高 370
 None: 0	无：0
@@ -3431,17 +3388,15 @@ Sudden Loss 525	突然失败 525
 Sudden Victory 700	突然胜利 700
 DESTROYED 'DAMAGED'	已摧毁「受损」
 ++++++++ ON REFIT +++++++++++	++++++++ 补充中 +++++++++++
+----------- NOT ON REFIT ------------	----------- 非补充 ------------
 ~ *: HHQ was changed this turn	~ *: 上级司令部本回合已变更
 ~ (u): Unready unit	~ (u): 未就绪部队
 ~ -: Support unit	~ -: 支援单位
 Lake Ladoga	拉多加湖
 economy	经济
-sevices	服役
 Rsevices	服役
-ai script r	AI脚本r
 ai ai assist	AI辅助
 air ai assist	空中AI辅助
-air op groups	航空作战群
 normal winter	正常冬季
 tile idx start	地块索引起点
 tile idx end	地块索引终点
@@ -3456,7 +3411,7 @@ Impass	不可通行	t
 H (ft)	高度（英尺）
 V (kmh)	速度（公里/时）
 V (mph)	速度（英里/时）
-# of Engines:	发动机数量：
+@# of Engines:	发动机数量：
 AI LOGISTICS	AI后勤
 AI MANAGE AIR	AI管理空军
 Climate: 	气候：
@@ -3626,15 +3581,7 @@ Axis Victory Points   	轴心胜利点
 Soviet Victory Points   	苏联胜利点   
 Transfer delay:	转移延迟：
 transfer delay	转移延迟
-destroyed units	被摧毁部队
-unit renames	部队改名
-map regions	地图区域
-ground types	地面类型
-ship classes	舰船级别
-air groups	飞行队
 aircraft based	驻扎飞机
-map text	地图文字
-hex art	六角格图形
 on turn	于回合
 use toe(ob)	使用编制
 In Pool	储备中
@@ -3643,7 +3590,6 @@ Pick Unit	选择部队
 UNIT NAME	部队名称
 SELECT ALL	全选
 Select ALL	全选
-supply (city)	补给（城市）
 damage / effect	损伤/效果
 Sortie ammo (lbs)	出击弹药（磅）
 Sortie fuel (lbs)	出击燃料（磅）
@@ -3709,12 +3655,12 @@ TURN     USR        UKR        UNR       CITY       TOTAL 	回合     美国    
 Sup Need     Sup Rec   Sup Lost   RepFr Rec  RepMn Rec  RepFr Lost	补给需求     补给接收   补给损失   补充接收    补充接收    补充损失
 AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS      SORTIES	飞机性能统计       已摧毁      受损       损伤点数      架次
 ******************* LIGHT WEAPONS POOL UPGRADES ************************	******************* 轻武器储备升级 ************************
-### ERROR : wfair.dat failed to save ###	### 错误：wfair.dat 保存失败 ###
-### ERROR : wfhex.dat failed to save ###	### 错误：wfhex.dat 保存失败 ###
-### ERROR : wfcity.dat failed to save ###	### 错误：wfcity.dat 保存失败 ###
-### ERROR : wfunit.dat failed to save ###	### 错误：wfunit.dat 保存失败 ###
-### ERROR : wfcontrol.dat failed to save ###	### 错误：wfcontrol.dat 保存失败 ###
-### ERROR : wfmaptext.dat failed to save ###	### 错误：wfmaptext.dat 保存失败 ###
+@### ERROR : wfair.dat failed to save ###	### 错误：wfair.dat 保存失败 ###
+@### ERROR : wfhex.dat failed to save ###	### 错误：wfhex.dat 保存失败 ###
+@### ERROR : wfcity.dat failed to save ###	### 错误：wfcity.dat 保存失败 ###
+@### ERROR : wfunit.dat failed to save ###	### 错误：wfunit.dat 保存失败 ###
+@### ERROR : wfcontrol.dat failed to save ###	### 错误：wfcontrol.dat 保存失败 ###
+@### ERROR : wfmaptext.dat failed to save ###	### 错误：wfmaptext.dat 保存失败 ###
 AMMO	弹药	t
 AUTO	自动	t
 AUTO:	自动：	t
@@ -5167,7 +5113,7 @@ NUM x	数量 x
  were SCOUTED 	 被侦察 
  command points.	 指挥点。
  (inactive)	 （未激活）
-@City Detail	@城市详情
+@@City Detail	@城市详情
 Mar-44	1944年3月	t
 May-44	1944年5月	t
 Sep-43	1943年9月	t
@@ -5909,3 +5855,229 @@ SP Artillery Units	自行火炮部队
 Air Bases	航空基地
 Qty	数量	t
 Sep	9月	t
+ ~ %s Losses:	 ~ %s 损失：
+ ~ %s Escaped:	 ~ %s 逃脱：
+ ~ ftr  %d,  bmr  %d ~	 ~ 战斗机  %d,  轰炸机  %d ~
+ ~ %s Forces Attacking:	 ~ %s 进攻部队：
+ ~ %s Forces Defending:	 ~ %s 防御部队：
+ ~ %s Ground Support:  	 ~ %s 对地支援：  
+ ~ ftr  %d,  rec  %d ~ 	 ~ 战斗机  %d,  侦察机  %d ~ 
+ Supply Pct______%d ~ ~ 	 补给百分比______%d ~ ~ 
+ ~ %s Fighter Intercept:  	 ~ %s 战斗机拦截：  
+ ~ Defending Forces %s  ~ 	 ~ 防御部队 %s  ~ 
+%s ~ ~Click to toggle sort	%s ~ ~点击切换排序
+Exported %d %s row%s to~%s	已导出 %d 条 %s 记录%s 至~%s
+ ~ ftr %d,  bmr %d,  utl %d 	 ~ 战斗机 %d,  轰炸机 %d,  运输机 %d 
+ ~ inf %d,  art %d,  afv %d 	 ~ 步兵 %d,  火炮 %d,  装甲车 %d 
+ ~ men %d,  art %d,  afv %d 	 ~ 人员 %d,  火炮 %d,  装甲车 %d 
+Set loadout to all~%s in~%s?	设为全部挂载~%s 于~%s？
+Men lost: %d~Men disabled: %d	人员损失：%d~人员伤残：%d
+ftr  %d,  bmr  %d   utl  %d ~	战斗机  %d,  轰炸机  %d   运输机  %d ~
+ ~ ftr %d,  bmr %d,  utl %d ~ 	 ~ 战斗机 %d,  轰炸机 %d,  运输机 %d ~ 
+ ~ inf %d,  art %d,  afv %d ~ 	 ~ 步兵 %d,  火炮 %d,  装甲车 %d ~ 
+ ~ men  %d,  art  %d,  afv  %d 	 ~ 人员  %d,  火炮  %d,  装甲车  %d 
+%s population evacuates ~ to %s	%s 人口撤离 ~ 至 %s
+Swap plane type ~ from %s to %s	更换机型 ~ 从 %s 改为 %s
+Factories moving from %s ~ to %s	工厂迁移 从 %s ~ 至 %s
+ ~ men  %d,  art  %d,  afv  %d ~ 	 ~ 人员  %d,  火炮  %d,  装甲车  %d ~ 
+Mobilize Static Unit ? ~ ~ -%d AP	动员静态部队？ ~ ~ -%d 行政点
+ ~ ftr  %d,  bmr  %d ,  utl  %d ~ 	 ~ 战斗机  %d,  轰炸机  %d ,  运输机  %d ~ 
+Select units with ~ ~ %s (%s)~ ~%s	选择部队，条件为 ~ ~ %s (%s)~ ~%s
+Set to relocate %s~from %s to %s ?	设为转移 %s~从 %s 至 %s？
+ ~ Battle  %d  of  %d ~ ~ %s Losses:	 ~ 战斗  %d / %d ~ ~ %s 损失：
+%s %s ~ takes command of ~ %s %s !!!	%s %s ~ 接任指挥 ~ %s %s !!!
+Set loadout to all~%s in~%s air base?	设为全部挂载~%s 于~%s 空军基地？
+Select air groups with~ ~ %s (%s)~ ~%s	选择飞行队，条件为~ ~ %s (%s)~ ~%s
+Set Unit to Static ?~+ %d trucks/%d AP	设为静态部队？~+ %d 卡车/%d 行政点
+Set loadout to all~%s in~%s Air Force?	设为全部挂载~%s 于~%s 空军？
+Send unit to West Front ~ requires %d AP	派遣部队至西线 ~ 需要 %d 行政点
+%s ~ (%s %s) ~ ~ %d/%d x %s ~ ~ Range: %d	%s ~ (%s %s) ~ ~ %d/%d x %s ~ ~ 射程：%d
+%s %s commander ~ %s %s ~ is dismissed !!!	%s %s 司令 ~ %s %s ~ 被解职 !!!
+%s ( %s )~Ready %d~Participation pct %d %%	%s ( %s )~就绪 %d~参与百分比 %d %%
+Set loadout to all~%s in~%s air directive?	设为全部挂载~%s 于~%s 空中指令？
+Motorize Unit? ~ ~ Cost - %d AP, %d trucks 	摩托化部队？ ~ ~ 消耗 - %d 行政点, %d 卡车 
+Build Fortified Zone?~Cost - %d Admin Points	修建要塞地带？~消耗 - %d 行政点
+Batch export complete: %d files written to~%s	批量导出完成：已写入 %d 个文件至~%s
+Click to change~%s~Air Unit Morale~%d Q%d: %d	点击修改~%s~空军部队士气~%d Q%d: %d
+ ~ Battle  %d  of  %d ~ ~ %s Forces Attacking:	 ~ 战斗  %d / %d ~ ~ %s 进攻部队：
+ ~ No Admin points. Admin points: %d. Cost: %d	 ~ 行政点不足。行政点：%d。消耗：%d
+%s %s commander ~ %s %s ~ is promoted to %s!!!	%s %s 司令 ~ %s %s ~ 晋升为 %s!!!
+Build Fortified Region?~Cost - %d Admin Points	修建要塞地域？~消耗 - %d 行政点
+Click to change~%s~Naval Unit Morale~%d Q%d: %d	点击修改~%s~海军部队士气~%d Q%d: %d
+Click to change~%s~Ground Unit Morale~%d Q%d: %d	点击修改~%s~地面部队士气~%d Q%d: %d
+Close '%s' scenario?~All unsaved data will be lost	关闭剧本 '%s'？~所有未保存的数据都将丢失
+%s ( %s )~Ready %d~Range %d~Participation pct %d %%	%s ( %s )~就绪 %d~射程 %d~参与百分比 %d %%
+~ Too many "%s" units exist. Current: %d. Limit: %d	~ "%s" 部队数量过多。当前：%d。上限：%d
+%s %s commander ~ %s %s ~ is arrested and EXECUTED !!!	%s %s 司令 ~ %s %s ~ 被逮捕并处决 !!!
+Export %d selected data type(s) to CSV?~Files go to: %s	导出 %d 个选定的数据类型到 CSV？~文件位置：%s
+<img %d> text after image~ ~<img %d><scl 50> another Line	<img %d> 图片后的文字~ ~<img %d><scl 50> 另一行
+%s %s commander ~ %s %s ~ is promoted to %s (from %s to %s)!!!	%s %s 司令 ~ %s %s ~ 晋升为 %s（由 %s 升为 %s）!!!
+Imported %d unit rows~%d column(s) not recognised and skipped: %s	已导入 %d 行部队~%d 列无法识别并已跳过：%s
+Air HQ: %s %s~Range to Base: %d ~Range to Target: %d ~%s radius: %d	空军司令部：%s %s~至基地距离：%d ~至目标距离：%d ~%s 半径：%d
+FONT TOTAL : %d fonts, %d glyphs, %d pages, ~%u MB atlas (UI scale %d%%)	字体合计 : %d 个字体, %d 个字形, %d 页, ~%u MB 图集 (界面缩放 %d%%)
+Build Fortified Zone?~Current Units - %d  Limit - %d ~Cost - %d Admin Points	修建要塞地带？~当前部队 - %d  上限 - %d ~消耗 - %d 行政点
+Build Fortified Region?~Current Units - %d  Limit - %d ~Cost - %d Admin Points	修建要塞地域？~当前部队 - %d  上限 - %d ~消耗 - %d 行政点
+%s~ ~ %d/%d x %s~ Radius (hex) %d~ Experience  %d~ Morale        %d~ Fatigue       %d	%s~ ~ %d/%d x %s~ 半径 (六角格) %d~ 经验  %d~ 士气        %d~ 疲劳       %d
+Import %d selected data type(s) from CSV?~Reads from: %s~Existing data will be overwritten.	从 CSV 导入 %d 个选定的数据类型？~读取自：%s~现有数据将被覆盖。
+Date Available ~ From %d/%d~ to %d/%d____________~MODIFIERS~ ~Ammo Use: %d ~Fuel Use: %d ~Maneuver: %d  ~Endurance: %d ~Climb: %d ~Altitude: %d ~Max Speed: %d	可用日期 ~ 从 %d/%d~ 至 %d/%d____________~修正项~ ~弹药消耗：%d ~燃料消耗：%d ~机动性：%d  ~续航：%d ~爬升：%d ~升限：%d ~最大速度：%d
+ Political %d ~ Morale %d ~ Initiative %d ~ Admin %d ~ Mech %d ~ Infantry %d ~ Air %d ~ Naval %d ~ ~ Victories %d ~ Defeats %d ~ ~ Display leader detail / dismiss leader	 政治 %d ~ 士气 %d ~ 主动性 %d ~ 行政 %d ~ 机械 %d ~ 步兵 %d ~ 空军 %d ~ 海军 %d ~ ~ 胜利 %d ~ 失败 %d ~ ~ 显示将领详情 / 解除将领职务
+@STANDARD - no change to campaign end conditions~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~EXTENDED PLAY - If the game is ending due to Sudden Victory / Sudden Loss / 31 December 1944 victory check, the game will not actually end.The victory screen will appear with the victory level showing as if it had ended, but extended play will be in effect and the game will continue normally upon closing the screen.~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~NO EARLY END - the game ignores the Sudden Victory / Sudden Loss / 31 December 1944 victory check conditions completely.	标准 - 战役结束条件不变~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~延长游玩 - 若游戏因突然胜利／突然失败／1944 年 12 月 31 日胜利判定而即将结束，游戏实际上不会结束。胜利界面会显示并给出如同已结束的胜利等级，但会进入延长游玩模式，关闭该界面后游戏正常继续。~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~无提前结束 - 游戏完全忽略突然胜利／突然失败／1944 年 12 月 31 日胜利判定条件。
+@STANDARD - normal amphibious invasion rules~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~LIMITED - only hexes in the regions of Crimea, Georgia, and Krasnodar may be targets of an amphibious invasion(Ctrl - m shows all regions)~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~NONE - no amphibious invasions are allowed	标准 - 常规两栖登陆规则~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~有限 - 只有克里米亚、格鲁吉亚和克拉斯诺达尔地区的六角格可作为两栖登陆目标（Ctrl - m 显示所有地区）~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~无 - 不允许任何两栖登陆
+@STANDARD - normal combat delay movement point costs~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t ~REDUCED - movement point cost for each combat delay point is divided by 2 (and truncated)~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t ~MINIMAL - 0 movement point cost for combat delay points(still not able to attack a hex that has 9 combat delay)	标准 - 常规的战斗迟滞移动力消耗~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t ~降低 - 每点战斗迟滞的移动力消耗减半（向下取整）~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t ~最小 - 战斗迟滞不消耗移动力（仍无法攻击有 9 点战斗迟滞的六角格）
+@STANDARD - normal leader deaths not caused by HQ displacement or air attack~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~REDUCED - 1/2 the chance of leader deaths not caused by HQ displacement or air attack~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~NONE - no chance of leader deaths not caused by HQ displacement or air attack	标准 - 常规的将领死亡（非因司令部位置调整或空袭所致）~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~降低 - 将领死亡几率减半（非因司令部位置调整或空袭所致）~\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t~无 - 不会有将领死亡（非因司令部位置调整或空袭所致）
+Unable to contact server!	无法连接服务器！
+Unable to find game!	找不到游戏！
+Unable to find challenge!	找不到挑战！
+Can't play this game!	无法进行此游戏！
+Failed to load a game!	载入游戏失败！
+Unable to get steam user	无法获取 Steam 用户
+Can't upload to server [E1]	无法上传到服务器 [E1]
+Can't upload to server [E2]	无法上传到服务器 [E2]
+Can't upload to server [E3]	无法上传到服务器 [E3]
+Can't upload to server [E5]	无法上传到服务器 [E5]
+Can't upload to server [E6]	无法上传到服务器 [E6]
+Can't download from server [E4]	无法从服务器下载 [E4]
+Unexpected error during a server operation	服务器操作发生意外错误
+Wrong Turn Not Player's Turn	回合错误：不是该玩家的回合
+This order requires %d admin points!	此命令需要 %d 行政点！
+Requires %d APs to mobilize this unit !!	动员此部队需要 %d 行政点！！
+Not allowed - requires %d admin points	不允许 - 需要 %d 行政点
+Not enough admin points (%d admin points are required)	行政点不足（需要 %d 行政点）
+Not enough admin points (%d)	行政点不足（%d）
+%s requires maintenance	%s 需要维护
+%.20s requires maintenance	%.20s 需要维护
+Can't build more than %d fort units	要塞部队不能超过 %d 个
+Can't build more than %d "%s" units	不能建造超过 %d 个 "%s" 部队
+  Can't get required amount of aircraft. Num %d Min %d	  无法取得所需数量的飞机。现有 %d 最少 %d
+  Can't get required amount of escorting aircraft. Num %d Min %d	  无法取得所需数量的护航飞机。现有 %d 最少 %d
+Set supply priority to %d for the selected units?	将选定部队的补给优先级设为 %d？
+Delete Victory City (%s) ?	删除胜利城市（%s）？
+Delete '%s' tag?	删除标签 '%s'？
+Enter HEX coordinates:~x: %d - %d, y: %d - %d	输入六角格坐标：~x: %d - %d, y: %d - %d
+Click to set delay.~Unit will arrive: ~%d %.3s %d	点击设置延迟。~部队将于 ~%d %.3s %d 到达
+Click to set delay.~Air group will arrive: ~%d %.3s %d	点击设置延迟。~飞行队将于 ~%d %.3s %d 到达
+Click to set withdraw.~Airgroup will withdraw: ~%d %.3s %d	点击设置撤离。~飞行队将于 ~%d %.3s %d 撤离
+Click to set delay.~Unit will arrive: ~%d %.3s %d (if %s moves first) ~%d %.3s %d (if %s moves second)	点击设置延迟。~部队将于 ~%d %.3s %d（若 %s 先行）~%d %.3s %d（若 %s 后行）
+Click to set delay.~Air group will arrive: ~%d %.3s %d (if %s moves first) ~%d %.3s %d (if %s moves second)	点击设置延迟。~飞行队将于 ~%d %.3s %d（若 %s 先行）~%d %.3s %d（若 %s 后行）
+Click to set withdraw.~Air group will withdraw: ~%d %.3s %d (if %s moves first) ~%d %.3s %d (if %s moves second)	点击设置撤离。~飞行队将于 ~%d %.3s %d 撤离（若 %s 先行）~%d %.3s %d（若 %s 后行）
+Left click on map to set '%s' for '%s'	在地图上左键点击为 '%s' 设置 '%s'
+Left click on map to select '%s' map x , y coordinates	在地图上左键点击选择 '%s' 的地图 x , y 坐标
+Click to set '%s' filters	点击设置 '%s' 的筛选条件
+Click to clear '%s' filters	点击清除 '%s' 的筛选条件
+Click to edit %s	点击编辑 %s
+Set Amphib Prep to %d	两栖准备度设为 %d
+Set Combat Preparation to %d	战斗准备度设为 %d
+Nation %s set as 'surrendered'	国家 %s 已设为「已投降」
+%s %s is destroyed - unable to retreat (%d,%d)	%s %s 被歼灭 - 无法撤退 (%d,%d)
+%s air group failed to transfer to %s	%s 飞行队转移至 %s 失败
+%d units set to transfer to %s	%d 支部队已设为转移至 %s
+%s will be created by a scheduled rename	%s 将由计划中的改名创建
+%s %s in hex %d,%d is no longer frozen	%s %s 在六角格 %d,%d 已不再冻结
+TURN %d. RUN EVENT: %s. Failed probability check.	第 %d 回合。执行事件：%s。未通过概率判定。
+%d x AIRCRAFT set to profile '%s'	%d 架飞机已设为档案 '%s'
+ %s group FAILED to find AOG	 %s 编组未能找到作战群
+Deselect ALL Air Groups	取消选择全部飞行队
+Press 'ENTER' to exit (%d / %d)	按 ENTER 退出（%d / %d）
+Delayed units are ignored	延迟部队被忽略
+Set current and maximum MPs (unit maximum is %d)	设置当前与最大移动力（部队上限为 %d）
+Set Turn (%s)	设置回合（%s）
+Set Delay (%s)	设置延迟（%s）
+Set Turn Expires (%s)	设置回合失效（%s）
+Set cargo ships in %s	设置 %s 中的货船数
+Set troop ships in %s	设置 %s 中的运兵船数
+Click to enter search string	点击输入搜索字符串
+Center Hex %d,%d	居中六角格 %d,%d
+Failed to load scenario	载入剧本失败
+Failed to save temporary file	保存临时文件失败
+Failed to load game '%s'	载入游戏 '%s' 失败
+Can't create folder '%s'	无法创建文件夹 '%s'
+@### ERROR : %s failed to save ###	### 错误：%s 保存失败 ###
+@### Failed to load %s ###	### 载入 %s 失败 ###
+ERROR unable to save %s	错误：无法保存 %s
+ERROR unable to open %s	错误：无法打开 %s
+Ground data - failed intergrity check	地面数据 - 完整性校验失败
+FAILED INTEGRITY CHECK!!! (GetBug Id %d)	完整性校验失败！！！（GetBug Id %d）
+Failed to export. Error# %d	导出失败。错误号 %d
+No city found: %s (%d)	找不到城市：%s (%d)
+@#Error: Duplicated OB entry - %d	#错误：OB 条目重复 - %d
+ERROR unable to read from file %s	错误：无法从文件 %s 读取
+Can't open a file. Error %x	无法打开文件。错误 %x
+Can't open a file. 1 %x	无法打开文件。1 %x
+Can't open a file. 2 %x	无法打开文件。2 %x
+Artillery	炮兵	t
+Art	炮兵	t
+AA	防空	t
+AT	反坦克	t
+Cav	骑兵	t
+Eng	工兵	t
+MG	机枪	t
+Sec	警备	t
+SP Artillery	自行火炮	t
+Bmr	轰炸机	t
+Ftr	战斗机	t
+Mrl	士气	t
+AC	飞机	t
+Inf	步兵	t
+Sup	补给	t
+Man	人力	t
+Veh	车辆	t
+Pop	人口	t
+Pri	优先级	t
+Dmg	损伤	t
+Pil	飞行员	t
+Upg	升级	t
+Rpl	补充	t
+Mis	任务	t
+AD	空中指令	t
+HHQ	上级司令部	t
+HQs	司令部	t
+KIA	阵亡	t
+Rel	可靠	t
+Eff	效能	t
+Pen	穿甲	t
+EXC	优秀	t
+Rng	射程	t
+HELD 	据守 	t
+SHATTERED 	溃散 	t
+RETREATED 	撤退 	t
+CAP	战斗巡逻	t
+A2A	空对空	t
+GND	地面	t
+OPS	作战	t
+Air Base	空军基地	t
+Army HQ	集团军司令部	t
+Army Group HQ	集团军群司令部	t
+Air Directives	空中指令	t
+Air Op Group	航空作战群	t
+Accept Challenge	接受挑战	t
+Brigade	旅	t
+Division	师	t
+Front	方面军	t
+Company	连	t
+Battalion	营	t
+Regiment	团	t
+Mech	机械	t
+Airb	空降	t
+Army	集团军	t
+Crps	军	t
+SPGun	自行炮	t
+MtInf	山地兵	t
+Rckt	火箭	t
+Mort	迫击	t
+AirBase	空军基地	t
+Fort	要塞	t
+AirLnd	空降	t
+Prtsn	游击队	t
+Engineer	工兵	t
+Rocket	火箭	t
+Mortar	迫击炮	t
+Partisan	游击队	t
+REM	移除	t
+HQC	司令部链	t
+OB	编制	t
+Defeats	败绩	t
+Victories	胜绩	t
+SKILL	技能	t
+LOSS	损失	t
+KILL	击杀	t
+DAMD	击伤	t
