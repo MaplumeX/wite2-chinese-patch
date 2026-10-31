@@ -1568,16 +1568,16 @@ Difficulty: CHALLENGING	难度：挑战
 Difficulty: IMPOSSIBLE	难度：不可能
 CHALLENGING	挑战	d
 IMPOSSIBLE	不可能	d
-January	1月
-February	2月
+January	1月	t
+February	2月	t
 April	4月	t
 June	6月	t
 July	7月	t
 August	8月	t
-September	9月
-October	10月
-November	11月
-December	12月
+September	9月	t
+October	10月	t
+November	11月	t
+December	12月	t
 Sept	9月	t
 Axis player:	轴心玩家：
 Soviet player:	苏联玩家：
@@ -2294,7 +2294,7 @@ NATIONALITY	国籍
 HEX NATIONALITY	六角格国籍
 HEX ROAD SYSTEM	六角格道路系统
 HEX TERRAIN	六角格地形
-HEX TILE ART	六角格地块图形
+HEX TILE ART	六角格地块图形	t
 HEXGRID	六角格网格
 RIVER COSTS	河流消耗
 Maj River	大河
@@ -4317,7 +4317,7 @@ Fuel Received	燃料接收
 Resource Store	资源储存
 Resource storage	资源储存
 Resource Production	资源生产	t
-Resource production	资源生产
+Resource production	资源生产	t
 Resource requirements	资源需求
 Resource Stores Req	资源储存需求
 Supply storage	补给储存
@@ -4339,10 +4339,10 @@ Arm. + Vehicles	军备+车辆
 Manpower production	人力生产
 Heavy Industry production	重工业生产
 AFV production	装甲车生产
-Vehicle production	车辆生产
+Vehicle production	车辆生产	t
 U-Boat production	潜艇生产
 V-Weapon production	V型武器生产
-Synthetic Fuel production	合成燃料生产
+Synthetic Fuel production	合成燃料生产	t
 Armamanents production	军备生产
 Production Multipliers	生产倍率
 Production Usage %	生产使用 %
@@ -5380,24 +5380,24 @@ french-canadian	加拿大法语
 french-luxembourg	卢森堡法语
 dutch-belgian	比利时荷兰语
 irish-english	爱尔兰英语
-swedish-finland	芬兰瑞典语
+swedish-finland	芬兰瑞典语	t
 spanish-modern	现代西班牙语
 spanish-peru	秘鲁西班牙语
 spanish-chile	智利西班牙语
 spanish-bolivia	玻利维亚西班牙语
 spanish-ecuador	厄瓜多尔西班牙语
 spanish-mexican	墨西哥西班牙语
-spanish-uruguay	乌拉圭西班牙语
+spanish-uruguay	乌拉圭西班牙语	t
 spanish-colombia	哥伦比亚西班牙语
 spanish-honduras	洪都拉斯西班牙语
 spanish-paraguay	巴拉圭西班牙语
 spanish-argentina	阿根廷西班牙语
 spanish-guatemala	危地马拉西班牙语
 spanish-nicaragua	尼加拉瓜西班牙语
-spanish-venezuela	委内瑞拉西班牙语
+spanish-venezuela	委内瑞拉西班牙语	t
 spanish-costa rica	哥斯达黎加西班牙语
 spanish-el salvador	萨尔瓦多西班牙语
-spanish-puerto rico	波多黎各西班牙语
+spanish-puerto rico	波多黎各西班牙语	t
 spanish-dominican republic	多米尼加西班牙语
 spanish-panama	巴拿马西班牙语
 Rain	降雨	d
@@ -8215,7 +8215,7 @@ Azzurro	蓝色
 Flieger	航空
 Tpt	运输	t
 Ferry	渡运	t
-&	与
+&	与	t
 I/1st Sturm (266th)	I/第1突击（第266）
 I/2nd Sturm (I/20th)	I/第2突击（I/第20）
 II/1st Sturm (497th)	II/第1突击（第497）
@@ -9653,126 +9653,126 @@ N	北	t
 S	南	t
 E	东	t
 W	西	t
-Army Grp. G	Army Grp. G	x
-[major-river extra]	[major-river extra]	x
-Army Group B	Army Group B	x
-Black Sea Fleet	Black Sea Fleet	x
-Army Grp. A	Army Grp. A	x
-Inchiapparo'	Inchiapparo'	x
-Grossdeutschland	Grossdeutschland	x
-No. 6 Group RCAF	No. 6 Group RCAF	x
-Alps Mountain	Alps Mountain	x
-Piazza Naval	Piazza Naval	x
-Feldherrnhalle Nr. 2	Feldherrnhalle Nr. 2	x
-<cr>	<cr>	x
-Italian Luftwaffe Command	Italian Luftwaffe Command	x
-Autotransportabile	Autotransportabile	x
-No. 216 Air Tpt & Ferry Group RAF	No. 216 Air Tpt & Ferry Group RAF	x
-Langemarck SS	Langemarck SS	x
-Army Grp. North	Army Grp. North	x
-LW Kdo South East	LW Kdo South East	x
-Luftflotte 3	Luftflotte 3	x
-Army Grp. H	Army Grp. H	x
-Polizei SS	Polizei SS	x
-FBD 3	FBD 3	x
-Army Grp. C	Army Grp. C	x
-/url	/url	x
-UK Home Forces HQ	UK Home Forces HQ	x
-WMBef. France	WMBef. France	x
-LW Kommando West	LW Kommando West	x
-Army Group Antonescu	Army Group Antonescu	x
-Barcellona'	Barcellona'	x
-Friuli'	Friuli'	x
-Feldherrnhalle Nr. 1	Feldherrnhalle Nr. 1	x
-zbV 66th	zbV 66th	x
-Luftflotte 1	Luftflotte 1	x
 FBD 5	FBD 5	x
-Celere Cavalry	Celere Cavalry	x
-Comiso-Ispica' CCNN	Comiso-Ispica' CCNN	x
-Latvian SS	Latvian SS	x
-MTO	MTO	x
-FBD 1	FBD 1	x
-Colonial Chasseurs	Colonial Chasseurs	x
-Totenkopf SS	Totenkopf SS	x
-Bremen Marine	Bremen Marine	x
-Legnano'	Legnano'	x
-Coastal Air Force	Coastal Air Force	x
-Piceno'	Piceno'	x
-Estonian SS	Estonian SS	x
-Luftflotte 6	Luftflotte 6	x
-Army Group South	Army Group South	x
 Scalabrino'	Scalabrino'	x
-Regia Aeronautica	Regia Aeronautica	x
-Barbarigo'	Barbarigo'	x
-Sud'	Sud'	x
-FBD 2	FBD 2	x
-Cavalleggeri Guide' Cavalry	Cavalleggeri Guide' Cavalry	x
-CSIR Italian Air Bde	CSIR Italian Air Bde	x
-Mediterranean Allied Air Force	Mediterranean Allied Air Force	x
-WMBef. Holland	WMBef. Holland	x
-Engineer Rail Group MTO	Engineer Rail Group MTO	x
-Army Grp. F	Army Grp. F	x
-Hermann Goering	Hermann Goering	x
-Luftflotte 5	Luftflotte 5	x
-Feldherrnhalle	Feldherrnhalle	x
-Carpathian Army Group	Carpathian Army Group	x
-Northern Fleet	Northern Fleet	x
-Nederland SS	Nederland SS	x
 Engineer Rail Group C	Engineer Rail Group C	x
-Coastal OpGr	Coastal OpGr	x
-Engineer Rail Group A	Engineer Rail Group A	x
-Engineer Rail Group B	Engineer Rail Group B	x
-zbV 40th	zbV 40th	x
-AFHQ	AFHQ	x
-Carmito'	Carmito'	x
-OKL	OKL	x
-Neva OpGr	Neva OpGr	x
-[running]	[running]	x
-[game not started]	[game not started]	x
-Army Group G	Army Group G	x
-Alpini	Alpini	x
-Licata-Ravanusa' CCNN	Licata-Ravanusa' CCNN	x
-Army Group E	Army Group E	x
-Wiking SS	Wiking SS	x
-Luftflotte 2	Luftflotte 2	x
-Baltic Fleet	Baltic Fleet	x
-Army Group H	Army Group H	x
-Hummel'	Hummel'	x
-Mantova'	Mantova'	x
-RAF HQ	RAF HQ	x
-OKH	OKH	x
-No. 8 (PFF) Group RAF	No. 8 (PFF) Group RAF	x
-Danzig Marine	Danzig Marine	x
-Army Group North	Army Group North	x
-Chiusa Scalafina'	Chiusa Scalafina'	x
+Luftflotte 3	Luftflotte 3	x
 Cremona'	Cremona'	x
-Army Grp. B	Army Grp. B	x
-url=	url=	x
-Lupo'	Lupo'	x
-Netherlands SS	Netherlands SS	x
-Army Grp. Cent	Army Grp. Cent	x
-Strategic Air Force	Strategic Air Force	x
-Das Reich SS	Das Reich SS	x
-WMBef. Belgium	WMBef. Belgium	x
-Almaco-Partinico' CCNN	Almaco-Partinico' CCNN	x
-OB Southeast	OB Southeast	x
-Army Group Center	Army Group Center	x
-LW Kdo Kirkenes	LW Kdo Kirkenes	x
-Naval 'San Marco'	Naval 'San Marco'	x
-XI LW Flieger	XI LW Flieger	x
-[done]	[done]	x
-Army Grp. South	Army Grp. South	x
-Army Group F	Army Group F	x
-[game over]	[game over]	x
-Army Group C	Army Group C	x
-PsD'	PsD'	x
-FBD 4	FBD 4	x
-zbV 752nd	zbV 752nd	x
+Army Grp. C	Army Grp. C	x
 Rome Defense	Rome Defense	x
-Landstorm Nederland' SS	Landstorm Nederland' SS	x
-Wallonian SS	Wallonian SS	x
-Army Grp. E	Army Grp. E	x
-Folgore'	Folgore'	x
-Luftflotte 4	Luftflotte 4	x
-Meyer'	Meyer'	x
+url=	url=	x
 Desert Air Force	Desert Air Force	x
+Luftflotte 5	Luftflotte 5	x
+Army Group F	Army Group F	x
+[major-river extra]	[major-river extra]	x
+Licata-Ravanusa' CCNN	Licata-Ravanusa' CCNN	x
+Meyer'	Meyer'	x
+Army Grp. H	Army Grp. H	x
+Army Grp. E	Army Grp. E	x
+Strategic Air Force	Strategic Air Force	x
+Luftflotte 2	Luftflotte 2	x
+AFHQ	AFHQ	x
+Langemarck SS	Langemarck SS	x
+Chiusa Scalafina'	Chiusa Scalafina'	x
+Hummel'	Hummel'	x
+Cavalleggeri Guide' Cavalry	Cavalleggeri Guide' Cavalry	x
+Army Grp. South	Army Grp. South	x
+CSIR Italian Air Bde	CSIR Italian Air Bde	x
+Grossdeutschland	Grossdeutschland	x
+XI LW Flieger	XI LW Flieger	x
+FBD 1	FBD 1	x
+Army Group B	Army Group B	x
+/url	/url	x
+Army Grp. F	Army Grp. F	x
+Inchiapparo'	Inchiapparo'	x
+Army Grp. A	Army Grp. A	x
+OKH	OKH	x
+Mediterranean Allied Air Force	Mediterranean Allied Air Force	x
+Army Group H	Army Group H	x
+Army Grp. G	Army Grp. G	x
+Feldherrnhalle Nr. 1	Feldherrnhalle Nr. 1	x
+RAF HQ	RAF HQ	x
+Black Sea Fleet	Black Sea Fleet	x
+FBD 4	FBD 4	x
+Naval 'San Marco'	Naval 'San Marco'	x
+Army Group North	Army Group North	x
+LW Kdo South East	LW Kdo South East	x
+Sud'	Sud'	x
+[running]	[running]	x
+Luftflotte 4	Luftflotte 4	x
+Mantova'	Mantova'	x
+[done]	[done]	x
+Luftflotte 6	Luftflotte 6	x
+MTO	MTO	x
+No. 216 Air Tpt & Ferry Group RAF	No. 216 Air Tpt & Ferry Group RAF	x
+Totenkopf SS	Totenkopf SS	x
+Army Grp. B	Army Grp. B	x
+Legnano'	Legnano'	x
+Feldherrnhalle	Feldherrnhalle	x
+Celere Cavalry	Celere Cavalry	x
+Baltic Fleet	Baltic Fleet	x
+Barbarigo'	Barbarigo'	x
+Wiking SS	Wiking SS	x
+Wallonian SS	Wallonian SS	x
+OKL	OKL	x
+Army Group G	Army Group G	x
+FBD 3	FBD 3	x
+Italian Luftwaffe Command	Italian Luftwaffe Command	x
+No. 6 Group RCAF	No. 6 Group RCAF	x
+zbV 66th	zbV 66th	x
+WMBef. Belgium	WMBef. Belgium	x
+Estonian SS	Estonian SS	x
+Friuli'	Friuli'	x
+Coastal OpGr	Coastal OpGr	x
+Piceno'	Piceno'	x
+Engineer Rail Group A	Engineer Rail Group A	x
+Barcellona'	Barcellona'	x
+Feldherrnhalle Nr. 2	Feldherrnhalle Nr. 2	x
+Army Grp. North	Army Grp. North	x
+Carmito'	Carmito'	x
+Army Group E	Army Group E	x
+Lupo'	Lupo'	x
+Das Reich SS	Das Reich SS	x
+<cr>	<cr>	x
+Engineer Rail Group MTO	Engineer Rail Group MTO	x
+Army Group Center	Army Group Center	x
+Bremen Marine	Bremen Marine	x
+Polizei SS	Polizei SS	x
+WMBef. France	WMBef. France	x
+Netherlands SS	Netherlands SS	x
+Comiso-Ispica' CCNN	Comiso-Ispica' CCNN	x
+PsD'	PsD'	x
+OB Southeast	OB Southeast	x
+UK Home Forces HQ	UK Home Forces HQ	x
+LW Kdo Kirkenes	LW Kdo Kirkenes	x
+Latvian SS	Latvian SS	x
+Hermann Goering	Hermann Goering	x
+Carpathian Army Group	Carpathian Army Group	x
+Piazza Naval	Piazza Naval	x
+Army Group C	Army Group C	x
+LW Kommando West	LW Kommando West	x
+Nederland SS	Nederland SS	x
+Landstorm Nederland' SS	Landstorm Nederland' SS	x
+Alps Mountain	Alps Mountain	x
+zbV 752nd	zbV 752nd	x
+Danzig Marine	Danzig Marine	x
+Army Group South	Army Group South	x
+Autotransportabile	Autotransportabile	x
+Army Group Antonescu	Army Group Antonescu	x
+Coastal Air Force	Coastal Air Force	x
+Alpini	Alpini	x
+[game not started]	[game not started]	x
+WMBef. Holland	WMBef. Holland	x
+Almaco-Partinico' CCNN	Almaco-Partinico' CCNN	x
+No. 8 (PFF) Group RAF	No. 8 (PFF) Group RAF	x
+Army Grp. Cent	Army Grp. Cent	x
+Engineer Rail Group B	Engineer Rail Group B	x
+Luftflotte 1	Luftflotte 1	x
+[game over]	[game over]	x
+FBD 2	FBD 2	x
+Northern Fleet	Northern Fleet	x
+Colonial Chasseurs	Colonial Chasseurs	x
+Folgore'	Folgore'	x
+Neva OpGr	Neva OpGr	x
+zbV 40th	zbV 40th	x
+Regia Aeronautica	Regia Aeronautica	x

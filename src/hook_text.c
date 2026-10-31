@@ -193,7 +193,10 @@ static int g_patched = 0, g_tooLong = 0, g_notFound = 0;
  *
  * 改写明细写到 wite2_patch.txt，崩溃后能对照到底哪条被改了。 */
 static int g_patchRdata = 1;
-static int g_drawHook = 1;   /* 0 = 不装绘制层 hook */
+static int g_drawHook = 1;        /* 0 = 不装绘制层 hook */
+/* 二分用：只改写 .rdata 的 [g_rLo, g_rHi) 偏移区间。 */
+static DWORD g_rLo = 0;
+static DWORD g_rHi = 0xFFFFFFFF;
 static int g_patchData = 1;
 static FILE *g_patLog = NULL;
 
@@ -287,6 +290,8 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
              * 这样终止符位置、后续字段偏移都不变。
              * 曾经在这里 memset 补 0，把定长结构体里紧随其后的
              * 指针字段清掉，游戏按野指针往 +0x3C 写就崩了。 */
+            /* 二分用：只改区间内的串。 */
+            if (secId == 1 && (off < g_rLo || off >= g_rHi)) continue;
             {
                 int q;
                 for (q = 0; q < vlen; q++) p[q] = v[q];
@@ -3133,13 +3138,23 @@ static void patch_early(void)
         if (f) { fclose(f); g_patchRdata = 0; }
         f = fopen("wite2_nodata.ini", "rb");
         if (f) { fclose(f); g_patchData = 0; }
+        f = fopen("wite2_rrange.ini", "rb");
+        if (f) {
+            unsigned lo = 0, hi = 0;
+            if (fscanf(f, "%x %x", &lo, &hi) == 2 && hi > lo) {
+                g_rLo = (DWORD)lo;
+                g_rHi = (DWORD)hi;
+            }
+            fclose(f);
+        }
         f = fopen("wite2_nodraw.ini", "rb");
         if (f) { fclose(f); g_drawHook = 0; }
     }
 
     logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条 (.data 专用 %d 条)\n"
-           "[patch] rdata=%d data=%d draw=%d\n",
-           g_ndic, g_nDataOnly, g_patchRdata, g_patchData, g_drawHook);
+           "[patch] rdata=%d data=%d draw=%d range=%X..%X\n",
+           g_ndic, g_nDataOnly, g_patchRdata, g_patchData, g_drawHook,
+           (unsigned)g_rLo, (unsigned)g_rHi);
 
     HMODULE exe = GetModuleHandleA(NULL);
     if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return; }
