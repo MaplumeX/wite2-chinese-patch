@@ -597,6 +597,9 @@ tools/check_danger.py    检测危险词条（配置键/枚举）
 tools/scen_localize.py   剧本描述汉化（读写 Dat/Scen/*.txt）
 tools/deploy.py          部署到游戏目录（--check / --restore）
 tools/region_report.py   按绘制现场分区（控件 vtable / 字体 / 槽位）
+tools/context_audit.py   绘制现场审计（同行邻居 + 槽位预算 + 状态分类）
+tools/align_spaces.py    按像素宽度重算译文空格（修表格列错位）
+tools/fit_check.py       译文/原文宽度比（找会溢出原位的条目）
 tools/restore_game.py    从备份还原游戏 .dat 和 CSV
 zh_dict.json             翻译源文件（权威数据）
 scen_trans.py            剧本描述翻译表

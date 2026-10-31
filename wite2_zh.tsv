@@ -1846,7 +1846,7 @@ FALSE	假	t
 UNMARK	取消标记	t
 VALID	有效	t
 WITHDRAWAL LIST	撤离列表
-WITHDRAWALS    ARRIVALS    RENAMES 	撤离    抵达    改名 
+WITHDRAWALS    ARRIVALS    RENAMES 	撤离                       抵达             改名           
 Add Pilot	添加飞行员
 Adjustment	调整
 Airborne Prep:	空降准备：
@@ -3374,10 +3374,10 @@ Disband this unit - add component elements to other units in hex.	解散此部�
 Disband this unit ~- return component elements to the replacement pool.	解散此部队~- 将组成部分归还补充储备。
 Is leader available/enabled? Set false to disable (vacates command), true to re-enable.	将领是否可用？设为否将禁用（空出指挥），设为是可重新启用。
  Freight     Received    Used      To Units    Truck Use	 货运        接收        使用        至部队      卡车使用
-                                 TURN        TOTAL	                                 回合        总计
-    TURN        GAME	    回合        游戏
+                                 TURN        TOTAL	                                 回合           总计
+    TURN        GAME	    回合           游戏
      CBT        GHQ        AHQ        ABU        CAA        CON	     作战       地面司令部  空军司令部  航空基地   民航       建设
-    RAIL       PORT	    铁路       港口
+    RAIL       PORT	    铁路        港口
 1000000 (auto)	1000000（自动）
 Axis High 370	轴心最高 370
 None: 0	无：0
@@ -4504,7 +4504,7 @@ Geographic reference nation - no other editable properties.	地理参考国家 -
 Check data tables and (with a scenario loaded) scenario consistency	检查数据表以及（载入剧本后）剧本一致性
 Unit is not rebuilt when destroyed (scenario-wide No Unit Rebuild also forces this)	部队被摧毁后不重建（剧本级「不重建部队」也会强制此设置）
 Gary Grigsby's War In The East 2 Editor	Gary Grigsby 的东线战争 2 编辑器
-    TURN                TOTAL              AIRCRAFT	    回合                总计                飞机
+    TURN                TOTAL              AIRCRAFT	    回合                   总计                  飞机
     TURN                TOTAL              GROUND ELEMENT	    回合                总计                地面单位
 yEAST FRONT FORCES	东线兵力
 [ All Chains ]	 [ 全部指挥链 ]
