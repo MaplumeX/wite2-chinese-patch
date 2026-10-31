@@ -126,6 +126,21 @@ FONT WITE2ZH size -19 : 256 glyphs, 1 pages (512x512), 512 KB atlas
 | hook `0x1B3EB0`（逐字节扩宽） | 全程只 7 次调用，len 468~2MB，是整文件转换 |
 | 扫描堆 + 原地改写 UTF-16 | **崩溃**：游戏用字符串做查找比较，改了导致 NULL |
 | 改 `.rdata` 里的 ASCII 部队名表 | 2903 个名字，改了 53 处零效果 |
+| **`Dat/Save/translation.csv`（官方翻译表）** | **无效，已实测排除，不要再试** |
+
+#### 关于 `translation.csv`（已排除）
+
+exe 里确实有完整的机制：
+
+```
+0x9BB044  'translation.english.csv'      ← 这份文件在游戏目录里不存在
+0x9BB354  'translation.csv'              ← 场景文本紧邻主菜单 UI 字符串
+0x90DF18  'ID,English Key,English Length, Description, max length, Translate?, Translated Text'
+```
+
+`Dat/Save/translation.csv` 也已存在（65 行，ID 5535…6623，全部 `Translate?=Y`），
+但它**不起作用**。不要去折腾它，不要把它当翻译通道，也不要再花时间
+验证怎么让它生效 —— 已经试过了。
 
 **关键教训：绝不能在数据层改字符串。** 游戏内部会拿这些字符串做查找、比较、
 哈希，内容一变就查找失败。
@@ -613,6 +628,463 @@ wite2_zh.tsv             生成的翻译表（部署到游戏目录）
 校对流程.md              校对流程详细说明
 build.bat                构建脚本（编译/资产/验证/部署）
 ```
+
+---
+
+## 静态分析：用交叉引用判断"这条串能不能翻"
+
+`check_danger.py` 那套正则只能看"长得像不像标识符"。真正的判据在二进制里：
+
+> **一条字符串如果被代码或指针表引用，它就是数据（键名/枚举/存档字段）；
+> 哪儿都没被引用，它只可能是 UI 层拿来画的字。**
+
+### 先解决一个坑：`.text` 在磁盘上是密文
+
+`.text` 段磁盘熵 8.000，Ghidra 直接打开只能看到垃圾指令。但运行时内存里
+是明文，`tools/dump_code.c` 已经 dump 过一份（`wite2_text.bin`，长度
+`0x50A983` 与 `.text` 的 `VirtualSize` 完全相等）。
+
+```bash
+python tools/make_decrypted_exe.py      # 把明文 .text 写回 PE
+python tools/make_decrypted_exe.py --check   # 只校验长度对不对
+```
+
+产物 `build/WarInTheEast2.decrypted.exe` 段表、重定位、绑定导入都不动，
+Ghidra 能正常建函数和交叉引用。**只能拿来分析，不能运行**（游戏自己的
+解密步骤会把明文再解一次）。
+
+### 地址体系：README 里的地址是 RVA
+
+这个坑踩过一次，记一下：
+
+| 记号 | 值 | 说明 |
+|---|---|---|
+| README / `hook_text.c` 里的地址 | `0x45CE60` | **RVA** |
+| PE 里的 preferred base | `0x400000` | 静态 VA = base + RVA |
+| Ghidra 里的地址 | `0x85CE60` | `0x400000 + 0x45CE60` |
+| 运行时日志 `[dt] hooked at` | `0x00C5CE60` | 实际基址是 `0x800000`（ASLR） |
+
+三者能对上：`0x85CE60` 处字节是 `83 EC 38 56 8B F1`，正是绘制函数的序言，
+`0x85CF20` 是 `mov ebx, [esp+0x50]`。**查 Ghidra 时地址要加 `0x400000`。**
+
+### 引用风险核查
+
+```bash
+python tools/refcheck.py --csv build/risk.csv    # 秒级，不需要 Ghidra
+python tools/refcheck.py --risky                 # 只看高危
+```
+
+判据分三档，从硬到软：
+
+| 级别 | 证据 |
+|---|---|
+| `critical` | `.text` 里出现它的地址，且前面是 `68`/`B8+`/`C7 05` 这类真的当地址用的 opcode |
+| `high` | `.data` 里有 dword 指向它（全局表持有 → 键名/枚举/存档字段） |
+| `medium` | `.rdata` 里有 dword 指向它（只读表持有，多数是显示用） |
+| `low` | 没有任何引用 → 纯显示文本 |
+| `absent` | `.rdata` 里根本没有，说明只在 `.data` 段或数据文件里 |
+
+`critical` 一定要排除 `E8`/`E9`（`call`/`jmp` 的 rel32）：5 字节 call 的后 4 字节
+经常恰好拼出一个落在 `.rdata` 里的数，不排除会报 16 条全假阳性。
+
+当前词表 5912 条的分布：
+
+```
+medium      39     .rdata 指针指向
+low       4979     零引用 —— UI 菜单/按钮/提示，放心翻
+absent     892     .rdata 里没有这条（.data 段或数据文件）
+high         2
+critical     0
+```
+
+那 39 条 medium 里混着 `Save version`、`map hex data`、`hex control`、
+`SET TO`、`ADD`、`SUBTRACT` 这类**存档段名和编辑器公式操作符**，
+是真正要逐条复核的部分——它们被 `.data` 的指针表持有。
+
+> 误报率量级：`.data` 只有 356 KB，而目标区间 `[0x90C000, 0xA25000)` 占
+> 4 GB 地址空间的 0.026%，约 23 个随机 dword 会"碰巧"落进去。所以
+> `high`/`medium` 应当作**人工复核清单**，不是自动删除依据；`low`
+> （零引用）才是可以放心批量翻的部分。
+
+### 一个反直觉的结论
+
+菜单文本（`Game Options`、`Load Saved Game`、`HOT KEYS` …）在 `.text` 里
+**一处立即数引用都没有**，`.rdata`/`.data` 里也没有指针指向它们。
+扫描 `.text` 得到的 9402 个指向 `.rdata` 的立即数里，一个都不落在这些串上。
+
+这解释了为什么"扫描堆 + 原地改写"会崩：游戏不是靠 `strcmp(字面量)` 找这些串的，
+而是启动时按某种池化/映射方式把它们装进运行时结构。所以只能改**磁盘上的
+源文件**（启动前），不能在运行时改堆上的副本。
+
+### `.dat` 是不是自研加密
+
+用 Ghidra 复核了加载链（地址是 RVA）：
+
+```
+0x1BA400  dat 对象 Load()          memset(_Dst,0,0x404) → fopen → fread(0x404)
+0x1BB750  .dat 加载分发器
+0x45F5F0  fopen 转发 → 0x85F280
+0x45EB80  fread（内含 zlib gzread 风格的缓冲/inflate 分支）
+```
+
+`.dat` 文件头 10 字节在所有文件里完全相同，第 11 字节起才分叉：
+
+```
+w_unit.dat    10 95 ff f9 e0 33 b4 f1 9e 79 ed b3 ae 71 df aa
+w_ground.dat  10 95 ff f9 e0 33 b4 f1 9e 79 ed 93 ae 6d de ba
+```
+
+这正是"固定密钥流 + 相同明文前缀"的特征（明文头 `_2by3 WITE2_` 前 10 字节
+所有文件都一样）。熵 7.912，zlib/gzip/raw-deflate 从偏移 0..79 逐个试都解不开。
+**离线解密仍然不通**，README 里"部队名不翻"的取舍继续成立。
+
+### 一个必须挡住的坑：存档段名表
+
+`.rdata` 里 `0x9A41B0` 起有一张 **65 项指针表**，指向存档文件的数据块名：
+
+```
+save version / map hex data / sevices / aircraft / ground elements /
+toe(ob) / leaders / ground types / nations / locations / units /
+air groups / planes / pilots / flights / pools (ground) / pools (air) /
+hex control / battles data / factory data / game events / loadmap / withdraw
+```
+
+证据链：
+
+| 观察 | 方法 |
+|---|---|
+| 65 项里有 65 项带 `reloc type=3`（HIGHLOW）→ **真的是指针表**，加载时会被修正 | 解析 `.reloc` 块（注意 `TypeOffset` 低 12 位才是页内偏移）|
+| `.text`/`.rdata`/`.data` 里**没有任何地方**存着 `0x9A41B0` 这个地址 | 全 102 MB 内存字节扫描 + Ghidra `xrefs`，两种方法结果一致 |
+| 存档 `.sav` 前 11 字节 `10 95 FF F9 E0 33 B4 F1 9E 79 ED` 与 `GenData/*.dat` 完全相同 | 直接读文件头 |
+
+**静态不可达，但 `reloc` 存在 —— 所以不能断定运行时不用。**
+
+这张表曾把玩家存档搞坏过一次。原来的词典收录了其中 57 条，实际改写了 44 条：
+
+```
+save version  → 存档版本        hex control   → 六角格控制
+map hex data  → 地图六角格数据    factory data  → 工厂数据
+loadmap       → 载入地图         button states → 按钮状态
+```
+
+为什么必须排除：
+
+- **零收益** —— 这些是存档内部标签，玩家界面上永远看不到。
+- **风险明确** —— 如果它们参与存档读写，新档自洽（写读同一张表），
+  但**所有旧存档全部失效**，多人对战交换存档也会出问题。
+- 和地形枚举（`WATER`/`RIVER`）、配置键名（`SoundFx`）同类，
+  归入“数据层，绝不翻译”。
+
+```bash
+python tools/save_sections.py           # 列表 + 对比词典
+python tools/save_sections.py --fix     # 从 zh_dict.json 删除
+```
+
+工具是**自动定位**的（扫 `.rdata` 找“连续 ≥20 项指向小写标识符串”的最长指针表），
+不硬编码地址，游戏更新后仍能跑。
+
+> 坐标陷阱：表里存的是 **VA**（`0x9A4824`），段表给的是 **RVA**。
+> 转文件偏移必须 `file_offset + (va - image_base - rva)`，
+> 写成 `file_offset + (va - rva)` 会多算一个 `image_base`，扫出来空表。
+
+### 三个真实 bug（这轮逆向才暴露的）
+
+#### 1. 格式串剪枝把**所有单数字**都杀了
+
+`dt_check_body` 的格式串循环前面有这么一行：
+
+```c
+if (e->klen > len) continue;   /* “模板至少比实例长” */
+```
+
+这个假设是错的。`%d` 占 2 个字符，但最小只输出 **1 位数字**：
+
+```
+key  "%d turns"   klen = 8
+text "3 turns"    len  = 7      ← 8 > 7，被剪掉
+```
+
+后果是 `Turn 5`、`3 HQs`、`3 turns` 这类**从来没被翻译过**，而 `12 turns`
+正常 —— 一个很难注意到的“有时好有时不好”。
+
+修法：按占位符的**最小宽度**算（`fmt_minlen()`），`%d` 计 1、`%s` 计 0、
+`%20s` 计 20、`%%` 计 1。`tools/test_match.py` 里加了 4 条回归用例。
+
+#### 2. 词典里 8 条 `#` 开头的条目被当成注释丢掉
+
+TSV 的第一行就是 `# WITE2 中英对照表…`，加载器用 `line[0]=='#'`
+跳过注释。于是 `### ERROR : game failed to save ###`、`# of Engines:`
+这些**真条目**被静默丢弃，从来没生效过。
+
+#### 3. 含制表符的条目会把 TSV 列结构搞坏
+
+选项说明那几段长文本（两栖登陆规则 / 将领死亡 / 战斗迟滞 / 战役结束条件）
+用制表符做缩进对齐。TSV 恰好用 TAB 当分隔符 —— 一条带 TAB 的 key
+会把整行解析偏位。
+
+**统一解法：`@` 转义行。** 以 `@` 开头，后跟转义过的 key + 真 TAB + 转义过的译文：
+
+```
+@### ERROR : game failed to save ###	### 错误：游戏保存失败 ###
+@# of Engines:	发动机数量：
+@STANDARD - ...~\t\t\t~LIMITED - ...	标准 - ...~\t\t\t~有限 - ...
+```
+
+转义规则：`\t` = TAB，`\n` = LF，`\\` = 反斜杠。key 和译文都要转义。
+C 侧在 `dict_load` 里处理，`tools/verify_tsv_load.py` 是对应的验证器。
+
+> 顺带修掉了 `build_assets.py` 里 `str(v).startswith("----")` 的过滤：
+> 它会把「---- 轴心 ----」这种**真译文**一起滤掉。真正的占位标记是
+> 恰好 4 个短横，而那些本来就是 `_` 开头的分区标题。
+
+### 字符串清单：不要手写扫描器
+
+`.rdata` 里 ASCII 串和 UTF-16 串**混排**，ASCII 的单字节 `\0` 会改变
+UTF-16 的对齐。手写的字节扫描器会产出这种假串：
+
+```
+'South Paris' + '\0' + 'Create Depot Here ?'
+   → 错位读成 'sCreate Depot Here ?'
+```
+
+所以现在用两路合并（`tools/string_inventory.py`）：
+
+| 来源 | 条数 | 盲区 |
+|---|---|---|
+| Ghidra `list_strings` | 17864 | 只列**已定义**的 string Data，`'Export to CSV?'` 这种未识别的不在内 |
+| 严格自扫描 | 18570 | 只接受前两字节为 `00 00` 的起点，会漏紧跟 ASCII 串的 UTF-16 |
+| **合并去重** | **12782** | — |
+
+Ghidra 那份导出要持久化，否则每次都要重跑分析（MCP 直连会超 10 MB 响应预算）：
+
+```bash
+rea search build/WarInTheEast2.decrypted.exe \
+    --kind strings --mode regex --pattern "." --provider ghidra --format json \
+    > build/rea/allstrings.json
+```
+
+### 覆盖率与缺口
+
+```bash
+python tools/coverage_report.py --gaps build/rea/gaps.csv   # 权威口径
+python tools/coverage_report.py --show 20                   # 看缺口样例
+```
+
+以权威清单 12782 条为分母：
+
+```
+覆盖   5360  (41.9%)      缺口   6787  (53.1%)      数字/布局  635
+```
+
+缺口按用途分桶，**只有前两类值得动手**：
+
+| 桶 | 条数 | 要不要翻 |
+|---|---|---|
+| `dialog` | **0** | ✅ 已全部补完（75 条）|
+| `other` | 3644 | 大部分是部队番号（`JG`/`SG`/`Corps`/`OB West`）和 HTTP 令牌，按约定不翻 |
+| `fmt` | 1327 | 多是引擎日志（`Screen size %d x %d`、`GPU %s`、`engine.log`）|
+| `path` | 541 | 资源路径 |
+| `editor_input` | 490 | 编辑器输入提示 |
+| `ident` / `enum` | 599 | 键名、枚举 |
+| `log` / `editor_check` | 186 | 日志 |
+
+### 补完的那 75 条对话框
+
+`tools/add_dialogs.py`，玩家可见的多行提示：
+
+```
+Build Fortified Region?~Current Units - %d  Limit - %d ~Cost - %d Admin Points
+Ends at Start of Turn %d   OR   if SOVIET Player Captures All VP Objectives
+Select this leader~ ~%s~%s %s~ ~Political:  %d~Morale:   %d~Initiative:   %d
+Click to set withdraw.~Air group will withdraw: ~%d %.3s %d (if %s moves first)
+Motorize Unit? ~ ~ Cost - %d AP, %d trucks
+Set loadout to all~%s in~%s air directive?
+```
+
+约束（任何一条不满足就不加）：
+
+1. `~` 数量必须一致 —— 它是游戏内的换行符
+2. `%d` `%s` `%u` `%%` 的**数量和顺序**必须一致（`fmt_match` 按位置回填）
+3. `____________` 下划线是列对齐填充，原样保留
+4. `<img %d>` / `<scl 50>` 是标记语言，不能动
+
+带制表符的大段不手写：按 `~` 切段，**只替换文字、制表符原样拼回**，
+避免数错缩进。
+
+### 被埋很久的一批：游戏内可见消息
+
+`other` 桶一直是垃圾桶，把四类完全不同的东西倒在一起：
+
+| 类 | 条数 | 要不要翻 |
+|---|---|---|
+| `token` | 4070 | 符号碎片、格式常量（`0x` `th` `st` `rb` `PM`）|
+| `misc` | 1497 | 库内部碎片（`="` `=;` `>>`）|
+| `unit` | 694 | 部队番号 |
+| **`ui_msg`** | **618** | ← 这里藏着真东西 |
+| `person` | 249 | 将领姓名 |
+| `lib` | 244 | zlib / WinHTTP / CRT errno |
+| `editor_tag` | 50 | `<add unit>` `<Set Date>` |
+
+`ui_msg` 再拆：剔除引擎日志后 520 条，其中编辑器输入提示 365 条，
+剩 **155 条像是游戏内可见**；人工过一遍，剩 **72 条**玩家真能看到。
+
+这 72 条共同的特征：**全是 `.rdata` 里的 ASCII 字符串，不是 UTF-16**。
+之前所有扫描器只扫 UTF-16，所以它们从来没进过候选清单：
+
+```
+.rdata 里  UTF-16 串 9947 条   ASCII 串 2826 条
+```
+
+```bash
+python tools/triage_other.py --csv build/rea/other.csv   # 自动分桶
+python tools/curate_ingame.py                            # 人工策展结果
+python tools/add_ingame_msgs.py                          # 写入词典
+```
+
+典型条目：
+
+```
+Unable to contact server! / Can't play this game! / Wrong Turn Not Player's Turn
+This order requires %d admin points! / Can't build more than %d fort units
+Click to set delay.~Unit will arrive: ~%d %.3s %d
+Set supply priority to %d for the selected units?
+Failed to save temporary file / Ground data - failed intergrity check
+```
+
+### 消息框要单独钩
+
+这 72 条里有一部分**不走绘制层**：
+
+```
+导入表:  MessageBoxA  YES (IAT 0x90C350)      MessageBoxW  NO
+绘制钩:  只钩 0x85CE60（参数 wchar_t*）
+```
+
+`MessageBoxA` 收 **ANSI** 字符串，和 `wchar_t*` 是两条路，加再多词条也
+不会生效。所以另开一个导入表钩子：
+
+```
+MessageBoxA → CP_ACP → 查词 → UTF-16 → 改用 MessageBoxW 弹
+MessageBoxW → 直接过 dt_check_body（和绘制层同一套匹配）
+```
+
+#### 两个踩过的坑
+
+**1. `MessageBoxW` 没被导入。** 这个 exe 的 USER32 静态导入表有 41 个
+函数，包括 `MessageBoxA`，但**没有 `MessageBoxW`**。直接用
+`g_origMsgBoxW` 永远是 NULL，中文发不出去，只能退化成原文。所以改成
+惰性解析：
+
+```c
+static pMessageBoxW resolve_msgbox_w(void)
+{
+    HMODULE u = GetModuleHandleA("user32.dll");
+    if (!u) u = LoadLibraryA("user32.dll");
+    return (pMessageBoxW)GetProcAddress(u, "MessageBoxW");
+}
+```
+
+user32 已因其他导入项加载，不增加新依赖。
+
+**2. A 版是 ANSI 不是 UTF-8。** 一开始用 `CP_UTF8` 解码 `MessageBoxA`
+的 `text`。报错文案都是纯 ASCII，两者恰好一样所以没暴露；但带重音字符
+的文本（地名、将领名）会解码失败。改成 `CP_ACP`。
+
+日志会写：
+
+```
+[msgbox] MessageBoxA=hooked MessageBoxW=not-imported (W 走 GetProcAddress 惰性解析)
+```
+
+关掉的方式：游戏目录放 `wite2_nomsgbox.ini`。
+
+### 被排除规则误杀的界面标签
+
+玩家报告：“部队详情里支援单位那列，`Artillery` 是英文，但防空那条
+（`Anti-Aircraft`）是中文”。`Artillery` 在 `.rdata` 0x932B10，就在那张
+编制类型表里，但从来没进过待翻清单。
+
+两个原因：
+
+**1. `inventory.py` 把它当“配置键名”挡掉了**
+
+```python
+BLOCK_EXACT = { …, "Art", "Bmr", "Ftr", "KILL", "LOSS", "DAMD", … }
+BLOCK_PATTERNS = [(r"^[A-Z]{2,}\d*$", "全大写代号"), …]
+```
+
+但那些是 **`.data` 里的配置键名**；`.rdata` 里的同名串是**显示标签**，
+两回事。同一短语可能两边各一份，改错一边就坏。
+
+**2. `short_class()` 只看 ≤6 字符**
+
+```python
+return len(k) <= 6      # 超过 6 就默认走原地改写
+```
+
+`Art`(3) `AA`(2) `Mrl`(3) 会自动走绘制层，但 `Artillery`(9)
+`Air Base`(8) `SP Artillery`(12) 不会 —— 它们会被原地改写。
+
+### 为什么这批必须走绘制层
+
+实测字节出现次数（要求前后 NUL）：
+
+```
+'Artillery'   .rdata 6 处 UTF-16 + 7 处 ASCII    .data 2 处 ASCII
+'Air Base'    .rdata 11 处 UTF-16 + 28 处 ASCII
+'AA'          .rdata 1 处
+'Mrl'         .rdata 4 处
+'AC'          .rdata 3 处 + 1 处 ASCII
+```
+
+`patch_section` 是**按段全扫精确匹配**，会改掉该段里**所有**副本。
+多副本说明可能有枚举/查找用途，改了是静默破坏。所以这批全部走
+绘制层（TSV 第三列 `t`）：只在那一次绘制调用里换指针，
+**不动任何内存字节**。
+
+安全性核查（`build/rea/probe_safety.py`）：
+
+```
+文本             副本   代码   rd指针  data指针  判定
+'Artillery'     13    0     3      2       ⚠ 只绘图
+'AA'             1    0     1      0       ✅
+'Mrl'            4    0     0      0       ⚠ 只绘图
+'AC'             7    0     0      0       ⚠ 只绘图
+```
+
+**“代码”列全 0** —— 没有任何一处被 `.text` 立即数直接引用，
+所以不存在 `strcmp` 依赖（对比：`WATER`/`RIVER` 那些有）。
+
+### 补了两批，共 77 条
+
+```bash
+python tools/add_unit_labels.py      # 第一批 46 条
+python tools/add_unit_labels2.py     # 第二批 31 条
+```
+
+覆盖的完整表结构（`.rdata` 连续布局，UTF-16）：
+
+| 地址 | 内容 |
+|---|---|
+| `0x9328FC-0x93297C` | 编制规模 `Brigade/Division/Front/Company/Battalion/Regiment` |
+| `0x93297C-0x932AA0` | 兵种缩写 `Mech/Cav/Airb/Mot/Crps/SPGun/MtInf/Rckt/Mort/…` |
+| `0x932AAC-0x932C98` | 兵种全称 `Infantry/Motorized/Mechanized/Armored/…` |
+| `0x932D88-0x932FD0` | 编制操作 `Refit/Set MAX TOE percent/HQ Chain/…` |
+| `0x932144-0x932178` | 将领属性 `Def/Defeats/Vic/Victories/HQ Types` |
+| `0x92D0C8-0x92D154` | 飞行队统计 `SKILL/LOSS/KILL/DAMD/…` |
+| `0x92E790-0x9326D8` | 指挥官报告列头 `Bmr/Ftr/Mrl/AC/Inf/Sup/Man/Veh/…` |
+
+### 缩写必须跟全称一致
+
+补的过程中抓到 2 处不一致：
+
+```
+'Sec'    → 治安     但 'Security'    → 警备     ← 同一概念两种译法
+'AirLnd' → 空降着陆  但 'Air Landing' → 空降
+```
+
+已全部对齐（`Sec`→警备、`AirLnd`→空降），`add_unit_labels2.py` 里
+加了一致性检查表，以后加新缩写会报冲突而不静默采用。
 
 ---
 
