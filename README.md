@@ -622,7 +622,16 @@ tools/context_audit.py   绘制现场审计（同行邻居 + 槽位预算 + 状�
 tools/align_spaces.py    按像素宽度重算译文空格（修表格列错位）
 tools/fit_check.py       译文/原文宽度比（找会溢出原位的条目）
 tools/restore_game.py    从备份还原游戏 .dat 和 CSV
+tools/dat_crypto.py      .dat 解包/重打包（RC4+MD5 密钥 + gzip）
+tools/dat_patch.py       .dat 等长替换改字（含备份/回退）
+tools/dat_scan.py        扫 .dat 明文里的 UTF-16 字符串
+tools/add_unit_labels*.py 部队详情/指挥官报告标签（四批）
+tools/fix_case_drift.py  修同一词大小写变体的译文漂移
+tools/save_sections.py   存档段名表定位（这些不能翻）
+tools/coverage_report.py 覆盖率权威口径
+tools/refcheck.py        按二进制引用情况判定条目能不能原地改
 zh_dict.json             翻译源文件（权威数据）
+dat_trans/*.json         .dat 数据层翻译映射（原文 -> 译文）
 scen_trans.py            剧本描述翻译表
 wite2_zh.tsv             生成的翻译表（部署到游戏目录）
 校对流程.md              校对流程详细说明
@@ -716,9 +725,11 @@ critical     0
 而是启动时按某种池化/映射方式把它们装进运行时结构。所以只能改**磁盘上的
 源文件**（启动前），不能在运行时改堆上的副本。
 
-### `.dat` 是不是自研加密
+### `.dat` 解密：已解决（RC4 + gzip）
 
-用 Ghidra 复核了加载链（地址是 RVA）：
+#### 之前的错误结论
+
+用 Ghidra 复核加载链（地址是 RVA）：
 
 ```
 0x1BA400  dat 对象 Load()          memset(_Dst,0,0x404) → fopen → fread(0x404)
@@ -734,9 +745,128 @@ w_unit.dat    10 95 ff f9 e0 33 b4 f1 9e 79 ed b3 ae 71 df aa
 w_ground.dat  10 95 ff f9 e0 33 b4 f1 9e 79 ed 93 ae 6d de ba
 ```
 
-这正是"固定密钥流 + 相同明文前缀"的特征（明文头 `_2by3 WITE2_` 前 10 字节
-所有文件都一样）。熵 7.912，zlib/gzip/raw-deflate 从偏移 0..79 逐个试都解不开。
-**离线解密仍然不通**，README 里"部队名不翻"的取舍继续成立。
+我当时判定这是"固定密钥流 + 相同明文前缀"，然后从偏移 0..79 逐个试
+zlib/gzip/raw-deflate 全部失败，于是写下"离线解密不通"。
+
+**这个结论是错的。** 真正的格式就在那里，只是我一直在解**密文**，
+而不是先解密再解压。
+
+#### 真正的格式
+
+来自 [33arc/WiTXtool](https://github.com/33arc/WiTXtool) 的源码
+（`src/crypto.c` + `src/compress.c`，MIT 级小工具，密码字面量直接写在里面）：
+
+```
+密文  = RC4( MD5("W17VVI$G0ODG4M3") , gzip( 明文 ) )
+```
+
+也就是说**整个文件**先 gzip 压缩，再整体 RC4 加密。没有头部、没有分段、
+没有长度字段。三行 Python 就能解开：
+
+```python
+key  = hashlib.md5(b"W17VVI$G0ODG4M3").digest()
+blob = rc4(key, open("w_gameEvent.dat", "rb").read())
+plain = zlib.decompress(blob, 31)      # 31 = 15+16 = gzip
+```
+
+解出来的头部：
+
+```
+5f 32 62 79 33 20 57 49 54 45 32 5f 53 46   _2by3 WITE2_SF
+```
+
+之前"熵 7.912 / 没有 zlib 头 / 46133 不是 16 的倍数"这些现象全部有了解释：
+RC4 是流密码，按字节异或，长度不必是块大小的倍数；而 gzip 魔数
+`1f 8b` 只存在于**解密之后**。
+
+工具：`tools/dat_crypto.py`
+
+```bash
+python tools/dat_crypto.py list           # 20 个 .dat 全部可解
+python tools/dat_crypto.py extract-all    # 52 MB 明文 -> build/dat/
+python tools/dat_crypto.py verify         # 往返自检，20/20 通过
+```
+
+往返自检的判据是"解密 → 重新压缩加密 → 再解密，明文逐字节一致"。
+密文不会逐字节一致（压缩器版本差异），但游戏只看明文。
+
+#### 明文里是什么
+
+| 文件 | 明文 | UTF-16 串 | 内容 |
+|---|---|---|---|
+| `w_gameEvent.dat` | 239 KB | 6343 | 329 个事件的标题 + 正文 |
+| `w_unit.dat` | 12 MB | 3193 | 部队定义 |
+| `w_ground.dat` | 935 KB | 1553 | 地面单位编制 |
+| `w_maptext.dat` | 98 KB | 5521 | 地图文字 |
+| 合计 | **52 MB** | **27844** | |
+
+而且明文和 `Dat/CSV/*.csv` **内容一致**：把事件区实际绘制的 58 个词
+和 `GameEvents.csv` 比对，57 个能对上（剩下一个是 `invasion.` 带句号）。
+
+这同时证实了另一件事：`.dat` 才是运行时数据源，CSV 只是编辑器的
+导入/导出格式。以前只能靠 CSV 反推内容，现在可以直接读 `.dat`。
+
+#### 用等长替换改 `.dat`
+
+明文里字符串是**长度前缀**结构：
+
+```
+0x47E  44 00 9b 0c        <- 某字段
+0x486  06 00 00 00        <- 长度 6
+0x48A  "Situation Report" (UTF-16, 16 字符)
+0x4AA  f6 05 00 00        <- 长度 1526
+0x4AE  "<cr>On the 22nd of June 1941, ..." (1526 字符)
+```
+
+改长度会移动后面所有字节，而文件里还有记录偏移/计数字段，一移就可能
+整体错位。所以 `tools/dat_patch.py` 只做**等长替换**：
+
+```
+译文 + 空格补齐到原字符数
+```
+
+中文一个字就是一个 UTF-16 码元，通常远比英文短，补空格绰绰有余。
+文件字节数、所有偏移、所有长度前缀全不变。补空格而不是补别的，
+是因为游戏按空格分词排版，尾部空格会被正常吸收。
+
+```bash
+echo '{"Situation Report": "战况报告"}' > dat_trans/w_gameEvent.json
+python tools/dat_patch.py --dry-run --verbose w_gameEvent
+python tools/dat_patch.py --deploy w_gameEvent
+python tools/dat_patch.py --restore w_gameEvent     # 回退
+```
+
+首次修改前自动把原始密文备份到 `build/dat_orig/`。
+
+#### 为什么这条通道重要
+
+事件正文在绘制层是**逐词绘制**的。实测 `wite2_regions.tsv`：
+
+```
+y=800 x=770  'front '        y=802 x=702  'meant '
+y=802 x=759  'to '           y=802 x=781  'serve '
+y=802 x=830  'as '          y=802 x=852  'a '
+y=802 x=866  'spearhead '   y=802 x=957  'to '
+y=802 x=979  'the '         y=802 x=1011 'Soviet '   <- 被翻了
+y=802 x=1067 'counteroffensive '
+```
+
+一句话被切成 20 多个 draw call，每个单词一次。于是词典里只要有
+`Soviet`→苏联，就会得到 `the invasion of the 苏联 Union began`。
+
+**这不是绘制层能修的**：钩子拿到的永远是单个词，永远看不到整句。
+而 `.dat` 里存的是**整句**。所以在数据层改，一次替换整句，
+不可能出现半中半英。
+
+#### 数据层的风险（必须守住）
+
+`.dat` 里的字符串**不只用于显示**，也可能被拿去做查找/比较/哈希。
+改之前必须确认目标串是纯显示用途。当前策略：
+
+* 只改**等长**，结构偏移零变化
+* 每条改动先 `--dry-run --verbose` 看清楚命中位置
+* `build/dat_orig/` 保留原密文，`--restore` 一条命令回退
+* 地名 / 部队番号 / 将领名按项目约定不动
 
 ### 一个必须挡住的坑：存档段名表
 
@@ -1175,6 +1305,82 @@ BLUE 蓝 / RED 红 / white 白       短译供窄网格          ← 宽度受�
 
 前 7 组已由 `tools/fix_case_drift.py` 统一，后 6 组连同理由记在
 `_caseDriftKept` 里，防止以后被“好心”统一掉。
+
+#### 一个更严重的同类问题：逐词绘制
+
+玩家看到事件报告里写着：
+
+```
+the invasion of the 苏联 Union began
+```
+
+原因不是词典错，而是**游戏把一句话拆成单词逐个绘制**。实测
+`wite2_regions.tsv` 里同一行的绘制记录：
+
+```
+y=802 x=702  'meant '      y=802 x=759  'to '
+y=802 x=781  'serve '      y=802 x=830  'as '
+y=802 x=852  'a '          y=802 x=866  'spearhead '
+y=802 x=957  'to '         y=802 x=979  'the '
+y=802 x=1011 'Soviet '     <- 只有这个词进了词典
+y=802 x=1067 'counteroffensive '
+```
+
+拼接起来是 `...meant to serve as a spearhead to the Soviet counteroffensive...`。
+58 个词块，每个一次 draw call，`# ret` / `this_vt` 全是同一个常量。
+
+验证方法：把整句喂给 `build/selftest.exe`（真实 C 匹配器）：
+
+```
+$ printf 'the invasion of the Soviet Union began\n' | ./build/selftest.exe
+the invasion of the Soviet Union began    ...    UNMATCHED
+```
+
+整句 **UNMATCHED，原样返回**。也就是说匹配器行为正确 ——
+它确实从没看到过整句。
+
+这类问题**绘制层无解**：钩子拿到的永远是单个词。唯一的解法是在
+数据层改（见上面 `.dat` 一节），因为 `.dat` 里存的是整句。
+
+#### 缩写与全称的交错规律
+
+补 `SPri` 时发现了一个可以批量利用的结构。`.rdata` 里缩写和它的全称
+**严格交错**存放：
+
+```
+0x9332B8 'SPri'      0x9333C8 'Supply Percentage'
+0x9332E4 'WDest'     0x9332F0 'Withdraw Destination'
+0x933344 'TtOB'      0x933350 'Turns to OB change'
+0x9335D8 'AmmoR'     0x9335E4 'Ammo Received'
+0x93369C 'VehN'      0x93360C 'Vehicles Need'
+0x9336D0 'SupCons'   0x9336E0 'Supply Consumed'
+0x933720 'HQPen'     0x93372C 'HQ Admin Roll Penalty'
+```
+
+所以后缀含义可以直接读出来，不用猜：
+
+```
+R = Received 接收    N = Need 需求
+% = Percentage 百分比    Cons = Consumed 消耗
+```
+
+之前漏掉是因为：这些串是 2–7 个字符的**混合大小写**，既没空格也不是
+全大写，`inventory.py` 的排除规则和 `short_class()` 的长度判断都没覆盖。
+第四批（`tools/add_unit_labels4.py`）补了 25 条。
+
+#### 仍然故意不翻的
+
+`zh_dict.json` 的 `_ambiguous` 元数据里记录了这些，附地址和原因：
+
+```
+APri     0x92F534  邻居 Follow HQ/Airbase/Mission Settings；
+                  可能是 Assets Priority 或 Airbase Priority，两者译法不同
+Naval    0x92ECBC  既是「海军状态」缩写也是国家名，需分上下文
+Major    0x9A28C4  地图编辑器「主要河流」，非军衔
+Private  0x9DF3B4  PBEM JSON 字段名，非军衔
+```
+
+宁可留英文，也不猜。
 
 #### 为什么暂时不加入上下文参数
 
