@@ -2146,9 +2146,21 @@ static int g_openLog = 0, g_openCount = 0;
 
 static void log_open(const char *path)
 {
-    if (!g_openLog || g_openCount > 400) return;
-    g_openCount++;
-    logfmt("[open] %s\n", path);
+    int isGenData = 0;
+    const char *q;
+    size_t n;
+    if (!g_openLog) return;
+    /* GenData 下的文件**不受配额限制**：它们才是我们关心的。
+     * 之前 400 条上限被剧本/列表文件吃满，.dat 的打开记录全丢了。 */
+    n = strlen(path);
+    for (q = path; q + 7 <= path + n; q++) {
+        if (_strnicmp(q, "gendata", 7) == 0) { isGenData = 1; break; }
+    }
+    if (!isGenData) {
+        if (g_openCount > 2000) return;
+        g_openCount++;
+    }
+    logfmt("[open]%s %s\n", isGenData ? " *" : "", path);
 }
 
 static HANDLE WINAPI hook_CreateFileA(LPCSTR name, DWORD access, DWORD share,
@@ -2251,6 +2263,25 @@ static int install_dat_hooks(HMODULE exe)
     logfmt("[dat] CreateFileA=%s CreateFileW=%s，映射 %d 条\n",
            hookedA ? "hooked" : "-", hookedW ? "hooked" : "-",
            dat_map_count());
+
+    /* 启动自检：在游戏进程里直接把目标 .dat 跑一遍完整链路
+     * （读文件 -> RC4 -> inflate -> 查表替换 -> 重新打包）。
+     *
+     * 为什么要这个：钩子装好不等于会命中 —— 游戏什么时候打开哪个 .dat
+     * 是它自己的事。有了自检，"没翻译"能立刻分清是
+     *   (a) 链路本身坏了，还是
+     *   (b) 游戏压根没打开这个文件。
+     * 只在开了 openlog 时做，正常游玩零开销。 */
+    if (g_openLog) {
+        char *t = dat_materialize("Dat\\GenData\\w_gameEvent.dat");
+        if (t) {
+            logfmt("[dat] 自检 OK：链路可用，临时文件 %s\n", t);
+            remove(t);
+            free(t);
+        } else {
+            logfmt("[dat] 自检失败：上面一行说明了卡在哪一步\n");
+        }
+    }
     return 1;
 }
 

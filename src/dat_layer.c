@@ -377,7 +377,12 @@ FILE *dat_redirect(const char *path, FILE *(*impl)(const char*,int,const char*))
     free(blob);
 
     hits = dat_apply(plain, (unsigned long)plen);
-    if (hits <= 0) { free(plain); return NULL; }
+    if (hits <= 0) {
+        dat_log("[dat] %s 明文 %u B，0 处命中（原文没对上）\n",
+                name, (unsigned)plen);
+        free(plain);
+        return NULL;
+    }
 
     if (gz_compress_stored(plain, plen, &packed, &pklen) != 0) {
         free(plain);
@@ -424,11 +429,22 @@ char *dat_materialize(const char *path)
     int hits;
 
     if (!dat_match_name(path, name, sizeof(name))) return NULL;
-    if (!dat_file_wanted(name)) return NULL;
-    if (g_datN <= 0) return NULL;
+    /* 走到这里说明是 GenData 下的 .dat，后面每一步都记日志，
+     * 否则"没翻译"只能靠猜是哪一步退出的 */
+    if (!dat_file_wanted(name)) {
+        dat_log("[dat] %s 不在映射清单，放行\n", name);
+        return NULL;
+    }
+    if (g_datN <= 0) {
+        dat_log("[dat] %s 命中清单但映射表为空\n", name);
+        return NULL;
+    }
 
     src = fopen(path, "rb");
-    if (!src) return NULL;
+    if (!src) {
+        dat_log("[dat] %s 打不开原文件\n", name);
+        return NULL;
+    }
     fseek(src, 0, SEEK_END);
     sz = ftell(src);
     fseek(src, 0, SEEK_SET);
@@ -450,7 +466,12 @@ char *dat_materialize(const char *path)
     free(blob);
 
     hits = dat_apply(plain, (unsigned long)plen);
-    if (hits <= 0) { free(plain); return NULL; }
+    if (hits <= 0) {
+        dat_log("[dat] %s 明文 %u B，0 处命中（原文没对上）\n",
+                name, (unsigned)plen);
+        free(plain);
+        return NULL;
+    }
 
     if (gz_compress_stored(plain, plen, &packed, &pklen) != 0) {
         free(plain);
