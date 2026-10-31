@@ -1,69 +1,69 @@
 # WITE2 中英对照表  UTF-8  TAB 分隔
 # 英文<TAB>中文[<TAB>d|r|b|t|x]  d=只改.data r=只改.rdata b=两段都改 t=只绘制层 x=封印(永不翻译)
-Game Options	游戏选项
-Set the game options.	设置游戏选项。
-Multiplayer	多人游戏
-Server based games	服务器对战
-Load Saved Game	载入存档
-Go to the saved game list.	打开存档列表。
-Pick Scenario	选择剧本
-Select a scenario	选择一个剧本
+Game Options	游戏选项	t
+Set the game options.	设置游戏选项。	t
+Multiplayer	多人游戏	t
+Server based games	服务器对战	t
+Load Saved Game	载入存档	t
+Go to the saved game list.	打开存档列表。	t
+Pick Scenario	选择剧本	t
+Select a scenario	选择一个剧本	t
 Editor	编辑器	t
-Go to the game data editor.	打开游戏数据编辑器。
-Credits	制作名单
-Show Game Credits	显示制作名单
-HOT KEYS	快捷键
-Exit HotKey List.	退出快捷键列表。
-Preferences	偏好设置
-Set player preferences.	设置玩家偏好。
-Exit the game ?	退出游戏？
-STEAM GAME	STEAM 游戏
-USER NOT LOGGED IN	用户未登录
-Version Installed	已安装版本
-Exe File Version	程序版本
-Axis: Computer	轴心：电脑
-Axis: Human	轴心：玩家
-Soviet: Computer	苏联：电脑
-Soviet: Human	苏联：玩家
-W Allies: Computer	西线盟军：电脑
-W Allies: Human	西线盟军：玩家
-Set to human controlled Axis player.	设为玩家控制轴心
-Set to computer controlled Axis player.	设为电脑控制轴心
-Set to human controlled Soviet player.	设为玩家控制苏联
-Set to human controlled W Allies player.	设为玩家控制西线盟军
-Toggle Play by E-Mail OFF.	关闭邮件对战
-Toggle Play by E-Mail ON.	开启邮件对战
+Go to the game data editor.	打开游戏数据编辑器。	t
+Credits	制作名单	t
+Show Game Credits	显示制作名单	t
+HOT KEYS	快捷键	t
+Exit HotKey List.	退出快捷键列表。	t
+Preferences	偏好设置	t
+Set player preferences.	设置玩家偏好。	t
+Exit the game ?	退出游戏？	t
+STEAM GAME	STEAM 游戏	t
+USER NOT LOGGED IN	用户未登录	t
+Version Installed	已安装版本	t
+Exe File Version	程序版本	t
+Axis: Computer	轴心：电脑	t
+Axis: Human	轴心：玩家	t
+Soviet: Computer	苏联：电脑	t
+Soviet: Human	苏联：玩家	t
+W Allies: Computer	西线盟军：电脑	t
+W Allies: Human	西线盟军：玩家	t
+Set to human controlled Axis player.	设为玩家控制轴心	t
+Set to computer controlled Axis player.	设为电脑控制轴心	t
+Set to human controlled Soviet player.	设为玩家控制苏联	t
+Set to human controlled W Allies player.	设为玩家控制西线盟军	t
+Toggle Play by E-Mail OFF.	关闭邮件对战	t
+Toggle Play by E-Mail ON.	开启邮件对战	t
 Supply	补给	t
-Movement	移动
+Movement	移动	t
 Depot	补给站	t
-Weather	天气
-Factory	工厂
-Air Directive	空中指令
-End Turn	结束回合
-Rail Repair	铁路修复
+Weather	天气	t
+Factory	工厂	t
+Air Directive	空中指令	t
+End Turn	结束回合	t
+Rail Repair	铁路修复	t
 Turn	回合	t
 Units	部队	t
-Air Bases	航空基地
+Air Bases	航空基地	t
 Pilots	飞行员	t
-Aircraft	飞机
+Aircraft	飞机	t
 Rest	休整	t
 Normal	正常	t
-Restricted	受限
-Priority	优先
+Restricted	受限	t
+Priority	优先	t
 Manual	手动	t
 Auto	自动	t
-Disband	解散
-Assigned	已分配
+Disband	解散	t
+Assigned	已分配	t
 None	无	t
-Player:	玩家：
+Player:	玩家：	t
 ACTIVE	激活	t
-INACTIVE	未激活
-Reinforcement	增援
-Reinforcements & Transfers	增援与调动
+INACTIVE	未激活	t
+Reinforcement	增援	t
+Reinforcements & Transfers	增援与调动	t
 Army Group Center	中央集团军群	t
 Army Group South	南方集团军群	t
 Army Group North	北方集团军群	t
-Army Group A	A集团军群
+Army Group A	A集团军群	t
 Army Group B	B集团军群	t
 Carpathian Army Group	喀尔巴阡集团军群	t
 Carpathian Hun. Army	喀尔巴阡匈牙利集团军
@@ -660,8 +660,8 @@ Fort Level in Hex (0-5)	六角格要塞等级（0-5）
 O p t i o n s    L o c k e d	选项已锁定
 Hold down shift key for DELIBERATE ATTACK	按住 Shift 键进行蓄意攻击
 F U N C T I O N S	功能
-E  N  E  M  Y	敌  方
-F R I E N D L Y	友  方
+E  N  E  M  Y	敌  方	t
+F R I E N D L Y	友  方	t
 Def	防御	t
 Vic	胜利	t
 Ini	主动	t
@@ -1410,9 +1410,9 @@ Axis Vehicle Repair Rate	轴心车辆修理率
 Side To Play	选择阵营
 Continuous Play OFF	连续播放关闭
 Auto assign unit(s) to nearest applicable HQ	自动将部队指派到最近的适用司令部
-Zoom Map Out	缩小地图
+Zoom Map Out	缩小地图	t
 Activate AI Air Assist	激活AI空中辅助
-Zoom Map In	放大地图
+Zoom Map In	放大地图	t
 Highlight Armor/Mech/Motorized Units	高亮装甲/机械/摩托化部队
 Highlight Cavalry Units	高亮骑兵部队
 Highlight Partisan Units	高亮游击队
@@ -1525,8 +1525,8 @@ Unit should be unloaded before assigned to City Fort.	部队应先卸载再分�
 Unit is preparing for airdrop.	部队正在准备空投。
 Projected End Points	预计结束点数
 Axis Reserves	轴心预备队
-Soviet Union Garrison	苏联驻防
-Northern Front	北方方面军
+Soviet Union Garrison	苏联驻防	t
+Northern Front	北方方面军	t
 Soviet Reserves	苏联预备队
 Combat Divisions:	作战师：
 Aircraft Received:	接收飞机：
@@ -1609,7 +1609,7 @@ player	玩家	t
 Player	玩家	t
 Operation Barbarossa	巴巴罗萨行动
 Red Army	红军
-Army Group South Ukraine	南乌克兰集团军群
+Army Group South Ukraine	南乌克兰集团军群	t
 Belgrade	贝尔格莱德	t
 Minsk	明斯克	t
 Rostov	罗斯托夫	t
@@ -1631,7 +1631,7 @@ Rumanian	罗马尼亚	t
 Bulgaria	保加利亚	t
 Bulgarians	保加利亚人
 Serbia	塞尔维亚	t
-Macedonia	马其顿
+Macedonia	马其顿	t
 Greece	希腊	t
 Yugoslavia	南斯拉夫	t
 Yugoslavian	南斯拉夫
@@ -1696,8 +1696,8 @@ Slovakian	斯洛伐克	t
 Croatia	克罗地亚
 Russia	俄罗斯	t
 Russian	俄罗斯
-Western Europe	西欧
-Balkans	巴尔干
+Western Europe	西欧	t
+Balkans	巴尔干	t
 Norway	挪威	t
 Eastern Front	东线
 German Front	德军战线
@@ -2037,7 +2037,7 @@ Port Art Idx:	港口图形索引：
 Position	位置
 Probability:	概率：
 Process turns?	处理回合？
-Production	生产
+Production	生产	t
 Production Charts	生产图表
 Production modifier	生产修正
 PRODUCTION MODIFIERS	生产修正
@@ -2144,7 +2144,7 @@ Available	可用
 Blizzard	暴风雪
 BOCAGE/POLDER	灌木篱/圩田
 Ceiling:	升限：
-CIVILIAN CONSUMPTION	民用消费
+CIVILIAN CONSUMPTION	民用消费	t
 Climb rate (ft/min)	爬升率（英尺/分）
 Cur Song:	当前曲目：
 DEBUG	调试	t
@@ -3015,7 +3015,7 @@ Withdrawal schedule	撤离日程
 Withdraw Air Groups	撤回飞行队
 Withdraw Units	撤回部队
 Air Group	飞行队
-Air Groups	飞行队
+Air Groups	飞行队	t
 Destroyed	已摧毁
 Depots	补给站	t
 0 - None	0 - 无
@@ -3155,12 +3155,12 @@ AIR INTRUDER	空中袭扰
 AIR UNITS	航空单位
 AIR OP GROUP (4)	航空作战群（4）
 AIRCRAFT EXPORTS	飞机出口
-AIRCRAFT SWAP SUMMARY	飞机交换总结
+AIRCRAFT SWAP SUMMARY	飞机交换总结	t
 AIRCRAFT PERFORMANCE DATA	飞机性能数据
 AIRCRAFT PERFORMANCE STATISTICS	飞机性能统计
 AMPHIBIOUS PREP	两栖准备
 AMPHIB SUPPORT NORTH	北部两栖支援
-ARMY FREIGHT DATA	集团军货运数据
+ARMY FREIGHT DATA	集团军货运数据	t
 ATTACHED UNITS	附属部队
 ATTACHED AIR GROUPS	附属飞行队
 ATTACH UNIT TO CITY FORT	将部队附属到城市要塞
@@ -3168,7 +3168,7 @@ AXIS LOGISTICS START	轴心后勤开始
 BACK TO TOE(OB) EDIT	返回编制编辑
 BEGINNING OF LOGISTICS	后勤开始
 BUILD TEMP PORT	建造临时港口
-BUILDING GENERIC GROUND ELEMENTS	正在生成通用地面单位
+BUILDING GENERIC GROUND ELEMENTS	正在生成通用地面单位	t
 CAMPAIGN END CONDITIONS	战役结束条件
 CLEAR AMPHIB AND AIRBORNE DATA	清除两栖和空降数据
 CLEAR OFF MAP DEPOTS	清除地图外补给站
@@ -3179,7 +3179,7 @@ COPY FROM NATION DATA	从国家数据复制
 CURRENT WEATHER CONDITIONS	当前天气状况
 DOMINATING WEATHER CONDITIONS	主导天气状况
 ESTIMATED NEXT TURN WEATHER CONDITIONS	下回合预计天气状况
-DEPOT FREIGHT DATA	补给站货运数据
+DEPOT FREIGHT DATA	补给站货运数据	t
 DAMAGE OFF-MAP RAIL	损伤地图外铁路
 DISABLE RECORDED SCRIPT	禁用录制脚本
 EAST FRONT AIR LOSSES	东线空中损失
@@ -3199,7 +3199,7 @@ EXISTING AIR PROFILES	现有空中档案
 FACTORY CHANGE FILTERS	工厂变更筛选
 FACTORY TYPE FILTERS	工厂类型筛选
 FACTORY TYPE	工厂类型
-FREIGHT USAGE TYPES	货运使用类型
+FREIGHT USAGE TYPES	货运使用类型	t
 GAME EVENT EDITOR	游戏事件编辑器
 GERMAN MANPOWER ADDITIONS	德国人力增补
 GERMAN MANPOWER TYPES	德国人力类型
@@ -3207,7 +3207,7 @@ GROUND ATTACK NORTH	北部对地攻击
 GROUND ATTACK SOUTH	南部对地攻击
 GROUND ATTACK TYPES:	对地攻击类型：
 GROUND ELEMENTS COMPARE	地面单位对比
-GROUND SUPPORT AIR MISSIONS	对地支援空中任务
+GROUND SUPPORT AIR MISSIONS	对地支援空中任务	t
 GROUND ELEMENT EXPORTS & SPECIAL UPGRADES	地面单位出口与特殊升级
 INCOMPATIBLE AC TYPE	飞机类型不兼容
 INITIALIZE AIR UNITS	初始化航空单位
@@ -3542,7 +3542,7 @@ BEFORE SUPPLY UNITS	补给部队前
 DEMOTORIZE UNIT	取消部队摩托化
 FIND AIR GROUP	查找飞行队
 GROUND SUPPORT	对地支援
-LOSSES BY TYPE	分类损失
+LOSSES BY TYPE	分类损失	t
 CONDITIONS (TRUE)	条件（真）
 CONDITIONS (FALSE)	条件（假）
 CITY TARGET TYPES:	城市目标类型：
@@ -3554,7 +3554,7 @@ UNIT SUPPLY DETAIL	部队补给详情
 UNIT WITHDRAWALS: ~ 	部队撤离：~ 
 FORMATION INVENTORY	编制清单
 ALLOWED AIR PROFILES	允许的空中档案
-AIR BASE REPLACEMENT DETAILS	航空基地补充详情
+AIR BASE REPLACEMENT DETAILS	航空基地补充详情	t
 ALLIED MANPOWER ADDITIONS	盟军人力增补
 REDUCE REINFORCEMENT DELAYS	减少增援延迟
 WEST FRONT AIR REPLACEMENTS	西线空中补充
@@ -3870,9 +3870,9 @@ Infantry (1)	步兵（1）
 Construction (7)	建设（7）
 TURN    WFR        EFR        CITY       TOTAL 	回合    西线       东线       城市       总计 
 TURN     USR        UKR        UNR       CITY       TOTAL 	回合     美国       英国       联合国     城市       总计 
-Sup Need     Sup Rec   Sup Lost   RepFr Rec  RepMn Rec  RepFr Lost	补给需求     补给接收   补给损失   补充接收    补充接收    补充损失
-AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS      SORTIES	飞机性能统计       已摧毁      受损       损伤点数      架次
-******************* LIGHT WEAPONS POOL UPGRADES ************************	******************* 轻武器储备升级 ************************
+Sup Need     Sup Rec   Sup Lost   RepFr Rec  RepMn Rec  RepFr Lost	补给需求     补给接收   补给损失   补充接收    补充接收    补充损失	t
+AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS      SORTIES	飞机性能统计       已摧毁      受损       损伤点数      架次	t
+******************* LIGHT WEAPONS POOL UPGRADES ************************	******************* 轻武器储备升级 ************************	t
 ### ERROR : wfair.dat failed to save ###	### 错误：wfair.dat 保存失败 ###
 ### ERROR : wfhex.dat failed to save ###	### 错误：wfhex.dat 保存失败 ###
 ### ERROR : wfcity.dat failed to save ###	### 错误：wfcity.dat 保存失败 ###
@@ -4820,7 +4820,7 @@ Airbase	航空基地
 Airdrop	空投
 Ceiling	升限	t
 Delayed	延迟
-Mission	任务
+Mission	任务	t
 Found	已找到	t
 Hasty	仓促	t
 Delta	增量	t
@@ -4891,7 +4891,7 @@ Not Found	未找到
 OB Chains	编制指挥链
 Rail Attk	铁路攻击
 SP Weapon	特种武器
-Save Game	保存游戏
+Save Game	保存游戏	t
 Transfers	转移
 Use Proxy	使用代理
 New TOE	新编制
@@ -5181,7 +5181,7 @@ Loadout	挂载
 Conflict	冲突
 Damage  	损伤  
 Far East	远东	t
-North Africa	北非
+North Africa	北非	t
 In Trans	转移中
 Observed	已观测
 Buildable	可建造
@@ -6883,7 +6883,7 @@ Military Railway	军用铁路	t
 SU Rail	苏联铁路	t
 Soviet City	苏联城市	t
 Guards	近卫	t
-Training	训练
+Training	训练	t
 Expeditionary	远征	t
 Light Afrika	轻装非洲
 Das Reich SS	党卫军帝国	t
@@ -7691,7 +7691,7 @@ Potsdam	波茨坦	t
 Prenzlau	普伦茨劳	t
 Prerau	普热罗夫	t
 Prossnitz	普罗斯捷约夫	t
-Provence	普罗旺斯
+Provence	普罗旺斯	t
 Przasnysz	普扎斯内什	t
 PsD'	PsD	t
 Puettnitz	皮特尼茨	t
@@ -9581,7 +9581,7 @@ Principe	普林西比
 Spedizione	远征
 Librazhd	利布拉日
 Labor	劳工	t
-Squadriglia	中队
+Squadriglia	中队	t
 Bicycle	自行车
 Parachute	伞兵
 Observation	观测

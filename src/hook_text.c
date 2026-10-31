@@ -288,17 +288,23 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
             /* 明细入日志：崩溃后靠它对照哪个串被改错了。
              * 只记前 4000 条，避免日志比扫描还慢。 */
             if (g_patLog && g_patched <= 4000) {
-                char kb[300], vb[600];
+                /* k 是 wchar_t*，不能当 char* 遍历 —— 曾经这么写过，
+                 * 遇到第一个 0x00 就停，日志里每个 key 都只剩首字符
+                 * （"Army Group Center" 显示成 "A"）。差点根据那份
+                 * 错日志得出一堆错误结论。 */
+                char kb[600], vb[600];
                 int x = 0;
-                for (const char *q = k; *q && x < 290; q++)
-                    kb[x++] = (*q >= 0x20 && *q < 0x7f) ? *q : '?';
+                for (const wchar_t *q = k; *q && x < 500; q++) {
+                    if ((unsigned)*q < 0x7f) kb[x++] = (char)*q;
+                    else x += _snprintf(kb + x, 8, "\\u%04X",
+                                        (unsigned)*q);
+                }
                 kb[x] = 0;
                 x = 0;
-                for (const wchar_t *q = v; *q && x < 300; q++) {
+                for (const wchar_t *q = v; *q && x < 500; q++) {
                     if ((unsigned)*q < 0x7f) vb[x++] = (char)*q;
                     else x += _snprintf(vb + x, 8, "\\u%04X",
                                         (unsigned)*q);
-                    if (x > 560) break;
                 }
                 vb[x] = 0;
                 fprintf(g_patLog, "%s@%08X\t%s\t%s\n",
@@ -460,8 +466,16 @@ static int cap_seen(const wchar_t *t, int len)
 
 static int g_layoutCount = 0;
 
-/* 替换用的缓冲池: 每次调用占一个槽, 调用返回后才复用 */
-#define POOL 32
+/* 替换用的缓冲池: 每次调用占一个槽, 调用返回后才复用。
+ *
+ * 32 -> 256 的原因：指挥官报告、OOB 树这类界面一帧内要画几百个
+ * 文本。游戏不是画一个丢一个，它会先拿到一批指针再统一绘制。
+ * 池子只有 32 个槽，第 33 个字符串就把第 1 个的缓冲覆盖了 ——
+ * 游戏手里的指针仍指在池内，但内容已经被换成别的（往往更长）串。
+ * 如果它按旧长度算好缓冲再拷，就是越界写。
+ *
+ * 256 个槽 = 128 KB 静态，代价可以忽略。 */
+#define POOL 256
 static wchar_t g_pool[POOL][256];
 static volatile LONG g_poolIdx = 0;
 
@@ -2942,6 +2956,66 @@ static int install_drawtext_hook(HMODULE exe, DWORD rva)
  *
  * .rdata 在磁盘上是明文（已核实），所以早期改写可行。
  */
+/* ================= 崩因取证 =================
+ *
+ * 崩溃已经反复出现几次，而“猜哪个字符串被改坏了”效率极低 —— 每次
+ * 猜错就要玩家重跑一遍游戏。这里直接拿系统的异常记录：
+ *
+ *   异常代码  0xC0000005 = 访问违例
+ *   出误地址  ExceptionInformation[1]
+ *   读还是写  ExceptionInformation[0]
+ *   崩在哪里  ExceptionAddress
+ *
+ * 有了崩在哪条指令，反汇编一看就知道它在查什么，比二分快得多。
+ * 日志写到 wite2_crash.txt，不依赖任何游戏内的状态。 */
+static LONG WINAPI crash_filter(EXCEPTION_POINTERS *ep)
+{
+    PEXCEPTION_RECORD er = ep->ExceptionRecord;
+    CONTEXT *ctx = ep->ContextRecord;
+    FILE *f = fopen("wite2_crash.txt", "wb");
+    if (!f) return EXCEPTION_CONTINUE_SEARCH;
+
+    fprintf(f, "code=%08X addr=%08X\n",
+            (unsigned)er->ExceptionCode,
+            (unsigned)(DWORD_PTR)er->ExceptionAddress);
+    if (er->NumberParameters >= 2) {
+        const char *what = "?";
+        switch ((int)er->ExceptionInformation[0]) {
+        case 0: what = "READ"; break;
+        case 1: what = "WRITE"; break;
+        case 8: what = "EXEC"; break;
+        }
+        fprintf(f, "access=%s target=%08X\n", what,
+                (unsigned)(DWORD_PTR)er->ExceptionInformation[1]);
+    }
+    if (ctx) {
+        fprintf(f, "eip=%08X eax=%08X ebx=%08X ecx=%08X edx=%08X\n",
+                (unsigned)ctx->Eip, (unsigned)ctx->Eax,
+                (unsigned)ctx->Ebx, (unsigned)ctx->Ecx,
+                (unsigned)ctx->Edx);
+        fprintf(f, "esi=%08X edi=%08X ebp=%08X esp=%08X\n",
+                (unsigned)ctx->Esi, (unsigned)ctx->Edi,
+                (unsigned)ctx->Ebp, (unsigned)ctx->Esp);
+        fprintf(f, "curRet=%08X curThis=%08X\n",
+                (unsigned)g_curRet, (unsigned)g_curThis);
+    }
+
+    if (ctx) {
+        DWORD *sp = (DWORD *)(DWORD_PTR)ctx->Esp;
+        fprintf(f, "stack:");
+        for (int i = 0; i < 64; i++) {
+            DWORD v = 0;
+            __try { v = sp[i]; }
+            __except (EXCEPTION_EXECUTE_HANDLER) { break; }
+            if (g_textLo && v >= g_textLo && v <= g_textHi)
+                fprintf(f, " %08X", (unsigned)v);
+        }
+        fprintf(f, "\n");
+    }
+    fclose(f);
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+
 static void patch_early(void)
 {
     dict_load();
@@ -2966,6 +3040,10 @@ static void patch_early(void)
 
     HMODULE exe = GetModuleHandleA(NULL);
     if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return; }
+
+    /* 崩因取证：必须在任何改写之前装好，否则崩在改写前就什么也拿不到。 */
+    SetUnhandledExceptionFilter(crash_filter);
+    logfmt("[crash] 异常过滤器已安装 -> wite2_crash.txt\n");
 
     g_patLog = fopen("wite2_patch.txt", "wb");
     patch_all(exe);
