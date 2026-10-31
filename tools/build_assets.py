@@ -34,6 +34,35 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
 DICT = os.path.join(ROOT, "zh_dict.json")
+BLOCK = os.path.join(ROOT, "_block_names.txt")
+
+# 这些是界面词条，不是部队番号名 —— 玩家在筛选框、类型下拉里见得到。
+# 不允许进入封印名单，否则界面会出现半中半英。
+GENERIC_KEEP = {
+    "Cavalry", "Coastal", "Guards", "Motorized", "Mountain", "Mobile",
+    "Reserve", "Lehr", "Frontier", "Middle", "North", "Southern",
+    "Western", "Northwestern", "Southwestern", "Provisional", "Steppe",
+    "Baltic", "Czech", "Finnish", "Hungarian", "Rumanian", "Slovakian",
+    "Croatian", "Karelian", "Siberia", "Transbaikal", "Transcaucasus",
+    "Urals", "Tatra", "Expeditionary", "Jewish",
+}
+
+
+def load_block_names():
+    """读封印名单，并校验没把通用词条弄进去。"""
+    if not os.path.exists(BLOCK):
+        return []
+    out = []
+    with open(BLOCK, encoding="utf-8") as f:
+        for line in f:
+            s = line.strip()
+            if not s or s.startswith("#"):
+                continue
+            out.append(s)
+    bad = [k for k in out if k in GENERIC_KEEP]
+    if bad:
+        raise SystemExit("封印名单里混进了通用词条：%s" % ", ".join(bad))
+    return out
 TSV = os.path.join(ROOT, "wite2_zh.tsv")
 FONT_DIR = os.path.join(ROOT, "Dat", "Fonts")
 FONT_FILE = "wite2_zh.ttf"
@@ -127,7 +156,8 @@ def build_tsv():
     zh = {k: v for k, v in raw.items()
           if not k.startswith("_") and not str(v).startswith("----")}
     lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",
-             "# 英文<TAB>中文[<TAB>d|r|b]  d=只改.data r=只改.rdata b=两段都改"]
+             "# 英文<TAB>中文[<TAB>d|r|b|t|x]  d=只改.data r=只改.rdata "
+             "b=两段都改 t=只绘制层 x=封印(永不翻译)"]
     for k, v in zh.items():
         if k in both:
             scope = "\tb"
@@ -138,6 +168,11 @@ def build_tsv():
         else:
             scope = ""
         lines.append("%s\t%s%s" % (k, v, scope))
+    for k in load_block_names():
+        # 译文列填原文本身：C 层命中后直接返回输入，不复制任何东西。
+        # 填原文只是为了让三列结构保持一致。
+        lines.append("%s\t%s\tx" % (k, k))
+    print("封印 %d 条" % len(load_block_names()))
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     # selftest.exe 在 build/ 下运行，读的是相对路径 wite2_zh.tsv。

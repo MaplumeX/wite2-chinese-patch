@@ -1,5 +1,5 @@
 # WITE2 中英对照表  UTF-8  TAB 分隔
-# 英文<TAB>中文[<TAB>d|r|b]  d=只改.data r=只改.rdata b=两段都改
+# 英文<TAB>中文[<TAB>d|r|b|t|x]  d=只改.data r=只改.rdata b=两段都改 t=只绘制层 x=封印(永不翻译)
 Game Options	游戏选项
 Set the game options.	设置游戏选项。
 Multiplayer	多人游戏
@@ -9769,3 +9769,119 @@ N	北	t
 S	南	t
 E	东	t
 W	西	t
+Army Group Antonescu	Army Group Antonescu	x
+Army Group B	Army Group B	x
+Army Group C	Army Group C	x
+Army Group Center	Army Group Center	x
+Army Group E	Army Group E	x
+Army Group F	Army Group F	x
+Army Group G	Army Group G	x
+Army Group H	Army Group H	x
+Army Group North	Army Group North	x
+Army Group South	Army Group South	x
+Army Grp. A	Army Grp. A	x
+Army Grp. B	Army Grp. B	x
+Army Grp. C	Army Grp. C	x
+Army Grp. Cent	Army Grp. Cent	x
+Army Grp. E	Army Grp. E	x
+Army Grp. F	Army Grp. F	x
+Army Grp. G	Army Grp. G	x
+Army Grp. H	Army Grp. H	x
+Army Grp. North	Army Grp. North	x
+Army Grp. South	Army Grp. South	x
+Carpathian Army Group	Carpathian Army Group	x
+OB Southeast	OB Southeast	x
+OKH	OKH	x
+OKL	OKL	x
+AFHQ	AFHQ	x
+RAF HQ	RAF HQ	x
+UK Home Forces HQ	UK Home Forces HQ	x
+MTO	MTO	x
+WMBef. Belgium	WMBef. Belgium	x
+WMBef. France	WMBef. France	x
+WMBef. Holland	WMBef. Holland	x
+Luftflotte 1	Luftflotte 1	x
+Luftflotte 2	Luftflotte 2	x
+Luftflotte 3	Luftflotte 3	x
+Luftflotte 4	Luftflotte 4	x
+Luftflotte 5	Luftflotte 5	x
+Luftflotte 6	Luftflotte 6	x
+XI LW Flieger	XI LW Flieger	x
+LW Kdo Kirkenes	LW Kdo Kirkenes	x
+LW Kdo South East	LW Kdo South East	x
+LW Kommando West	LW Kommando West	x
+Italian Luftwaffe Command	Italian Luftwaffe Command	x
+CSIR Italian Air Bde	CSIR Italian Air Bde	x
+Coastal Air Force	Coastal Air Force	x
+Desert Air Force	Desert Air Force	x
+Strategic Air Force	Strategic Air Force	x
+Mediterranean Allied Air Force	Mediterranean Allied Air Force	x
+Coastal OpGr	Coastal OpGr	x
+Neva OpGr	Neva OpGr	x
+No. 216 Air Tpt & Ferry Group RAF	No. 216 Air Tpt & Ferry Group RAF	x
+No. 6 Group RCAF	No. 6 Group RCAF	x
+No. 8 (PFF) Group RAF	No. 8 (PFF) Group RAF	x
+Regia Aeronautica	Regia Aeronautica	x
+FBD 1	FBD 1	x
+FBD 2	FBD 2	x
+FBD 3	FBD 3	x
+FBD 4	FBD 4	x
+FBD 5	FBD 5	x
+Engineer Rail Group A	Engineer Rail Group A	x
+Engineer Rail Group B	Engineer Rail Group B	x
+Engineer Rail Group C	Engineer Rail Group C	x
+Engineer Rail Group MTO	Engineer Rail Group MTO	x
+Baltic Fleet	Baltic Fleet	x
+Black Sea Fleet	Black Sea Fleet	x
+Northern Fleet	Northern Fleet	x
+Bremen Marine	Bremen Marine	x
+Danzig Marine	Danzig Marine	x
+Naval 'San Marco'	Naval 'San Marco'	x
+Piazza Naval	Piazza Naval	x
+Wiking SS	Wiking SS	x
+Totenkopf SS	Totenkopf SS	x
+Das Reich SS	Das Reich SS	x
+Polizei SS	Polizei SS	x
+Nederland SS	Nederland SS	x
+Netherlands SS	Netherlands SS	x
+Wallonian SS	Wallonian SS	x
+Latvian SS	Latvian SS	x
+Estonian SS	Estonian SS	x
+Langemarck SS	Langemarck SS	x
+Landstorm Nederland' SS	Landstorm Nederland' SS	x
+Grossdeutschland	Grossdeutschland	x
+Hermann Goering	Hermann Goering	x
+Feldherrnhalle	Feldherrnhalle	x
+Feldherrnhalle Nr. 1	Feldherrnhalle Nr. 1	x
+Feldherrnhalle Nr. 2	Feldherrnhalle Nr. 2	x
+Alpini	Alpini	x
+Alps Mountain	Alps Mountain	x
+Autotransportabile	Autotransportabile	x
+Cavalleggeri Guide' Cavalry	Cavalleggeri Guide' Cavalry	x
+Celere Cavalry	Celere Cavalry	x
+Colonial Chasseurs	Colonial Chasseurs	x
+Almaco-Partinico' CCNN	Almaco-Partinico' CCNN	x
+Comiso-Ispica' CCNN	Comiso-Ispica' CCNN	x
+Licata-Ravanusa' CCNN	Licata-Ravanusa' CCNN	x
+Chiusa Scalafina'	Chiusa Scalafina'	x
+Barbarigo'	Barbarigo'	x
+Barcellona'	Barcellona'	x
+Carmito'	Carmito'	x
+Cremona'	Cremona'	x
+Folgore'	Folgore'	x
+Friuli'	Friuli'	x
+Hummel'	Hummel'	x
+Legnano'	Legnano'	x
+Lupo'	Lupo'	x
+Mantova'	Mantova'	x
+Piceno'	Piceno'	x
+PsD'	PsD'	x
+Scalabrino'	Scalabrino'	x
+Inchiapparo'	Inchiapparo'	x
+Sud'	Sud'	x
+Meyer'	Meyer'	x
+zbV 40th	zbV 40th	x
+zbV 66th	zbV 66th	x
+zbV 752nd	zbV 752nd	x
+MG-Ski	MG-Ski	x
+Rome Defense	Rome Defense	x

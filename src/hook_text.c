@@ -92,6 +92,18 @@ static Pair g_dic[MAXENT];
 static int  g_ndic = 0;
 static int  g_nDataOnly = 0;
 
+/* sec == 5 是封印：这些串永远是英文，原样显示。
+ *
+ * 为什么不能只从词典里删掉：部队番号名不是一条词条能管住的。
+ * 删了 "Army Group North"，策略 2 会剥尾后段再拼回"集团军群北"；
+ * 删了 "Luftflotte 1"，得到"航空队1"。这些串必须有一个地方
+ * 在匹配链最前面直接短路，否则总有一条拼装路径能碰到。
+ *
+ * 名单在 _block_names.txt，构建时写进 TSV 第三列 x。
+ * 只收「具体编制名」，不收形容词和国别词（Cavalry / Mountain /
+ * Reserve / Finnish 这些是筛选框里的词条，翻了才对）。 */
+#define MAXBLK 4096
+
 static wchar_t *u8w(const char *s, int n)
 {
     int c = MultiByteToWideChar(CP_UTF8, 0, s, n, NULL, 0);
@@ -130,6 +142,7 @@ static void dict_load(void)
             else if (sp[1] == 'r') sec = 1;
             else if (sp[1] == 'b') sec = 3;   /* 两段都改 */
             else if (sp[1] == 't') sec = 4;   /* 只在绘制层翻，不改内存 */
+            else if (sp[1] == 'x') sec = 5;   /* 封印：永不翻译 */
         }
 
         size_t el = strlen(en);
@@ -212,6 +225,8 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
          * 这些串在界面上出现的概率极低，却一改就出事。
          * 绘制层已经能翻译它们，不必动内存。 */
         if (g_dic[d].sec == 4) continue;
+        /* sec 5 = 封印，两个段都不动。 */
+        if (g_dic[d].sec == 5) continue;
 
         /* sec 3 = 两段都改。给"在 .data 是显示数组、在 .rdata 只是
          * 安全界面标签"的词用，例如难度名 NORMAL。 */
@@ -321,9 +336,11 @@ static void patch_all(HMODULE exe)
  * "g_nzh < MAXZH" 会静默丢掉最后 1500 多条 —— 不在日志里说，
  * 界面上就是"有些名字明明翻了却还是英文"。留一倍余量。 */
 #define MAXZH 32768
-typedef struct { char *key; int klen; wchar_t *wtext; int wlen; int cs; } ZhEntry;
+typedef struct { char *key; int klen; wchar_t *wtext; int wlen; int cs; int blk; } ZhEntry;
 static ZhEntry g_zh[MAXZH];
 static int g_nzh = 0;
+static int g_blk[MAXBLK];
+static int g_nblk = 0;
 
 static void  *g_dtTramp = NULL;
 static volatile LONG g_dtCalls = 0;
@@ -645,6 +662,7 @@ static void dict_build(void)
          * 前者该翻成"港口"，后者用于查找 //Tiles//PORT// 下的图形，
          * 翻了会让地图渲染出错。 */
         g_zh[g_nzh].cs = is_cs_key(kc);
+        g_zh[g_nzh].blk = (g_dic[d].sec == 5);
         g_nzh++;
     }
     if (g_nzh >= MAXZH)
@@ -668,7 +686,13 @@ static void dict_build(void)
             if (g_nfmt < MAXZH) g_fmt[g_nfmt++] = i;
     }
 
-    logfmt("[zh] %d entries ready (%d format templates)\n", g_nzh, g_nfmt);
+    /* 封印索引。单独列出来，因为每个绘制串都要查一遍，
+     * 扫 9800 条太贵；封印名单只有百来条。 */
+    for (int i = 0; i < g_nzh && g_nblk < MAXBLK; i++)
+        if (g_zh[i].blk) g_blk[g_nblk++] = i;
+
+    logfmt("[zh] %d entries ready (%d format templates, %d sealed)\n",
+           g_nzh, g_nfmt, g_nblk);
 }
 
 /* 大小写不敏感比较: 游戏有些串在 .rdata 里是大写开头, 绘制时变小写,
@@ -1567,6 +1591,25 @@ static wchar_t *dt_check_body(wchar_t *text)
     collect_add(text, len);
 
     int slot;
+
+    /* ---------- 策略 -1: 封印串 ----------
+     *
+     * 具体编制名（Army Group Center、Luftflotte 1、OKH…）永远原样。
+     * 必须排在最前面：放到后面的话，策略 2 剥个尾再拼回就变成
+     * "集团军群北"，策略 3.5 展开缩写又会把 "Army Grp. Cent"
+     * 改写成全称 —— 两种都不对。
+     * 名单在 _block_names.txt，每条都经过确认是编制名而非通用词条。 */
+    for (int b = 0; b < g_nblk; b++) {
+        ZhEntry *e = &g_zh[g_blk[b]];
+        if (e->klen != len) continue;
+        int same = 1;
+        for (int z = 0; z < len; z++) {
+            wchar_t a = text[z];
+            wchar_t c = (wchar_t)(unsigned char)e->key[z];
+            if (e->cs ? (a != c) : (lc_w(a) != lc_w(c))) { same = 0; break; }
+        }
+        if (same) return text;
+    }
 
     /* ---------- 策略 0: 拆分单位前缀 ----------
      *

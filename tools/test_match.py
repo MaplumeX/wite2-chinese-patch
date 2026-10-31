@@ -22,7 +22,7 @@ CASES = [
     ("Start", "开始", "独立单词应正常翻译"),
     ("National", "National", "不能变成 国家al"),
     ("Nation", "国家", "独立单词应正常翻译"),
-    ("Army Group Center", "中央集团军群", "完整名"),
+    ("Army Group Center", "Army Group Center", "[部队名不翻] 完整名"),
     ("Army Grp. Sout", "南方集团军群", "缩写+截断"),
     ('1st Panzer Grou', '1st Panzer Grou', "[部队名不翻] 截断"),
     ('113th ID', '113th ID', "[部队名不翻] 数字+兵种缩写"),
@@ -169,7 +169,7 @@ CASES = [
     ("0-50", "0-50", "数值范围不是番号"),
     ("21-16", "21-16", "数值范围不是番号"),
     ("1-17th Rum. Mot. Anti-tank Company", "1-第17罗马尼亚摩托化反坦克连", "右边带序数才是番号"),
-    ("Army Grp. Cent", "中央集团军群", "Cent 是 Center 不是 Centauro"),
+    ("Army Grp. Cent", "Army Grp. Cent", "[部队名不翻] Cent 是 Center"),
     ('102nd RHG Command', '102nd RHG Command', "[部队名不翻] RHG 是后方军区不是测绘"),
     (' III Mot. Corps (2/5)', ' III Mot. Corps (2/5)', "[部队名不翻] 缩写点不能留在中文里"),
     # 词典审计
