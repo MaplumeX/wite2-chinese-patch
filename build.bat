@@ -140,6 +140,11 @@ exit /b 0
 :do_check
 echo.
 echo === Verifying ===
+python tools\check_hook_addrs.py
+if errorlevel 1 (
+    echo [FAILED] hook address check
+    exit /b 1
+)
 python tools\test_match.py
 if errorlevel 1 (
     echo [FAILED] matching regression tests

@@ -29,6 +29,9 @@ int dat_match_name(const char *path, char *out, int cap);
 /* 在明文缓冲区里做等长替换，返回命中数。 */
 int dat_apply(unsigned char *plain, unsigned long len);
 
+/* 把打过补丁的 .dat 写成临时文件，返回路径（调用者 free）。NULL = 未接管。 */
+char *dat_materialize(const char *path);
+
 /* 完整重定向：读 path -> 解密 -> 解压 -> 替换 -> 压缩 -> 加密 -> tmpfile。
  * impl 是游戏原生的 fopen 实现（path, -1, mode）。
  * 返回 NULL 表示未接管（无映射 / 路径不匹配 / 任何一步失败），

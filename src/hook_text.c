@@ -309,8 +309,7 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
         /* sec 5 = 封印，两个段都不动。 */
         if (g_dic[d].sec == 5) continue;
 
-        /* sec 3 = 两段都改。给"在 .data 是显示数组、在 .rdata 只是
-         * 安全界面标签"的词用，例如难度名 NORMAL。 */
+        /* sec 3 = 两段都改。给"在 .data 是显示数组、在 .rdata 只是\n"* 安全界面标签"的词用，例如难度名 NORMAL。 */
         if (secId == 2) {
             if (g_dic[d].sec != 2 && g_dic[d].sec != 3) continue;
         } else {
@@ -342,8 +341,7 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
             }
             /* 只写译文，紧跟着就放终止符，**不补空格**。
              *
-             * 这里曾经把译文补空格到原文长度，理由是"绘制时空格
-             * 不产生宽度"。那个假设是错的，而且正是界面错位的根源。
+             * 这里曾经把译文补空格到原文长度，理由是"绘制时空格\n"* 不产生宽度"。那个假设是错的，而且正是界面错位的根源。
              * 实测（wite2_layout.txt，游戏选项面板右对齐到 x=471）：
              *
              *   4 汉字的标签 x=423，5 汉字的标签 x=411  ->  12 px/字
@@ -1756,8 +1754,7 @@ static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
 
     /* ===== 不再做坐标位移 =====
      *
-     * 这里曾经按右边缘把文本往右推，用来修正"中文比英文短导致居中/
-     * 右对齐偏移"。那个问题在补丁时机改到 DllMain 之后已经消失：
+     * 这里曾经按右边缘把文本往右推，用来修正"中文比英文短导致居中/\n"* 右对齐偏移"。那个问题在补丁时机改到 DllMain 之后已经消失：
      * 游戏读到的就是中文，测量、排版、换行全按中文算，不需要修正。
      *
      * 留着反而有害。判据是"原文右边缘落在已知右对齐边缘 ±6px 内"，
@@ -2107,82 +2104,153 @@ static int install_drawtext_hook(HMODULE exe, DWORD rva)
 /* ================= .dat 数据层钩子 =================
  *
  * 纯逻辑（解密/解压/查表/替换/打包）在 src/dat_layer.c，那边能离线测试。
- * 这里只负责把它挂到游戏的 fopen 上。
+ * 这里只负责把它挂到游戏的**文件打开**上。
  *
  * 为什么不直接改游戏目录的 .dat
  * ------------------------------
- * 直接改文件有三个问题：
- *
  *   1. Steam 更新会覆盖，补丁失效
- *   2. 「验证文件完整性」会把改过的 .dat 判为损坏并重新下载
- *   3. 一旦某次更新改了 .dat 内部结构，改过的文件可能让游戏直接崩
+ *   2. 「验证文件完整性」会判为损坏并重新下载
+ *   3. 某次更新改了 .dat 内部结构时，改过的文件可能让游戏直接崩
  *
- * 所以改成**运行时拦截**：原文件一个字节不碰，fopen 打开 GenData\*.dat
- * 时现场解密、替换、重新打包，用 tmpfile() 返回匿名临时文件。
- * 游戏拿到的是普通 FILE*，fread/fclose 全部照常，它看不出区别。
+ * 拦截点：CreateFileA / CreateFileW（导入表钩子）
+ * ----------------------------------------------
+ * 一开始钩的是游戏内部的 fopen（RVA 0x45F5F0），用 5 字节 JMP 盖序言。
+ * 那条路有两个隐患，实测踩到了第一个：
  *
- * 拦截点
- * ------
- * `fopen` 在 RVA 0x45F5F0，整个 exe 里只有 3 个调用点：
+ *   * 地址体系：Ghidra 看到的是 VA 0x85F280，DLL 里必须用 RVA 0x45F280。
+ *     写成 VA 会跳到镜像外的 BSS，报 C0000005 EXEC 直接崩。
+ *   * 调用约定：原函数 ret 8 是 __stdcall，它内部调的 impl 是 __cdecl。
+ *     钩子写错约定就少清栈。
  *
- *   0x5BA573 / 0x5BA9B1 / 0x5BAB23
+ * 改成钩导入表就都没了：不改任何代码字节，没有调用约定问题，而且
+ * **覆盖面更大** —— 静态 CRT 的 fopen 内部也是走 CreateFileA，
+ * 所以钩这里能同时覆盖 fopen / _open / 直接 CreateFile 三条路。
  *
- * 全在 0x5BA4xx 那个 .dat 加载器里。函数体只有 23 字节：
- *
- *   push ebp; mov ebp,esp; push [ebp+0xc]; push -1; push [ebp+8]
- *   call 0x85F280; add esp,0xc; pop ebp; ret 8
- *
- * 也就是说 fopen(path,mode) 实际就是 impl(path, -1, mode)。所以 5 字节
- * JMP 直接盖住序言即可，**不需要 trampoline** —— 未命中时直接调 0x85F280。
+ * 命中后怎么让游戏读到补丁内容：把补丁写成一个临时文件（%TEMP% 下），
+ * 然后把路径参数换掉。调用者拿到 HANDLE 后照常 ReadFile，完全无感。
  */
 
-typedef FILE *(__cdecl *pFopenImpl)(const char *path, int flag,
-                                    const char *mode);
-static pFopenImpl g_fopenImpl = NULL;
+typedef HANDLE (WINAPI *pCreateFileA)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES,
+                                      DWORD, DWORD, HANDLE);
+typedef HANDLE (WINAPI *pCreateFileW)(LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES,
+                                      DWORD, DWORD, HANDLE);
+static pCreateFileA g_origCreateFileA = NULL;
+static pCreateFileW g_origCreateFileW = NULL;
 
 /* 把 hook_text.c 的日志桥接给 dat_layer.c */
 static void dat_log_bridge(const char *msg) { logfmt("%s", msg); }
 
-/* 调用约定必须和原函数一致：
- *
- *   0x45F5F0  ... ret 8       -> __stdcall（被调方清 8 字节）
- *   0x85F280  ... add esp,0xc -> __cdecl（调方清 12 字节）
- *
- * 钩子用 __cdecl 就少清 8 字节栈，**游戏启动就会崩**。
- */
-static FILE *__stdcall hook_fopen(const char *path, const char *mode)
+/* 打开路径日志：排查"到底哪个 API 在读 .dat"时用。
+ * 游戏目录放 wite2_openlog.ini 开启，最多记 400 条。 */
+static int g_openLog = 0, g_openCount = 0;
+
+static void log_open(const char *path)
 {
-    FILE *r = dat_redirect(path, g_fopenImpl);
-    if (r) return r;
-    /* 未命中：完全按原逻辑走 impl(path, -1, mode) */
-    return g_fopenImpl(path, -1, mode);
+    if (!g_openLog || g_openCount > 400) return;
+    g_openCount++;
+    logfmt("[open] %s\n", path);
 }
 
-static int install_fopen_hook(HMODULE exe)
+static HANDLE WINAPI hook_CreateFileA(LPCSTR name, DWORD access, DWORD share,
+                                      LPSECURITY_ATTRIBUTES sa, DWORD disp,
+                                      DWORD flags, HANDLE tmpl)
 {
-    BYTE *fn = (BYTE *)exe + 0x45F5F0;
-    /* 55 8B EC FF 75 0C = push ebp / mov ebp,esp / push [ebp+0xc] */
-    const BYTE sig[6] = { 0x55, 0x8B, 0xEC, 0xFF, 0x75, 0x0C };
-    DWORD oldProt, jrel;
+    if (name) {
+        log_open(name);
+        if (dat_map_count() > 0) {
+            char *patched = dat_materialize(name);
+            if (patched) {
+                HANDLE h = g_origCreateFileA(patched, access, share, sa,
+                                             disp, flags, tmpl);
+                remove(patched);
+                free(patched);
+                return h;
+            }
+        }
+    }
+    return g_origCreateFileA(name, access, share, sa, disp, flags, tmpl);
+}
 
-    g_fopenImpl = (pFopenImpl)(void *)((BYTE *)exe + 0x85F280);
+static HANDLE WINAPI hook_CreateFileW(LPCWSTR wname, DWORD access, DWORD share,
+                                      LPSECURITY_ATTRIBUTES sa, DWORD disp,
+                                      DWORD flags, HANDLE tmpl)
+{
+    if (wname && dat_map_count() > 0) {
+        char ansi[MAX_PATH * 2];
+        /* dat_materialize 内部用 fopen(原路径)，CRT 的 fopen 收 ANSI 路径，
+         * 所以这里必须转成 CP_ACP 而不是 UTF-8。 */
+        int m = WideCharToMultiByte(CP_ACP, 0, wname, -1, ansi,
+                                    sizeof(ansi), NULL, NULL);
+        if (m > 0) {
+            log_open(ansi);
+            {
+                char *patched = dat_materialize(ansi);
+                if (patched) {
+                    WCHAR wpatched[MAX_PATH];
+                    if (MultiByteToWideChar(CP_ACP, 0, patched, -1, wpatched,
+                                            MAX_PATH) > 0) {
+                        HANDLE h = g_origCreateFileW(wpatched, access, share, sa,
+                                                     disp, flags, tmpl);
+                        remove(patched);
+                        free(patched);
+                        return h;
+                    }
+                    remove(patched);
+                    free(patched);
+                }
+            }
+        }
+    }
+    return g_origCreateFileW(wname, access, share, sa, disp, flags, tmpl);
+}
+
+static int install_dat_hooks(HMODULE exe)
+{
+    IMAGE_DOS_HEADER *dos = (IMAGE_DOS_HEADER *)exe;
+    IMAGE_NT_HEADERS32 *nt = (IMAGE_NT_HEADERS32 *)((BYTE *)exe + dos->e_lfanew);
+    IMAGE_IMPORT_DESCRIPTOR *imp =
+        (IMAGE_IMPORT_DESCRIPTOR *)((BYTE *)exe +
+            nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT]
+              .VirtualAddress);
+    int hookedA = 0, hookedW = 0;
+
     dat_set_logger(dat_log_bridge);
-    /* 映射表用相对路径：游戏工作目录就是游戏根目录 */
     dat_load_map("wite2_dat.tsv");
+    if (GetFileAttributesA("wite2_openlog.ini") != INVALID_FILE_ATTRIBUTES) {
+        g_openLog = 1;
+        logfmt("[dat] 打开路径日志开启 -> wite2_hook.txt\n");
+    }
 
-    if (memcmp(fn, sig, 6) != 0) {
-        logfmt("[dat] fopen sig mismatch: %02X %02X %02X %02X %02X %02X\n",
-               fn[0], fn[1], fn[2], fn[3], fn[4], fn[5]);
+    for (; imp->Name; imp++) {
+        IMAGE_THUNK_DATA32 *oft, *iat;
+        if (!imp->OriginalFirstThunk || !imp->FirstThunk) continue;
+        oft = (IMAGE_THUNK_DATA32 *)((BYTE *)exe + imp->OriginalFirstThunk);
+        iat = (IMAGE_THUNK_DATA32 *)((BYTE *)exe + imp->FirstThunk);
+        for (; oft->u1.AddressOfData; oft++, iat++) {
+            IMAGE_IMPORT_BY_NAME *ibn;
+            if (oft->u1.Ordinal & IMAGE_ORDINAL_FLAG) continue;
+            ibn = (IMAGE_IMPORT_BY_NAME *)((BYTE *)exe + oft->u1.AddressOfData);
+            if (strcmp((const char *)ibn->Name, "CreateFileA") == 0) {
+                install_iat_hook(exe, (DWORD)((BYTE *)iat - (BYTE *)exe),
+                                 (void *)hook_CreateFileA,
+                                 (void **)&g_origCreateFileA);
+                hookedA = 1;
+            } else if (strcmp((const char *)ibn->Name, "CreateFileW") == 0) {
+                install_iat_hook(exe, (DWORD)((BYTE *)iat - (BYTE *)exe),
+                                 (void *)hook_CreateFileW,
+                                 (void **)&g_origCreateFileW);
+                hookedW = 1;
+            }
+        }
+    }
+
+    if (!hookedA && !hookedW) {
+        logfmt("[dat] CreateFileA/W 都不在导入表，数据层不可用\n");
         return 0;
     }
-    if (!VirtualProtect(fn, 16, PAGE_EXECUTE_READWRITE, &oldProt)) return 0;
-    jrel = (DWORD)((BYTE *)hook_fopen - (fn + 5));
-    fn[0] = 0xE9;
-    memcpy(fn + 1, &jrel, 4);
-    VirtualProtect(fn, 16, oldProt, &oldProt);
-    FlushInstructionCache(GetCurrentProcess(), fn, 5);
-
-    logfmt("[dat] fopen hooked at %p (impl=%p)\n", fn, g_fopenImpl);
+    logfmt("[dat] CreateFileA=%s CreateFileW=%s，映射 %d 条\n",
+           hookedA ? "hooked" : "-", hookedW ? "hooked" : "-",
+           dat_map_count());
     return 1;
 }
 
@@ -2407,7 +2475,7 @@ static DWORD WINAPI init_thread(LPVOID param)
          * 钩子永远拿不到整句，只能在这里拦 fopen 现场替换。
          * 关掉的方式：游戏目录放 wite2_nodat.ini */
         if (GetFileAttributesA("wite2_nodat.ini") == INVALID_FILE_ATTRIBUTES)
-            install_fopen_hook(exe);
+            install_dat_hooks(exe);
         else
             logfmt("[dat] 已禁用（wite2_nodat.ini）\n");
     } else {

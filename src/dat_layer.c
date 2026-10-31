@@ -308,6 +308,8 @@ int dat_apply(unsigned char *plain, unsigned long len)
     return hits;
 }
 
+int dat_map_count(void) { return g_datN; }
+
 /* 判断路径是不是我们关心的 GenData\*.dat，是则取出文件名 */
 int dat_match_name(const char *path, char *out, int cap)
 {
@@ -397,6 +399,89 @@ FILE *dat_redirect(const char *path, FILE *(*impl)(const char*,int,const char*))
     return out;
 }
 
+
+
+/* 把打过补丁的 .dat 落到临时文件，返回该文件路径（调用者负责 free）。
+ *
+ * 为什么落临时文件而不是直接用内存
+ * -------------------------------
+ * 拦截点是 CreateFile：调用者拿到的是 HANDLE，之后自己 ReadFile。
+ * 要让游戏读到补丁内容，最干净的做法就是把补丁写成一个真实文件，
+ * 再把路径换掉 —— 这样不管它后面用 ReadFile、内存映射还是别的，
+ * 全部自然生效，我们不用去模拟文件对象。
+ *
+ * 用 %TEMP% 下的唯一文件名，不碰游戏目录。返回 NULL 表示未接管。
+ */
+char *dat_materialize(const char *path)
+{
+    char name[128];
+    char tmpdir[MAX_PATH];
+    char *outpath;
+    FILE *src, *out;
+    unsigned char *blob = NULL, *plain = NULL, *packed = NULL;
+    long sz;
+    size_t plen = 0, pklen = 0;
+    int hits;
+
+    if (!dat_match_name(path, name, sizeof(name))) return NULL;
+    if (!dat_file_wanted(name)) return NULL;
+    if (g_datN <= 0) return NULL;
+
+    src = fopen(path, "rb");
+    if (!src) return NULL;
+    fseek(src, 0, SEEK_END);
+    sz = ftell(src);
+    fseek(src, 0, SEEK_SET);
+    if (sz <= 0 || sz > 128 * 1024 * 1024) { fclose(src); return NULL; }
+
+    blob = (unsigned char *)malloc((size_t)sz);
+    if (!blob) { fclose(src); return NULL; }
+    if (fread(blob, 1, (size_t)sz, src) != (size_t)sz) {
+        free(blob); fclose(src); return NULL;
+    }
+    fclose(src);
+
+    dat_rc4(blob, (size_t)sz);
+    if (gz_decompress(blob, (size_t)sz, &plain, &plen) != 0) {
+        dat_log("[dat] %s 解压失败，跳过\n", name);
+        free(blob);
+        return NULL;
+    }
+    free(blob);
+
+    hits = dat_apply(plain, (unsigned long)plen);
+    if (hits <= 0) { free(plain); return NULL; }
+
+    if (gz_compress_stored(plain, plen, &packed, &pklen) != 0) {
+        free(plain);
+        return NULL;
+    }
+    free(plain);
+    dat_rc4(packed, pklen);
+
+    if (!GetTempPathA(sizeof(tmpdir), tmpdir)) {
+        free(packed);
+        return NULL;
+    }
+    outpath = (char *)malloc(MAX_PATH);
+    if (!outpath) { free(packed); return NULL; }
+    if (!GetTempFileNameA(tmpdir, "w2z", 0, outpath)) {
+        free(outpath); free(packed); return NULL;
+    }
+
+    out = fopen(outpath, "wb");
+    if (!out) { free(outpath); free(packed); return NULL; }
+    if (fwrite(packed, 1, pklen, out) != pklen) {
+        fclose(out); remove(outpath); free(outpath); free(packed);
+        return NULL;
+    }
+    fclose(out);
+    free(packed);
+
+    dat_log("[dat] %s 命中 %d 处，%u B 明文 -> 临时文件 %s\n",
+            name, hits, (unsigned)plen, outpath);
+    return outpath;
+}
 
 void dat_free_map(void)
 {
