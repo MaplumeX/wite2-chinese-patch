@@ -20,8 +20,8 @@ WITE2 翻译校对工具
 关于"过长":
     绘制层是整体换指针, 文字不会被截断。但界面布局按原文长度排版,
     中文过长会视觉溢出或挤压相邻元素。
-        "Army Group Center" 17 -> "中央集团军群" 6 字      OK
-        "OKH" 3 -> "国防军陆军总司令部" 9 字              过长, 建议 "陆总"
+        "Show Production screen" 22 -> "显示生产界面" 6 字    OK
+        "OKH" 3 -> "国防军陆军总司令部" 9 字                  过长, 建议 "陆总"
     经验值: 译文长度控制在原文的 1.5 倍以内比较安全。
 """
 
@@ -209,9 +209,6 @@ def _kind(s):
         return None
     if len(s) <= 2:
         return None
-    if re.search(r"(Corps|Division|Army|Group|Panzer|Brigade|Regiment|"
-                 r"Battalion|Company|Korps|Armee|Squad|HQ|ID$|MD$)", s):
-        return "部队名"
     if s.isupper() and len(s) > 2:
         return "界面-全大写"
     if s[0].isupper() and len(s.split()) <= 3:

@@ -34,24 +34,6 @@ def classify(en, zh):
     """把词条分到术语类别, 返回 (类别, 备注)"""
     e = en
 
-    # 编制单位
-    if re.search(r"\b(Army Group|Panzer Group|Panzer Army|Army|Corps|Korps|"
-                 r"Division|Brigade|Regiment|Battalion|Company|Squadron|Squad|"
-                 r"Front|Detachment|Command)\b", e):
-        note = ""
-        if "Front" in e:
-            note = "苏军编制, 对应德军集团军群"
-        elif "Army Group" in e:
-            note = "德军编制"
-        elif "Panzer" in e:
-            note = "德军装甲部队"
-        return "编制单位", note
-
-    # 兵种
-    if re.search(r"\b(Infantry|Cavalry|Motorized|Mechanized|Panzer|Armored|"
-                 r"Rifle|Guards|Security|Light|Airborne|Mountain|Tank)\b", e):
-        return "兵种", ""
-
     # 游戏选项
     if re.search(r"(Level|Control|Attrition|Motorization|Invasions|"
                  r"Difficulty|Deaths|Fog of War|Operations|Fog)", e):
@@ -152,8 +134,6 @@ def cmd_check():
     """检查同一英文词根是否有不一致的译法"""
     d = load()
     roots = {
-        "Army Group": [], "Panzer": [], "Corps": [], "Division": [],
-        "Brigade": [], "Regiment": [], "Battalion": [], "Front": [],
         "Supply": [], "Fuel": [], "Ammo": [], "Depot": [],
         "Air": [], "Attack": [], "Defense": [], "Retreat": [],
         "Factory": [], "Level": [], "Control": [], "Port": [],

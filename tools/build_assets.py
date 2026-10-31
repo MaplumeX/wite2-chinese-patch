@@ -14,8 +14,8 @@
   1. 完整 ASCII
   2. zh_dict.json 译文用字
   3. scen_trans.py 剧本描述用字
-  4. GB2312 一级常用字 3755 —— 部队名/司令部名是运行时拼接的，
-     拼出来的字可能不在词典里
+  4. GB2312 一级常用字 3755 —— 界面里有运行时拼接的标签
+     （数值 + 单位、国家 + 城市），拼出来的字可能不在词典里
 
 注意: 中文译文比英文短，居中/右对齐的标签位置会随之变化。
 这是翻译本身带来的，不是字体问题，调字体解决不了。
@@ -34,35 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
 DICT = os.path.join(ROOT, "zh_dict.json")
-BLOCK = os.path.join(ROOT, "_block_names.txt")
 
-# 这些是界面词条，不是部队番号名 —— 玩家在筛选框、类型下拉里见得到。
-# 不允许进入封印名单，否则界面会出现半中半英。
-GENERIC_KEEP = {
-    "Cavalry", "Coastal", "Guards", "Motorized", "Mountain", "Mobile",
-    "Reserve", "Lehr", "Frontier", "Middle", "North", "Southern",
-    "Western", "Northwestern", "Southwestern", "Provisional", "Steppe",
-    "Baltic", "Czech", "Finnish", "Hungarian", "Rumanian", "Slovakian",
-    "Croatian", "Karelian", "Siberia", "Transbaikal", "Transcaucasus",
-    "Urals", "Tatra", "Expeditionary", "Jewish",
-}
-
-
-def load_block_names():
-    """读封印名单，并校验没把通用词条弄进去。"""
-    if not os.path.exists(BLOCK):
-        return []
-    out = []
-    with open(BLOCK, encoding="utf-8") as f:
-        for line in f:
-            s = line.strip()
-            if not s or s.startswith("#"):
-                continue
-            out.append(s)
-    bad = [k for k in out if k in GENERIC_KEEP]
-    if bad:
-        raise SystemExit("封印名单里混进了通用词条：%s" % ", ".join(bad))
-    return out
 TSV = os.path.join(ROOT, "wite2_zh.tsv")
 FONT_DIR = os.path.join(ROOT, "Dat", "Fonts")
 FONT_FILE = "wite2_zh.ttf"
@@ -94,8 +66,8 @@ def collect_chars():
 
     # GB2312 一级常用字（3755 个）。
     #
-    # 只收词典用字不够：部队名和司令部名是运行时拼接的
-    # （数字 + 兵种缩写 + 编制层级），拼出来的字可能不在词典里。
+    # 只收词典用字不够：界面里有些标签是运行时拼接的
+    # （数值 + 单位、国家 + 城市名），拼出来的字可能不在词典里。
     # 一级字库覆盖日常用字 99% 以上，体积也可控。
     gb = 0
     for hi in range(0xB0, 0xD8):
@@ -155,13 +127,9 @@ def build_tsv():
     draw_only = set(raw.get("_drawOnly", []))
     zh = {k: v for k, v in raw.items()
           if not k.startswith("_") and not str(v).startswith("----")}
-    # 封印键只输出封印行。曾经两边都输出，结果 <cr> 既有普通行（会改内存）
-    # 又有封印行，patch_section 照样把它改成“<换行>”，封印形同虚设。
-    block_set = set(load_block_names())
-    zh = {k: v for k, v in zh.items() if k not in block_set}
     lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",
-             "# 英文<TAB>中文[<TAB>d|r|b|t|x]  d=只改.data r=只改.rdata "
-             "b=两段都改 t=只绘制层 x=封印(永不翻译)"]
+             "# 英文<TAB>中文[<TAB>d|r|b|t]  d=只改.data r=只改.rdata "
+             "b=两段都改 t=只绘制层"]
     for k, v in zh.items():
         if k in draw_only:
             # 最优先。_drawOnly 曾经只是维护在 zh_dict.json 里、却从没
@@ -177,11 +145,6 @@ def build_tsv():
         else:
             scope = ""
         lines.append("%s\t%s%s" % (k, v, scope))
-    for k in block_set:
-        # 译文列填原文本身：C 层命中后直接返回输入，不复制任何东西。
-        # 填原文只是为了让三列结构保持一致。
-        lines.append("%s\t%s\tx" % (k, k))
-    print("封印 %d 条" % len(block_set))
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     # selftest.exe 在 build/ 下运行，读的是相对路径 wite2_zh.tsv。
