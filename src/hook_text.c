@@ -349,6 +349,19 @@ static int g_noSeg = 0;   /* selftest --nosseg: 禁用策略 9，量出靠猜的
 #define CAP_N 40000
 static unsigned *g_capHash = NULL;
 static FILE *g_capFile = NULL;
+/* 绘制 hook 在调用 dt_check 前填入的调用点信息。
+ * g_curRet  = 调用者返回地址（反查是哪个界面画的）
+ * g_curThis = __thiscall 的 this（区分同类界面的不同实例）
+ * 渲染是单线程的，直接存全局即可，不进栈参数。 */
+static DWORD g_curRet = 0;
+static DWORD g_curThis = 0;
+/* 绘制 hook 入口时的 ebp / esp，用来沿帧链回溯调用栈。
+ * 只看返回地址没用 —— 游戏只有一个文本绘制入口，所有界面的
+ * 返回地址都一样。必须往上翻几层才能区分是哪个面板画出来的。 */
+static DWORD g_curEbp = 0;
+static DWORD g_curEsp = 0;
+#define BT_DEPTH 6
+static DWORD g_bt[BT_DEPTH];
 static volatile LONG g_capCount = 0;
 
 static unsigned cap_hash(const wchar_t *t, int len)
@@ -2398,6 +2411,73 @@ tok_ok:;
     return text;
 }
 
+/* ================= 调用栈回溯 =================
+ *
+ * 为什么需要: 游戏只有一个文本绘制入口 (0x45CE60)，所有界面调它时
+ * 的返回地址完全一样。第一版只记返回地址，结果 700 条捕获全挤在
+ * 同一个调用点，区分不出界面。
+ *
+ * 第一版改成走 EBP 帧链，仍然失败 —— Release 构建把 EBP 当通用
+ * 寄存器用，帧链是断的。实测捕获里一条链都没有。
+ *
+ * 现在改成扫描栈：入口 esp 往上找"看起来像返回地址"的 DWORD，
+ * 判据是落在主模块 .text 段内。这样不依赖帧指针，FPO 也不影响。
+ * 相邻重复的去掉，最多记 BT_DEPTH 层。 */
+static DWORD g_textLo = 0, g_textHi = 0;
+
+static void init_text_range(void)
+{
+    HMODULE h = GetModuleHandleW(NULL);
+    BYTE *b;
+    IMAGE_DOS_HEADER *dos;
+    IMAGE_NT_HEADERS32 *nt;
+    IMAGE_SECTION_HEADER *sec;
+    int i, n;
+    if (!h) return;
+    b = (BYTE *)h;
+    dos = (IMAGE_DOS_HEADER *)b;
+    if (dos->e_magic != IMAGE_DOS_SIGNATURE) return;
+    nt = (IMAGE_NT_HEADERS32 *)(b + dos->e_lfanew);
+    if (nt->Signature != IMAGE_NT_SIGNATURE) return;
+    sec = IMAGE_FIRST_SECTION(nt);
+    n = nt->FileHeader.NumberOfSections;
+    for (i = 0; i < n; i++) {
+        if (memcmp(sec[i].Name, ".text", 5) == 0) {
+            g_textLo = (DWORD)(DWORD_PTR)b + sec[i].VirtualAddress;
+            g_textHi = g_textLo + sec[i].Misc.VirtualSize;
+            return;
+        }
+    }
+}
+
+static void walk_stack(void)
+{
+    int i, k = 0;
+    DWORD *teb = (DWORD *)__readfsdword(0x18);
+    DWORD stkHi = teb ? teb[1] : 0;
+    DWORD p, end;
+
+    for (i = 0; i < BT_DEPTH; i++) g_bt[i] = 0;
+    if (!g_textLo || !g_textHi || !stkHi) return;
+
+    g_bt[k++] = g_curRet;                 /* 第 0 层是直接返回地址 */
+
+    p = g_curEsp;
+    end = stkHi;
+    if (end - p > 4096) end = p + 4096;   /* 只扫前 4KB，够覆盖调用链 */
+
+    __try {
+        while (p + 4 <= end && k < BT_DEPTH) {
+            DWORD v = *(DWORD *)p;
+            if (v >= g_textLo && v < g_textHi && v != g_bt[k - 1])
+                g_bt[k++] = v;
+            p += 4;
+        }
+    } __except (EXCEPTION_EXECUTE_HANDLER) {
+        /* 扫到栈边界了，保留已拿到的部分 */
+    }
+}
+
 /* 把宽串写成可读的 UTF-8，非 ASCII 用 <XXXX> 转义，
  * 这样日志用记事本就能看，也方便脚本解析。 */
 static void cap_write(const wchar_t *src, const wchar_t *dst)
@@ -2412,6 +2492,23 @@ static void cap_write(const wchar_t *src, const wchar_t *dst)
     char out[1200];
     int o = 0;
     const wchar_t *pair[2];
+    /* 前置两列: 调用点返回地址、this 指针。
+     * 有了它们才能反查这个串是哪个界面画的 —— 不同界面显示的
+     * 部队名形态不同，光看文本本身分不出来。 */
+    {
+        int w, i;
+        walk_stack();
+        w = _snprintf(out + o, 80, "%08X@%08X",
+                      (unsigned)g_curRet, (unsigned)g_curThis);
+        if (w < 0) w = 0;
+        o += w;
+        for (i = 1; i < BT_DEPTH && g_bt[i]; i++) {
+            w = _snprintf(out + o, 12, ":%08X", (unsigned)g_bt[i]);
+            if (w < 0) break;
+            o += w;
+        }
+    }
+    out[o++] = '	';
     pair[0] = src; pair[1] = dst;
     for (int k = 0; k < 2; k++) {
         const wchar_t *p = pair[k] ? pair[k] : L"";
@@ -2536,12 +2633,27 @@ static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
 __declspec(naked) static void drawtext_hook(void)
 {
     __asm {
+        /* 先把入口时的 ebp / esp 存下来（必须在 push 之前取，
+         * 否则拿到的是被我们改过的栈） */
+        mov  [g_curEbp], ebp
+        mov  [g_curEsp], esp
         pushfd
         push eax
         push ecx
         push edx
-        /* 压了 16 字节, 现在 [esp+16] 就是入口时的 esp（指向返回地址） */
+        /* 压了 16 字节, 现在 [esp+16] 就是入口时的 esp（指向返回地址）
+         * 栈布局（相对当前 esp）:
+         *   [+0]  保存的 edx
+         *   [+4]  保存的 ecx  = __thiscall 的 this
+         *   [+8]  保存的 eax
+         *   [+C]  flags
+         *   [+10] 调用者返回地址
+         *   [+20] arg4 = 文本指针 */
         lea  eax, [esp + 16]
+        mov  ecx, [eax]
+        mov  [g_curRet], ecx
+        mov  ecx, [esp + 4]
+        mov  [g_curThis], ecx
         push eax                        /* arg2: 原始栈指针，用来读绘制坐标 */
         push dword ptr [eax + 0x10]     /* arg1: 文本指针 ([orig+0x10] = 第4个栈参数) */
         call dt_check2
@@ -2738,7 +2850,10 @@ static DWORD WINAPI init_thread(LPVOID param)
             g_capFile = fopen("wite2_capture.txt", "wb");
             if (g_capHash && g_capFile) {
                 g_capture = 1;
-                logfmt("[capture] 全量捕获开启 -> wite2_capture.txt\n");
+                init_text_range();
+                logfmt("[capture] 全量捕获开启 -> wite2_capture.txt "
+                       "text=%08X-%08X\n",
+                       (unsigned)g_textLo, (unsigned)g_textHi);
             }
         }
     }
@@ -2773,6 +2888,19 @@ int main(int argc, char **argv)
         g_capFile = fopen("selftest_capture.txt", "wb");
         if (g_capHash && g_capFile) g_capture = 1;
         else { fprintf(stderr, "capture init FAILED\n"); return 2; }
+    }
+    /* --stacktest: 验证栈扫描能拿到返回地址链 */
+    if (argc > 1 && strcmp(argv[1], "--stacktest") == 0) {
+        int i;
+        init_text_range();
+        g_curEsp = (DWORD)(DWORD_PTR)&wantCap;
+        g_curRet = (DWORD)(DWORD_PTR)&main;
+        walk_stack();
+        fprintf(stderr, "text=%08X-%08X esp=%08X\n",
+                g_textLo, g_textHi, g_curEsp);
+        for (i = 0; i < BT_DEPTH; i++)
+            fprintf(stderr, "  bt[%d]=%08X\n", i, g_bt[i]);
+        return 0;
     }
     /* 关掉日志，避免污染 stdout */
     g_logBudget = -1;
