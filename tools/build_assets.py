@@ -155,6 +155,10 @@ def build_tsv():
     draw_only = set(raw.get("_drawOnly", []))
     zh = {k: v for k, v in raw.items()
           if not k.startswith("_") and not str(v).startswith("----")}
+    # 封印键只输出封印行。曾经两边都输出，结果 <cr> 既有普通行（会改内存）
+    # 又有封印行，patch_section 照样把它改成“<换行>”，封印形同虚设。
+    block_set = set(load_block_names())
+    zh = {k: v for k, v in zh.items() if k not in block_set}
     lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",
              "# 英文<TAB>中文[<TAB>d|r|b|t|x]  d=只改.data r=只改.rdata "
              "b=两段都改 t=只绘制层 x=封印(永不翻译)"]
@@ -173,11 +177,11 @@ def build_tsv():
         else:
             scope = ""
         lines.append("%s\t%s%s" % (k, v, scope))
-    for k in load_block_names():
+    for k in block_set:
         # 译文列填原文本身：C 层命中后直接返回输入，不复制任何东西。
         # 填原文只是为了让三列结构保持一致。
         lines.append("%s\t%s\tx" % (k, k))
-    print("封印 %d 条" % len(load_block_names()))
+    print("封印 %d 条" % len(block_set))
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     # selftest.exe 在 build/ 下运行，读的是相对路径 wite2_zh.tsv。

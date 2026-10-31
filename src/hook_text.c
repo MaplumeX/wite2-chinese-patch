@@ -1676,14 +1676,36 @@ static wchar_t *dt_check_body(wchar_t *text)
      * 名单在 _block_names.txt，每条都经过确认是编制名而非通用词条。 */
     for (int b = 0; b < g_nblk; b++) {
         ZhEntry *e = &g_zh[g_blk[b]];
-        if (e->klen != len) continue;
-        int same = 1;
-        for (int z = 0; z < len; z++) {
-            wchar_t a = text[z];
-            wchar_t c = (wchar_t)(unsigned char)e->key[z];
-            if (e->cs ? (a != c) : (lc_w(a) != lc_w(c))) { same = 0; break; }
+        /* 等长匹配 */
+        if (e->klen == len) {
+            int same = 1;
+            for (int z = 0; z < len; z++) {
+                wchar_t a = text[z];
+                wchar_t c = (wchar_t)(unsigned char)e->key[z];
+                if (e->cs ? (a != c) : (lc_w(a) != lc_w(c))) {
+                    same = 0;
+                    break;
+                }
+            }
+            if (same) return text;
+            continue;
         }
-        if (same) return text;
+        /* 截断前缀：游戏列宽不够时会画 "Army Grp. Sout" 这种。
+         * 不拦的话会落到策略 4 把英文全称重建出来返回 —— 等于改了
+         * 游戏画的内容（原本是截断的，变成完整的）。 */
+        if (len >= 12 && len < e->klen &&
+            len * 10 >= e->klen * 7) {
+            int same = 1;
+            for (int z = 0; z < len; z++) {
+                wchar_t a = text[z];
+                wchar_t c = (wchar_t)(unsigned char)e->key[z];
+                if (e->cs ? (a != c) : (lc_w(a) != lc_w(c))) {
+                    same = 0;
+                    break;
+                }
+            }
+            if (same) return text;
+        }
     }
 
     /* ---------- 策略 0: 拆分单位前缀 ----------

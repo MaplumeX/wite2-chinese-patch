@@ -150,5 +150,24 @@ Meyer'
 zbV 40th
 zbV 66th
 zbV 752nd
-MG-Ski
 Rome Defense
+
+# ---- 控制标记 ----
+# 这些不是显示文本，游戏拿它们做解析：
+#   <cr>   换行标记。exe 里只出现 2 次，且都是独立字符串 —— 说明是
+#          用 strcmp 比对的控制码。译文不再匹配后，切行逻辑失效，
+#          整段提示变一行超长文本，绘制缓冲被撑穿，指针被冲掉，
+#          表现为跳到 .rdata 里执行并往野地址写（指挥官报告的崩溃）。
+#   url= /url   BBCode 链接标记，解析失败会让整段文本渲染异常。
+<cr>
+url=
+/url
+
+# ---- 小写方括号标记 ----
+# 纯小写、括号内无首尾空格的是机器 token（服务器对局状态、地图文字键），
+# 不是显示标签。带空格的 [ All Chains ] 那类才是给玩家看的，不封。
+[done]
+[running]
+[game over]
+[game not started]
+[major-river extra]

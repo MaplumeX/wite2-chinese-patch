@@ -23,7 +23,7 @@ CASES = [
     ("National", "National", "不能变成 国家al"),
     ("Nation", "国家", "独立单词应正常翻译"),
     ("Army Group Center", "Army Group Center", "[部队名不翻] 完整名"),
-    ("Army Grp. Sout", "南方集团军群", "缩写+截断"),
+    ("Army Grp. Sout", "Army Grp. Sout", "[部队名不翻] 缩写+截断"),
     ('1st Panzer Grou', '1st Panzer Grou', "[部队名不翻] 截断"),
     ('113th ID', '113th ID', "[部队名不翻] 数字+兵种缩写"),
     ('16th MD', '16th MD', "[部队名不翻] 数字+兵种缩写"),

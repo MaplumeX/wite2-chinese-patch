@@ -60,16 +60,9 @@ ACTIVE	激活	t
 INACTIVE	未激活
 Reinforcement	增援
 Reinforcements & Transfers	增援与调动
-Army Group Center	中央集团军群
-Army Group South	南方集团军群
-Army Group North	北方集团军群
 Army Group A	A集团军群
-Army Group B	B集团军群
-Carpathian Army Group	喀尔巴阡集团军群
 Carpathian Hun. Army	喀尔巴阡匈牙利集团军
 103rd RHG Command	第103后方卫戍区
-OKH	国防军陆军总司令部	t
-OKL	空军总司令部	t
 OHQ	上级司令部	t
 HHQ	战区司令部	t
 Army Group HQ	集团军群司令部
@@ -563,14 +556,14 @@ no air bases	无航空基地
   air group transfer is restricted by game options	  飞行队转场受游戏选项限制
   air group locked in the Theater Box	  飞行队被锁定在战区
   can't transfer just arrived air group	  无法转场刚抵达的飞行队
-Transfer not allowed ~ only German air groups could be sent to East Front	不允许转场：只有德国飞行队可派往东线
-Transfer not allowed ~ requires 1 AP per air group	不允许转场：每支飞行队需1点行政点
-Transfer not allowed ~ too long distance for the selected air groups	不允许转场：选中飞行队距离过远
-Transfer not allowed ~ there is no friendly air base in the selected hex	不允许转场：该六角格无友方航空基地
-Transfer not allowed ~ from a frozen air base	不允许转场：来自冻结的航空基地
-Transfer not allowed ~ target base would exceed 20 air groups	不允许转场：目标基地将超过20支飞行队
-Transfer not allowed ~ air unit would exceed maximum mileage for this turn	不允许转场：航空单位将超出本回合最大里程
-No selected air unit ~ is eligible to transfer	未选中可转场的航空单位
+Transfer not allowed ~ only German air groups could be sent to East Front	不允许转场~只有德国飞行队可派往东线
+Transfer not allowed ~ requires 1 AP per air group	不允许转场~每支飞行队需1点行政点
+Transfer not allowed ~ too long distance for the selected air groups	不允许转场~选中飞行队距离过远
+Transfer not allowed ~ there is no friendly air base in the selected hex	不允许转场~该六角格无友方航空基地
+Transfer not allowed ~ from a frozen air base	不允许转场~来自冻结的航空基地
+Transfer not allowed ~ target base would exceed 20 air groups	不允许转场~目标基地将超过20支飞行队
+Transfer not allowed ~ air unit would exceed maximum mileage for this turn	不允许转场~航空单位将超出本回合最大里程
+No selected air unit ~ is eligible to transfer	未选中航空单位~无法转场
 Theater Box unit is located	战区部队位于
 Theatre Box air group is located	战区飞行队位于
 Is unit active on map?	部队是否在地图上活动？
@@ -587,11 +580,11 @@ Toggle Theater Boxes on/off - goto Reserve Box	切换战区显示：前往预备
   low Theater Box defense values: 	  战区防御值过低：
   can't transfer just arrived unit	  无法转移刚抵达的部队
 Unit has already changed HQs this turn!	该部队本回合已变更司令部！
-Frozen or immobile units ~ may not be transferred!	冻结或无法移动的部队不可转移！
+Frozen or immobile units ~ may not be transferred!	冻结或无法移动的部队~不可转移！
 No admin points available to transfer unit	无可用行政点转移部队
 Not enough admin points available to transfer unit	行政点不足以转移部队
 Send unit to West Front	派遣部队至西线
-Send unit to West Front ~ requires 1 AP	派遣部队至西线：需1点行政点
+Send unit to West Front ~ requires 1 AP	派遣部队至西线~需1点行政点
 No additional withdrawals or refit are allowed	不允许额外撤离或补充
 Front line unit - change to Refit	前线部队：转为补充
 Refitting unit - change to Front Line	补充中部队：转为前线
@@ -897,7 +890,7 @@ saving ....	保存中 ....
 loading ....	载入中 ....
 initializing ....	初始化中 ....
 processing turns data ....	处理回合数据 ....
-Close Generic Data?~All unsaved data will be lost	关闭通用数据？所有未保存数据将丢失
+Close Generic Data?~All unsaved data will be lost	关闭通用数据？~所有未保存数据将丢失
 Can't have more than 100 stacking value in City Fort	城市要塞堆叠值不能超过100
 Can't attach more than 10 units to City Fort	城市要塞不能附属超过10个部队
 Detach from city city fort?	从城市要塞解绑？
@@ -912,7 +905,7 @@ Clear map region data from water hexes?	清除水域六角格的地图区域数�
 Clear map region data from land hexes?	清除陆地六角格的地图区域数据？
 Activate AI Air Assist ?	启用AI空中辅助？
 Calculate weapon set modifiers for all aircraft?	为所有飞机计算武器组修正？
-Set side which can end scenario~after all VP objectives are captured	设置可在占领全部胜利点后结束剧本的一方
+Set side which can end scenario~after all VP objectives are captured	设置可结束剧本的一方~占领全部胜利点后
 Select this event.	选择此事件。
 Set MP/SMP for the unit	设置部队的移动点
 Set city location for the unit.	设置部队所在城市。
@@ -1139,7 +1132,7 @@ Air Directive Summary	空中指令总结
 Lost / Dam	损失/受损
 Cancel Target Hex Selection	取消目标六角格选择
 Confirm Air Directive?	确认空中指令？
-Reassign air group to another~Air Directive?	将飞行队改派到另一个空中指令？
+Reassign air group to another~Air Directive?	将飞行队改派到另一个~空中指令？
 Resource Movement: moving to pools	资源流动：运往储备
 Resource Movement: city to city	资源流动：城市间
 Pool to City	储备到城市
@@ -1517,8 +1510,8 @@ Relocate Unit ?	转移部队？
 Merge Unit ?	合并部队？
 Unit will demotorize during the next supply phase	部队将在下个补给阶段取消摩托化
 The Soviet player may not motorize units in 1941	苏联玩家在1941年不能摩托化部队
-All units reporting directly to this HQ ~ will have their REFIT status turned OFF	所有直接隶属此司令部的部队将关闭补充状态
-All units reporting directly to this HQ ~ will have their status set to REFIT	所有直接隶属此司令部的部队将设为补充状态
+All units reporting directly to this HQ ~ will have their REFIT status turned OFF	所有直接隶属此司令部的部队~将关闭补充状态
+All units reporting directly to this HQ ~ will have their status set to REFIT	所有直接隶属此司令部的部队~将设为补充状态
 May not set airborne target during air planning phase	空中计划阶段不能设置空降目标
 May not set amphibious target during air planning phase	空中计划阶段不能设置两栖目标
 Unit should be unloaded before assigned to City Fort.	部队应先卸载再分配到城市要塞。
@@ -2009,10 +2002,6 @@ Lend Lease Delivery	租借法案交付
 Light-Urban	轻型城区
 Long Range Command	远程指挥
 Loss by Phase	分阶段损失
-Luftflotte 1	第1航空队
-Luftflotte 2	第2航空队
-Luftflotte 4	第4航空队
-Luftflotte 6	第6航空队
 Mark As Read	标记为已读
 Max Ceiling:	最大升限：
 Max Command:	最大指挥：
@@ -2098,7 +2087,7 @@ Soviets Attack Exposed Enemy	苏军攻击暴露的敌人
 Soviets examine starting positions	苏军检查初始位置
 Soviets Reaction Attacks	苏军反击
 Staging Base:	中转基地：
-Starting game, ~ This takes a while ~ Please be patient	正在启动游戏，需要一些时间，请耐心等待
+Starting game, ~ This takes a while ~ Please be patient	正在启动游戏，~需要一些时间~请耐心等待
 STRATEGIC BOMBING DAMAGE	战略轰炸损伤
 Strike num:	出击数量：
 SUBORDINATE AOGs	下属航空作战群
@@ -2542,7 +2531,6 @@ Switch to Export Port	切换到出口港
 Switch to Import Port	切换到进口港
 City to City	城市到城市
 Transport Ships	运输船
-Baltic Fleet	波罗的海舰队
 Black Sea	黑海
 Bomb Flotilla	轰炸支队
 Naval Patrols	海上巡逻
@@ -2797,7 +2785,7 @@ Disband this Depot ?	解散此补给站？
 Disband this unit	解散此部队
 Disband Soviet Corps HQ	解散苏联军司令部
 DETACH LEADERS IN DELAYED HQ'S	解绑延迟司令部中的将领
-Leave Editor?~All unsaved data will be lost	退出编辑器？所有未保存数据将丢失
+Leave Editor?~All unsaved data will be lost	退出编辑器？~所有未保存数据将丢失
 Clean WITW scenario?	清理WITW剧本？
 CLEAR ALL OFFMAP HEXES?	清除全部地图外六角格？
 Reset Water Tiles	重置水域地块
@@ -2928,10 +2916,7 @@ title,	标题，
 text,	文本，
 id,	编号，
 lck*	锁定*
-url=	网址=
-/url	/网址
 url	网址	t
-<cr>	<换行>
 red	红	t
 white	白	t
 green	绿	t
@@ -3466,7 +3451,7 @@ Depot: 0=none 1=rail 2=port 3=port src 4=nat src	补给站：0=无 1=铁路 2=�
 Type: 1=Ch  2=Mv-D  3=Mv-D-St  4=Mv-H  5=Mv-H-St	类型：1=频道 2=移动-蓄意 3=移动-蓄意-堆叠 4=移动-仓促 5=移动-仓促-堆叠
 1=inf,2=art,3=sp-wpn,4=mech-inf,5=support,6=inf-wpn,7=ac,8=spa,9=afv	1=步兵 2=炮兵 3=特种武器 4=机械化步兵 5=支援 6=步兵武器 7=飞机 8=特种 9=装甲车
 Disband this unit - add component elements to other units in hex.	解散此部队 - 将组成部分加入六角格内其他部队。
-Disband this unit ~- return component elements to the replacement pool.	解散此部队 - 将组成部分归还补充储备。
+Disband this unit ~- return component elements to the replacement pool.	解散此部队~- 将组成部分归还补充储备。
 Is leader available/enabled? Set false to disable (vacates command), true to re-enable.	将领是否可用？设为否将禁用（空出指挥），设为是可重新启用。
  Freight     Received    Used      To Units    Truck Use	 货运        接收        使用        至部队      卡车使用
                                  TURN        TOTAL	                                 回合        总计
@@ -3819,7 +3804,6 @@ SUPPLY PRIORITY (	补给优先级（
 RDY / RES	就绪/储备
 Minor River: 	小河：
 MEDITERRANEAN	地中海
-Black Sea Fleet	黑海舰队
 Fliegerfuehrer 	航空指挥官 
 NON-MOTORIZED	非摩托化
 NON-MOT	非摩托化
@@ -3865,7 +3849,6 @@ Minor River / Motorized	小河 / 摩托化
 Minor River / Non-Motorized	小河 / 非摩托化
 Minor River / Motorized / EZOC	小河 / 摩托化 / 敌方控制区
 Minor River / Non-Motorized / EZOC	小河 / 非摩托化 / 敌方控制区
-[major-river extra]	[大河额外消耗]
 Infantry (1)	步兵（1）
 Construction (7)	建设（7）
 TURN    WFR        EFR        CITY       TOTAL 	回合    西线       东线       城市       总计 
@@ -4113,7 +4096,7 @@ Transfer Units to MAP / TB	将部队转移到地图/战区
 units may only be reassigned once per turn	部队每回合只能重新指派一次
 units in theater box may not change HQs	战区内的部队不能变更司令部
 units in transfer box may not change HQs	转移箱内的部队不能变更司令部
-immobile or frozen units ~ may not change HQs	无法移动或冻结的部队不能变更司令部
+immobile or frozen units ~ may not change HQs	无法移动或冻结的部队~不能变更司令部
 Merging units costs 1 AP	合并部队消耗1点行政点
 Send unit ~ requires 1 AP	派遣部队 ~ 需1点行政点
 Air Missions	空中任务
@@ -4453,7 +4436,7 @@ unit may only unload in a port	部队只能在港口卸载
 Unload unit from ships.	从船只卸载部队。
 Unload unit from train.	从火车卸载部队。
 There are not enough available trucks to carry this unit	没有足够的卡车运送该部队
-You do not have enough~admin points to build this unit	行政点不足以建造该部队
+You do not have enough~admin points to build this unit	没有足够的行政点~建造该部队
 Action Phase	行动阶段
 Ground Movement	地面移动
 Logistics Phase	后勤阶段
@@ -4528,13 +4511,13 @@ Set Axis Men Disabled	设置轴心失能人员
 Set Soviet Men Disabled	设置苏联失能人员
 Set Axis Score modifier	设置轴心得分修正
 Set Soviet Score modifier	设置苏联得分修正
-Apply resupply % to unit	对部队应用补给百分比
+Apply resupply % to unit	对部队应用补给 %
 Set arrival hex to 0,0 (unset)	将抵达六角格设为 0,0（取消）
 Set MAP arrival hex for the ground units.	为地面部队设置地图抵达六角格。
 Set number of support units to form. 1..10	设置组建的支援单位数。1-10
 Set strategic MPs (forced to 0 while the unit is routed or has no MPs)	设置战略移动点（部队溃退或无移动点时强制为0）
 Clear all air directive assignments?	清除全部空中指令指派？
-Change Air Directive Type?~It will clear all air directive data.	更改空中指令类型？将清除所有空中指令数据。
+Change Air Directive Type?~It will clear all air directive data.	更改空中指令类型？~将清除所有空中指令数据。
 Add Owner Change	添加归属变更
 Delete Owner Change	删除归属变更
 Add action	添加行动
@@ -4575,7 +4558,7 @@ Build a mulberry harbor at this location.	在此位置建造人工港。
 City unit attached to	城市附属的部队
 requires 1 admin point to move flak to/from a city	将高炮移入/移出城市需1点行政点
 requires 2 admin points to move this flak unit to/from this city	将此高炮部队移入/移出此城市需2点行政点
-requires 1 admin point to move~construction unit to the city	将建设单位移入城市需1点行政点
+requires 1 admin point to move~construction unit to the city	将建设单位移入城市~需1点行政点
 Must have a depot with 400 freight	必须有货运量400的补给站
 No eligible units availble to invade.	无可用部队执行登陆。
 Left click on MAP to select destination	在地图上左键选择目的地
@@ -5285,8 +5268,6 @@ D GunL	守方火炮损失
 D MenE	守方人员逃脱
 D MenL	守方人员损失
 D UtlL	守方通用机损失
-[done]	[完成]
-[running]	[运行中]
 [ active ]	[ 活动 ]
 [ inactive ]	[ 未激活 ]
 [ resigned ]	[ 已退出 ]
@@ -6476,8 +6457,6 @@ Super	超级	t
 Mot.	摩托化	t
 Motorized	摩托化	t
 Alpine	山地	t
-Alpini	阿尔卑斯山地兵	t
-Alps Mountain	阿尔卑斯山地
 Gebirgs	山地
 Sturm	突击	t
 Sturm Mortar	突击迫击炮
@@ -6506,7 +6485,6 @@ Beute	缴获	t
 Heimat	本土	t
 Alarm	应急	t
 Eisenbahn	铁道	t
-Autotransportabile	摩托化运输
 Pol.	波兰	t
 RSI	意大利社会共和国	t
 Militia RSI	意大利社会共和国民兵
@@ -6657,7 +6635,6 @@ GG Light	大德意志轻装
 IAK PVO	国土防空航空军
 BAK	BAK	t
 FKL	遥控	t
-AFHQ	盟军司令部	t
 (Res)	（预备）
 (AAI)	（AAI）
 (FHH)	（FHH）
@@ -6665,12 +6642,6 @@ AFHQ	盟军司令部	t
 -Feb	2月
 -Jan	1月
 -Mar	3月
-Army Group C	C集团军群
-Army Group E	E集团军群
-Army Group F	F集团军群
-Army Group G	G集团军群
-Army Group H	H集团军群
-Army Group Antonescu	安东内斯库集团军群
 London	伦敦	t
 S London	南伦敦
 W. London	西伦敦
@@ -6767,14 +6738,12 @@ African	非洲
 Nord	北方	t
 WMBef.	国防军指挥部	t
 OpGr	作战群	t
-MTO	地中海战区	t
 ETO	欧洲战区	t
 ARS	ARS	t
 SIR	SIR	t
 BH	BH	t
 CCNN	黑衫军	t
 Fuhrer	元首	t
-Feldherrnhalle	统帅堂
 Ostfriesland	东弗里斯兰
 Stettin	什切青
 Thuringen	图林根
@@ -6810,9 +6779,7 @@ Ansbach	安斯巴赫
 Anklam	安克拉姆	t
 Barth	巴特	t
 Bremen	不来梅	t
-Bremen Marine	不来梅海军
 Bremerhaven	不来梅港
-Danzig Marine	但泽海军
 Essen	埃森	t
 Erfurt	埃尔福特	t
 Erding	埃尔丁	t
@@ -6852,8 +6819,6 @@ Bydgoszcz	比得哥什
 Copenhagen	哥本哈根
 Denmark	丹麦	t
 Exeter	埃克塞特	t
-Feldherrnhalle Nr. 1	统帅堂第1
-Feldherrnhalle Nr. 2	统帅堂第2
 Florence	佛罗伦萨
 Genoa	热那亚	t
 Gibraltar	直布罗陀
@@ -6886,33 +6851,11 @@ Guards	近卫	t
 Training	训练
 Expeditionary	远征
 Light Afrika	轻装非洲
-Das Reich SS	党卫军帝国
-Totenkopf SS	党卫军骷髅
-Wiking SS	党卫军维京
 LAH SS	党卫军警卫旗队
-Estonian SS	爱沙尼亚党卫军
 East Prussian	东普鲁士
 Central Asia	中亚
-Coastal Air Force	海岸航空队
-Desert Air Force	沙漠航空队
-Coastal OpGr	海岸作战群
-Engineer Rail Group A	工兵铁路群A
-Engineer Rail Group B	工兵铁路群B
-Engineer Rail Group C	工兵铁路群C
-Engineer Rail Group MTO	工兵铁路群MTO
-FBD 1	铁路兵旅1
-FBD 2	铁路兵旅2
-FBD 3	铁路兵旅3
-FBD 4	铁路兵旅4
-FBD 5	铁路兵旅5
 Italian Air Bde	意大利航空旅
 SIR Italian Air Bde	SIR意大利航空旅
-Colonial Chasseurs	殖民地猎兵
-Cavalleggeri Guide' Cavalry	轻骑兵向导骑兵
-Celere Cavalry	快速骑兵
-Almaco-Partinico' CCNN	阿尔马科-帕尔蒂尼科黑衫军
-Comiso-Ispica' CCNN	科米索-伊斯皮卡黑衫军
-Chiusa Scalafina'	基乌萨斯卡拉菲纳
 W.	西	t
 N.	北	t
 S.	南	t
@@ -6954,13 +6897,8 @@ Steppe	草原	t
 Karelian	卡累利阿
 Transcaucasus	外高加索
 Southern Urals	南乌拉尔
-Northern Fleet	北方舰队
-Strategic Air Force	战略空军
 Middle	中部	t
 Brandenburg	勃兰登堡
-Grossdeutschland	大德意志
-Langemarck SS	朗厄马克党卫军
-Latvian SS	拉脱维亚党卫军
 Senegal	塞内加尔
 Souk	苏克	t
 Malo	马洛	t
@@ -7013,7 +6951,6 @@ Ballykelly	巴利凯利
 Balta	巴尔塔	t
 Baranovichi	巴拉诺维奇
 Barcellona	巴塞罗那
-Barcellona'	巴塞罗那
 Bari	巴里	t
 Barvenkovo	巴尔文科沃
 Barwalde	巴尔瓦尔德
@@ -7099,7 +7036,6 @@ Coltishall	科尔蒂肖尔
 Coningsby	科宁斯比
 Coolham	库勒姆
 Cottesmore	科茨莫尔
-Cremona'	克雷莫纳
 Crete	克里特	t
 Croatian	克罗地亚
 Croft	克罗夫特	t
@@ -7164,13 +7100,11 @@ Etampes	埃唐普
 Etricourt-Manancourt	埃特里库尔-马南库尔
 Evreux	埃夫勒	t
 Feltwell	费尔特韦尔
-Folgore'	闪电
 Folkingham	福金厄姆
 Ford	福德	t
 Foulsham	福尔沙姆
 Frankfurt	法兰克福
 Friedrichshain	腓特烈斯海因
-Friuli'	弗留利
 Frolovo	弗罗洛沃
 Ferschweiler	费尔施魏勒
 Finsterwalde-Schacksdorf	芬斯特瓦尔德-沙克斯多夫
@@ -7265,7 +7199,6 @@ Hornchurch	霍恩彻奇
 Horne	霍恩	t
 Hranivka	赫拉尼夫卡
 Humboldthain	洪堡海因
-Hummel'	胡梅尔
 Hunsdon	汉斯登
 Hurn	赫恩	t
 Haamstede	哈姆斯泰德
@@ -7293,7 +7226,6 @@ Husum	胡苏姆	t
 Ibsely	伊布塞利	t
 Idritsa	伊德里察
 Iesi	耶西	t
-Inchiapparo'	因基亚帕罗
 Ingham	英厄姆	t
 Ivangorod	伊万哥罗德
 Ivanovo	伊万诺沃
@@ -7412,7 +7344,6 @@ Lebedin	列别金
 Lecce	莱切	t
 Leconfield	莱肯菲尔德
 Leeming	利明
-Legnano'	莱尼亚诺
 Lepel	列佩利	t
 Leuchars	卢赫斯
 Levaldigi	莱瓦迪吉
@@ -7466,7 +7397,6 @@ Loyettes	洛耶特
 Luebben	吕本
 Lueneburg	吕讷堡
 Luonetjarvi	卢奥内耶尔维
-Lupo'	卢波	t
 Luxembourg	卢森堡	t
 Lyck	吕克	t
 Lyon	里昂	t
@@ -7476,7 +7406,6 @@ Maloyaroslavets	小雅罗斯拉韦茨
 Manduria	曼杜里亚
 Maniago	马尼亚戈
 Manston	曼斯顿
-Mantova'	曼托瓦
 Manushkino	马努什基诺
 Marcigliana	马尔奇利亚纳
 Marham	马勒姆	t
@@ -7489,7 +7418,6 @@ Merryfield	梅里菲尔德
 Merston	默斯顿
 Metato	梅塔托	t
 Metfield	梅特菲尔德
-Meyer'	迈耶	t
 Mga	姆加	t
 Mildenhall	米尔登霍尔
 Millerovo	米列罗沃
@@ -7634,7 +7562,6 @@ Perugia	佩鲁贾
 Pervomaysk	五一城
 Peterhead	彼得黑德
 Philippeville	菲利普维尔
-Piceno'	皮切诺
 Pinsk	平斯克	t
 Pisa	比萨	t
 Pitomnik	皮托姆尼克
@@ -7693,7 +7620,6 @@ Prerau	普热罗夫	t
 Prossnitz	普罗斯捷约夫
 Provence	普罗旺斯
 Przasnysz	普扎斯内什
-PsD'	PsD	t
 Puettnitz	皮特尼茨
 Puumala	普马拉
 Pyrzowice	皮尔佐维采
@@ -7750,7 +7676,6 @@ Salsola	萨尔索拉
 Sambor	桑博尔	t
 Sardinia	撒丁岛
 Sawbridgeworth	索布里奇沃思
-Scalabrino'	斯卡拉布里诺
 Scalea	斯卡莱亚	t
 Scampton	斯坎普顿
 Schigry	希格雷
@@ -7784,7 +7709,6 @@ Stavropol	斯塔夫罗波尔
 Stiftskaserne	施蒂夫特兵营
 Strigovo	斯特里戈沃
 Stryi	斯特雷	t
-Sud'	Sud	t
 Sudbury	萨德伯里
 Sukhumi	苏呼米
 Swannington	斯旺宁顿
@@ -8135,13 +8059,10 @@ French Volunteer	法国志愿兵
 Fuhrer Begleit	元首护卫队
 Fuhrer Grenadier	元首掷弹兵
 Groupe d'Afrique	非洲集群
-Hermann Goering	赫尔曼·戈林
 II 'Folgore'	第二「闪电」
 III 'Azzurro'	第三「蓝色」
 Lovat Scouts	洛瓦特侦察队
-Naval 'San Marco'	海军「圣马可」
 Princess Irene	伊雷妮公主
-Regia Aeronautica	皇家空军
 de Choc	突击
 de France	法兰西
 Group de Canoniers-Marins	海军炮手集群
@@ -8149,25 +8070,9 @@ Inns of Court	律师学院
 Ital. Southeast	意大利东南
 Ligurian (Zangen)	利古里亚（灿根）
 Luftwaffen. Mitte	空军中部
-OB Southeast	东南战区司令部
-RAF HQ	皇家空军司令部
-Rome Defense	罗马防御
 Svenska FB	瑞典志愿军
-UK Home Forces HQ	英国本土部队司令部
-WMBef. Belgium	西线指挥部比利时
-WMBef. France	西线指挥部法国
-WMBef. Holland	西线指挥部荷兰
-Luftflotte 3	第3航空队
-Luftflotte 5	第5航空队
-LW Kdo Kirkenes	空军希尔克内斯指挥部
-No. 6 Group RCAF	加拿大皇家空军第6联队
-No. 8 (PFF) Group RAF	皇家空军第8（探路）联队
-No. 216 Air Tpt & Ferry Group RAF	皇家空军第216空运与渡运联队
 13th 'Re'	第13「Re」
 1st CA-	第1 CA-
-zbV 40th	特设第40
-zbV 66th	特设第66
-zbV 752nd	特设第752
 Steinbauer Georg.	施泰因鲍尔·格奥尔格
 von Werthern	冯·韦特恩
 Abbeville	阿布维尔
@@ -8200,7 +8105,6 @@ Bacau	巴克乌	t
 Balice	巴利采	t
 Ballancourt-sur-Esonne	埃松河畔巴朗库尔
 Banak	巴纳克	t
-Barbarigo'	巴尔巴里戈
 Barbo	巴尔博	t
 Bardufoss	巴杜福斯
 Barlad	伯尔拉德	t
@@ -8245,7 +8149,6 @@ Calvi	卡尔维	t
 Cambrai	康布雷
 Campina	坎皮纳
 Caracal	卡拉卡尔
-Carmito'	卡尔米托
 Casabianda	卡萨比安达
 Cazaux	卡佐	t
 Celle	策勒	t
@@ -8289,25 +8192,11 @@ Snetterton Heath	斯内特顿希思
 Fort Chaberton/Vallo Alpino	沙贝通堡/阿尔卑斯防线
 Fort Jafferau/Vallo Alpino	雅弗罗堡/阿尔卑斯防线
 Freikorps Denmark	丹麦自由军团
-Italian Luftwaffe Command	意大利空军指挥部
-LW Kdo South East	空军东南指挥部
-LW Kommando West	空军西部指挥部
-Landstorm Nederland' SS	荷兰国民风暴党卫军
-Licata-Ravanusa' CCNN	利卡塔-拉瓦努萨黑衫军
 Long Range	远程
-Mediterranean Allied Air Force	地中海盟军空军
-Nederland SS	荷兰党卫军
-Netherlands SS	荷兰党卫军
-Neva OpGr	涅瓦河作战群
-Piazza Naval	皮亚扎海军
-Polizei SS	警察党卫军
 Rum. Combat	罗马尼亚战斗
 Schmidt Turkistani	施密特突厥斯坦
 Suippes School	叙普学校
 Vosendorf Alarm	福森多夫应急
-Wallonian SS	瓦隆党卫军
-XI LW Flieger	第11空军航空军
-CSIR Italian Air Bde	意大利远征军航空旅
 1 BAK	第1 BAK
 2 BAK	第2 BAK
 3 BAK	第3 BAK
@@ -9759,129 +9648,131 @@ RESIZING	调整大小
 RED	红	t
 GREEN	绿	t
 BLUE	蓝	t
-Army Grp. Cent	中央集团军群
-Army Grp. South	南方集团军群
-Army Grp. North	北方集团军群
-Army Grp. A	A集团军群
-Army Grp. B	B集团军群
 mP	极地海洋性	d
 N	北	t
 S	南	t
 E	东	t
 W	西	t
-Army Group Antonescu	Army Group Antonescu	x
-Army Group B	Army Group B	x
-Army Group C	Army Group C	x
-Army Group Center	Army Group Center	x
-Army Group E	Army Group E	x
-Army Group F	Army Group F	x
-Army Group G	Army Group G	x
-Army Group H	Army Group H	x
-Army Group North	Army Group North	x
-Army Group South	Army Group South	x
-Army Grp. A	Army Grp. A	x
-Army Grp. B	Army Grp. B	x
-Army Grp. C	Army Grp. C	x
-Army Grp. Cent	Army Grp. Cent	x
-Army Grp. E	Army Grp. E	x
-Army Grp. F	Army Grp. F	x
 Army Grp. G	Army Grp. G	x
-Army Grp. H	Army Grp. H	x
-Army Grp. North	Army Grp. North	x
-Army Grp. South	Army Grp. South	x
-Carpathian Army Group	Carpathian Army Group	x
-OB Southeast	OB Southeast	x
-OKH	OKH	x
-OKL	OKL	x
-AFHQ	AFHQ	x
-RAF HQ	RAF HQ	x
-UK Home Forces HQ	UK Home Forces HQ	x
-MTO	MTO	x
-WMBef. Belgium	WMBef. Belgium	x
-WMBef. France	WMBef. France	x
-WMBef. Holland	WMBef. Holland	x
-Luftflotte 1	Luftflotte 1	x
-Luftflotte 2	Luftflotte 2	x
-Luftflotte 3	Luftflotte 3	x
-Luftflotte 4	Luftflotte 4	x
-Luftflotte 5	Luftflotte 5	x
-Luftflotte 6	Luftflotte 6	x
-XI LW Flieger	XI LW Flieger	x
-LW Kdo Kirkenes	LW Kdo Kirkenes	x
-LW Kdo South East	LW Kdo South East	x
-LW Kommando West	LW Kommando West	x
-Italian Luftwaffe Command	Italian Luftwaffe Command	x
-CSIR Italian Air Bde	CSIR Italian Air Bde	x
-Coastal Air Force	Coastal Air Force	x
-Desert Air Force	Desert Air Force	x
-Strategic Air Force	Strategic Air Force	x
-Mediterranean Allied Air Force	Mediterranean Allied Air Force	x
-Coastal OpGr	Coastal OpGr	x
-Neva OpGr	Neva OpGr	x
-No. 216 Air Tpt & Ferry Group RAF	No. 216 Air Tpt & Ferry Group RAF	x
+[major-river extra]	[major-river extra]	x
+Army Group B	Army Group B	x
+Black Sea Fleet	Black Sea Fleet	x
+Army Grp. A	Army Grp. A	x
+Inchiapparo'	Inchiapparo'	x
+Grossdeutschland	Grossdeutschland	x
 No. 6 Group RCAF	No. 6 Group RCAF	x
-No. 8 (PFF) Group RAF	No. 8 (PFF) Group RAF	x
-Regia Aeronautica	Regia Aeronautica	x
-FBD 1	FBD 1	x
-FBD 2	FBD 2	x
+Alps Mountain	Alps Mountain	x
+Piazza Naval	Piazza Naval	x
+Feldherrnhalle Nr. 2	Feldherrnhalle Nr. 2	x
+<cr>	<cr>	x
+Italian Luftwaffe Command	Italian Luftwaffe Command	x
+Autotransportabile	Autotransportabile	x
+No. 216 Air Tpt & Ferry Group RAF	No. 216 Air Tpt & Ferry Group RAF	x
+Langemarck SS	Langemarck SS	x
+Army Grp. North	Army Grp. North	x
+LW Kdo South East	LW Kdo South East	x
+Luftflotte 3	Luftflotte 3	x
+Army Grp. H	Army Grp. H	x
+Polizei SS	Polizei SS	x
 FBD 3	FBD 3	x
-FBD 4	FBD 4	x
+Army Grp. C	Army Grp. C	x
+/url	/url	x
+UK Home Forces HQ	UK Home Forces HQ	x
+WMBef. France	WMBef. France	x
+LW Kommando West	LW Kommando West	x
+Army Group Antonescu	Army Group Antonescu	x
+Barcellona'	Barcellona'	x
+Friuli'	Friuli'	x
+Feldherrnhalle Nr. 1	Feldherrnhalle Nr. 1	x
+zbV 66th	zbV 66th	x
+Luftflotte 1	Luftflotte 1	x
 FBD 5	FBD 5	x
+Celere Cavalry	Celere Cavalry	x
+Comiso-Ispica' CCNN	Comiso-Ispica' CCNN	x
+Latvian SS	Latvian SS	x
+MTO	MTO	x
+FBD 1	FBD 1	x
+Colonial Chasseurs	Colonial Chasseurs	x
+Totenkopf SS	Totenkopf SS	x
+Bremen Marine	Bremen Marine	x
+Legnano'	Legnano'	x
+Coastal Air Force	Coastal Air Force	x
+Piceno'	Piceno'	x
+Estonian SS	Estonian SS	x
+Luftflotte 6	Luftflotte 6	x
+Army Group South	Army Group South	x
+Scalabrino'	Scalabrino'	x
+Regia Aeronautica	Regia Aeronautica	x
+Barbarigo'	Barbarigo'	x
+Sud'	Sud'	x
+FBD 2	FBD 2	x
+Cavalleggeri Guide' Cavalry	Cavalleggeri Guide' Cavalry	x
+CSIR Italian Air Bde	CSIR Italian Air Bde	x
+Mediterranean Allied Air Force	Mediterranean Allied Air Force	x
+WMBef. Holland	WMBef. Holland	x
+Engineer Rail Group MTO	Engineer Rail Group MTO	x
+Army Grp. F	Army Grp. F	x
+Hermann Goering	Hermann Goering	x
+Luftflotte 5	Luftflotte 5	x
+Feldherrnhalle	Feldherrnhalle	x
+Carpathian Army Group	Carpathian Army Group	x
+Northern Fleet	Northern Fleet	x
+Nederland SS	Nederland SS	x
+Engineer Rail Group C	Engineer Rail Group C	x
+Coastal OpGr	Coastal OpGr	x
 Engineer Rail Group A	Engineer Rail Group A	x
 Engineer Rail Group B	Engineer Rail Group B	x
-Engineer Rail Group C	Engineer Rail Group C	x
-Engineer Rail Group MTO	Engineer Rail Group MTO	x
-Baltic Fleet	Baltic Fleet	x
-Black Sea Fleet	Black Sea Fleet	x
-Northern Fleet	Northern Fleet	x
-Bremen Marine	Bremen Marine	x
-Danzig Marine	Danzig Marine	x
-Naval 'San Marco'	Naval 'San Marco'	x
-Piazza Naval	Piazza Naval	x
-Wiking SS	Wiking SS	x
-Totenkopf SS	Totenkopf SS	x
-Das Reich SS	Das Reich SS	x
-Polizei SS	Polizei SS	x
-Nederland SS	Nederland SS	x
-Netherlands SS	Netherlands SS	x
-Wallonian SS	Wallonian SS	x
-Latvian SS	Latvian SS	x
-Estonian SS	Estonian SS	x
-Langemarck SS	Langemarck SS	x
-Landstorm Nederland' SS	Landstorm Nederland' SS	x
-Grossdeutschland	Grossdeutschland	x
-Hermann Goering	Hermann Goering	x
-Feldherrnhalle	Feldherrnhalle	x
-Feldherrnhalle Nr. 1	Feldherrnhalle Nr. 1	x
-Feldherrnhalle Nr. 2	Feldherrnhalle Nr. 2	x
-Alpini	Alpini	x
-Alps Mountain	Alps Mountain	x
-Autotransportabile	Autotransportabile	x
-Cavalleggeri Guide' Cavalry	Cavalleggeri Guide' Cavalry	x
-Celere Cavalry	Celere Cavalry	x
-Colonial Chasseurs	Colonial Chasseurs	x
-Almaco-Partinico' CCNN	Almaco-Partinico' CCNN	x
-Comiso-Ispica' CCNN	Comiso-Ispica' CCNN	x
-Licata-Ravanusa' CCNN	Licata-Ravanusa' CCNN	x
-Chiusa Scalafina'	Chiusa Scalafina'	x
-Barbarigo'	Barbarigo'	x
-Barcellona'	Barcellona'	x
-Carmito'	Carmito'	x
-Cremona'	Cremona'	x
-Folgore'	Folgore'	x
-Friuli'	Friuli'	x
-Hummel'	Hummel'	x
-Legnano'	Legnano'	x
-Lupo'	Lupo'	x
-Mantova'	Mantova'	x
-Piceno'	Piceno'	x
-PsD'	PsD'	x
-Scalabrino'	Scalabrino'	x
-Inchiapparo'	Inchiapparo'	x
-Sud'	Sud'	x
-Meyer'	Meyer'	x
 zbV 40th	zbV 40th	x
-zbV 66th	zbV 66th	x
+AFHQ	AFHQ	x
+Carmito'	Carmito'	x
+OKL	OKL	x
+Neva OpGr	Neva OpGr	x
+[running]	[running]	x
+[game not started]	[game not started]	x
+Army Group G	Army Group G	x
+Alpini	Alpini	x
+Licata-Ravanusa' CCNN	Licata-Ravanusa' CCNN	x
+Army Group E	Army Group E	x
+Wiking SS	Wiking SS	x
+Luftflotte 2	Luftflotte 2	x
+Baltic Fleet	Baltic Fleet	x
+Army Group H	Army Group H	x
+Hummel'	Hummel'	x
+Mantova'	Mantova'	x
+RAF HQ	RAF HQ	x
+OKH	OKH	x
+No. 8 (PFF) Group RAF	No. 8 (PFF) Group RAF	x
+Danzig Marine	Danzig Marine	x
+Army Group North	Army Group North	x
+Chiusa Scalafina'	Chiusa Scalafina'	x
+Cremona'	Cremona'	x
+Army Grp. B	Army Grp. B	x
+url=	url=	x
+Lupo'	Lupo'	x
+Netherlands SS	Netherlands SS	x
+Army Grp. Cent	Army Grp. Cent	x
+Strategic Air Force	Strategic Air Force	x
+Das Reich SS	Das Reich SS	x
+WMBef. Belgium	WMBef. Belgium	x
+Almaco-Partinico' CCNN	Almaco-Partinico' CCNN	x
+OB Southeast	OB Southeast	x
+Army Group Center	Army Group Center	x
+LW Kdo Kirkenes	LW Kdo Kirkenes	x
+Naval 'San Marco'	Naval 'San Marco'	x
+XI LW Flieger	XI LW Flieger	x
+[done]	[done]	x
+Army Grp. South	Army Grp. South	x
+Army Group F	Army Group F	x
+[game over]	[game over]	x
+Army Group C	Army Group C	x
+PsD'	PsD'	x
+FBD 4	FBD 4	x
 zbV 752nd	zbV 752nd	x
-MG-Ski	MG-Ski	x
 Rome Defense	Rome Defense	x
+Landstorm Nederland' SS	Landstorm Nederland' SS	x
+Wallonian SS	Wallonian SS	x
+Army Grp. E	Army Grp. E	x
+Folgore'	Folgore'	x
+Luftflotte 4	Luftflotte 4	x
+Meyer'	Meyer'	x
+Desert Air Force	Desert Air Force	x
