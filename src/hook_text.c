@@ -2945,13 +2945,31 @@ static int install_drawtext_hook(HMODULE exe, DWORD rva)
 static void patch_early(void)
 {
     dict_load();
-    logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条 (.data 专用 %d 条)\n",
-           g_ndic, g_nDataOnly);
+
+    /* 二分开关与改写日志必须在改写之前生效。
+     * 曾经把这段放在 init_thread 里，而真正的改写发生在 DllMain 的
+     * patch_early —— 等 init_thread 跑到时早就改完了，开关关了也没用，
+     * wite2_patch.txt 永远是空的。定位崩溃需要这份日志，不能再晚。 */
+    {
+        FILE *f;
+        f = fopen("wite2_nopatch.ini", "rb");
+        if (f) { fclose(f); g_patchRdata = 0; g_patchData = 0; }
+        f = fopen("wite2_nordata.ini", "rb");
+        if (f) { fclose(f); g_patchRdata = 0; }
+        f = fopen("wite2_nodata.ini", "rb");
+        if (f) { fclose(f); g_patchData = 0; }
+    }
+
+    logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条 (.data 专用 %d 条)\n"
+           "[patch] rdata=%d data=%d\n",
+           g_ndic, g_nDataOnly, g_patchRdata, g_patchData);
 
     HMODULE exe = GetModuleHandleA(NULL);
     if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return; }
 
+    g_patLog = fopen("wite2_patch.txt", "wb");
     patch_all(exe);
+    if (g_patLog) { fclose(g_patLog); g_patLog = NULL; }
 
     logfmt("\n改写 %d 处, 译文过长跳过 %d 条, 未找到 %d 条\n",
            g_patched, g_tooLong, g_notFound);
@@ -2968,20 +2986,15 @@ static DWORD WINAPI init_thread(LPVOID param)
 
     /* 安全网: 早期补丁万一没生效（比如游戏自己重新加载了段），
      * 这里再补一次。patch_section 只匹配原文，已是中文的不会再改，
-     * 所以重复调用是幂等的。 */
+     * 所以重复调用是幂等的。
+     * 注意：开关已在 patch_early 里读过，这里只依赖那两个全局变量。 */
     {
-        FILE *f;
-        f = fopen("wite2_nopatch.ini", "rb");
-        if (f) { fclose(f); g_patchRdata = 0; g_patchData = 0; }
-        f = fopen("wite2_nordata.ini", "rb");
-        if (f) { fclose(f); g_patchRdata = 0; }
-        f = fopen("wite2_nodata.ini", "rb");
-        if (f) { fclose(f); g_patchData = 0; }
-        g_patLog = fopen("wite2_patch.txt", "wb");
-        logfmt("[patch] rdata=%d data=%d\n", g_patchRdata, g_patchData);
+        g_patLog = fopen("wite2_patch.txt", "ab");
+        patch_all(exe);
+        if (g_patLog) { fclose(g_patLog); g_patLog = NULL; }
+        logfmt("[patch] 二次校验 rdata=%d data=%d 新增 %d 处\n",
+               g_patchRdata, g_patchData, g_patched);
     }
-    patch_all(exe);
-    if (g_patLog) { fclose(g_patLog); g_patLog = NULL; }
 
 
     /* 阶段2: 绘制层替换文本指针 */
