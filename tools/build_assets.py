@@ -140,6 +140,13 @@ def build_tsv():
         lines.append("%s\t%s%s" % (k, v, scope))
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
+    # selftest.exe 在 build/ 下运行，读的是相对路径 wite2_zh.tsv。
+    # 不同步就会拿旧表跑测试 —— 曾经因此让 47 条已失效的用例“通过”，
+    # 报告一片绿而 DLL 里早已是另一份词典。
+    selftest_copy = os.path.join(os.path.dirname(TSV), "build", "wite2_zh.tsv")
+    if os.path.isdir(os.path.dirname(selftest_copy)):
+        import shutil
+        shutil.copyfile(TSV, selftest_copy)
     print("翻译表 %d 条 -> %s" % (len(zh), os.path.basename(TSV)))
     verify_tsv()
 

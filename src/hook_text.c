@@ -1495,6 +1495,66 @@ static void pad_to_width(const wchar_t *rep, const wchar_t *orig,
     dst[i + need] = 0;
 }
 
+/* 文本是否以部队番号开头，如 "262nd ..." "XXXVI ..." "II/43rd ..."。
+ *
+ * 用来把部队名整个排除在翻译流程之外。部队显示名由 Units.csv 的
+ * Name 和 OBs.csv 的 Suffix 在运行时拼成，组合数量巨大且无法逐条
+ * 校对；一旦放任策略 2 剥尾后段再拼回去，就会得到
+ *   "262nd Infantry Division" -> "第262步兵师"
+ *   "II/42nd Mot. sFH Heavy Howitzer Battalion" -> "第2/第42摩托化...营"
+ * 这类看起来像翻译、实际上是把两个词条硬凑起来的串。宁可显示
+ * 英文原文，也不给读者一个无法核对的译名。 */
+static int is_unit_designation(const wchar_t *t, int n)
+{
+    int i = 0;
+    while (i < n && t[i] == L' ') i++;
+    if (i >= n) return 0;
+
+    /* SS / Gd. / Guards 开头的番号 */
+    {
+        static const wchar_t *pre[] = { L"SS ", L"Gd. ", L"Guards ",
+                                        L"Gep. ", L"Lehr ", L"zbV ", NULL };
+        for (int p = 0; pre[p]; p++) {
+            int k = 0;
+            while (pre[p][k]) k++;
+            if (n - i < k) continue;
+            int ok = 1;
+            for (int z = 0; z < k; z++)
+                if (lc_w(t[i + z]) != lc_w(pre[p][z])) { ok = 0; break; }
+            if (ok) return 1;
+        }
+    }
+
+    /* 阿拉伯数字 + 序数后缀（262nd / 1st / 42nd），或数字紧跟斜杠
+     * （1/213th）。纯数字后面接空格不算："1941 Campaign" 是年份。 */
+    if (t[i] >= L'0' && t[i] <= L'9') {
+        int j = i;
+        while (j < n && t[j] >= L'0' && t[j] <= L'9') j++;
+        int digits = j - i;
+        if (j < n && t[j] == L'/') return 1;
+        if (digits <= 4 && j + 1 < n) {
+            wchar_t a = lc_w(t[j]), b = lc_w(t[j + 1]);
+            if ((a == L's' && b == L't') || (a == L'n' && b == L'd') ||
+                (a == L'r' && b == L'd') || (a == L't' && b == L'h'))
+                return 1;
+        }
+        return 0;
+    }
+
+    /* 罗马数字后跟空格或斜杠（XXXVI / XII/43rd）。至少 2 个字符，
+     * 否则界面上的 "I" "V" "X" 单字母会被当成番号。 */
+    {
+        int j = i;
+        while (j < n && t[j] >= L'A' && t[j] <= L'Z')
+            if (t[j]=='I'||t[j]=='V'||t[j]=='X'||t[j]=='L'||
+                t[j]=='C'||t[j]=='D'||t[j]=='M') j++; else break;
+        if (j - i >= 2 && j < n && (t[j] == L' ' || t[j] == L'/'))
+            return 1;
+    }
+
+    return 0;
+}
+
 static wchar_t *dt_check_body(wchar_t *text)
 {
     if (!text) return text;
@@ -1668,6 +1728,12 @@ static wchar_t *dt_check_body(wchar_t *text)
             }
         }
     }
+    /* ---------- 番号开头的串：整串查不到就显示原文 ----------
+     *
+     * 放在所有“剥尾后拼回去”的策略之前。走到这里说明策略 1/1.5 的
+     * 整串精确匹配已经失败，也就是词典里没有这个部队名。后面的
+     * 策略 2/3/3.5/4/9 都会把它拆成“番号 + 编制词”再拼起来。 */
+    if (is_unit_designation(text, len)) return text;
 
     /* ---------- 策略 1.6: 剥离文件扩展名后精确匹配 ----------
      * 剧本名从 .scn 文件名派生，某些界面会把扩展名一起画出来：
