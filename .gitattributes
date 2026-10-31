@@ -1,0 +1,2 @@
+# build.bat 必须保持 CRLF：LF-only 的 .bat 在 cmd 里会被错误解析
+*.bat text eol=crlf
