@@ -101,8 +101,11 @@ CASES = [
     ("  1st Mountain Division   ( 27.6 / 13.8  100% )   MP 16 ",
      "  1st Mountain Division   ( 27.6 / 13.8  100% )   MP 16 ",
      "统计行整串原样"),
+    # ---- 地理/国家名保留原文（Locations/MapText/Nations 数据层） ----
+    ("Soviet Union", "Soviet Union", "国家名保留原文"),
+    ("Berlin", "Berlin", "城市名保留原文"),
+    ("Bryansk", "Bryansk", "地名保留原文"),
     # ---- 数据文件里的界面文本 ----
-    ("Soviet Union", "苏联", "国家名"),
     ("CW Heavy Bomber", "英联邦重型轰炸机", "机型分类"),
 ]
 

@@ -15,13 +15,15 @@
 | 剧本历史描述 | ✅ 可用 |
 | 部队番号 / 编制类型 | ❌ 不翻译（保持英文原文） |
 | 抗游戏更新 | ✅ 只需补翻新增条目 |
-| 翻译进度 | 界面 7243 条 + 剧本描述 23 个文件 |
+| 翻译进度 | 界面 5909 条 + 剧本描述 23 个文件 |
 
 **技术框架已完整跑通。** 界面文本从 exe 的 `.rdata` / `.data` 完整挖出，
 玩家实际能看到的界面文本基本都翻了；剩余主要是编辑器专用指令和内部调试串。
 
-**部队番号不做翻译。** `Dat/GenData/*.dat` 里的部队名、将领名、编制类型
+**部队番号与地名不做翻译。** `Dat/GenData/*.dat` 里的部队名、将领名、编制类型
 （`113th ID`、`Army Group Center`、`Pz Div` …）一律原样显示英文。
+`Locations.csv` / `MapText.csv` / `Nations.csv` / `Leaders.csv` 里的城市、机场、
+国家、将领名字也一样原样显示（`Berlin`、`Bryansk`、`Poland`、`Soviet Union`）。
 理由见下方“为什么部队番号不翻”。
 
 ### 词边界匹配
@@ -558,9 +560,13 @@ VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 
 ## 已知限制
 
-1. **部队番号与编制类型不翻译**
+1. **部队番号、地名与编制类型不翻译**
    部队名、将领名、编制类型（`113th ID`、`Army Group Center`、`Pz Div` …）
    一律显示英文原文。存档、导出 CSV 也是英文。
+   同理，`Locations.csv` / `MapText.csv` / `Nations.csv` 里的城市、机场、国家名
+   （`Berlin`、`Abingdon`、`Poland` …）不翻译。这类串既是地图显示文本，也是
+   数据层按名查找的键，翻成中文后查找不到记录就会崩溃。
+   早期版本曾整批翻译过约 1360 条地名/国名/人名，已全部移除。
 
 2. **`.dat` 文件无法静态修改**
    自研流密码，已确认不可静态破解。
@@ -616,10 +622,10 @@ build.bat                构建脚本（编译/资产/验证/部署）
 
 ```
 === WITE2 中文化 ===
-词典: 7230 条
+词典: 5900 条
 [patch] .rdata: 改写 281 处
 改写 281 处, 译文过长跳过 0 条, 未找到 3 条
-[zh] 7230 entries ready (173 format templates)
+[zh] 5900 entries ready (173 format templates)
 [dt] hooked at 00C5CE60 tramp=...
 [dt-exact] "Show Production screen" -> 6 wchars
 [dt-fmt] "Max TOE %" -> 4 wchars
