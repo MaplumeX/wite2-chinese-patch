@@ -2699,9 +2699,32 @@ static void cap_write(const wchar_t *src, const wchar_t *dst)
     fflush(g_capFile);
 }
 
+/* 前向声明：定义在文件后部的崩溃取证区。 */
+static void recent_add(const wchar_t *t);
+
 static wchar_t *dt_check_raw(wchar_t *text)
 {
-    wchar_t *r = dt_check_body(text);
+    recent_add(text);
+    wchar_t *r = text;
+
+    /* 匹配过程本身也可能出错（越界读、缓冲溢出）。捕获它，
+     * 记下是哪条字符串，然后返回原文 —— 一条没翻总比游戏崩掉好。
+     * 日志里出现 [dt-trap] 就说明这条串让匹配器踩线了。 */
+    __try {
+        r = dt_check_body(text);
+    } __except (EXCEPTION_EXECUTE_HANDLER) {
+        r = text;
+        if (g_logBudget > 0 || g_logBudget == -1) {
+            char u8[512];
+            int n = 0;
+            while (n < 120 && text[n]) n++;
+            int m = WideCharToMultiByte(CP_UTF8, 0, text, n, u8,
+                                        sizeof(u8) - 1, NULL, NULL);
+            u8[m > 0 ? m : 0] = 0;
+            logfmt("[dt-trap] %s\n", u8);
+        }
+    }
+
     cap_write(text, r);
     return r;
 }
@@ -2968,6 +2991,22 @@ static int install_drawtext_hook(HMODULE exe, DWORD rva)
  *
  * 有了崩在哪条指令，反汇编一看就知道它在查什么，比二分快得多。
  * 日志写到 wite2_crash.txt，不依赖任何游戏内的状态。 */
+/* 最近处理过的字符串。崩溃时 dump 出来，最后几条就是嫌疑对象。
+ * 只记前 100 字符，环形覆盖。 */
+#define RECENT_N 64
+static wchar_t g_recent[RECENT_N][104];
+static volatile LONG g_recentIdx = 0;
+
+static void recent_add(const wchar_t *t)
+{
+    if (!t) return;
+    LONG i = InterlockedIncrement(&g_recentIdx) - 1;
+    wchar_t *dst = g_recent[i % RECENT_N];
+    int k = 0;
+    for (; t[k] && k < 100; k++) dst[k] = t[k];
+    dst[k] = 0;
+}
+
 static LONG WINAPI crash_filter(EXCEPTION_POINTERS *ep)
 {
     PEXCEPTION_RECORD er = ep->ExceptionRecord;
@@ -3012,10 +3051,40 @@ static LONG WINAPI crash_filter(EXCEPTION_POINTERS *ep)
         }
         fprintf(f, "\n");
     }
+    fprintf(f, "recent strings (last 64 drawn):\n");
+    {
+        LONG cur = g_recentIdx;
+        int show = cur < RECENT_N ? (int)cur : RECENT_N;
+        for (int i = show; i > 0; i--) {
+            const wchar_t *q = g_recent[(cur - i) % RECENT_N];
+            fprintf(f, "  ");
+            for (int z = 0; q[z] && z < 100; z++) {
+                if ((unsigned)q[z] < 0x7f) fputc((char)q[z], f);
+                else fprintf(f, "\\u%04X", (unsigned)q[z]);
+            }
+            fprintf(f, "\n");
+        }
+    }
     fclose(f);
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
+
+/* VEH：游戏会覆盖 SetUnhandledExceptionFilter，这个不会。 */
+static LONG CALLBACK veh_handler(PEXCEPTION_POINTERS ep)
+{
+    crash_filter(ep);
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+
+static void install_crash_handler(void)
+{
+    static int done = 0;
+    if (done) return;
+    done = 1;
+    AddVectoredExceptionHandler(0 /* last chance */, veh_handler);
+    logfmt("[crash] VEH 已安装 -> wite2_crash.txt\n");
+}
 static void patch_early(void)
 {
     dict_load();
@@ -3041,9 +3110,8 @@ static void patch_early(void)
     HMODULE exe = GetModuleHandleA(NULL);
     if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return; }
 
-    /* 崩因取证：必须在任何改写之前装好，否则崩在改写前就什么也拿不到。 */
-    SetUnhandledExceptionFilter(crash_filter);
-    logfmt("[crash] 异常过滤器已安装 -> wite2_crash.txt\n");
+    install_crash_handler();
+
 
     g_patLog = fopen("wite2_patch.txt", "wb");
     patch_all(exe);

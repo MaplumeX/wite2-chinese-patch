@@ -1,73 +1,73 @@
 # WITE2 中英对照表  UTF-8  TAB 分隔
 # 英文<TAB>中文[<TAB>d|r|b|t|x]  d=只改.data r=只改.rdata b=两段都改 t=只绘制层 x=封印(永不翻译)
-Game Options	游戏选项	t
-Set the game options.	设置游戏选项。	t
-Multiplayer	多人游戏	t
-Server based games	服务器对战	t
-Load Saved Game	载入存档	t
-Go to the saved game list.	打开存档列表。	t
-Pick Scenario	选择剧本	t
-Select a scenario	选择一个剧本	t
+Game Options	游戏选项
+Set the game options.	设置游戏选项。
+Multiplayer	多人游戏
+Server based games	服务器对战
+Load Saved Game	载入存档
+Go to the saved game list.	打开存档列表。
+Pick Scenario	选择剧本
+Select a scenario	选择一个剧本
 Editor	编辑器	t
-Go to the game data editor.	打开游戏数据编辑器。	t
-Credits	制作名单	t
-Show Game Credits	显示制作名单	t
-HOT KEYS	快捷键	t
-Exit HotKey List.	退出快捷键列表。	t
-Preferences	偏好设置	t
-Set player preferences.	设置玩家偏好。	t
-Exit the game ?	退出游戏？	t
-STEAM GAME	STEAM 游戏	t
-USER NOT LOGGED IN	用户未登录	t
-Version Installed	已安装版本	t
-Exe File Version	程序版本	t
-Axis: Computer	轴心：电脑	t
-Axis: Human	轴心：玩家	t
-Soviet: Computer	苏联：电脑	t
-Soviet: Human	苏联：玩家	t
-W Allies: Computer	西线盟军：电脑	t
-W Allies: Human	西线盟军：玩家	t
-Set to human controlled Axis player.	设为玩家控制轴心	t
-Set to computer controlled Axis player.	设为电脑控制轴心	t
-Set to human controlled Soviet player.	设为玩家控制苏联	t
-Set to human controlled W Allies player.	设为玩家控制西线盟军	t
-Toggle Play by E-Mail OFF.	关闭邮件对战	t
-Toggle Play by E-Mail ON.	开启邮件对战	t
+Go to the game data editor.	打开游戏数据编辑器。
+Credits	制作名单
+Show Game Credits	显示制作名单
+HOT KEYS	快捷键
+Exit HotKey List.	退出快捷键列表。
+Preferences	偏好设置
+Set player preferences.	设置玩家偏好。
+Exit the game ?	退出游戏？
+STEAM GAME	STEAM 游戏
+USER NOT LOGGED IN	用户未登录
+Version Installed	已安装版本
+Exe File Version	程序版本
+Axis: Computer	轴心：电脑
+Axis: Human	轴心：玩家
+Soviet: Computer	苏联：电脑
+Soviet: Human	苏联：玩家
+W Allies: Computer	西线盟军：电脑
+W Allies: Human	西线盟军：玩家
+Set to human controlled Axis player.	设为玩家控制轴心
+Set to computer controlled Axis player.	设为电脑控制轴心
+Set to human controlled Soviet player.	设为玩家控制苏联
+Set to human controlled W Allies player.	设为玩家控制西线盟军
+Toggle Play by E-Mail OFF.	关闭邮件对战
+Toggle Play by E-Mail ON.	开启邮件对战
 Supply	补给	t
-Movement	移动	t
+Movement	移动
 Depot	补给站	t
-Weather	天气	t
-Factory	工厂	t
-Air Directive	空中指令	t
-End Turn	结束回合	t
-Rail Repair	铁路修复	t
+Weather	天气
+Factory	工厂
+Air Directive	空中指令
+End Turn	结束回合
+Rail Repair	铁路修复
 Turn	回合	t
 Units	部队	t
-Air Bases	航空基地	t
+Air Bases	航空基地
 Pilots	飞行员	t
-Aircraft	飞机	t
+Aircraft	飞机
 Rest	休整	t
 Normal	正常	t
-Restricted	受限	t
-Priority	优先	t
+Restricted	受限
+Priority	优先
 Manual	手动	t
 Auto	自动	t
-Disband	解散	t
-Assigned	已分配	t
+Disband	解散
+Assigned	已分配
 None	无	t
-Player:	玩家：	t
+Player:	玩家：
 ACTIVE	激活	t
-INACTIVE	未激活	t
-Reinforcement	增援	t
-Reinforcements & Transfers	增援与调动	t
-Army Group Center	中央集团军群	t
-Army Group South	南方集团军群	t
-Army Group North	北方集团军群	t
-Army Group A	A集团军群	t
-Army Group B	B集团军群	t
-Carpathian Army Group	喀尔巴阡集团军群	t
+INACTIVE	未激活
+Reinforcement	增援
+Reinforcements & Transfers	增援与调动
+Army Group Center	中央集团军群
+Army Group South	南方集团军群
+Army Group North	北方集团军群
+Army Group A	A集团军群
+Army Group B	B集团军群
+Carpathian Army Group	喀尔巴阡集团军群
 Carpathian Hun. Army	喀尔巴阡匈牙利集团军
-103rd RHG Command	第103后方卫戍区	t
+103rd RHG Command	第103后方卫戍区
 OKH	国防军陆军总司令部	t
 OKL	空军总司令部	t
 OHQ	上级司令部	t
@@ -137,7 +137,7 @@ SET COLOR	设置颜色
 Axis Control	轴心控制
 Soviet	苏联	t
 Axis	轴心	t
-Germany	德国	t
+Germany	德国
 Starting player	起始玩家
 Starting Zoom Level	初始缩放级别
 Axis Player:	轴心玩家：
@@ -660,8 +660,8 @@ Fort Level in Hex (0-5)	六角格要塞等级（0-5）
 O p t i o n s    L o c k e d	选项已锁定
 Hold down shift key for DELIBERATE ATTACK	按住 Shift 键进行蓄意攻击
 F U N C T I O N S	功能
-E  N  E  M  Y	敌  方	t
-F R I E N D L Y	友  方	t
+E  N  E  M  Y	敌  方
+F R I E N D L Y	友  方
 Def	防御	t
 Vic	胜利	t
 Ini	主动	t
@@ -1410,9 +1410,9 @@ Axis Vehicle Repair Rate	轴心车辆修理率
 Side To Play	选择阵营
 Continuous Play OFF	连续播放关闭
 Auto assign unit(s) to nearest applicable HQ	自动将部队指派到最近的适用司令部
-Zoom Map Out	缩小地图	t
+Zoom Map Out	缩小地图
 Activate AI Air Assist	激活AI空中辅助
-Zoom Map In	放大地图	t
+Zoom Map In	放大地图
 Highlight Armor/Mech/Motorized Units	高亮装甲/机械/摩托化部队
 Highlight Cavalry Units	高亮骑兵部队
 Highlight Partisan Units	高亮游击队
@@ -1444,7 +1444,7 @@ Soviet Decisive Victory	苏联决定性胜利
 Soviet Minor Victory	苏联次要胜利
 Fuel Refinery	炼油厂
 National Air Reserve	国家航空储备
-Synthetic Fuel	合成燃料	t
+Synthetic Fuel	合成燃料
 Unit Upkeep	部队维护
 Factory Upkeep	工厂维护
 Supply Used (t)	补给消耗（吨）
@@ -1457,7 +1457,7 @@ Fuel Need (t)	燃料需求（吨）
 Fuel Used (t)	燃料消耗（吨）
 Fuel Prod (t)	燃料生产（吨）
 Fuel Store (t)	燃料储存（吨）
-Soviet Union	苏联	t
+Soviet Union	苏联
 Resource Stores + Pool:	资源储存+储备：
 Vehicles in Units:	部队中车辆：
 Vehicles in Repair:	修理中车辆：
@@ -1525,8 +1525,8 @@ Unit should be unloaded before assigned to City Fort.	部队应先卸载再分�
 Unit is preparing for airdrop.	部队正在准备空投。
 Projected End Points	预计结束点数
 Axis Reserves	轴心预备队
-Soviet Union Garrison	苏联驻防	t
-Northern Front	北方方面军	t
+Soviet Union Garrison	苏联驻防
+Northern Front	北方方面军
 Soviet Reserves	苏联预备队
 Combat Divisions:	作战师：
 Aircraft Received:	接收飞机：
@@ -1609,15 +1609,15 @@ player	玩家	t
 Player	玩家	t
 Operation Barbarossa	巴巴罗萨行动
 Red Army	红军
-Army Group South Ukraine	南乌克兰集团军群	t
-Belgrade	贝尔格莱德	t
+Army Group South Ukraine	南乌克兰集团军群
+Belgrade	贝尔格莱德
 Minsk	明斯克	t
 Rostov	罗斯托夫	t
-Leningrad	列宁格勒	t
+Leningrad	列宁格勒
 Kiev	基辅	t
-Kharkov	哈尔科夫	t
-Stalingrad	斯大林格勒	t
-Sevastopol	塞瓦斯托波尔	t
+Kharkov	哈尔科夫
+Stalingrad	斯大林格勒
+Sevastopol	塞瓦斯托波尔
 Odessa	敖德萨	t
 Dnepr River	第聂伯河
 Dnepr	第聂伯河	t
@@ -1625,15 +1625,15 @@ Don River	顿河
 Volga	伏尔加河	t
 Crimea	克里米亚	t
 Caucasus	高加索
-Hungary	匈牙利	t
-Rumania	罗马尼亚	t
-Rumanian	罗马尼亚	t
-Bulgaria	保加利亚	t
+Hungary	匈牙利
+Rumania	罗马尼亚
+Rumanian	罗马尼亚
+Bulgaria	保加利亚
 Bulgarians	保加利亚人
 Serbia	塞尔维亚	t
-Macedonia	马其顿	t
+Macedonia	马其顿
 Greece	希腊	t
-Yugoslavia	南斯拉夫	t
+Yugoslavia	南斯拉夫
 Yugoslavian	南斯拉夫
 partisan	游击队
 partisans	游击队
@@ -1655,10 +1655,10 @@ OK	确定	t
 Panzergren	装甲掷弹兵
 Armored Train	装甲列车
 Field Gun	野炮
-AT Gun	反坦克炮	t
+AT Gun	反坦克炮
 AA Gun	高射炮
 Machine Gun	机枪
-Rifle Squad	步兵班	t
+Rifle Squad	步兵班
 Level Bomber	水平轰炸机
 Tactical Bomber	战术轰炸机
 Torpedo Bomber	鱼雷轰炸机
@@ -1688,16 +1688,16 @@ Hun	匈牙利	t
 Rum	罗马尼亚	t
 Romania	罗马尼亚
 Romanian	罗马尼亚
-Finland	芬兰	t
-Finnish	芬兰	t
+Finland	芬兰
+Finnish	芬兰
 Fin	芬兰	t
-Slovakia	斯洛伐克	t
-Slovakian	斯洛伐克	t
+Slovakia	斯洛伐克
+Slovakian	斯洛伐克
 Croatia	克罗地亚
 Russia	俄罗斯	t
 Russian	俄罗斯
-Western Europe	西欧	t
-Balkans	巴尔干	t
+Western Europe	西欧
+Balkans	巴尔干
 Norway	挪威	t
 Eastern Front	东线
 German Front	德军战线
@@ -1706,57 +1706,57 @@ theater box	战区
 Theater Box	战区
 Theater Boxes	战区
 Kazan	喀山	t
-Kulikovka	库利科夫卡	t
-Stalino	斯大林诺	t
-Surakhani	苏拉哈内	t
+Kulikovka	库利科夫卡
+Stalino	斯大林诺
+Surakhani	苏拉哈内
 Vienna	维也纳	t
 Poznan	波兹南	t
 Lvov	利沃夫	t
-Budapest	布达佩斯	t
-Bucharest	布加勒斯特	t
-Kuybyshev	古比雪夫	t
+Budapest	布达佩斯
+Bucharest	布加勒斯特
+Kuybyshev	古比雪夫
 Krakow	克拉科夫	t
-Smolensk	斯摩棱斯克	t
-Bratislava	布拉迪斯拉发	t
-Astrakhan	阿斯特拉罕	t
+Smolensk	斯摩棱斯克
+Bratislava	布拉迪斯拉发
+Astrakhan	阿斯特拉罕
 Rzhev	勒热夫	t
-Makhachkala	马哈奇卡拉	t
-Koenigsberg	柯尼斯堡	t
+Makhachkala	马哈奇卡拉
+Koenigsberg	柯尼斯堡
 Baku	巴库	t
 Pskov	普斯科夫	t
-Dnepropetrovsk	第聂伯罗彼得罗夫斯克	t
-Breslau	布雷斯劳	t
-Hamburg	汉堡	t
+Dnepropetrovsk	第聂伯罗彼得罗夫斯克
+Breslau	布雷斯劳
+Hamburg	汉堡
 Ryazan	梁赞	t
-Zaporozhye	扎波罗热	t
-Nuremberg	纽伦堡	t
-Krolevets	克罗列韦茨	t
-Voronezh	沃罗涅日	t
-Kalinin	加里宁	t
+Zaporozhye	扎波罗热
+Nuremberg	纽伦堡
+Krolevets	克罗列韦茨
+Voronezh	沃罗涅日
+Kalinin	加里宁
 Berlin	柏林	t
 Tula	图拉	t
 Grozny	格罗兹尼	t
-Helsinki	赫尔辛基	t
+Helsinki	赫尔辛基
 Warsaw	华沙	t
-Saratov	萨拉托夫	t
+Saratov	萨拉托夫
 Prague	布拉格	t
-Leipzig	莱比锡	t
+Leipzig	莱比锡
 Tambov	坦波夫	t
 Kursk	库尔斯克	t
-Tallinn	塔林	t
+Tallinn	塔林
 Munich	慕尼黑	t
-Krasnodar	克拉斯诺达尔	t
+Krasnodar	克拉斯诺达尔
 Riga	里加	t
 Gorky	高尔基	t
-Rostock	罗斯托克	t
-Ploesti	普洛耶什蒂	t
-Dresden	德累斯顿	t
+Rostock	罗斯托克
+Ploesti	普洛耶什蒂
+Dresden	德累斯顿
 Orel	奥廖尔	t
 Maikop	迈科普	t
-Sabunchu	萨本丘	t
-Yaroslavl	雅罗斯拉夫尔	t
-Tbilisi	第比利斯	t
-Bibi-Heybat	比比埃巴特	t
+Sabunchu	萨本丘
+Yaroslavl	雅罗斯拉夫尔
+Tbilisi	第比利斯
+Bibi-Heybat	比比埃巴特
 Sumy	苏梅	t
 Show Weather Screen	显示天气界面
 Show Order of Battle Screen	显示战斗序列界面
@@ -1985,7 +1985,7 @@ Game event probability (0-100)	游戏事件概率（0-100）
 Game event year (1941-1945)	游戏事件年（1941-1945）
 GND Index	地面索引
 Grab Empty Hexes	夺取空白六角格
-Heavy Industry	重工业	t
+Heavy Industry	重工业
 HEAVY INDUSTRY	重工业
 Heavy-Urban	重型城区
 Hex Art	六角格图形
@@ -2009,10 +2009,10 @@ Lend Lease Delivery	租借法案交付
 Light-Urban	轻型城区
 Long Range Command	远程指挥
 Loss by Phase	分阶段损失
-Luftflotte 1	第1航空队	t
-Luftflotte 2	第2航空队	t
-Luftflotte 4	第4航空队	t
-Luftflotte 6	第6航空队	t
+Luftflotte 1	第1航空队
+Luftflotte 2	第2航空队
+Luftflotte 4	第4航空队
+Luftflotte 6	第6航空队
 Mark As Read	标记为已读
 Max Ceiling:	最大升限：
 Max Command:	最大指挥：
@@ -2037,7 +2037,7 @@ Port Art Idx:	港口图形索引：
 Position	位置
 Probability:	概率：
 Process turns?	处理回合？
-Production	生产	t
+Production	生产
 Production Charts	生产图表
 Production modifier	生产修正
 PRODUCTION MODIFIERS	生产修正
@@ -2144,7 +2144,7 @@ Available	可用
 Blizzard	暴风雪
 BOCAGE/POLDER	灌木篱/圩田
 Ceiling:	升限：
-CIVILIAN CONSUMPTION	民用消费	t
+CIVILIAN CONSUMPTION	民用消费
 Climb rate (ft/min)	爬升率（英尺/分）
 Cur Song:	当前曲目：
 DEBUG	调试	t
@@ -2416,7 +2416,7 @@ Air Base Unit:	航空基地单位：
 Airbase damage	航空基地损伤
 Air Units	航空单位
 Air Groups:	飞行队：
-Air Support	空中支援	t
+Air Support	空中支援
 Air & Ground	空中与地面
 Air Directive :	空中指令：
 Air HQ	空军司令部
@@ -2542,7 +2542,7 @@ Switch to Export Port	切换到出口港
 Switch to Import Port	切换到进口港
 City to City	城市到城市
 Transport Ships	运输船
-Baltic Fleet	波罗的海舰队	t
+Baltic Fleet	波罗的海舰队
 Black Sea	黑海
 Bomb Flotilla	轰炸支队
 Naval Patrols	海上巡逻
@@ -2694,7 +2694,7 @@ Dutch	荷兰	t
 Polish	波兰	t
 Belgian	比利时
 Italian	意大利
-Hungarian	匈牙利	t
+Hungarian	匈牙利
 Bulgarian	保加利亚
 Debica	登比察	t
 Jesau	耶绍	t
@@ -3015,7 +3015,7 @@ Withdrawal schedule	撤离日程
 Withdraw Air Groups	撤回飞行队
 Withdraw Units	撤回部队
 Air Group	飞行队
-Air Groups	飞行队	t
+Air Groups	飞行队
 Destroyed	已摧毁
 Depots	补给站	t
 0 - None	0 - 无
@@ -3155,12 +3155,12 @@ AIR INTRUDER	空中袭扰
 AIR UNITS	航空单位
 AIR OP GROUP (4)	航空作战群（4）
 AIRCRAFT EXPORTS	飞机出口
-AIRCRAFT SWAP SUMMARY	飞机交换总结	t
+AIRCRAFT SWAP SUMMARY	飞机交换总结
 AIRCRAFT PERFORMANCE DATA	飞机性能数据
 AIRCRAFT PERFORMANCE STATISTICS	飞机性能统计
 AMPHIBIOUS PREP	两栖准备
 AMPHIB SUPPORT NORTH	北部两栖支援
-ARMY FREIGHT DATA	集团军货运数据	t
+ARMY FREIGHT DATA	集团军货运数据
 ATTACHED UNITS	附属部队
 ATTACHED AIR GROUPS	附属飞行队
 ATTACH UNIT TO CITY FORT	将部队附属到城市要塞
@@ -3168,7 +3168,7 @@ AXIS LOGISTICS START	轴心后勤开始
 BACK TO TOE(OB) EDIT	返回编制编辑
 BEGINNING OF LOGISTICS	后勤开始
 BUILD TEMP PORT	建造临时港口
-BUILDING GENERIC GROUND ELEMENTS	正在生成通用地面单位	t
+BUILDING GENERIC GROUND ELEMENTS	正在生成通用地面单位
 CAMPAIGN END CONDITIONS	战役结束条件
 CLEAR AMPHIB AND AIRBORNE DATA	清除两栖和空降数据
 CLEAR OFF MAP DEPOTS	清除地图外补给站
@@ -3179,7 +3179,7 @@ COPY FROM NATION DATA	从国家数据复制
 CURRENT WEATHER CONDITIONS	当前天气状况
 DOMINATING WEATHER CONDITIONS	主导天气状况
 ESTIMATED NEXT TURN WEATHER CONDITIONS	下回合预计天气状况
-DEPOT FREIGHT DATA	补给站货运数据	t
+DEPOT FREIGHT DATA	补给站货运数据
 DAMAGE OFF-MAP RAIL	损伤地图外铁路
 DISABLE RECORDED SCRIPT	禁用录制脚本
 EAST FRONT AIR LOSSES	东线空中损失
@@ -3199,7 +3199,7 @@ EXISTING AIR PROFILES	现有空中档案
 FACTORY CHANGE FILTERS	工厂变更筛选
 FACTORY TYPE FILTERS	工厂类型筛选
 FACTORY TYPE	工厂类型
-FREIGHT USAGE TYPES	货运使用类型	t
+FREIGHT USAGE TYPES	货运使用类型
 GAME EVENT EDITOR	游戏事件编辑器
 GERMAN MANPOWER ADDITIONS	德国人力增补
 GERMAN MANPOWER TYPES	德国人力类型
@@ -3207,7 +3207,7 @@ GROUND ATTACK NORTH	北部对地攻击
 GROUND ATTACK SOUTH	南部对地攻击
 GROUND ATTACK TYPES:	对地攻击类型：
 GROUND ELEMENTS COMPARE	地面单位对比
-GROUND SUPPORT AIR MISSIONS	对地支援空中任务	t
+GROUND SUPPORT AIR MISSIONS	对地支援空中任务
 GROUND ELEMENT EXPORTS & SPECIAL UPGRADES	地面单位出口与特殊升级
 INCOMPATIBLE AC TYPE	飞机类型不兼容
 INITIALIZE AIR UNITS	初始化航空单位
@@ -3542,7 +3542,7 @@ BEFORE SUPPLY UNITS	补给部队前
 DEMOTORIZE UNIT	取消部队摩托化
 FIND AIR GROUP	查找飞行队
 GROUND SUPPORT	对地支援
-LOSSES BY TYPE	分类损失	t
+LOSSES BY TYPE	分类损失
 CONDITIONS (TRUE)	条件（真）
 CONDITIONS (FALSE)	条件（假）
 CITY TARGET TYPES:	城市目标类型：
@@ -3554,7 +3554,7 @@ UNIT SUPPLY DETAIL	部队补给详情
 UNIT WITHDRAWALS: ~ 	部队撤离：~ 
 FORMATION INVENTORY	编制清单
 ALLOWED AIR PROFILES	允许的空中档案
-AIR BASE REPLACEMENT DETAILS	航空基地补充详情	t
+AIR BASE REPLACEMENT DETAILS	航空基地补充详情
 ALLIED MANPOWER ADDITIONS	盟军人力增补
 REDUCE REINFORCEMENT DELAYS	减少增援延迟
 WEST FRONT AIR REPLACEMENTS	西线空中补充
@@ -3819,7 +3819,7 @@ SUPPLY PRIORITY (	补给优先级（
 RDY / RES	就绪/储备
 Minor River: 	小河：
 MEDITERRANEAN	地中海
-Black Sea Fleet	黑海舰队	t
+Black Sea Fleet	黑海舰队
 Fliegerfuehrer 	航空指挥官 
 NON-MOTORIZED	非摩托化
 NON-MOT	非摩托化
@@ -3851,7 +3851,7 @@ Day Only	仅白天
 Night Only	仅夜间
 Day & Night	昼夜
 Hex on map	地图上的六角格
-Railyard	铁路场站	t
+Railyard	铁路场站
 upgrade	升级
 Impassable / Motorized	不可通行 / 摩托化
 Impassable / Non-Motorized	不可通行 / 非摩托化
@@ -3870,9 +3870,9 @@ Infantry (1)	步兵（1）
 Construction (7)	建设（7）
 TURN    WFR        EFR        CITY       TOTAL 	回合    西线       东线       城市       总计 
 TURN     USR        UKR        UNR       CITY       TOTAL 	回合     美国       英国       联合国     城市       总计 
-Sup Need     Sup Rec   Sup Lost   RepFr Rec  RepMn Rec  RepFr Lost	补给需求     补给接收   补给损失   补充接收    补充接收    补充损失	t
-AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS      SORTIES	飞机性能统计       已摧毁      受损       损伤点数      架次	t
-******************* LIGHT WEAPONS POOL UPGRADES ************************	******************* 轻武器储备升级 ************************	t
+Sup Need     Sup Rec   Sup Lost   RepFr Rec  RepMn Rec  RepFr Lost	补给需求     补给接收   补给损失   补充接收    补充接收    补充损失
+AIRCRAFT PERFORMANCE STATISTICS       DESTROYED     DAMAGED     DAMAGE POINTS      SORTIES	飞机性能统计       已摧毁      受损       损伤点数      架次
+******************* LIGHT WEAPONS POOL UPGRADES ************************	******************* 轻武器储备升级 ************************
 ### ERROR : wfair.dat failed to save ###	### 错误：wfair.dat 保存失败 ###
 ### ERROR : wfhex.dat failed to save ###	### 错误：wfhex.dat 保存失败 ###
 ### ERROR : wfcity.dat failed to save ###	### 错误：wfcity.dat 保存失败 ###
@@ -4321,7 +4321,7 @@ New Product	新产品
 Capacity set on empty factory slot	在空工厂槽位设置产能
 Oil Store	石油储存
 Oil storage	石油储存
-Oil Production	石油生产	t
+Oil Production	石油生产
 Oil production	石油生产
 Oil requirements	石油需求
 Oil Stores Req	石油储存需求
@@ -4333,7 +4333,7 @@ Fuel Percentage	燃料百分比
 Fuel Received	燃料接收
 Resource Store	资源储存
 Resource storage	资源储存
-Resource Production	资源生产	t
+Resource Production	资源生产
 Resource production	资源生产
 Resource requirements	资源需求
 Resource Stores Req	资源储存需求
@@ -4820,7 +4820,7 @@ Airbase	航空基地
 Airdrop	空投
 Ceiling	升限	t
 Delayed	延迟
-Mission	任务	t
+Mission	任务
 Found	已找到	t
 Hasty	仓促	t
 Delta	增量	t
@@ -4891,7 +4891,7 @@ Not Found	未找到
 OB Chains	编制指挥链
 Rail Attk	铁路攻击
 SP Weapon	特种武器
-Save Game	保存游戏	t
+Save Game	保存游戏
 Transfers	转移
 Use Proxy	使用代理
 New TOE	新编制
@@ -4941,7 +4941,7 @@ AF Bombed	机场被轰炸
 airfield was BOMBED	机场被轰炸
 Anti-Soft	对软目标
 Anti-Armor	反装甲
-SP Artillery	自行炮兵	t
+SP Artillery	自行炮兵
 SP Gun	自行火炮
 Self-Propelled Gun	自行火炮
 Infantry Weapon	步兵武器
@@ -5180,8 +5180,8 @@ Engines	发动机	t
 Loadout	挂载
 Conflict	冲突
 Damage  	损伤  
-Far East	远东	t
-North Africa	北非	t
+Far East	远东
+North Africa	北非
 In Trans	转移中
 Observed	已观测
 Buildable	可建造
@@ -5311,7 +5311,7 @@ D UtlL	守方通用机损失
 . Size 	。规模 
 Custom (	自定义（
 Armaments production	军备生产
-Armaments Production	军备生产	t
+Armaments Production	军备生产
 Enter Axis Allies Production Usage %% (1-100)	输入轴心盟国生产使用 %%（1-100）
 Enter %s Production Usage %% (1-100)	输入%s生产使用 %%（1-100）
 Enter production multiplier	输入生产倍率
@@ -5322,7 +5322,7 @@ Enter W Allies Production Usage % (1-100)	输入西方盟军生产使用 %（1-1
 Enter Axis Production Usage % (1-100)	输入轴心生产使用 %（1-100）
 Show Production for %s.	显示%s的生产。
  %s production damaged %d%% 	 %s生产受损 %d%% 
-Machinegun	机枪	t
+Machinegun	机枪
 Machinegun Units	机枪单位
 Machine Gun Units	机枪单位
 Machinegun Unit	机枪单位
@@ -5588,882 +5588,882 @@ CV: %d	战斗力：%d
 MP: %d	移动点：%d
 Hex: %d,%d	六角格：%d,%d
 (%d,%d)	（%d,%d）
-'L' FF Motorized Infantry Regiment	'L'自由法国摩托化步兵团	t
-AA Battalion	防空营	t
-AA Regiment	防空团	t
-AI Anti-tank Gun Battalion	盟军意大利反坦克炮营	t
-AI Combat Group	盟军意大利战斗群	t
-AI Infantry Corpo	盟军意大利步兵军	t
-AI Medium Howitzer Battalion	盟军意大利中型榴弹炮营	t
-AI Motorized Group	盟军意大利摩托化群	t
-AT-Rifle Battalion	反坦克枪营	t
-AU Fortified Zone	澳大利亚筑垒地带	t
-AU Infantry Division	澳大利亚步兵师	t
-AUS Infantry Division	澳大利亚步兵师	t
-Afrika Mot. Artillery Battalion	非洲摩托化炮兵营	t
-Afrika Schuetzen Regiment	非洲射手团	t
-Air Army	航空集团军	t
-Air Base	航空基地	t
-Air Command	航空司令部	t
-Airborne Brigade	空降旅	t
-Airborne Corps	空降军	t
-Airlanding Brigade	机降旅	t
-Airlanding Division	机降师	t
-Airlanding Regiment	机降团	t
-Amphibious HQ	两栖司令部	t
-Anti-Tank Battalion	反坦克营	t
-Anti-Tank Brigade	反坦克旅	t
-Anti-Tank Regiment	反坦克团	t
-Armored Car Brigade	装甲车旅	t
+'L' FF Motorized Infantry Regiment	'L'自由法国摩托化步兵团
+AA Battalion	防空营
+AA Regiment	防空团
+AI Anti-tank Gun Battalion	盟军意大利反坦克炮营
+AI Combat Group	盟军意大利战斗群
+AI Infantry Corpo	盟军意大利步兵军
+AI Medium Howitzer Battalion	盟军意大利中型榴弹炮营
+AI Motorized Group	盟军意大利摩托化群
+AT-Rifle Battalion	反坦克枪营
+AU Fortified Zone	澳大利亚筑垒地带
+AU Infantry Division	澳大利亚步兵师
+AUS Infantry Division	澳大利亚步兵师
+Afrika Mot. Artillery Battalion	非洲摩托化炮兵营
+Afrika Schuetzen Regiment	非洲射手团
+Air Army	航空集团军
+Air Base	航空基地
+Air Command	航空司令部
+Airborne Brigade	空降旅
+Airborne Corps	空降军
+Airlanding Brigade	机降旅
+Airlanding Division	机降师
+Airlanding Regiment	机降团
+Amphibious HQ	两栖司令部
+Anti-Tank Battalion	反坦克营
+Anti-Tank Brigade	反坦克旅
+Anti-Tank Regiment	反坦克团
+Armored Car Brigade	装甲车旅
 Army	集团军	t
-Army Artillery Brigade	集团军属炮兵旅	t
-Army Artillery Regiment	集团军属炮兵团	t
-Army Cannon Brigade	集团军属加农炮旅	t
-Army Group	集团军群	t
-Army Light Flak Battalion	集团军属轻型高炮营	t
-Army Mot. Flak Battalion	集团军属摩托化高炮营	t
-Army Mot. Light Flak Battalion	集团军属摩托化轻型高炮营	t
-Army Mot. Light Flak Company	集团军属摩托化轻型高炮连	t
-Army Mot. Pioneer Brigade	集团军属摩托化工兵旅	t
-Army Mot. Pioneer Sperr Brigade	集团军属摩托化工兵封锁旅	t
-Army SP Light Flak Battalion	集团军属自行轻型高炮营	t
-Army SP Light Flak Company	集团军属自行轻型高炮连	t
-Artillery Division	炮兵师	t
-Artillery Regiment	炮兵团	t
-Assault Engineer-Sapper Brigade	突击工兵旅	t
-Aviation Corps	航空军	t
-BE Armoured Car Regiment	比利时装甲车团	t
-BE Fortified Zone	比利时筑垒地带	t
-BE Infantry Brigade Group	比利时步兵旅群	t
-BM Howitzer Regiment	BM榴弹炮团	t
-BR AGRA	英国皇家野战炮兵群	t
-BR Air Base	英国航空基地	t
-BR Air-Portable Division	英国可空运师	t
-BR Airborne Division	英国空降师	t
-BR Amphibious HQ	英国两栖司令部	t
-BR Anti-tank Regiment	英国反坦克团	t
-BR Armoured Brigade	英国装甲旅	t
-BR Armoured Brigade Group	英国装甲旅群	t
-BR Armoured Car Regiment	英国装甲车团	t
-BR Armoured Division	英国装甲师	t
-BR Army	英国集团军	t
-BR Army Commando	英国集团军突击队	t
-BR Army Field Company	英国集团军野战连	t
-BR Army Group	英国集团军群	t
-BR Army Tank Brigade	英国集团军坦克旅	t
-BR Assault Engineer Brigade	英国突击工兵旅	t
-BR CDL Brigade	英国探照坦克旅	t
-BR Commando Brigade	英国突击队旅	t
-BR Corps	英国军	t
-BR Corps MG Battalion	英国军属机枪营	t
-BR Field Artillery Regiment	英国野战炮兵团	t
-BR Force	英国部队	t
-BR Fortified Zone	英国筑垒地带	t
-BR Gurkha Brigade	英国廓尔喀旅	t
-BR Heavy Anti-Aircraft Battery	英国重型防空炮兵连	t
-BR Heavy Anti-Aircraft Regiment	英国重型防空团	t
-BR Heavy Artillery Regiment	英国重型炮兵团	t
-BR Infantry Brigade	英国步兵旅	t
-BR Infantry Brigade Group	英国步兵旅群	t
-BR Infantry Division	英国步兵师	t
-BR Light Anti-Aircraft Battery	英国轻型防空炮兵连	t
-BR Light Anti-Aircraft Regiment	英国轻型防空团	t
-BR Light Armoured Brigade	英国轻型装甲旅	t
-BR Medium Artillery Regiment	英国中型炮兵团	t
-BR Mixed Division	英国混成师	t
-BR Mixed Infantry Division	英国混成步兵师	t
-BR Mortar Company	英国迫击炮连	t
-BR Mortar Platoon	英国迫击炮排	t
-BR Motorcycle Battalion	英国摩托车营	t
-BR Motorized Brigade	英国摩托化旅	t
-BR Mountain Artillery Regiment	英国山地炮兵团	t
-BR Mountain Battalion	英国山地营	t
-BR Parachute Battalion (+)	英国伞兵营（加）	t
-BR Parachute Brigade	英国伞兵旅	t
-BR Parachute Brigade Group	英国伞兵旅群	t
-BR Railway Construction Group	英国铁路建设群	t
-BR Royal Engineer Battalion	英国皇家工兵营	t
-BR Royal Marine Armoured Group	英国皇家海军陆战装甲群	t
-BR Royal Marine Brigade	英国皇家海军陆战旅	t
-BR Royal Marine Commando	英国皇家海军陆战突击队	t
-BR SP Field Artillery Regiment	英国自行野战炮兵团	t
-BR Special Service Brigade	英国特种勤务旅	t
-BR Static Mixed AA Brigade	英国静态混成防空旅	t
-BR Static Mixed AA Regiment	英国静态混成防空团	t
-BR Super Heavy AGRA	英国超重型皇家野战炮兵群	t
-BR Super Heavy Artillery Battery	英国超重型炮兵连	t
-BR Super Heavy Artillery Regiment	英国超重型炮兵团	t
-BR Tank Brigade	英国坦克旅	t
-BZ Infantry Division	BZ步兵师	t
-Bicycle Jaeger Brigade	自行车猎兵旅	t
-Bicycle Recon Battalion	自行车侦察营	t
-Bicycle Road Construction Battalion	自行车道路建设营	t
-Brandenburger Battalion	勃兰登堡营	t
-Breakthrough Artillery Division	突破炮兵师	t
-Brigade	旅	t
-Bul. Air Base	保加利亚航空基地	t
-Bul. Anti-Aircraft Regiment	保加利亚防空团	t
-Bul. Armored Battalion	保加利亚装甲营	t
-Bul. Armored Brigade	保加利亚装甲旅	t
-Bul. Armored Regiment	保加利亚装甲团	t
-Bul. Army	保加利亚集团军	t
-Bul. Assault Gun Battalion	保加利亚突击炮营	t
-Bul. Border Guard Battalion	保加利亚边防营	t
-Bul. Border Guard Brigade	保加利亚边防旅	t
-Bul. Border Guard Regiment	保加利亚边防团	t
-Bul. Cavalry Brigade	保加利亚骑兵旅	t
-Bul. Cavalry Division	保加利亚骑兵师	t
-Bul. Cavalry Regiment	保加利亚骑兵团	t
-Bul. Corps	保加利亚军	t
-Bul. Engineer Battalion	保加利亚工兵营	t
-Bul. Heavy Anti-Aircraft Battalion	保加利亚重型防空营	t
-Bul. Howitzer Battalion	保加利亚榴弹炮营	t
-Bul. Infantry Battalion	保加利亚步兵营	t
-Bul. Infantry Division	保加利亚步兵师	t
-Bul. Infantry Regiment	保加利亚步兵团	t
-Bul. Labor Battalion	保加利亚劳工营	t
-Bul. Mot. Anti-Aircraft Battalion	保加利亚摩托化防空营	t
-Bul. Mot. Anti-Tank Battalion	保加利亚摩托化反坦克营	t
-Bul. Mot. Field Gun Battalion	保加利亚摩托化野战炮营	t
-Bul. Mot. Heavy Howitzer Battalion	保加利亚摩托化重型榴弹炮营	t
-Bul. Mot. Howitzer Battalion	保加利亚摩托化榴弹炮营	t
-Bul. Mountain Gun Battalion	保加利亚山地炮营	t
-CA AGRA Brigade	加拿大皇家野战炮兵群旅	t
-CA Anti-tank Regiment	加拿大反坦克团	t
-CA Armoured Brigade	加拿大装甲旅	t
-CA Armoured Car Regiment	加拿大装甲车团	t
-CA Armoured Division	加拿大装甲师	t
-CA Army	加拿大集团军	t
-CA Army Field Company	加拿大集团军野战连	t
-CA Corps	加拿大军	t
-CA Engineer Battalion	加拿大工兵营	t
-CA Field Artillery Regiment	加拿大野战炮兵团	t
-CA Fortified Zone	加拿大筑垒地带	t
-CA Heavy Anti-Aircraft Battery	加拿大重型防空炮兵连	t
-CA Heavy Anti-Aircraft Regiment	加拿大重型防空团	t
-CA Heavy Artillery Regiment	加拿大重型炮兵团	t
-CA Infantry Brigade	加拿大步兵旅	t
-CA Infantry Division	加拿大步兵师	t
-CA Light Anti-Aircraft Battery	加拿大轻型防空炮兵连	t
-CA Light Anti-Aircraft Regiment	加拿大轻型防空团	t
-CA Medium Artillery Regiment	加拿大中型炮兵团	t
-CA Mortar Company	加拿大迫击炮连	t
-CA Mortar Platoon	加拿大迫击炮排	t
-CA SP Field Regiment	加拿大自行野战炮兵团	t
-CW Rail Group	英联邦铁路群	t
-CZ Armoured Brigade	捷克装甲旅	t
-Cannon Artillery Division	加农炮兵师	t
-Cannon Brigade	加农炮旅	t
-Cannon Regiment	加农炮团	t
-Cavalry Brigade	骑兵旅	t
-Cavalry Corps	骑兵军	t
-Cavalry Division	骑兵师	t
-Cavalry Regiment	骑兵团	t
-Cavalry Squadron	骑兵中队	t
-Cavalry-Mechanized Group	骑兵机械化群	t
-Coastal Artillery Division	海岸炮兵师	t
-Construction Battalion	建设营	t
+Army Artillery Brigade	集团军属炮兵旅
+Army Artillery Regiment	集团军属炮兵团
+Army Cannon Brigade	集团军属加农炮旅
+Army Group	集团军群
+Army Light Flak Battalion	集团军属轻型高炮营
+Army Mot. Flak Battalion	集团军属摩托化高炮营
+Army Mot. Light Flak Battalion	集团军属摩托化轻型高炮营
+Army Mot. Light Flak Company	集团军属摩托化轻型高炮连
+Army Mot. Pioneer Brigade	集团军属摩托化工兵旅
+Army Mot. Pioneer Sperr Brigade	集团军属摩托化工兵封锁旅
+Army SP Light Flak Battalion	集团军属自行轻型高炮营
+Army SP Light Flak Company	集团军属自行轻型高炮连
+Artillery Division	炮兵师
+Artillery Regiment	炮兵团
+Assault Engineer-Sapper Brigade	突击工兵旅
+Aviation Corps	航空军
+BE Armoured Car Regiment	比利时装甲车团
+BE Fortified Zone	比利时筑垒地带
+BE Infantry Brigade Group	比利时步兵旅群
+BM Howitzer Regiment	BM榴弹炮团
+BR AGRA	英国皇家野战炮兵群
+BR Air Base	英国航空基地
+BR Air-Portable Division	英国可空运师
+BR Airborne Division	英国空降师
+BR Amphibious HQ	英国两栖司令部
+BR Anti-tank Regiment	英国反坦克团
+BR Armoured Brigade	英国装甲旅
+BR Armoured Brigade Group	英国装甲旅群
+BR Armoured Car Regiment	英国装甲车团
+BR Armoured Division	英国装甲师
+BR Army	英国集团军
+BR Army Commando	英国集团军突击队
+BR Army Field Company	英国集团军野战连
+BR Army Group	英国集团军群
+BR Army Tank Brigade	英国集团军坦克旅
+BR Assault Engineer Brigade	英国突击工兵旅
+BR CDL Brigade	英国探照坦克旅
+BR Commando Brigade	英国突击队旅
+BR Corps	英国军
+BR Corps MG Battalion	英国军属机枪营
+BR Field Artillery Regiment	英国野战炮兵团
+BR Force	英国部队
+BR Fortified Zone	英国筑垒地带
+BR Gurkha Brigade	英国廓尔喀旅
+BR Heavy Anti-Aircraft Battery	英国重型防空炮兵连
+BR Heavy Anti-Aircraft Regiment	英国重型防空团
+BR Heavy Artillery Regiment	英国重型炮兵团
+BR Infantry Brigade	英国步兵旅
+BR Infantry Brigade Group	英国步兵旅群
+BR Infantry Division	英国步兵师
+BR Light Anti-Aircraft Battery	英国轻型防空炮兵连
+BR Light Anti-Aircraft Regiment	英国轻型防空团
+BR Light Armoured Brigade	英国轻型装甲旅
+BR Medium Artillery Regiment	英国中型炮兵团
+BR Mixed Division	英国混成师
+BR Mixed Infantry Division	英国混成步兵师
+BR Mortar Company	英国迫击炮连
+BR Mortar Platoon	英国迫击炮排
+BR Motorcycle Battalion	英国摩托车营
+BR Motorized Brigade	英国摩托化旅
+BR Mountain Artillery Regiment	英国山地炮兵团
+BR Mountain Battalion	英国山地营
+BR Parachute Battalion (+)	英国伞兵营（加）
+BR Parachute Brigade	英国伞兵旅
+BR Parachute Brigade Group	英国伞兵旅群
+BR Railway Construction Group	英国铁路建设群
+BR Royal Engineer Battalion	英国皇家工兵营
+BR Royal Marine Armoured Group	英国皇家海军陆战装甲群
+BR Royal Marine Brigade	英国皇家海军陆战旅
+BR Royal Marine Commando	英国皇家海军陆战突击队
+BR SP Field Artillery Regiment	英国自行野战炮兵团
+BR Special Service Brigade	英国特种勤务旅
+BR Static Mixed AA Brigade	英国静态混成防空旅
+BR Static Mixed AA Regiment	英国静态混成防空团
+BR Super Heavy AGRA	英国超重型皇家野战炮兵群
+BR Super Heavy Artillery Battery	英国超重型炮兵连
+BR Super Heavy Artillery Regiment	英国超重型炮兵团
+BR Tank Brigade	英国坦克旅
+BZ Infantry Division	BZ步兵师
+Bicycle Jaeger Brigade	自行车猎兵旅
+Bicycle Recon Battalion	自行车侦察营
+Bicycle Road Construction Battalion	自行车道路建设营
+Brandenburger Battalion	勃兰登堡营
+Breakthrough Artillery Division	突破炮兵师
+Brigade	旅
+Bul. Air Base	保加利亚航空基地
+Bul. Anti-Aircraft Regiment	保加利亚防空团
+Bul. Armored Battalion	保加利亚装甲营
+Bul. Armored Brigade	保加利亚装甲旅
+Bul. Armored Regiment	保加利亚装甲团
+Bul. Army	保加利亚集团军
+Bul. Assault Gun Battalion	保加利亚突击炮营
+Bul. Border Guard Battalion	保加利亚边防营
+Bul. Border Guard Brigade	保加利亚边防旅
+Bul. Border Guard Regiment	保加利亚边防团
+Bul. Cavalry Brigade	保加利亚骑兵旅
+Bul. Cavalry Division	保加利亚骑兵师
+Bul. Cavalry Regiment	保加利亚骑兵团
+Bul. Corps	保加利亚军
+Bul. Engineer Battalion	保加利亚工兵营
+Bul. Heavy Anti-Aircraft Battalion	保加利亚重型防空营
+Bul. Howitzer Battalion	保加利亚榴弹炮营
+Bul. Infantry Battalion	保加利亚步兵营
+Bul. Infantry Division	保加利亚步兵师
+Bul. Infantry Regiment	保加利亚步兵团
+Bul. Labor Battalion	保加利亚劳工营
+Bul. Mot. Anti-Aircraft Battalion	保加利亚摩托化防空营
+Bul. Mot. Anti-Tank Battalion	保加利亚摩托化反坦克营
+Bul. Mot. Field Gun Battalion	保加利亚摩托化野战炮营
+Bul. Mot. Heavy Howitzer Battalion	保加利亚摩托化重型榴弹炮营
+Bul. Mot. Howitzer Battalion	保加利亚摩托化榴弹炮营
+Bul. Mountain Gun Battalion	保加利亚山地炮营
+CA AGRA Brigade	加拿大皇家野战炮兵群旅
+CA Anti-tank Regiment	加拿大反坦克团
+CA Armoured Brigade	加拿大装甲旅
+CA Armoured Car Regiment	加拿大装甲车团
+CA Armoured Division	加拿大装甲师
+CA Army	加拿大集团军
+CA Army Field Company	加拿大集团军野战连
+CA Corps	加拿大军
+CA Engineer Battalion	加拿大工兵营
+CA Field Artillery Regiment	加拿大野战炮兵团
+CA Fortified Zone	加拿大筑垒地带
+CA Heavy Anti-Aircraft Battery	加拿大重型防空炮兵连
+CA Heavy Anti-Aircraft Regiment	加拿大重型防空团
+CA Heavy Artillery Regiment	加拿大重型炮兵团
+CA Infantry Brigade	加拿大步兵旅
+CA Infantry Division	加拿大步兵师
+CA Light Anti-Aircraft Battery	加拿大轻型防空炮兵连
+CA Light Anti-Aircraft Regiment	加拿大轻型防空团
+CA Medium Artillery Regiment	加拿大中型炮兵团
+CA Mortar Company	加拿大迫击炮连
+CA Mortar Platoon	加拿大迫击炮排
+CA SP Field Regiment	加拿大自行野战炮兵团
+CW Rail Group	英联邦铁路群
+CZ Armoured Brigade	捷克装甲旅
+Cannon Artillery Division	加农炮兵师
+Cannon Brigade	加农炮旅
+Cannon Regiment	加农炮团
+Cavalry Brigade	骑兵旅
+Cavalry Corps	骑兵军
+Cavalry Division	骑兵师
+Cavalry Regiment	骑兵团
+Cavalry Squadron	骑兵中队
+Cavalry-Mechanized Group	骑兵机械化群
+Coastal Artillery Division	海岸炮兵师
+Construction Battalion	建设营
 Corps	军	t
-Corps Artillery Regiment	军属炮兵团	t
-Corps Machine Gun Battalion	军属机枪营	t
-Cossack Cavalry Division	哥萨克骑兵师	t
-Cossack Cavalry Regiment	哥萨克骑兵团	t
-Croat. Garrison Brigade	克罗地亚守备旅	t
-Croat. Infantry Division	克罗地亚步兵师	t
-Croat. Jaeger Brigade	克罗地亚猎兵旅	t
-Croat. Jaeger Regiment	克罗地亚猎兵团	t
-Croat. Mobile Brigade	克罗地亚机动旅	t
-Croat. Mountain Brigade	克罗地亚山地旅	t
-Croat. Mountain Division	克罗地亚山地师	t
-Croat. Mountain Regiment	克罗地亚山地团	t
-Defense Zone	防御地带	t
-Destroyer Anti-Tank Brigade	歼击反坦克旅	t
-Destroyer Anti-Tank Regiment	歼击反坦克团	t
-Engineer-Sapper Battalion	工兵营	t
-Engineer-Sapper Brigade	工兵旅	t
-Engineer-Sapper Regiment	工兵团	t
-Ersatz Security Battalion	补充警备营	t
-Ersatz Security Brigade	补充警备旅	t
-Ersatz Security Regiment	补充警备团	t
-Expeditionary Corps	远征军	t
-FF Anti-Aircraft Battalion	自由法国防空营	t
-FF Armored Battalion	自由法国装甲营	t
-FF Armored Division	自由法国装甲师	t
-FF Army	自由法国集团军	t
-FF Artillery Battalion	自由法国炮兵营	t
-FF Artillery Regiment	自由法国炮兵团	t
-FF CSTT Infantry Brigade	自由法国CSTT步兵旅	t
-FF Cavalry Squadron	自由法国骑兵中队	t
-FF Commando Battalion	自由法国突击队营	t
-FF Corps	自由法国军	t
-FF DMM Infantry Division	自由法国DMM步兵师	t
-FF DMO Infantry Division	自由法国DMO步兵师	t
-FF Engineer Regiment	自由法国工兵团	t
-FF Fortified Zone	自由法国筑垒地带	t
-FF Franc d'Afrique Infantry Regiment	自由法国非洲步兵团	t
-FF GACA Armored Company	自由法国军属野战炮兵群装甲连	t
-FF Infantry Battalion	自由法国步兵营	t
-FF Infantry Division	自由法国步兵师	t
-FF Infantry Regiment	自由法国步兵团	t
-FF Legere Mecanique	自由法国轻机械化部队	t
-FF Light Tank Regiment	自由法国轻型坦克团	t
-FF Motorized Division	自由法国摩托化师	t
-FF Motorized Division (-)	自由法国摩托化师（减）	t
-FF Motorized Infantry Regiment	自由法国摩托化步兵团	t
-FF Mountain Division	自由法国山地师	t
-FF Mountain Regiment	自由法国山地团	t
-FF Pioneer Battalion	自由法国工兵营	t
-FF Pioneer Regiment	自由法国工兵团	t
-FF Recce Brigade	自由法国侦察旅	t
-FF Recce Regiment	自由法国侦察团	t
-FF Sahrien Cavalry Battalion	自由法国萨赫里安骑兵营	t
-FF Tabor Marocains	自由法国摩洛哥塔博尔	t
-FF Tank Destroyer Regiment	自由法国坦克歼击团	t
-FF et du Pacifique Infantry Battalion	自由法国太平洋步兵营	t
-FJ Pioneer Battalion	伞兵工兵营	t
-FJ Pioneer Battalion (-)	伞兵工兵营（减）	t
-FJ Reconnaissance Battalion	伞兵侦察营	t
-FKL Panzer Pioneer Battalion	FKL装甲工兵营	t
-FKL Panzer Pioneer Company	FKL装甲工兵连	t
-Fallschirm Flak Regiment	伞兵高炮团	t
-Fallschirm Nr.1 Panzer Division	伞兵第1装甲师	t
-Fallschirm Nr.2 PzG Division	伞兵第2装甲掷弹兵师	t
-Fallschirm Panzer Division	伞兵装甲师	t
-Fallschirm Pioneer Regiment	伞兵工兵团	t
-Fallschirm Stug Brigade	伞兵突击炮旅	t
-Fallschirmjaeger Battalion	伞兵猎兵营	t
-Fallschirmjaeger Division	伞兵猎兵师	t
-Fallschirmjaeger Regiment	伞兵猎兵团	t
-Field Training Division	野战训练师	t
-Field Training Regiment	野战训练团	t
-Fin. Air Base	芬兰航空基地	t
-Fin. Armored Division	芬兰装甲师	t
-Fin. Army	芬兰集团军	t
-Fin. Cavalry Brigade	芬兰骑兵旅	t
-Fin. Coastal Brigade	芬兰海岸旅	t
-Fin. Coastal Division	芬兰海岸师	t
-Fin. Construction Battalion	芬兰建设营	t
-Fin. Corps	芬兰军	t
-Fin. Engineer Battalion	芬兰工兵营	t
-Fin. Fortified Zone	芬兰筑垒地带	t
-Fin. Heavy Flak Battalion	芬兰重型高炮营	t
-Fin. Infantry Battalion	芬兰步兵营	t
-Fin. Infantry Brigade	芬兰步兵旅	t
-Fin. Infantry Division	芬兰步兵师	t
-Fin. Infantry Regiment	芬兰步兵团	t
-Fin. Jaeger Battalion	芬兰猎兵营	t
-Fin. Jaeger Brigade	芬兰猎兵旅	t
-Fin. Machine Gun Battalion	芬兰机枪营	t
-Fin. Mot. Artillery Battalion	芬兰摩托化炮兵营	t
-Fin. Mot. Heavy Artillery Battalion	芬兰摩托化重型炮兵营	t
-Fin. Mot. Light Flak Battalion	芬兰摩托化轻型高炮营	t
-Fin. Sissi Commando Battalion	芬兰西西突击队营	t
-Fin. Stug Battalion	芬兰突击炮营	t
-Fin. Tank Battalion	芬兰坦克营	t
-Flak Tower	高炮塔	t
-Flame Tank Battalion	喷火坦克营	t
-Flame Tank Brigade	喷火坦克旅	t
-Flamethrower Battalion	喷火营	t
-Flamethrower Company	喷火连	t
-Flammpanzer Battalion	喷火坦克营	t
-Flammpanzer Company	喷火坦克连	t
-Flieger Division	航空师	t
-Flieger Division (-)	航空师（减）	t
-Fortified Region	筑垒地域	t
-Fortified Zone	筑垒地带	t
-Fortress	要塞	t
-Fortress Infantry Battalion	要塞步兵营	t
-Fortress Infantry Brigade	要塞步兵旅	t
-Fortress Infantry Division	要塞步兵师	t
-Fortress MG Battalion	要塞机枪营	t
-Fortress Pioneer Battalion	要塞工兵营	t
+Corps Artillery Regiment	军属炮兵团
+Corps Machine Gun Battalion	军属机枪营
+Cossack Cavalry Division	哥萨克骑兵师
+Cossack Cavalry Regiment	哥萨克骑兵团
+Croat. Garrison Brigade	克罗地亚守备旅
+Croat. Infantry Division	克罗地亚步兵师
+Croat. Jaeger Brigade	克罗地亚猎兵旅
+Croat. Jaeger Regiment	克罗地亚猎兵团
+Croat. Mobile Brigade	克罗地亚机动旅
+Croat. Mountain Brigade	克罗地亚山地旅
+Croat. Mountain Division	克罗地亚山地师
+Croat. Mountain Regiment	克罗地亚山地团
+Defense Zone	防御地带
+Destroyer Anti-Tank Brigade	歼击反坦克旅
+Destroyer Anti-Tank Regiment	歼击反坦克团
+Engineer-Sapper Battalion	工兵营
+Engineer-Sapper Brigade	工兵旅
+Engineer-Sapper Regiment	工兵团
+Ersatz Security Battalion	补充警备营
+Ersatz Security Brigade	补充警备旅
+Ersatz Security Regiment	补充警备团
+Expeditionary Corps	远征军
+FF Anti-Aircraft Battalion	自由法国防空营
+FF Armored Battalion	自由法国装甲营
+FF Armored Division	自由法国装甲师
+FF Army	自由法国集团军
+FF Artillery Battalion	自由法国炮兵营
+FF Artillery Regiment	自由法国炮兵团
+FF CSTT Infantry Brigade	自由法国CSTT步兵旅
+FF Cavalry Squadron	自由法国骑兵中队
+FF Commando Battalion	自由法国突击队营
+FF Corps	自由法国军
+FF DMM Infantry Division	自由法国DMM步兵师
+FF DMO Infantry Division	自由法国DMO步兵师
+FF Engineer Regiment	自由法国工兵团
+FF Fortified Zone	自由法国筑垒地带
+FF Franc d'Afrique Infantry Regiment	自由法国非洲步兵团
+FF GACA Armored Company	自由法国军属野战炮兵群装甲连
+FF Infantry Battalion	自由法国步兵营
+FF Infantry Division	自由法国步兵师
+FF Infantry Regiment	自由法国步兵团
+FF Legere Mecanique	自由法国轻机械化部队
+FF Light Tank Regiment	自由法国轻型坦克团
+FF Motorized Division	自由法国摩托化师
+FF Motorized Division (-)	自由法国摩托化师（减）
+FF Motorized Infantry Regiment	自由法国摩托化步兵团
+FF Mountain Division	自由法国山地师
+FF Mountain Regiment	自由法国山地团
+FF Pioneer Battalion	自由法国工兵营
+FF Pioneer Regiment	自由法国工兵团
+FF Recce Brigade	自由法国侦察旅
+FF Recce Regiment	自由法国侦察团
+FF Sahrien Cavalry Battalion	自由法国萨赫里安骑兵营
+FF Tabor Marocains	自由法国摩洛哥塔博尔
+FF Tank Destroyer Regiment	自由法国坦克歼击团
+FF et du Pacifique Infantry Battalion	自由法国太平洋步兵营
+FJ Pioneer Battalion	伞兵工兵营
+FJ Pioneer Battalion (-)	伞兵工兵营（减）
+FJ Reconnaissance Battalion	伞兵侦察营
+FKL Panzer Pioneer Battalion	FKL装甲工兵营
+FKL Panzer Pioneer Company	FKL装甲工兵连
+Fallschirm Flak Regiment	伞兵高炮团
+Fallschirm Nr.1 Panzer Division	伞兵第1装甲师
+Fallschirm Nr.2 PzG Division	伞兵第2装甲掷弹兵师
+Fallschirm Panzer Division	伞兵装甲师
+Fallschirm Pioneer Regiment	伞兵工兵团
+Fallschirm Stug Brigade	伞兵突击炮旅
+Fallschirmjaeger Battalion	伞兵猎兵营
+Fallschirmjaeger Division	伞兵猎兵师
+Fallschirmjaeger Regiment	伞兵猎兵团
+Field Training Division	野战训练师
+Field Training Regiment	野战训练团
+Fin. Air Base	芬兰航空基地
+Fin. Armored Division	芬兰装甲师
+Fin. Army	芬兰集团军
+Fin. Cavalry Brigade	芬兰骑兵旅
+Fin. Coastal Brigade	芬兰海岸旅
+Fin. Coastal Division	芬兰海岸师
+Fin. Construction Battalion	芬兰建设营
+Fin. Corps	芬兰军
+Fin. Engineer Battalion	芬兰工兵营
+Fin. Fortified Zone	芬兰筑垒地带
+Fin. Heavy Flak Battalion	芬兰重型高炮营
+Fin. Infantry Battalion	芬兰步兵营
+Fin. Infantry Brigade	芬兰步兵旅
+Fin. Infantry Division	芬兰步兵师
+Fin. Infantry Regiment	芬兰步兵团
+Fin. Jaeger Battalion	芬兰猎兵营
+Fin. Jaeger Brigade	芬兰猎兵旅
+Fin. Machine Gun Battalion	芬兰机枪营
+Fin. Mot. Artillery Battalion	芬兰摩托化炮兵营
+Fin. Mot. Heavy Artillery Battalion	芬兰摩托化重型炮兵营
+Fin. Mot. Light Flak Battalion	芬兰摩托化轻型高炮营
+Fin. Sissi Commando Battalion	芬兰西西突击队营
+Fin. Stug Battalion	芬兰突击炮营
+Fin. Tank Battalion	芬兰坦克营
+Flak Tower	高炮塔
+Flame Tank Battalion	喷火坦克营
+Flame Tank Brigade	喷火坦克旅
+Flamethrower Battalion	喷火营
+Flamethrower Company	喷火连
+Flammpanzer Battalion	喷火坦克营
+Flammpanzer Company	喷火坦克连
+Flieger Division	航空师
+Flieger Division (-)	航空师（减）
+Fortified Region	筑垒地域
+Fortified Zone	筑垒地带
+Fortress	要塞
+Fortress Infantry Battalion	要塞步兵营
+Fortress Infantry Brigade	要塞步兵旅
+Fortress Infantry Division	要塞步兵师
+Fortress MG Battalion	要塞机枪营
+Fortress Pioneer Battalion	要塞工兵营
 Front	方面军	t
-Fullriede	富尔里德	t
-Fusilier Battalion	燧发枪兵营	t
-GR Fortified Zone	希腊筑垒地带	t
-GR Mountain Brigade Group	希腊山地旅群	t
-Garrison Brigade	守备旅	t
-Gep. Panzergrenadier Battalion	装甲装甲掷弹兵营	t
-Gep. Panzergrenadier Regiment	装甲装甲掷弹兵团	t
-Gep. Schuetzen Regiment	装甲射手团	t
-Gep. Sturm Pioneer Battalion	装甲突击工兵营	t
-Grenadier Battalion	掷弹兵营	t
-Grenadier Brigade	掷弹兵旅	t
-Grenadier Division	掷弹兵师	t
-Grenadier Regiment	掷弹兵团	t
-Grenadier Sperr Division	掷弹兵封锁师	t
-Gun Regiment	炮兵团	t
-HG Mot. Jaeger Brigade	赫尔曼·戈林摩托化猎兵旅	t
-HJ Panzer Destroyer Battalion	希特勒青年团装甲歼击营	t
-Heavy Anti-Tank Regiment	重型反坦克团	t
-Heavy Cannon Battalion	重型加农炮营	t
-Heavy Cannon Brigade	重型加农炮旅	t
-Heavy Gun Regiment	重型炮兵团	t
-Heavy Howitzer Brigade	重型榴弹炮旅	t
-Heavy Mortar Brigade	重型迫击炮旅	t
-Heavy Panzer Battalion	重型装甲营	t
-Heavy Panzer Company	重型装甲连	t
-Heavy Rocket Battalion	重型火箭炮营	t
-Heavy Rocket Brigade	重型火箭炮旅	t
-Heavy Rocket Regiment	重型火箭炮团	t
-Heavy SU Brigade	重型自行火炮旅	t
-Heavy SU Regiment	重型自行炮兵团	t
-Heavy Tank Brigade	重型坦克旅	t
-Heavy Tank Regiment	重型坦克团	t
-High Power Artillery Battalion	大威力炮兵营	t
-Howitzer Brigade	榴弹炮旅	t
-Howitzer Regiment	榴弹炮团	t
-Hun. AA Battalion	匈牙利防空营	t
-Hun. Air Base	匈牙利航空基地	t
-Hun. Armored Battalion	匈牙利装甲营	t
-Hun. Armored Division	匈牙利装甲师	t
-Hun. Armored Recon Battalion	匈牙利装甲侦察营	t
-Hun. Armored Regiment	匈牙利装甲团	t
-Hun. Army	匈牙利集团军	t
-Hun. Assault Gun Battalion	匈牙利突击炮营	t
-Hun. Bicycle Infantry Battalion	匈牙利自行车步兵营	t
-Hun. Border Guard Battalion	匈牙利边防营	t
-Hun. Border Guard Brigade	匈牙利边防旅	t
-Hun. Border Guard Group	匈牙利边防群	t
-Hun. Border Guard Regiment	匈牙利边防团	t
-Hun. Cavalry Brigade	匈牙利骑兵旅	t
-Hun. Construction Battalion	匈牙利建设营	t
-Hun. Corps	匈牙利军	t
-Hun. Engineer Battalion	匈牙利工兵营	t
-Hun. Engineer Company	匈牙利工兵连	t
-Hun. Field Replacement Division	匈牙利野战补充师	t
-Hun. Fortified Zone	匈牙利筑垒地带	t
-Hun. Heavy Tank Company	匈牙利重型坦克连	t
-Hun. Hussar Division	匈牙利骠骑兵师	t
-Hun. Hussar Regiment	匈牙利骠骑兵团	t
-Hun. Infantry Brigade	匈牙利步兵旅	t
-Hun. Infantry Division	匈牙利步兵师	t
-Hun. Infantry Regiment	匈牙利步兵团	t
-Hun. Light Division	匈牙利轻装师	t
-Hun. Light Security Brigade	匈牙利轻型警备旅	t
-Hun. Light Security Division	匈牙利轻型警备师	t
-Hun. Light Security Regiment	匈牙利轻型警备团	t
-Hun. Mot. AA Battalion	匈牙利摩托化防空营	t
-Hun. Mot. AA Company	匈牙利摩托化防空连	t
-Hun. Mot. Corps Artillery Battalion	匈牙利摩托化军属炮兵营	t
-Hun. Mot. Corps Artillery Battery	匈牙利摩托化军属炮兵连	t
-Hun. Mot. Heavy Artillery Battalion	匈牙利摩托化重型炮兵营	t
-Hun. Mot. Infantry Regiment	匈牙利摩托化步兵团	t
-Hun. Mot. Nebelwerfer Battalion	匈牙利摩托化火箭炮营	t
-Hun. Motorized Brigade	匈牙利摩托化旅	t
-Hun. Mountain Border Brigade	匈牙利山地边防旅	t
-Hun. Mountain Border Guard Battalion	匈牙利山地边防营	t
-Hun. Mountain Brigade	匈牙利山地旅	t
-Hun. Parachute Battalion	匈牙利伞兵营	t
-Hun. RR Construction Battalion	匈牙利铁路建设营	t
-Hun. Replacement Cavalry Brigade	匈牙利补充骑兵旅	t
-Hun. Replacement Mountain Brigade	匈牙利补充山地旅	t
-Hun. Reserve Infantry Division	匈牙利预备步兵师	t
-Hun. Tank Company	匈牙利坦克连	t
-IN Engineer Battalion	印度工兵营	t
-IN Fortified Zone	印度筑垒地带	t
-IN Infantry Division	印度步兵师	t
-IN Mountain Division	印度山地师	t
-Infantry Battalion	步兵营	t
-Infantry Brigade	步兵旅	t
-Infantry Division	步兵师	t
-Infantry Fast Battalion	步兵快速营	t
-Infantry Kampfgruppe	步兵战斗群	t
-Infantry Reconnaissance Battalion	步兵侦察营	t
-Infantry Regiment	步兵团	t
-Infantry Security Battalion	步兵警备营	t
-Infantry Security Regiment	步兵警备团	t
-Infantry Task Force	步兵特遣部队	t
-Ital. AAMG Battalion	意大利高射机枪营	t
-Ital. Air Base	意大利航空基地	t
-Ital. Airlanding Division	意大利机降师	t
-Ital. Airlanding Regiment	意大利机降团	t
-Ital. Alpina Battalion	意大利阿尔卑斯营	t
-Ital. Alpina Division	意大利阿尔卑斯师	t
-Ital. Alpina Regiment	意大利阿尔卑斯团	t
-Ital. Anti-Tank Regiment	意大利反坦克团	t
-Ital. Armored Division	意大利装甲师	t
-Ital. Armored Group	意大利装甲群	t
-Ital. Armored Regiment	意大利装甲团	t
-Ital. Army	意大利集团军	t
-Ital. Assault Division	意大利突击师	t
-Ital. Assault Engineer Battalion	意大利突击工兵营	t
-Ital. Assault Regiment	意大利突击团	t
-Ital. Bersaglieri Battalion	意大利狙击兵营	t
-Ital. Bersaglieri Bicycle Regiment	意大利狙击兵自行车团	t
-Ital. Bersaglieri Motorcycle Battalion	意大利狙击兵摩托车营	t
-Ital. Bersaglieri Motorcycle Company	意大利狙击兵摩托车连	t
-Ital. Bersaglieri Regiment	意大利狙击兵团	t
-Ital. CCNN Battalion	意大利黑衫军营	t
-Ital. CCNN Brigade	意大利黑衫军旅	t
-Ital. CCNN Regiment	意大利黑衫军团	t
-Ital. Cavalry Brigade	意大利骑兵旅	t
-Ital. Cavalry Regiment	意大利骑兵团	t
-Ital. Celere Division	意大利快速师	t
-Ital. Coastal Battalion	意大利海岸营	t
-Ital. Coastal Brigade	意大利海岸旅	t
-Ital. Coastal Division	意大利海岸师	t
-Ital. Coastal Regiment	意大利海岸团	t
-Ital. Construction Battalion	意大利建设营	t
-Ital. Corps	意大利军	t
-Ital. Croatian Legion	意大利克罗地亚军团	t
-Ital. Flame Tank Company	意大利喷火坦克连	t
-Ital. Fortified Zone	意大利筑垒地带	t
-Ital. Heavy Tank Battalion	意大利重型坦克营	t
-Ital. Infantry Brigade	意大利步兵旅	t
-Ital. Infantry Division	意大利步兵师	t
-Ital. Infantry Regiment	意大利步兵团	t
-Ital. Labor Battalion	意大利劳工营	t
-Ital. Light AA Battalion	意大利轻型防空营	t
-Ital. Light AA Battery	意大利轻型防空炮兵连	t
-Ital. Light Gun Battalion	意大利轻型炮营	t
-Ital. Light Tank Battalion	意大利轻型坦克营	t
-Ital. Marine Commando Battalion	意大利海军陆战突击队营	t
-Ital. Mobile Group	意大利机动群	t
-Ital. Mortar Battalion	意大利迫击炮营	t
-Ital. Mot. AA Gun Battalion	意大利摩托化防空炮营	t
-Ital. Mot. AA Gun Regiment	意大利摩托化防空炮团	t
-Ital. Mot. Anti-Tank Battalion	意大利摩托化反坦克营	t
-Ital. Mot. Anti-Tank Company	意大利摩托化反坦克连	t
-Ital. Mot. Assault Battalion	意大利摩托化突击营	t
-Ital. Mot. Assault Engineer Battalion	意大利摩托化突击工兵营	t
-Ital. Mot. Bersaglieri Battalion	意大利摩托化狙击兵营	t
-Ital. Mot. Bersaglieri Recon Battalion	意大利摩托化狙击兵侦察营	t
-Ital. Mot. Bersaglieri Regiment	意大利摩托化狙击兵团	t
-Ital. Mot. Celere Division	意大利摩托化快速师	t
-Ital. Mot. Heavy AA Battalion	意大利摩托化重型防空营	t
-Ital. Mot. Heavy Gun Battalion	意大利摩托化重型炮营	t
-Ital. Mot. Heavy Howitzer Battalion	意大利摩托化重型榴弹炮营	t
-Ital. Mot. Infantry Battalion	意大利摩托化步兵营	t
-Ital. Mot. Infantry Brigade	意大利摩托化步兵旅	t
-Ital. Mot. Infantry Regiment	意大利摩托化步兵团	t
-Ital. Mot. Light AA Battalion	意大利摩托化轻型防空营	t
-Ital. Mot. Light AA Battery	意大利摩托化轻型防空炮兵连	t
-Ital. Mot. Machine Gun Battalion	意大利摩托化机枪营	t
-Ital. Mot. Medium Gun Battalion	意大利摩托化中型炮营	t
-Ital. Mot. Medium Howitzer Battalion	意大利摩托化中型榴弹炮营	t
-Ital. Mot. Reconnaissance Battalion	意大利摩托化侦察营	t
-Ital. Motorized Division	意大利摩托化师	t
-Ital. Mountain Division	意大利山地师	t
-Ital. Mountain Gun Battalion	意大利山地炮营	t
-Ital. Parachute Battalion	意大利伞兵营	t
-Ital. Parachute Division	意大利伞兵师	t
-Ital. Parachute Regiment	意大利伞兵团	t
-Ital. RR Construction Battalion	意大利铁路建设营	t
-Ital. SP Anti-Tank Battalion	意大利自行反坦克营	t
-Ital. Security Division	意大利警备师	t
-Ital. Semi-Mot. Infantry Division	意大利半摩托化步兵师	t
-Ital. Semi-Mot. Infantry Regiment	意大利半摩托化步兵团	t
-Ital. Ski Battalion	意大利滑雪营	t
-Ital. Tactical Group	意大利战术群	t
-Ital. Tank Battalion	意大利坦克营	t
-Ital. Tunisian Volunteer Infantry Regim	意大利突尼斯志愿步兵团	t
-Jaeger Battalion	猎兵营	t
-Jaeger Brigade	猎兵旅	t
-Jaeger Division	猎兵师	t
-Jaeger Kampfgruppe	猎兵战斗群	t
-Jaeger Regiment	猎兵团	t
-KM Marine Infantry Battalion	海军海军陆战步兵营	t
-Kampfgruppe Panzer Division	战斗群装甲师	t
-Korps Abteilung	军支队	t
-LW Flak Regiment	空军高炮团	t
-LW Heavy Flak Battalion	空军重型高炮营	t
-LW Heavy Rail Flak Battalion	空军重型铁路高炮营	t
-LW Light Flak Battalion	空军轻型高炮营	t
-LW Mixed Flak Battalion	空军混成高炮营	t
-LW Mot. Flak Regiment	空军摩托化高炮团	t
-LW Mot. Light Flak Battalion	空军摩托化轻型高炮营	t
-LW Mot. Mixed Flak Battalion	空军摩托化混成高炮营	t
-LW SP Light Flak Battalion	空军自行轻型高炮营	t
-LW SP Light Flak Company	空军自行轻型高炮连	t
-Landesschuetzen Security Battalion	国土射手警备营	t
-Landesschuetzen Security Regiment	国土射手警备团	t
-Libyan Arab Force	利比亚阿拉伯部队	t
-Light Afrika Motorized Division	轻装非洲摩托化师	t
-Light Artillery Brigade	轻型炮兵旅	t
-Light Artillery Regiment	轻型炮兵团	t
-Light Division	轻装师	t
-Light Infantry Battalion	轻型步兵营	t
-Light Rocket Battalion	轻型火箭炮营	t
-Light Rocket Regiment	轻型火箭炮团	t
-Light SU Brigade	轻型自行火炮旅	t
-Light SU Regiment	轻型自行炮兵团	t
-Light Tank Battalion	轻型坦克营	t
-Luftlande Sturm Regiment	机降突击团	t
-Luftwaffe Field Corps	空军野战军	t
-Luftwaffe Field Division	空军野战师	t
-Luftwaffe Field Regiment	空军野战团	t
-Luftwaffe Jaeger Regiment	空军猎兵团	t
-MG-Artillery Battalion	机枪炮兵营	t
-MNR Marine Battalion	共和海军海军陆战营	t
-MO Infantry Regiment	摩洛哥步兵团	t
-Machine Gun Battalion	机枪营	t
-Machine Gun Regiment	机枪团	t
-Machine Gun Ski Brigade	机枪滑雪旅	t
-March FF DMA Infantry Division	3月自由法国DMA步兵师	t
-March FF DMC Infantry Division	3月自由法国DMC步兵师	t
-Marine Flak Battalion	海军高炮营	t
-Marine Flak Brigade	海军高炮旅	t
-Marine Flak Regiment	海军高炮团	t
-Mechanized Brigade	机械化旅	t
-Mechanized Corps	机械化军	t
-Mechanized Division	机械化师	t
-Medium SU Brigade	中型自行火炮旅	t
-Medium SU Regiment	中型自行炮兵团	t
-Military District	军区	t
-Militia Fighter Battalion	民兵战斗营	t
-Militia Fighter Brigade	民兵战斗旅	t
-Militia Rifle Division	民兵步兵师	t
-Mixed Light Tank Battalion	混成轻型坦克营	t
-Mortar Battalion	迫击炮营	t
-Mortar Brigade	迫击炮旅	t
-Mortar Regiment	迫击炮团	t
-Moscow Militia Rifle Division	莫斯科民兵步兵师	t
-Mot. Army Light Artillery Brigade	摩托化集团军属轻型炮兵旅	t
-Mot. Artillery Battalion	摩托化炮兵营	t
-Mot. Artillery Regiment	摩托化炮兵团	t
-Mot. Brandenburg Mountain Regiment	摩托化勃兰登堡山地团	t
-Mot. Brandenburg Regiment	摩托化勃兰登堡团	t
-Mot. Brigade	摩托化旅	t
-Mot. Corps	摩托化军	t
-Mot. Division	摩托化师	t
-Mot. Engineer-Sapper Battalion	摩托化工兵营	t
-Mot. Fallschirm Artillery Regiment	摩托化伞兵炮兵团	t
-Mot. Fallschirmjaeger Battalion	摩托化伞兵猎兵营	t
-Mot. Flak Regiment	摩托化高炮团	t
-Mot. Fortress Werfer Brigade	摩托化要塞火箭炮旅	t
-Mot. Grenadier Battalion	摩托化掷弹兵营	t
-Mot. Grenadier Brigade	摩托化掷弹兵旅	t
-Mot. Grenadier Regiment	摩托化掷弹兵团	t
-Mot. Gun Battalion	摩托化炮营	t
-Mot. Heavy Cannon Battalion	摩托化重型加农炮营	t
-Mot. Heavy Panzerjaeger Battalion	摩托化重型装甲猎兵营	t
-Mot. Heavy Werfer Battalion	摩托化重型火箭炮营	t
-Mot. Heavy Werfer Regiment	摩托化重型火箭炮团	t
-Mot. Howitzer Battalion	摩托化榴弹炮营	t
-Mot. Infantry Battalion	摩托化步兵营	t
-Mot. Infantry Kampfgruppe	摩托化步兵战斗群	t
-Mot. Infantry Regiment	摩托化步兵团	t
-Mot. K3 Gun Battalion	摩托化K3炮营	t
-Mot. Kampfgruppe Ewert	摩托化埃韦特战斗群	t
-Mot. Light Afrika Division	摩托化轻装非洲师	t
-Mot. Machine Gun Battalion	摩托化机枪营	t
-Mot. Military Police Battalion	摩托化军事警察营	t
-Mot. Military Police Regiment	摩托化军事警察团	t
-Mot. Military Police Rifle Battalion	摩托化军事警察步兵营	t
-Mot. Mixed Artillery Battalion	摩托化混成炮兵营	t
-Mot. NKVD Border Regiment	摩托化内务部边防团	t
-Mot. Nebelwerfer Battalion	摩托化火箭炮营	t
-Mot. Panzergrenadier Battalion	摩托化装甲掷弹兵营	t
-Mot. Panzergrenadier Regiment	摩托化装甲掷弹兵团	t
-Mot. Panzerjaeger Battalion	摩托化装甲猎兵营	t
-Mot. Panzerjagd Battalion	摩托化装甲猎兵营	t
-Mot. Pioneer Battalion	摩托化工兵营	t
-Mot. Road Construction Battalion	摩托化道路建设营	t
-Mot. Schuetzen Battalion	摩托化射手营	t
-Mot. Schuetzen Regiment	摩托化射手团	t
-Mot. Sep. Jaeger Battalion	摩托化独立猎兵营	t
-Mot. Siege Mortar Battery	摩托化攻城迫击炮连	t
-Mot. Sturm Brigade	摩托化突击旅	t
-Mot. Super Heavy Howitzer Battalion	摩托化超重型榴弹炮营	t
-Mot. Volks Artillery Brigade	摩托化国民炮兵旅	t
-Mot. Volks Werfer Brigade	摩托化国民火箭炮旅	t
-Mot. Werfer Battalion	摩托化火箭炮营	t
-Mot. Werfer Brigade	摩托化火箭炮旅	t
-Mot. Werfer Regiment	摩托化火箭炮团	t
-Mot. leFH Howitzer Battalion	摩托化轻型野战榴弹炮营	t
-Mot. sFH Heavy Howitzer Battalion	摩托化重型野战榴弹炮营	t
-Motorcycle Regiment	摩托车团	t
-Motorized Brigade	摩托化旅	t
-Motorized Division	摩托化师	t
-Motorized Infantry Battalion	摩托化步兵营	t
-Motorized Regiment	摩托化团	t
-Motorized Rifle Brigade	摩托化步兵旅	t
-Motorized Rifle Division	摩托化步兵师	t
-Mountain Battalion	山地营	t
-Mountain Brigade	山地旅	t
-Mountain Cavalry Division	山地骑兵师	t
-Mountain Division	山地师	t
-Mountain Kampfgruppe	山地战斗群	t
-Mountain Mortar Regiment	山地迫击炮团	t
-Mountain Polizei Regiment	山地警察团	t
-Mountain Regiment	山地团	t
-Mountain Rifle Corps	山地步兵军	t
-Mountain Rifle Division	山地步兵师	t
-Mountain Sturm Brigade	山地突击旅	t
-NE Fortified Zone	荷兰筑垒地带	t
-NE Infantry Brigade Group	荷兰步兵旅群	t
+Fullriede	富尔里德
+Fusilier Battalion	燧发枪兵营
+GR Fortified Zone	希腊筑垒地带
+GR Mountain Brigade Group	希腊山地旅群
+Garrison Brigade	守备旅
+Gep. Panzergrenadier Battalion	装甲装甲掷弹兵营
+Gep. Panzergrenadier Regiment	装甲装甲掷弹兵团
+Gep. Schuetzen Regiment	装甲射手团
+Gep. Sturm Pioneer Battalion	装甲突击工兵营
+Grenadier Battalion	掷弹兵营
+Grenadier Brigade	掷弹兵旅
+Grenadier Division	掷弹兵师
+Grenadier Regiment	掷弹兵团
+Grenadier Sperr Division	掷弹兵封锁师
+Gun Regiment	炮兵团
+HG Mot. Jaeger Brigade	赫尔曼·戈林摩托化猎兵旅
+HJ Panzer Destroyer Battalion	希特勒青年团装甲歼击营
+Heavy Anti-Tank Regiment	重型反坦克团
+Heavy Cannon Battalion	重型加农炮营
+Heavy Cannon Brigade	重型加农炮旅
+Heavy Gun Regiment	重型炮兵团
+Heavy Howitzer Brigade	重型榴弹炮旅
+Heavy Mortar Brigade	重型迫击炮旅
+Heavy Panzer Battalion	重型装甲营
+Heavy Panzer Company	重型装甲连
+Heavy Rocket Battalion	重型火箭炮营
+Heavy Rocket Brigade	重型火箭炮旅
+Heavy Rocket Regiment	重型火箭炮团
+Heavy SU Brigade	重型自行火炮旅
+Heavy SU Regiment	重型自行炮兵团
+Heavy Tank Brigade	重型坦克旅
+Heavy Tank Regiment	重型坦克团
+High Power Artillery Battalion	大威力炮兵营
+Howitzer Brigade	榴弹炮旅
+Howitzer Regiment	榴弹炮团
+Hun. AA Battalion	匈牙利防空营
+Hun. Air Base	匈牙利航空基地
+Hun. Armored Battalion	匈牙利装甲营
+Hun. Armored Division	匈牙利装甲师
+Hun. Armored Recon Battalion	匈牙利装甲侦察营
+Hun. Armored Regiment	匈牙利装甲团
+Hun. Army	匈牙利集团军
+Hun. Assault Gun Battalion	匈牙利突击炮营
+Hun. Bicycle Infantry Battalion	匈牙利自行车步兵营
+Hun. Border Guard Battalion	匈牙利边防营
+Hun. Border Guard Brigade	匈牙利边防旅
+Hun. Border Guard Group	匈牙利边防群
+Hun. Border Guard Regiment	匈牙利边防团
+Hun. Cavalry Brigade	匈牙利骑兵旅
+Hun. Construction Battalion	匈牙利建设营
+Hun. Corps	匈牙利军
+Hun. Engineer Battalion	匈牙利工兵营
+Hun. Engineer Company	匈牙利工兵连
+Hun. Field Replacement Division	匈牙利野战补充师
+Hun. Fortified Zone	匈牙利筑垒地带
+Hun. Heavy Tank Company	匈牙利重型坦克连
+Hun. Hussar Division	匈牙利骠骑兵师
+Hun. Hussar Regiment	匈牙利骠骑兵团
+Hun. Infantry Brigade	匈牙利步兵旅
+Hun. Infantry Division	匈牙利步兵师
+Hun. Infantry Regiment	匈牙利步兵团
+Hun. Light Division	匈牙利轻装师
+Hun. Light Security Brigade	匈牙利轻型警备旅
+Hun. Light Security Division	匈牙利轻型警备师
+Hun. Light Security Regiment	匈牙利轻型警备团
+Hun. Mot. AA Battalion	匈牙利摩托化防空营
+Hun. Mot. AA Company	匈牙利摩托化防空连
+Hun. Mot. Corps Artillery Battalion	匈牙利摩托化军属炮兵营
+Hun. Mot. Corps Artillery Battery	匈牙利摩托化军属炮兵连
+Hun. Mot. Heavy Artillery Battalion	匈牙利摩托化重型炮兵营
+Hun. Mot. Infantry Regiment	匈牙利摩托化步兵团
+Hun. Mot. Nebelwerfer Battalion	匈牙利摩托化火箭炮营
+Hun. Motorized Brigade	匈牙利摩托化旅
+Hun. Mountain Border Brigade	匈牙利山地边防旅
+Hun. Mountain Border Guard Battalion	匈牙利山地边防营
+Hun. Mountain Brigade	匈牙利山地旅
+Hun. Parachute Battalion	匈牙利伞兵营
+Hun. RR Construction Battalion	匈牙利铁路建设营
+Hun. Replacement Cavalry Brigade	匈牙利补充骑兵旅
+Hun. Replacement Mountain Brigade	匈牙利补充山地旅
+Hun. Reserve Infantry Division	匈牙利预备步兵师
+Hun. Tank Company	匈牙利坦克连
+IN Engineer Battalion	印度工兵营
+IN Fortified Zone	印度筑垒地带
+IN Infantry Division	印度步兵师
+IN Mountain Division	印度山地师
+Infantry Battalion	步兵营
+Infantry Brigade	步兵旅
+Infantry Division	步兵师
+Infantry Fast Battalion	步兵快速营
+Infantry Kampfgruppe	步兵战斗群
+Infantry Reconnaissance Battalion	步兵侦察营
+Infantry Regiment	步兵团
+Infantry Security Battalion	步兵警备营
+Infantry Security Regiment	步兵警备团
+Infantry Task Force	步兵特遣部队
+Ital. AAMG Battalion	意大利高射机枪营
+Ital. Air Base	意大利航空基地
+Ital. Airlanding Division	意大利机降师
+Ital. Airlanding Regiment	意大利机降团
+Ital. Alpina Battalion	意大利阿尔卑斯营
+Ital. Alpina Division	意大利阿尔卑斯师
+Ital. Alpina Regiment	意大利阿尔卑斯团
+Ital. Anti-Tank Regiment	意大利反坦克团
+Ital. Armored Division	意大利装甲师
+Ital. Armored Group	意大利装甲群
+Ital. Armored Regiment	意大利装甲团
+Ital. Army	意大利集团军
+Ital. Assault Division	意大利突击师
+Ital. Assault Engineer Battalion	意大利突击工兵营
+Ital. Assault Regiment	意大利突击团
+Ital. Bersaglieri Battalion	意大利狙击兵营
+Ital. Bersaglieri Bicycle Regiment	意大利狙击兵自行车团
+Ital. Bersaglieri Motorcycle Battalion	意大利狙击兵摩托车营
+Ital. Bersaglieri Motorcycle Company	意大利狙击兵摩托车连
+Ital. Bersaglieri Regiment	意大利狙击兵团
+Ital. CCNN Battalion	意大利黑衫军营
+Ital. CCNN Brigade	意大利黑衫军旅
+Ital. CCNN Regiment	意大利黑衫军团
+Ital. Cavalry Brigade	意大利骑兵旅
+Ital. Cavalry Regiment	意大利骑兵团
+Ital. Celere Division	意大利快速师
+Ital. Coastal Battalion	意大利海岸营
+Ital. Coastal Brigade	意大利海岸旅
+Ital. Coastal Division	意大利海岸师
+Ital. Coastal Regiment	意大利海岸团
+Ital. Construction Battalion	意大利建设营
+Ital. Corps	意大利军
+Ital. Croatian Legion	意大利克罗地亚军团
+Ital. Flame Tank Company	意大利喷火坦克连
+Ital. Fortified Zone	意大利筑垒地带
+Ital. Heavy Tank Battalion	意大利重型坦克营
+Ital. Infantry Brigade	意大利步兵旅
+Ital. Infantry Division	意大利步兵师
+Ital. Infantry Regiment	意大利步兵团
+Ital. Labor Battalion	意大利劳工营
+Ital. Light AA Battalion	意大利轻型防空营
+Ital. Light AA Battery	意大利轻型防空炮兵连
+Ital. Light Gun Battalion	意大利轻型炮营
+Ital. Light Tank Battalion	意大利轻型坦克营
+Ital. Marine Commando Battalion	意大利海军陆战突击队营
+Ital. Mobile Group	意大利机动群
+Ital. Mortar Battalion	意大利迫击炮营
+Ital. Mot. AA Gun Battalion	意大利摩托化防空炮营
+Ital. Mot. AA Gun Regiment	意大利摩托化防空炮团
+Ital. Mot. Anti-Tank Battalion	意大利摩托化反坦克营
+Ital. Mot. Anti-Tank Company	意大利摩托化反坦克连
+Ital. Mot. Assault Battalion	意大利摩托化突击营
+Ital. Mot. Assault Engineer Battalion	意大利摩托化突击工兵营
+Ital. Mot. Bersaglieri Battalion	意大利摩托化狙击兵营
+Ital. Mot. Bersaglieri Recon Battalion	意大利摩托化狙击兵侦察营
+Ital. Mot. Bersaglieri Regiment	意大利摩托化狙击兵团
+Ital. Mot. Celere Division	意大利摩托化快速师
+Ital. Mot. Heavy AA Battalion	意大利摩托化重型防空营
+Ital. Mot. Heavy Gun Battalion	意大利摩托化重型炮营
+Ital. Mot. Heavy Howitzer Battalion	意大利摩托化重型榴弹炮营
+Ital. Mot. Infantry Battalion	意大利摩托化步兵营
+Ital. Mot. Infantry Brigade	意大利摩托化步兵旅
+Ital. Mot. Infantry Regiment	意大利摩托化步兵团
+Ital. Mot. Light AA Battalion	意大利摩托化轻型防空营
+Ital. Mot. Light AA Battery	意大利摩托化轻型防空炮兵连
+Ital. Mot. Machine Gun Battalion	意大利摩托化机枪营
+Ital. Mot. Medium Gun Battalion	意大利摩托化中型炮营
+Ital. Mot. Medium Howitzer Battalion	意大利摩托化中型榴弹炮营
+Ital. Mot. Reconnaissance Battalion	意大利摩托化侦察营
+Ital. Motorized Division	意大利摩托化师
+Ital. Mountain Division	意大利山地师
+Ital. Mountain Gun Battalion	意大利山地炮营
+Ital. Parachute Battalion	意大利伞兵营
+Ital. Parachute Division	意大利伞兵师
+Ital. Parachute Regiment	意大利伞兵团
+Ital. RR Construction Battalion	意大利铁路建设营
+Ital. SP Anti-Tank Battalion	意大利自行反坦克营
+Ital. Security Division	意大利警备师
+Ital. Semi-Mot. Infantry Division	意大利半摩托化步兵师
+Ital. Semi-Mot. Infantry Regiment	意大利半摩托化步兵团
+Ital. Ski Battalion	意大利滑雪营
+Ital. Tactical Group	意大利战术群
+Ital. Tank Battalion	意大利坦克营
+Ital. Tunisian Volunteer Infantry Regim	意大利突尼斯志愿步兵团
+Jaeger Battalion	猎兵营
+Jaeger Brigade	猎兵旅
+Jaeger Division	猎兵师
+Jaeger Kampfgruppe	猎兵战斗群
+Jaeger Regiment	猎兵团
+KM Marine Infantry Battalion	海军海军陆战步兵营
+Kampfgruppe Panzer Division	战斗群装甲师
+Korps Abteilung	军支队
+LW Flak Regiment	空军高炮团
+LW Heavy Flak Battalion	空军重型高炮营
+LW Heavy Rail Flak Battalion	空军重型铁路高炮营
+LW Light Flak Battalion	空军轻型高炮营
+LW Mixed Flak Battalion	空军混成高炮营
+LW Mot. Flak Regiment	空军摩托化高炮团
+LW Mot. Light Flak Battalion	空军摩托化轻型高炮营
+LW Mot. Mixed Flak Battalion	空军摩托化混成高炮营
+LW SP Light Flak Battalion	空军自行轻型高炮营
+LW SP Light Flak Company	空军自行轻型高炮连
+Landesschuetzen Security Battalion	国土射手警备营
+Landesschuetzen Security Regiment	国土射手警备团
+Libyan Arab Force	利比亚阿拉伯部队
+Light Afrika Motorized Division	轻装非洲摩托化师
+Light Artillery Brigade	轻型炮兵旅
+Light Artillery Regiment	轻型炮兵团
+Light Division	轻装师
+Light Infantry Battalion	轻型步兵营
+Light Rocket Battalion	轻型火箭炮营
+Light Rocket Regiment	轻型火箭炮团
+Light SU Brigade	轻型自行火炮旅
+Light SU Regiment	轻型自行炮兵团
+Light Tank Battalion	轻型坦克营
+Luftlande Sturm Regiment	机降突击团
+Luftwaffe Field Corps	空军野战军
+Luftwaffe Field Division	空军野战师
+Luftwaffe Field Regiment	空军野战团
+Luftwaffe Jaeger Regiment	空军猎兵团
+MG-Artillery Battalion	机枪炮兵营
+MNR Marine Battalion	共和海军海军陆战营
+MO Infantry Regiment	摩洛哥步兵团
+Machine Gun Battalion	机枪营
+Machine Gun Regiment	机枪团
+Machine Gun Ski Brigade	机枪滑雪旅
+March FF DMA Infantry Division	3月自由法国DMA步兵师
+March FF DMC Infantry Division	3月自由法国DMC步兵师
+Marine Flak Battalion	海军高炮营
+Marine Flak Brigade	海军高炮旅
+Marine Flak Regiment	海军高炮团
+Mechanized Brigade	机械化旅
+Mechanized Corps	机械化军
+Mechanized Division	机械化师
+Medium SU Brigade	中型自行火炮旅
+Medium SU Regiment	中型自行炮兵团
+Military District	军区
+Militia Fighter Battalion	民兵战斗营
+Militia Fighter Brigade	民兵战斗旅
+Militia Rifle Division	民兵步兵师
+Mixed Light Tank Battalion	混成轻型坦克营
+Mortar Battalion	迫击炮营
+Mortar Brigade	迫击炮旅
+Mortar Regiment	迫击炮团
+Moscow Militia Rifle Division	莫斯科民兵步兵师
+Mot. Army Light Artillery Brigade	摩托化集团军属轻型炮兵旅
+Mot. Artillery Battalion	摩托化炮兵营
+Mot. Artillery Regiment	摩托化炮兵团
+Mot. Brandenburg Mountain Regiment	摩托化勃兰登堡山地团
+Mot. Brandenburg Regiment	摩托化勃兰登堡团
+Mot. Brigade	摩托化旅
+Mot. Corps	摩托化军
+Mot. Division	摩托化师
+Mot. Engineer-Sapper Battalion	摩托化工兵营
+Mot. Fallschirm Artillery Regiment	摩托化伞兵炮兵团
+Mot. Fallschirmjaeger Battalion	摩托化伞兵猎兵营
+Mot. Flak Regiment	摩托化高炮团
+Mot. Fortress Werfer Brigade	摩托化要塞火箭炮旅
+Mot. Grenadier Battalion	摩托化掷弹兵营
+Mot. Grenadier Brigade	摩托化掷弹兵旅
+Mot. Grenadier Regiment	摩托化掷弹兵团
+Mot. Gun Battalion	摩托化炮营
+Mot. Heavy Cannon Battalion	摩托化重型加农炮营
+Mot. Heavy Panzerjaeger Battalion	摩托化重型装甲猎兵营
+Mot. Heavy Werfer Battalion	摩托化重型火箭炮营
+Mot. Heavy Werfer Regiment	摩托化重型火箭炮团
+Mot. Howitzer Battalion	摩托化榴弹炮营
+Mot. Infantry Battalion	摩托化步兵营
+Mot. Infantry Kampfgruppe	摩托化步兵战斗群
+Mot. Infantry Regiment	摩托化步兵团
+Mot. K3 Gun Battalion	摩托化K3炮营
+Mot. Kampfgruppe Ewert	摩托化埃韦特战斗群
+Mot. Light Afrika Division	摩托化轻装非洲师
+Mot. Machine Gun Battalion	摩托化机枪营
+Mot. Military Police Battalion	摩托化军事警察营
+Mot. Military Police Regiment	摩托化军事警察团
+Mot. Military Police Rifle Battalion	摩托化军事警察步兵营
+Mot. Mixed Artillery Battalion	摩托化混成炮兵营
+Mot. NKVD Border Regiment	摩托化内务部边防团
+Mot. Nebelwerfer Battalion	摩托化火箭炮营
+Mot. Panzergrenadier Battalion	摩托化装甲掷弹兵营
+Mot. Panzergrenadier Regiment	摩托化装甲掷弹兵团
+Mot. Panzerjaeger Battalion	摩托化装甲猎兵营
+Mot. Panzerjagd Battalion	摩托化装甲猎兵营
+Mot. Pioneer Battalion	摩托化工兵营
+Mot. Road Construction Battalion	摩托化道路建设营
+Mot. Schuetzen Battalion	摩托化射手营
+Mot. Schuetzen Regiment	摩托化射手团
+Mot. Sep. Jaeger Battalion	摩托化独立猎兵营
+Mot. Siege Mortar Battery	摩托化攻城迫击炮连
+Mot. Sturm Brigade	摩托化突击旅
+Mot. Super Heavy Howitzer Battalion	摩托化超重型榴弹炮营
+Mot. Volks Artillery Brigade	摩托化国民炮兵旅
+Mot. Volks Werfer Brigade	摩托化国民火箭炮旅
+Mot. Werfer Battalion	摩托化火箭炮营
+Mot. Werfer Brigade	摩托化火箭炮旅
+Mot. Werfer Regiment	摩托化火箭炮团
+Mot. leFH Howitzer Battalion	摩托化轻型野战榴弹炮营
+Mot. sFH Heavy Howitzer Battalion	摩托化重型野战榴弹炮营
+Motorcycle Regiment	摩托车团
+Motorized Brigade	摩托化旅
+Motorized Division	摩托化师
+Motorized Infantry Battalion	摩托化步兵营
+Motorized Regiment	摩托化团
+Motorized Rifle Brigade	摩托化步兵旅
+Motorized Rifle Division	摩托化步兵师
+Mountain Battalion	山地营
+Mountain Brigade	山地旅
+Mountain Cavalry Division	山地骑兵师
+Mountain Division	山地师
+Mountain Kampfgruppe	山地战斗群
+Mountain Mortar Regiment	山地迫击炮团
+Mountain Polizei Regiment	山地警察团
+Mountain Regiment	山地团
+Mountain Rifle Corps	山地步兵军
+Mountain Rifle Division	山地步兵师
+Mountain Sturm Brigade	山地突击旅
+NE Fortified Zone	荷兰筑垒地带
+NE Infantry Brigade Group	荷兰步兵旅群
 NKPS	交通人民委员部	t
-NKVD Border Guard Detachment	内务部边防支队	t
-NKVD Border Guard Komendatura	内务部边防警备司令部	t
-NKVD Border Guard Outpost	内务部边防前哨	t
-NKVD Border Regiment	内务部边防团	t
-NKVD Motorized Regiment	内务部摩托化团	t
-NKVD Motorized Rifle Division	内务部摩托化步兵师	t
-NKVD Remount Cavalry Regiment	内务部补充马匹骑兵团	t
-NZ Armoured Brigade	新西兰装甲旅	t
-NZ Corps	新西兰军	t
-NZ Fortified Zone	新西兰筑垒地带	t
-NZ Infantry Division	新西兰步兵师	t
-NZ Mixed Division	新西兰混成师	t
-NZ Mixed Infantry Division	新西兰混成步兵师	t
-Naval Infantry Battalion	海军步兵营	t
-Naval Infantry Brigade	海军步兵旅	t
-Naval Support Group	海军支援群	t
-Ost Infantry Regiment	东方步兵团	t
-Ost Mountain Regiment	东方山地团	t
-PO Anti-tank Regiment	波兰反坦克团	t
-PO Armoured Brigade	波兰装甲旅	t
-PO Armoured Car Regiment	波兰装甲车团	t
-PO Armoured Division	波兰装甲师	t
-PO Corps	波兰军	t
-PO Fortified Zone	波兰筑垒地带	t
-PO Heavy Anti-Aircraft Regiment	波兰重型防空团	t
-PO Infantry Division	波兰步兵师	t
-PO Light Anti-Aircraft Regiment	波兰轻型防空团	t
-PO Medium Artillery Regiment	波兰中型炮兵团	t
-PO Parachute Brigade Group	波兰伞兵旅群	t
-PVO AA Battalion	国土防空防空营	t
-PVO AA Brigade	国土防空防空旅	t
-PVO AA Regiment	国土防空防空团	t
-PVO AAMG Battalion	国土防空高射机枪营	t
-PVO AAMG Regiment	国土防空高射机枪团	t
-Panzer Army	装甲集团军	t
-Panzer Battalion	装甲营	t
-Panzer Brigade	装甲旅	t
-Panzer Corps	装甲军	t
-Panzer Destroyer Battalion	装甲歼击营	t
-Panzer Division	装甲师	t
-Panzer Group	装甲集群	t
-Panzer Kampfgruppe	装甲战斗群	t
-Panzer Pioneer Battalion	装甲工兵营	t
-Panzer Reconnaissance Battalion	装甲侦察营	t
-Panzer Regiment	装甲团	t
-Panzergrenadier Brigade	装甲掷弹兵旅	t
-Panzergrenadier Division	装甲掷弹兵师	t
-Panzergrenadier Kampfgruppe	装甲掷弹兵战斗群	t
-Panzergrenadier Regiment	装甲掷弹兵团	t
-Partisan Battalion	游击营	t
-Pioneer Battalion	工兵营	t
-Polizei Regiment	警察团	t
-R.A.D. Labor Detachment	帝国劳工服务劳工支队	t
-R.A.D. Labor Group	帝国劳工服务劳工群	t
+NKVD Border Guard Detachment	内务部边防支队
+NKVD Border Guard Komendatura	内务部边防警备司令部
+NKVD Border Guard Outpost	内务部边防前哨
+NKVD Border Regiment	内务部边防团
+NKVD Motorized Regiment	内务部摩托化团
+NKVD Motorized Rifle Division	内务部摩托化步兵师
+NKVD Remount Cavalry Regiment	内务部补充马匹骑兵团
+NZ Armoured Brigade	新西兰装甲旅
+NZ Corps	新西兰军
+NZ Fortified Zone	新西兰筑垒地带
+NZ Infantry Division	新西兰步兵师
+NZ Mixed Division	新西兰混成师
+NZ Mixed Infantry Division	新西兰混成步兵师
+Naval Infantry Battalion	海军步兵营
+Naval Infantry Brigade	海军步兵旅
+Naval Support Group	海军支援群
+Ost Infantry Regiment	东方步兵团
+Ost Mountain Regiment	东方山地团
+PO Anti-tank Regiment	波兰反坦克团
+PO Armoured Brigade	波兰装甲旅
+PO Armoured Car Regiment	波兰装甲车团
+PO Armoured Division	波兰装甲师
+PO Corps	波兰军
+PO Fortified Zone	波兰筑垒地带
+PO Heavy Anti-Aircraft Regiment	波兰重型防空团
+PO Infantry Division	波兰步兵师
+PO Light Anti-Aircraft Regiment	波兰轻型防空团
+PO Medium Artillery Regiment	波兰中型炮兵团
+PO Parachute Brigade Group	波兰伞兵旅群
+PVO AA Battalion	国土防空防空营
+PVO AA Brigade	国土防空防空旅
+PVO AA Regiment	国土防空防空团
+PVO AAMG Battalion	国土防空高射机枪营
+PVO AAMG Regiment	国土防空高射机枪团
+Panzer Army	装甲集团军
+Panzer Battalion	装甲营
+Panzer Brigade	装甲旅
+Panzer Corps	装甲军
+Panzer Destroyer Battalion	装甲歼击营
+Panzer Division	装甲师
+Panzer Group	装甲集群
+Panzer Kampfgruppe	装甲战斗群
+Panzer Pioneer Battalion	装甲工兵营
+Panzer Reconnaissance Battalion	装甲侦察营
+Panzer Regiment	装甲团
+Panzergrenadier Brigade	装甲掷弹兵旅
+Panzergrenadier Division	装甲掷弹兵师
+Panzergrenadier Kampfgruppe	装甲掷弹兵战斗群
+Panzergrenadier Regiment	装甲掷弹兵团
+Partisan Battalion	游击营
+Pioneer Battalion	工兵营
+Polizei Regiment	警察团
+R.A.D. Labor Detachment	帝国劳工服务劳工支队
+R.A.D. Labor Group	帝国劳工服务劳工群
 RD	RD	t
-RR Construction Brigade	铁路建设旅	t
-RSI Anti-Aircraft Battalion	意大利社会共和国防空营	t
-RSI Construction Battalion	意大利社会共和国建设营	t
-RSI Engineer Battalion	意大利社会共和国工兵营	t
-RSI Infantry Battalion	意大利社会共和国步兵营	t
-RSI Infantry Division	意大利社会共和国步兵师	t
-RSI Infantry Regiment	意大利社会共和国步兵团	t
-RSI Mountain Division	意大利社会共和国山地师	t
-RSI Parachute Battalion	意大利社会共和国伞兵营	t
-RSI Tank Battalion	意大利社会共和国坦克营	t
-RSK Infantry Regiment	RSK步兵团	t
-RVGK Artillery Regiment	最高统帅部预备队炮兵团	t
-Reserve Panzer Division	预备装甲师	t
-Rifle Brigade	步兵旅	t
-Rifle Corps	步兵军	t
-Rifle Division	步兵师	t
-Rifle Regiment	步兵团	t
-Road Construction Battalion	道路建设营	t
-Rocket Launcher Division	火箭炮师	t
+RR Construction Brigade	铁路建设旅
+RSI Anti-Aircraft Battalion	意大利社会共和国防空营
+RSI Construction Battalion	意大利社会共和国建设营
+RSI Engineer Battalion	意大利社会共和国工兵营
+RSI Infantry Battalion	意大利社会共和国步兵营
+RSI Infantry Division	意大利社会共和国步兵师
+RSI Infantry Regiment	意大利社会共和国步兵团
+RSI Mountain Division	意大利社会共和国山地师
+RSI Parachute Battalion	意大利社会共和国伞兵营
+RSI Tank Battalion	意大利社会共和国坦克营
+RSK Infantry Regiment	RSK步兵团
+RVGK Artillery Regiment	最高统帅部预备队炮兵团
+Reserve Panzer Division	预备装甲师
+Rifle Brigade	步兵旅
+Rifle Corps	步兵军
+Rifle Division	步兵师
+Rifle Regiment	步兵团
+Road Construction Battalion	道路建设营
+Rocket Launcher Division	火箭炮师
 Rommel	隆美尔	t
-Royal Northumberland Fusiliers	皇家诺森伯兰燧发枪团	t
-Rum. AA Artillery Regiment	罗马尼亚防空炮兵团	t
-Rum. Air Base	罗马尼亚航空基地	t
-Rum. Armored Battalion	罗马尼亚装甲营	t
-Rum. Armored Division	罗马尼亚装甲师	t
-Rum. Armored Regiment	罗马尼亚装甲团	t
-Rum. Army	罗马尼亚集团军	t
-Rum. Artillery Battalion	罗马尼亚炮兵营	t
-Rum. Border Guard Regiment	罗马尼亚边防团	t
-Rum. Cavalry Battalion	罗马尼亚骑兵营	t
-Rum. Cavalry Brigade	罗马尼亚骑兵旅	t
-Rum. Cavalry Division	罗马尼亚骑兵师	t
-Rum. Cavalry Regiment	罗马尼亚骑兵团	t
-Rum. Construction Battalion	罗马尼亚建设营	t
-Rum. Corps	罗马尼亚军	t
-Rum. Expeditionary Ski Brigade	罗马尼亚远征滑雪旅	t
-Rum. Fortified Zone	罗马尼亚筑垒地带	t
-Rum. Fortress Infantry Brigade	罗马尼亚要塞步兵旅	t
-Rum. Frontier Guard Division	罗马尼亚边防师	t
-Rum. Infantry Battalion	罗马尼亚步兵营	t
-Rum. Infantry Brigade	罗马尼亚步兵旅	t
-Rum. Infantry Division	罗马尼亚步兵师	t
-Rum. Infantry Regiment	罗马尼亚步兵团	t
-Rum. Infantry Security Regiment	罗马尼亚步兵警备团	t
-Rum. Light Infantry Battalion	罗马尼亚轻型步兵营	t
-Rum. Machine Gun Battalion	罗马尼亚机枪营	t
-Rum. Marine Infantry Regiment	罗马尼亚海军陆战步兵团	t
-Rum. Mot. AA Artillery Regiment	罗马尼亚摩托化防空炮兵团	t
-Rum. Mot. Anti-Aircraft Battalion	罗马尼亚摩托化防空营	t
-Rum. Mot. Anti-Tank Company	罗马尼亚摩托化反坦克连	t
-Rum. Mot. Anti-Tank Regiment	罗马尼亚摩托化反坦克团	t
-Rum. Mot. Anti-tank Company	罗马尼亚摩托化反坦克连	t
-Rum. Mot. Army Artillery Regiment	罗马尼亚摩托化集团军属炮兵团	t
-Rum. Mot. Artillery Battalion	罗马尼亚摩托化炮兵营	t
-Rum. Mot. Cavalry Division	罗马尼亚摩托化骑兵师	t
-Rum. Mot. Corps Artillery Regiment	罗马尼亚摩托化军属炮兵团	t
-Rum. Mot. Heavy Howitzer Battalion	罗马尼亚摩托化重型榴弹炮营	t
-Rum. Mot. Infantry Regiment	罗马尼亚摩托化步兵团	t
-Rum. Mountain Battalion	罗马尼亚山地营	t
-Rum. Mountain Brigade	罗马尼亚山地旅	t
-Rum. Mountain Division	罗马尼亚山地师	t
-Rum. Mountain Regiment	罗马尼亚山地团	t
-Rum. Parachute Battalion	罗马尼亚伞兵营	t
-Rum. Pioneer Battalion	罗马尼亚工兵营	t
-Rum. Pioneer Construction Regiment	罗马尼亚工兵建设团	t
-Rum. RR Construction Battalion	罗马尼亚铁路建设营	t
-Rum. Railroad Command	罗马尼亚铁路司令部	t
-Rum. Recon Group	罗马尼亚侦察群	t
-Rum. Security Battalion	罗马尼亚警备营	t
-Rum. Security Division	罗马尼亚警备师	t
-SA Armoured Car Regiment	南非装甲车团	t
-SA Armoured Division	南非装甲师	t
-SA Engineer Battalion	南非工兵营	t
-SA Fortified Zone	南非筑垒地带	t
-SA Infantry Division	南非步兵师	t
-SA Medium Artillery Regiment	南非中型炮兵团	t
-SFK Infantry Regiment	SFK步兵团	t
-SP Artillery Battalion	自行炮兵营	t
-SP Heavy Panzerjaeger Battalion	自行重型装甲猎兵营	t
-SP Heavy Panzerjaeger Company	自行重型装甲猎兵连	t
-SP Infantry Gun Company	自行步兵炮连	t
-SP Panzerjaeger Battalion	自行装甲猎兵营	t
-Schnelle Bicycle Infantry Battalion	快速自行车步兵营	t
-Schnelle Brigade	快速旅	t
-Schnelle Division	快速师	t
-Security Battalion	警备营	t
-Security Division	警备师	t
-Security Regiment	警备团	t
-Sep. Bicycle Infantry Battalion	独立自行车步兵营	t
-Sep. Grenadier Regiment	独立掷弹兵团	t
-Sep. Infantry Regiment	独立步兵团	t
-Sep. Infantry Security Regiment	独立步兵警备团	t
-Sep. Panzer Regiment	独立装甲团	t
-Sep. Skijaeger Battalion	独立滑雪猎兵营	t
-Separate Tank Battalion	独立坦克营	t
-Separate Tank Regiment	独立坦克团	t
-Service	勤务	t
-Shock Army	突击集团军	t
-Ski Battalion	滑雪营	t
-Ski Brigade	滑雪旅	t
-Ski-Jaeger Brigade	滑雪猎兵旅	t
-Ski-Jaeger Division	滑雪猎兵师	t
-Ski-Jaeger Regiment	滑雪猎兵团	t
-Slov. Air Base	斯洛伐克航空基地	t
-Slov. Armored Car Company	斯洛伐克装甲车连	t
-Slov. Construction Battalion	斯洛伐克建设营	t
-Slov. Engineer Battalion	斯洛伐克工兵营	t
-Slov. Infantry Battalion	斯洛伐克步兵营	t
-Slov. Infantry Division	斯洛伐克步兵师	t
-Slov. Infantry Regiment	斯洛伐克步兵团	t
-Slov. Mobile Brigade	斯洛伐克机动旅	t
-Slov. Mobile Division	斯洛伐克机动师	t
-Slov. Mot. Anti-Aircraft Company	斯洛伐克摩托化防空连	t
-Slov. Mot. Anti-Tank Company	斯洛伐克摩托化反坦克连	t
-Slov. Mot. Heavy Anti-Aircraft Battery	斯洛伐克摩托化重型防空炮兵连	t
-Slov. Mot. Howitzer Battalion	斯洛伐克摩托化榴弹炮营	t
-Slov. Mot. Infantry Battalion	斯洛伐克摩托化步兵营	t
-Slov. Mot. Infantry Regiment	斯洛伐克摩托化步兵团	t
-Slov. RR Construction Battalion	斯洛伐克铁路建设营	t
-Slov. Security Division	斯洛伐克警备师	t
-Slov. Tank Battalion	斯洛伐克坦克营	t
-Slov. Tank Company	斯洛伐克坦克连	t
-Static Division	静态师	t
-Static Infantry Division	静态步兵师	t
-Stug Battalion	突击炮营	t
-Stug Battery	突击炮连	t
-Stug Brigade	突击炮旅	t
-Sturm Brigade	突击旅	t
-Sturm Division	突击师	t
-Sturm Infantry Battalion	突击步兵营	t
-Sturmmoerser Battery	突击迫击炮连	t
-Sturmpanzer Battalion	突击炮营	t
-Sturmpanzer Company	突击炮连	t
-Super Heavy Howitzer Brigade	超重型榴弹炮旅	t
-TD Battery	坦克歼击炮兵连	t
-Tank Army	坦克集团军	t
-Tank Brigade	坦克旅	t
-Tank Corps	坦克军	t
-Tank Division	坦克师	t
-US AA Auto-Wpns Battalion	美国防空自动武器营	t
-US AAA Gun Battalion	美国防空炮营	t
-US Air Base	美国航空基地	t
-US Airborne Division	美国空降师	t
-US Amphibious HQ	美国两栖司令部	t
-US Armored Division	美国装甲师	t
-US Armored Infantry Battalion	美国装甲步兵营	t
-US Army	美国集团军	t
-US Army Group	美国集团军群	t
-US CDL Tank Battalion	美国探照坦克营	t
-US Cavalry Group	美国骑兵群	t
-US Cavalry Recon Squadron	美国骑兵侦察中队	t
-US Cavalry Squadron	美国骑兵中队	t
-US Chemical Mortar Battalion	美国化学迫击炮营	t
-US Coastal AA Battalion	美国海岸防空营	t
-US Combat Engineer Battalion	美国战斗工兵营	t
-US Construction Battalion	美国建设营	t
-US Corps	美国军	t
-US Engineer GS Regiment	美国通用勤务工兵团	t
-US Field Artillery Battalion (105mm)	美国野战炮兵营（105毫米）	t
-US Field Artillery Battalion (155mm)	美国野战炮兵营（155毫米）	t
-US Field Artillery Battalion (240mm)	美国野战炮兵营（240毫米）	t
-US Field Artillery Battalion (4.5in)	美国野战炮兵营（4.5英寸）	t
-US Field Artillery Battalion (8in)	美国野战炮兵营（8英寸）	t
-US Fortified Zone	美国筑垒地带	t
-US Infantry Battalion	美国步兵营	t
-US Infantry Division	美国步兵师	t
-US Infantry Regiment	美国步兵团	t
-US Infantry Regiment (+)	美国步兵团（加）	t
-US Infantry Regiment (-)	美国步兵团（减）	t
-US Light Tank Battalion	美国轻型坦克营	t
-US Mountain Division	美国山地师	t
-US Pack Howitzer Battalion	美国驮载榴弹炮营	t
-US Parachute Artillery Battalion	美国伞兵炮兵营	t
-US Parachute Battalion	美国伞兵营	t
-US Parachute Battalion (+)	美国伞兵营（加）	t
-US Parachute Regiment	美国伞兵团	t
-US Parachute Regiment (+)	美国伞兵团（加）	t
-US Railroad Operating Battalion	美国铁路运营营	t
-US Ranger Battalion	美国游骑兵营	t
-US Ranger Force Regiment	美国游骑兵部队团	t
-US SP Field Artillery Battalion	美国自行野战炮兵营	t
-US Special Service Force Brigade	美国特种勤务部队旅	t
-US Special Tank Battalion	美国特种坦克营	t
-US Tank Battalion	美国坦克营	t
-US Tank Destroyer Battalion	美国坦克歼击营	t
-US Tank Destroyer Battalion (SP)	美国坦克歼击营（自行）	t
-Volks Artillery Regiment	国民炮兵团	t
-Volksgrenadier Division	国民掷弹兵师	t
-Volksgrenadier Regiment	国民掷弹兵团	t
-Volunteer Motorized Brigade	志愿摩托化旅	t
-Wach Battalion	卫戍营	t
-Yug. Army	南斯拉夫集团军	t
-Yug. Army Group	南斯拉夫集团军群	t
-Yug. Cavalry Brigade	南斯拉夫骑兵旅	t
-Yug. Corps	南斯拉夫军	t
-Yug. Engineer Brigade	南斯拉夫工兵旅	t
-Yug. Infantry Division	南斯拉夫步兵师	t
-Yug. Partisan Battalion	南斯拉夫游击营	t
-Yug. Partisan Division	南斯拉夫游击师	t
-leFH Howitzer Battalion	轻型野战榴弹炮营	t
-sFH Heavy Howitzer Battalion	重型野战榴弹炮营	t
-zbV Mot. Infantry Battalion	特设摩托化步兵营	t
-zbV Mot. Panzergrenadier Battalion	特设摩托化装甲掷弹兵营	t
-zbV Mot. Regiment (-)	特设摩托化团（减）	t
+Royal Northumberland Fusiliers	皇家诺森伯兰燧发枪团
+Rum. AA Artillery Regiment	罗马尼亚防空炮兵团
+Rum. Air Base	罗马尼亚航空基地
+Rum. Armored Battalion	罗马尼亚装甲营
+Rum. Armored Division	罗马尼亚装甲师
+Rum. Armored Regiment	罗马尼亚装甲团
+Rum. Army	罗马尼亚集团军
+Rum. Artillery Battalion	罗马尼亚炮兵营
+Rum. Border Guard Regiment	罗马尼亚边防团
+Rum. Cavalry Battalion	罗马尼亚骑兵营
+Rum. Cavalry Brigade	罗马尼亚骑兵旅
+Rum. Cavalry Division	罗马尼亚骑兵师
+Rum. Cavalry Regiment	罗马尼亚骑兵团
+Rum. Construction Battalion	罗马尼亚建设营
+Rum. Corps	罗马尼亚军
+Rum. Expeditionary Ski Brigade	罗马尼亚远征滑雪旅
+Rum. Fortified Zone	罗马尼亚筑垒地带
+Rum. Fortress Infantry Brigade	罗马尼亚要塞步兵旅
+Rum. Frontier Guard Division	罗马尼亚边防师
+Rum. Infantry Battalion	罗马尼亚步兵营
+Rum. Infantry Brigade	罗马尼亚步兵旅
+Rum. Infantry Division	罗马尼亚步兵师
+Rum. Infantry Regiment	罗马尼亚步兵团
+Rum. Infantry Security Regiment	罗马尼亚步兵警备团
+Rum. Light Infantry Battalion	罗马尼亚轻型步兵营
+Rum. Machine Gun Battalion	罗马尼亚机枪营
+Rum. Marine Infantry Regiment	罗马尼亚海军陆战步兵团
+Rum. Mot. AA Artillery Regiment	罗马尼亚摩托化防空炮兵团
+Rum. Mot. Anti-Aircraft Battalion	罗马尼亚摩托化防空营
+Rum. Mot. Anti-Tank Company	罗马尼亚摩托化反坦克连
+Rum. Mot. Anti-Tank Regiment	罗马尼亚摩托化反坦克团
+Rum. Mot. Anti-tank Company	罗马尼亚摩托化反坦克连
+Rum. Mot. Army Artillery Regiment	罗马尼亚摩托化集团军属炮兵团
+Rum. Mot. Artillery Battalion	罗马尼亚摩托化炮兵营
+Rum. Mot. Cavalry Division	罗马尼亚摩托化骑兵师
+Rum. Mot. Corps Artillery Regiment	罗马尼亚摩托化军属炮兵团
+Rum. Mot. Heavy Howitzer Battalion	罗马尼亚摩托化重型榴弹炮营
+Rum. Mot. Infantry Regiment	罗马尼亚摩托化步兵团
+Rum. Mountain Battalion	罗马尼亚山地营
+Rum. Mountain Brigade	罗马尼亚山地旅
+Rum. Mountain Division	罗马尼亚山地师
+Rum. Mountain Regiment	罗马尼亚山地团
+Rum. Parachute Battalion	罗马尼亚伞兵营
+Rum. Pioneer Battalion	罗马尼亚工兵营
+Rum. Pioneer Construction Regiment	罗马尼亚工兵建设团
+Rum. RR Construction Battalion	罗马尼亚铁路建设营
+Rum. Railroad Command	罗马尼亚铁路司令部
+Rum. Recon Group	罗马尼亚侦察群
+Rum. Security Battalion	罗马尼亚警备营
+Rum. Security Division	罗马尼亚警备师
+SA Armoured Car Regiment	南非装甲车团
+SA Armoured Division	南非装甲师
+SA Engineer Battalion	南非工兵营
+SA Fortified Zone	南非筑垒地带
+SA Infantry Division	南非步兵师
+SA Medium Artillery Regiment	南非中型炮兵团
+SFK Infantry Regiment	SFK步兵团
+SP Artillery Battalion	自行炮兵营
+SP Heavy Panzerjaeger Battalion	自行重型装甲猎兵营
+SP Heavy Panzerjaeger Company	自行重型装甲猎兵连
+SP Infantry Gun Company	自行步兵炮连
+SP Panzerjaeger Battalion	自行装甲猎兵营
+Schnelle Bicycle Infantry Battalion	快速自行车步兵营
+Schnelle Brigade	快速旅
+Schnelle Division	快速师
+Security Battalion	警备营
+Security Division	警备师
+Security Regiment	警备团
+Sep. Bicycle Infantry Battalion	独立自行车步兵营
+Sep. Grenadier Regiment	独立掷弹兵团
+Sep. Infantry Regiment	独立步兵团
+Sep. Infantry Security Regiment	独立步兵警备团
+Sep. Panzer Regiment	独立装甲团
+Sep. Skijaeger Battalion	独立滑雪猎兵营
+Separate Tank Battalion	独立坦克营
+Separate Tank Regiment	独立坦克团
+Service	勤务
+Shock Army	突击集团军
+Ski Battalion	滑雪营
+Ski Brigade	滑雪旅
+Ski-Jaeger Brigade	滑雪猎兵旅
+Ski-Jaeger Division	滑雪猎兵师
+Ski-Jaeger Regiment	滑雪猎兵团
+Slov. Air Base	斯洛伐克航空基地
+Slov. Armored Car Company	斯洛伐克装甲车连
+Slov. Construction Battalion	斯洛伐克建设营
+Slov. Engineer Battalion	斯洛伐克工兵营
+Slov. Infantry Battalion	斯洛伐克步兵营
+Slov. Infantry Division	斯洛伐克步兵师
+Slov. Infantry Regiment	斯洛伐克步兵团
+Slov. Mobile Brigade	斯洛伐克机动旅
+Slov. Mobile Division	斯洛伐克机动师
+Slov. Mot. Anti-Aircraft Company	斯洛伐克摩托化防空连
+Slov. Mot. Anti-Tank Company	斯洛伐克摩托化反坦克连
+Slov. Mot. Heavy Anti-Aircraft Battery	斯洛伐克摩托化重型防空炮兵连
+Slov. Mot. Howitzer Battalion	斯洛伐克摩托化榴弹炮营
+Slov. Mot. Infantry Battalion	斯洛伐克摩托化步兵营
+Slov. Mot. Infantry Regiment	斯洛伐克摩托化步兵团
+Slov. RR Construction Battalion	斯洛伐克铁路建设营
+Slov. Security Division	斯洛伐克警备师
+Slov. Tank Battalion	斯洛伐克坦克营
+Slov. Tank Company	斯洛伐克坦克连
+Static Division	静态师
+Static Infantry Division	静态步兵师
+Stug Battalion	突击炮营
+Stug Battery	突击炮连
+Stug Brigade	突击炮旅
+Sturm Brigade	突击旅
+Sturm Division	突击师
+Sturm Infantry Battalion	突击步兵营
+Sturmmoerser Battery	突击迫击炮连
+Sturmpanzer Battalion	突击炮营
+Sturmpanzer Company	突击炮连
+Super Heavy Howitzer Brigade	超重型榴弹炮旅
+TD Battery	坦克歼击炮兵连
+Tank Army	坦克集团军
+Tank Brigade	坦克旅
+Tank Corps	坦克军
+Tank Division	坦克师
+US AA Auto-Wpns Battalion	美国防空自动武器营
+US AAA Gun Battalion	美国防空炮营
+US Air Base	美国航空基地
+US Airborne Division	美国空降师
+US Amphibious HQ	美国两栖司令部
+US Armored Division	美国装甲师
+US Armored Infantry Battalion	美国装甲步兵营
+US Army	美国集团军
+US Army Group	美国集团军群
+US CDL Tank Battalion	美国探照坦克营
+US Cavalry Group	美国骑兵群
+US Cavalry Recon Squadron	美国骑兵侦察中队
+US Cavalry Squadron	美国骑兵中队
+US Chemical Mortar Battalion	美国化学迫击炮营
+US Coastal AA Battalion	美国海岸防空营
+US Combat Engineer Battalion	美国战斗工兵营
+US Construction Battalion	美国建设营
+US Corps	美国军
+US Engineer GS Regiment	美国通用勤务工兵团
+US Field Artillery Battalion (105mm)	美国野战炮兵营（105毫米）
+US Field Artillery Battalion (155mm)	美国野战炮兵营（155毫米）
+US Field Artillery Battalion (240mm)	美国野战炮兵营（240毫米）
+US Field Artillery Battalion (4.5in)	美国野战炮兵营（4.5英寸）
+US Field Artillery Battalion (8in)	美国野战炮兵营（8英寸）
+US Fortified Zone	美国筑垒地带
+US Infantry Battalion	美国步兵营
+US Infantry Division	美国步兵师
+US Infantry Regiment	美国步兵团
+US Infantry Regiment (+)	美国步兵团（加）
+US Infantry Regiment (-)	美国步兵团（减）
+US Light Tank Battalion	美国轻型坦克营
+US Mountain Division	美国山地师
+US Pack Howitzer Battalion	美国驮载榴弹炮营
+US Parachute Artillery Battalion	美国伞兵炮兵营
+US Parachute Battalion	美国伞兵营
+US Parachute Battalion (+)	美国伞兵营（加）
+US Parachute Regiment	美国伞兵团
+US Parachute Regiment (+)	美国伞兵团（加）
+US Railroad Operating Battalion	美国铁路运营营
+US Ranger Battalion	美国游骑兵营
+US Ranger Force Regiment	美国游骑兵部队团
+US SP Field Artillery Battalion	美国自行野战炮兵营
+US Special Service Force Brigade	美国特种勤务部队旅
+US Special Tank Battalion	美国特种坦克营
+US Tank Battalion	美国坦克营
+US Tank Destroyer Battalion	美国坦克歼击营
+US Tank Destroyer Battalion (SP)	美国坦克歼击营（自行）
+Volks Artillery Regiment	国民炮兵团
+Volksgrenadier Division	国民掷弹兵师
+Volksgrenadier Regiment	国民掷弹兵团
+Volunteer Motorized Brigade	志愿摩托化旅
+Wach Battalion	卫戍营
+Yug. Army	南斯拉夫集团军
+Yug. Army Group	南斯拉夫集团军群
+Yug. Cavalry Brigade	南斯拉夫骑兵旅
+Yug. Corps	南斯拉夫军
+Yug. Engineer Brigade	南斯拉夫工兵旅
+Yug. Infantry Division	南斯拉夫步兵师
+Yug. Partisan Battalion	南斯拉夫游击营
+Yug. Partisan Division	南斯拉夫游击师
+leFH Howitzer Battalion	轻型野战榴弹炮营
+sFH Heavy Howitzer Battalion	重型野战榴弹炮营
+zbV Mot. Infantry Battalion	特设摩托化步兵营
+zbV Mot. Panzergrenadier Battalion	特设摩托化装甲掷弹兵营
+zbV Mot. Regiment (-)	特设摩托化团（减）
 Rifle	步兵	t
-Mountain	山地	t
+Mountain	山地
 Naval	海军	t
 Marine	海军陆战	t
 Road	道路	t
 Rail	铁路	t
 Rail.	铁路	t
-Cavalry	骑兵	t
+Cavalry	骑兵
 Airborne	空降
 Allied Airborne	盟军空降
-Coastal	海岸	t
+Coastal	海岸
 Cossack	哥萨克
 Border	边防	t
 Separate	独立
@@ -6477,7 +6477,7 @@ Mot.	摩托化	t
 Motorized	摩托化	t
 Alpine	山地	t
 Alpini	阿尔卑斯山地兵	t
-Alps Mountain	阿尔卑斯山地	t
+Alps Mountain	阿尔卑斯山地
 Gebirgs	山地
 Sturm	突击	t
 Sturm Mortar	突击迫击炮
@@ -6505,8 +6505,8 @@ Lehr	教导	t
 Beute	缴获	t
 Heimat	本土	t
 Alarm	应急	t
-Eisenbahn	铁道	t
-Autotransportabile	摩托化运输	t
+Eisenbahn	铁道
+Autotransportabile	摩托化运输
 Pol.	波兰	t
 RSI	意大利社会共和国	t
 Militia RSI	意大利社会共和国民兵
@@ -6552,7 +6552,7 @@ Folgore	闪电
 Nembo	雨云	t
 San Marco' Marine	「圣马可」海军陆战
 'San Marco' Marine	「圣马可」海军陆战
-Trieste	的里雅斯特	t
+Trieste	的里雅斯特
 Trento	特伦托	t
 Centauro	半人马
 Ariete	公羊	t
@@ -6560,13 +6560,13 @@ Littorio	利托里奥
 'Ariete II'	「公羊II」
 'Centauro II'	「半人马II」
 Isonzo	伊松佐	t
-Vicenza	维琴察	t
-Ravenna	拉文纳	t
-Firenze	佛罗伦萨	t
+Vicenza	维琴察
+Ravenna	拉文纳
+Firenze	佛罗伦萨
 Siena	锡耶纳	t
-Bergamo	贝加莫	t
+Bergamo	贝加莫
 RCA	皇家陆军	t
-Sassari	萨萨里	t
+Sassari	萨萨里
 'Sassari'	「萨萨里」
 'Piacenza'	「皮亚琴察」
 'Mantova'	「曼托瓦」
@@ -6621,23 +6621,23 @@ Casale	卡萨莱	t
 Lombardia	伦巴第
 'Legnano'	「莱尼亚诺」
 Legnano	莱尼亚诺
-Cagliari	卡利亚里	t
+Cagliari	卡利亚里
 Sabratha	萨布拉塔
 'Nembo'	「雨云」
 'Italia'	「意大利」
 'Aosta'	「奥斯塔」
 Gennaio	一月
 Marzo	三月	t
-Messina	墨西拿	t
-Siracusa	锡拉库萨	t
-Palermo	巴勒莫	t
-Trapani	特拉帕尼	t
-Catania	卡塔尼亚	t
+Messina	墨西拿
+Siracusa	锡拉库萨
+Palermo	巴勒莫
+Trapani	特拉帕尼
+Catania	卡塔尼亚
 Hermann Goring	赫尔曼·戈林
 Gd. Leningrad PM	近卫列宁格勒民兵
 Leningrad PM	列宁格勒民兵
 Moscow PM	莫斯科民兵
-North Caucasus	北高加索	t
+North Caucasus	北高加索
 Tabor Goums	塔博尔古姆
 1st Tabor Goums	第1塔博尔古姆
 3rd Tabor Goums	第3塔博尔古姆
@@ -6665,59 +6665,59 @@ AFHQ	盟军司令部	t
 -Feb	2月
 -Jan	1月
 -Mar	3月
-Army Group C	C集团军群	t
-Army Group E	E集团军群	t
-Army Group F	F集团军群	t
-Army Group G	G集团军群	t
-Army Group H	H集团军群	t
-Army Group Antonescu	安东内斯库集团军群	t
+Army Group C	C集团军群
+Army Group E	E集团军群
+Army Group F	F集团军群
+Army Group G	G集团军群
+Army Group H	H集团军群
+Army Group Antonescu	安东内斯库集团军群
 London	伦敦	t
-S London	南伦敦	t
+S London	南伦敦
 W. London	西伦敦
-Belfast	贝尔法斯特	t
-Grimsby	格里姆斯比	t
-Cardiff	加的夫	t
+Belfast	贝尔法斯特
+Grimsby	格里姆斯比
+Cardiff	加的夫
 Derby	德比	t
-Edinburgh	爱丁堡	t
+Edinburgh	爱丁堡
 Leeds	利兹	t
-Sheffield	谢菲尔德	t
-Bristol	布里斯托尔	t
-Dunfermline	邓弗姆林	t
-Gillingham	吉灵厄姆	t
-Liverpool	利物浦	t
-Norwich	诺里奇	t
-Nottingham	诺丁汉	t
-Portsmouth	朴茨茅斯	t
-South Shields	南希尔兹	t
-Southampton	南安普顿	t
-Sunderland	桑德兰	t
-Birmingham	伯明翰	t
-Bradford	布拉德福德	t
-Chatham	查塔姆	t
-Croydon	克罗伊登	t
-Douglas	道格拉斯	t
+Sheffield	谢菲尔德
+Bristol	布里斯托尔
+Dunfermline	邓弗姆林
+Gillingham	吉灵厄姆
+Liverpool	利物浦
+Norwich	诺里奇
+Nottingham	诺丁汉
+Portsmouth	朴茨茅斯
+South Shields	南希尔兹
+Southampton	南安普顿
+Sunderland	桑德兰
+Birmingham	伯明翰
+Bradford	布拉德福德
+Chatham	查塔姆
+Croydon	克罗伊登
+Douglas	道格拉斯
 Dover	多佛	t
-Falmouth	法尔茅斯	t
-Glasgow	格拉斯哥	t
-Gloucester	格洛斯特	t
-Huddersfield	哈德斯菲尔德	t
-Inverness	因弗内斯	t
-Ipswich	伊普斯威奇	t
-Kingston upon Hull	赫尔河畔金斯顿	t
-Leicester	莱斯特	t
-Londonderry	伦敦德里	t
-Manchester	曼彻斯特	t
-Mansfield	曼斯菲尔德	t
-Middlesbrough	米德尔斯堡	t
-Newcastle upon Tyne	泰恩河畔纽卡斯尔	t
-Northampton	北安普顿	t
+Falmouth	法尔茅斯
+Glasgow	格拉斯哥
+Gloucester	格洛斯特
+Huddersfield	哈德斯菲尔德
+Inverness	因弗内斯
+Ipswich	伊普斯威奇
+Kingston upon Hull	赫尔河畔金斯顿
+Leicester	莱斯特
+Londonderry	伦敦德里
+Manchester	曼彻斯特
+Mansfield	曼斯菲尔德
+Middlesbrough	米德尔斯堡
+Newcastle upon Tyne	泰恩河畔纽卡斯尔
+Northampton	北安普顿
 Oxford	牛津	t
 Perth	珀斯	t
-Preston	普雷斯顿	t
-Reading	雷丁	t
-St Helens	圣海伦斯	t
-Swansea	斯旺西	t
-Wolverhampton	伍尔弗汉普顿	t
+Preston	普雷斯顿
+Reading	雷丁
+St Helens	圣海伦斯
+Swansea	斯旺西
+Wolverhampton	伍尔弗汉普顿
 No.	第	t
 Nr.	第	t
 Group	群	t
@@ -6774,89 +6774,89 @@ SIR	SIR	t
 BH	BH	t
 CCNN	黑衫军	t
 Fuhrer	元首	t
-Feldherrnhalle	统帅堂	t
+Feldherrnhalle	统帅堂
 Ostfriesland	东弗里斯兰
-Stettin	什切青	t
+Stettin	什切青
 Thuringen	图林根
-Stuttgart	斯图加特	t
-Braunschweig	不伦瑞克	t
-Hannover	汉诺威	t
-Luebeck	吕贝克	t
-Bordeaux	波尔多	t
-Bunzlau	本茨劳	t
-Katowice	卡托维兹	t
+Stuttgart	斯图加特
+Braunschweig	不伦瑞克
+Hannover	汉诺威
+Luebeck	吕贝克
+Bordeaux	波尔多
+Bunzlau	本茨劳
+Katowice	卡托维兹
 Danzig	但泽	t
 Oppeln	奥波莱	t
-Zwickau	茨维考	t
-Augsburg	奥格斯堡	t
-Chemnitz	开姆尼茨	t
+Zwickau	茨维考
+Augsburg	奥格斯堡
+Chemnitz	开姆尼茨
 Czechowice	切霍维采
 Deschowitz	德绍维茨
-Gleiwitz	格莱维茨	t
+Gleiwitz	格莱维茨
 Halle	哈雷	t
 Mucheln	米歇尔恩
 Posen	波森	t
-Ruhland	鲁兰	t
+Ruhland	鲁兰
 Zeitz	蔡茨	t
 S. Berlin	南柏林
 N. BH	北BH
 S. BH	南BH
-Berliner Zoo	柏林动物园	t
-Goerlitz	格尔利茨	t
+Berliner Zoo	柏林动物园
+Goerlitz	格尔利茨
 Brieg	布里格	t
-Bautzen	包岑	t
-Bayreuth	拜罗伊特	t
-Ansbach	安斯巴赫	t
+Bautzen	包岑
+Bayreuth	拜罗伊特
+Ansbach	安斯巴赫
 Anklam	安克拉姆	t
 Barth	巴特	t
 Bremen	不来梅	t
-Bremen Marine	不来梅海军	t
-Bremerhaven	不来梅港	t
-Danzig Marine	但泽海军	t
+Bremen Marine	不来梅海军
+Bremerhaven	不来梅港
+Danzig Marine	但泽海军
 Essen	埃森	t
 Erfurt	埃尔福特	t
 Erding	埃尔丁	t
-Eberswalde	埃伯斯瓦尔德	t
-Ebenrode	埃本罗德	t
-Eggebek	埃格贝克	t
-Eggersdorf	埃格斯多夫	t
-Eisenstadt	艾森施塔特	t
-Enschede	恩斯赫德	t
-Erbenschwang	埃尔本施旺	t
-Eschwege	埃施韦格	t
-Esperstedt	埃斯珀施泰特	t
-Ettinghausen	埃廷豪森	t
-Euskirchen	奥伊斯基兴	t
-Falkenberg	法尔肯贝格	t
-Fassberg	法斯贝格	t
-Fels am Wagram	瓦格拉姆岩	t
-Ferrara	费拉拉	t
+Eberswalde	埃伯斯瓦尔德
+Ebenrode	埃本罗德
+Eggebek	埃格贝克
+Eggersdorf	埃格斯多夫
+Eisenstadt	艾森施塔特
+Enschede	恩斯赫德
+Erbenschwang	埃尔本施旺
+Eschwege	埃施韦格
+Esperstedt	埃斯珀施泰特
+Ettinghausen	埃廷豪森
+Euskirchen	奥伊斯基兴
+Falkenberg	法尔肯贝格
+Fassberg	法斯贝格
+Fels am Wagram	瓦格拉姆岩
+Ferrara	费拉拉
 Fiano	菲亚诺	t
 Aachen	亚琛	t
-Aalborg	奥尔堡	t
+Aalborg	奥尔堡
 Amiens	亚眠	t
-Amsterdam	阿姆斯特丹	t
-Antwerp	安特卫普	t
+Amsterdam	阿姆斯特丹
+Antwerp	安特卫普
 Anzio	安齐奥	t
 Athens	雅典	t
 Baden	巴登	t
 Baltic	波罗的海	t
-Bologna	博洛尼亚	t
-Boulogne	布洛涅	t
-Bourges	布尔日	t
+Bologna	博洛尼亚
+Boulogne	布洛涅
+Bourges	布尔日
 Brest	布列斯特	t
-Brest Litovsk	布列斯特-立托夫斯克	t
-Brindisi	布林迪西	t
-Brussels	布鲁塞尔	t
-Bydgoszcz	比得哥什	t
-Copenhagen	哥本哈根	t
-Denmark	丹麦	t
+Brest Litovsk	布列斯特-立托夫斯克
+Brindisi	布林迪西
+Brussels	布鲁塞尔
+Bydgoszcz	比得哥什
+Copenhagen	哥本哈根
+Denmark	丹麦
 Exeter	埃克塞特	t
-Feldherrnhalle Nr. 1	统帅堂第1	t
-Feldherrnhalle Nr. 2	统帅堂第2	t
-Florence	佛罗伦萨	t
+Feldherrnhalle Nr. 1	统帅堂第1
+Feldherrnhalle Nr. 2	统帅堂第2
+Florence	佛罗伦萨
 Genoa	热那亚	t
-Gibraltar	直布罗陀	t
+Gibraltar	直布罗陀
 Lisbon	里斯本	t
 Lodz	罗兹	t
 Lublin	卢布林	t
@@ -6868,51 +6868,51 @@ Oslo	奥斯陆	t
 Paris	巴黎	t
 Rome	罗马	t
 Sofia	索非亚	t
-Stockholm	斯德哥尔摩	t
+Stockholm	斯德哥尔摩
 Tunis	突尼斯	t
 Turin	都灵	t
 Venice	威尼斯	t
-Vilnius	维尔纽斯	t
+Vilnius	维尔纽斯
 Zagreb	萨格勒布	t
-Oranienbaum	奥拉宁鲍姆	t
-Constantine	君士坦丁	t
+Oranienbaum	奥拉宁鲍姆
+Constantine	君士坦丁
 Alger	阿尔及尔	t
-Maroc March	摩洛哥行军	t
-Oran March	奥兰行军	t
-Military Railway	军用铁路	t
-SU Rail	苏联铁路	t
-Soviet City	苏联城市	t
+Maroc March	摩洛哥行军
+Oran March	奥兰行军
+Military Railway	军用铁路
+SU Rail	苏联铁路
+Soviet City	苏联城市
 Guards	近卫	t
-Training	训练	t
-Expeditionary	远征	t
+Training	训练
+Expeditionary	远征
 Light Afrika	轻装非洲
-Das Reich SS	党卫军帝国	t
-Totenkopf SS	党卫军骷髅	t
-Wiking SS	党卫军维京	t
+Das Reich SS	党卫军帝国
+Totenkopf SS	党卫军骷髅
+Wiking SS	党卫军维京
 LAH SS	党卫军警卫旗队
-Estonian SS	爱沙尼亚党卫军	t
-East Prussian	东普鲁士	t
-Central Asia	中亚	t
-Coastal Air Force	海岸航空队	t
-Desert Air Force	沙漠航空队	t
-Coastal OpGr	海岸作战群	t
-Engineer Rail Group A	工兵铁路群A	t
-Engineer Rail Group B	工兵铁路群B	t
-Engineer Rail Group C	工兵铁路群C	t
-Engineer Rail Group MTO	工兵铁路群MTO	t
-FBD 1	铁路兵旅1	t
-FBD 2	铁路兵旅2	t
-FBD 3	铁路兵旅3	t
-FBD 4	铁路兵旅4	t
-FBD 5	铁路兵旅5	t
+Estonian SS	爱沙尼亚党卫军
+East Prussian	东普鲁士
+Central Asia	中亚
+Coastal Air Force	海岸航空队
+Desert Air Force	沙漠航空队
+Coastal OpGr	海岸作战群
+Engineer Rail Group A	工兵铁路群A
+Engineer Rail Group B	工兵铁路群B
+Engineer Rail Group C	工兵铁路群C
+Engineer Rail Group MTO	工兵铁路群MTO
+FBD 1	铁路兵旅1
+FBD 2	铁路兵旅2
+FBD 3	铁路兵旅3
+FBD 4	铁路兵旅4
+FBD 5	铁路兵旅5
 Italian Air Bde	意大利航空旅
 SIR Italian Air Bde	SIR意大利航空旅
-Colonial Chasseurs	殖民地猎兵	t
-Cavalleggeri Guide' Cavalry	轻骑兵向导骑兵	t
-Celere Cavalry	快速骑兵	t
-Almaco-Partinico' CCNN	阿尔马科-帕尔蒂尼科黑衫军	t
-Comiso-Ispica' CCNN	科米索-伊斯皮卡黑衫军	t
-Chiusa Scalafina'	基乌萨斯卡拉菲纳	t
+Colonial Chasseurs	殖民地猎兵
+Cavalleggeri Guide' Cavalry	轻骑兵向导骑兵
+Celere Cavalry	快速骑兵
+Almaco-Partinico' CCNN	阿尔马科-帕尔蒂尼科黑衫军
+Comiso-Ispica' CCNN	科米索-伊斯皮卡黑衫军
+Chiusa Scalafina'	基乌萨斯卡拉菲纳
 W.	西	t
 N.	北	t
 S.	南	t
@@ -6920,12 +6920,12 @@ E.	东	t
 W. Berlin	西柏林
 Neinhagen	奈因哈根
 Sagan	萨甘	t
-Liegnitz	利格尼茨	t
+Liegnitz	利格尼茨
 Linz	林茨	t
 Dessau	德绍	t
-Wiener Neustadt	维也纳新城	t
-Moosbierbaum	莫斯比尔鲍姆	t
-Support	支援	t
+Wiener Neustadt	维也纳新城
+Moosbierbaum	莫斯比尔鲍姆
+Support	支援
 Tier	型	t
 German	德国	t
 City	城市	t
@@ -6942,25 +6942,25 @@ Sec. Battalion	警备营
 Sec Brigade	警备旅
 Sec. Brigade	警备旅
 Sec Corps	警备军
-22nd NKVD	第22 NKVD	t
-Frontier	边境	t
-Western	西部	t
+22nd NKVD	第22 NKVD
+Frontier	边境
+Western	西部
 Eastern	东部
 Northern	北部
-Southern	南部	t
+Southern	南部
 Central	中部
-Northwestern	西北	t
+Northwestern	西北
 Steppe	草原	t
-Karelian	卡累利阿	t
-Transcaucasus	外高加索	t
-Southern Urals	南乌拉尔	t
-Northern Fleet	北方舰队	t
-Strategic Air Force	战略空军	t
+Karelian	卡累利阿
+Transcaucasus	外高加索
+Southern Urals	南乌拉尔
+Northern Fleet	北方舰队
+Strategic Air Force	战略空军
 Middle	中部	t
-Brandenburg	勃兰登堡	t
-Grossdeutschland	大德意志	t
-Langemarck SS	朗厄马克党卫军	t
-Latvian SS	拉脱维亚党卫军	t
+Brandenburg	勃兰登堡
+Grossdeutschland	大德意志
+Langemarck SS	朗厄马克党卫军
+Latvian SS	拉脱维亚党卫军
 Senegal	塞内加尔
 Souk	苏克	t
 Malo	马洛	t
@@ -6970,940 +6970,940 @@ MNR	共和国民兵	t
 zbV	特设	t
 AAI	AAI	t
 FHH	FHH	t
-15-Feb	2月15日	t
-15-Jan	1月15日	t
-15-Mar	3月15日	t
-Marsala	马尔萨拉	t
-Bryansk	布良斯克	t
-Castelvetrano	卡斯特尔韦特拉诺	t
+15-Feb	2月15日
+15-Jan	1月15日
+15-Mar	3月15日
+Marsala	马尔萨拉
+Bryansk	布良斯克
+Castelvetrano	卡斯特尔韦特拉诺
 Gela	杰拉	t
 Hanko	汉科	t
-Sciacca	夏卡	t
-Volkhov	沃尔霍夫	t
-Abingdon	阿宾登	t
-Acklington	阿克林顿	t
-Adzhikabul	阿吉卡布尔	t
-Afrikanda	阿夫里坎达	t
-Ajaccio	阿雅克肖	t
-Akkerman	阿克尔曼	t
-Alakurtti	阿拉库尔蒂	t
-Alconbury	阿尔康伯里	t
-Aldergrove	奥尔德格罗夫	t
-Aldermaston	奥尔德马斯顿	t
-Aleksandriya	亚历山德里亚	t
-Alghero	阿尔盖罗	t
-Algiers	阿尔及尔	t
+Sciacca	夏卡
+Volkhov	沃尔霍夫
+Abingdon	阿宾登
+Acklington	阿克林顿
+Adzhikabul	阿吉卡布尔
+Afrikanda	阿夫里坎达
+Ajaccio	阿雅克肖
+Akkerman	阿克尔曼
+Alakurtti	阿拉库尔蒂
+Alconbury	阿尔康伯里
+Aldergrove	奥尔德格罗夫
+Aldermaston	奥尔德马斯顿
+Aleksandriya	亚历山德里亚
+Alghero	阿尔盖罗
+Algiers	阿尔及尔
 Alness	阿尔内斯	t
 Alytus	阿利图斯	t
-Amendola	阿门多拉	t
+Amendola	阿门多拉
 Anapa	阿纳帕	t
-Apostolovo	阿波斯托洛沃	t
-Armavir	阿尔马维尔	t
-Artemorsk	阿尔乔莫夫斯克	t
-Arzamas	阿尔扎马斯	t
-Ashford	阿什福德	t
+Apostolovo	阿波斯托洛沃
+Armavir	阿尔马维尔
+Artemorsk	阿尔乔莫夫斯克
+Arzamas	阿尔扎马斯
+Ashford	阿什福德
 Atcham	阿查姆	t
-Augarten	奥加滕	t
+Augarten	奥加滕
 Aviano	阿维亚诺	t
 Ayr	艾尔	t
-Bagerovo	巴格罗沃	t
-Balbasava	巴尔巴索瓦	t
-Ballyhalbert	巴利哈尔伯特	t
-Ballykelly	巴利凯利	t
+Bagerovo	巴格罗沃
+Balbasava	巴尔巴索瓦
+Ballyhalbert	巴利哈尔伯特
+Ballykelly	巴利凯利
 Balta	巴尔塔	t
-Baranovichi	巴拉诺维奇	t
-Barcellona	巴塞罗那	t
-Barcellona'	巴塞罗那	t
+Baranovichi	巴拉诺维奇
+Barcellona	巴塞罗那
+Barcellona'	巴塞罗那
 Bari	巴里	t
-Barvenkovo	巴尔文科沃	t
-Barwalde	巴尔瓦尔德	t
+Barvenkovo	巴尔文科沃
+Barwalde	巴尔瓦尔德
 Barysh	巴雷什	t
-Bassingbourn	巴辛伯恩	t
+Bassingbourn	巴辛伯恩
 Bastia	巴斯蒂亚	t
 Batumi	巴统	t
 Beja	贝雅	t
-Bekescsaba	贝凯什查巴	t
-Belgorod	别尔哥罗德	t
-Belokorovichi	别洛科罗维奇	t
+Bekescsaba	贝凯什查巴
+Belgorod	别尔哥罗德
+Belokorovichi	别洛科罗维奇
 Belsk	别尔斯克	t
 Beltsy	别尔齐	t
-Benbecula	本贝丘拉	t
-Benghazi	班加西	t
+Benbecula	本贝丘拉
+Benghazi	班加西
 Benson	本森	t
-Bentwaters	本特沃特斯	t
-Berdichev	别尔季切夫	t
-Berezino	别列津诺	t
-Bettola	贝托拉	t
-Bialystok	比亚韦斯托克	t
-Binbrook	宾布鲁克	t
-Bistrita	比斯特里察	t
-Bizerte	比塞大	t
+Bentwaters	本特沃特斯
+Berdichev	别尔季切夫
+Berezino	别列津诺
+Bettola	贝托拉
+Bialystok	比亚韦斯托克
+Binbrook	宾布鲁克
+Bistrita	比斯特里察
+Bizerte	比塞大
 Blida	卜利达	t
-Bobriusk	博布鲁伊斯克	t
-Bolgrad	博尔格拉德	t
-Bolsena	博尔塞纳	t
+Bobriusk	博布鲁伊斯克
+Bolgrad	博尔格拉德
+Bolsena	博尔塞纳
 Bone	博讷	t
-Borispol	鲍里斯波尔	t
-Borizzo	博里佐	t
-Borodyanka	博罗江卡	t
-Borovichi	博罗维奇	t
-Bottesford	博茨福德	t
-Bottisham	博蒂舍姆	t
+Borispol	鲍里斯波尔
+Borizzo	博里佐
+Borodyanka	博罗江卡
+Borovichi	博罗维奇
+Bottesford	博茨福德
+Bottisham	博蒂舍姆
 Bougie	布日	t
-Bovolone	博沃洛内	t
-Bovshev	博夫舍夫	t
-Bowmore	鲍莫尔	t
+Bovolone	博沃洛内
+Bovshev	博夫舍夫
+Bowmore	鲍莫尔
 Boxted	博克斯泰德	t
 Brawdy	布劳迪	t
-Broadwell	布罗德韦尔	t
+Broadwell	布罗德韦尔
 Brody	布罗德	t
 Brolio	布罗利奥	t
-Brovary	布罗瓦雷	t
-Brusilov	布鲁西洛夫	t
-Budakeszi	布达凯西	t
-Budaors	布道尔什	t
+Brovary	布罗瓦雷
+Brusilov	布鲁西洛夫
+Budakeszi	布达凯西
+Budaors	布道尔什
 Bungay	邦吉	t
 Bykhov	贝霍夫	t
 Bátaszék	巴塔塞克
 Cadet	卡代	t
 Calais	加来	t
-Camigliatello	卡米利亚泰洛	t
-Capaccio	卡帕乔	t
+Camigliatello	卡米利亚泰洛
+Capaccio	卡帕乔
 Capua	卡普阿	t
-Carrara	卡拉拉	t
-Caselle	卡塞莱	t
-Cassano-Sibari	卡萨诺-西巴里	t
-Castletown	卡斯尔敦	t
-Castrovillari	卡斯特罗维拉里	t
-Catterick	卡特里克	t
+Carrara	卡拉拉
+Caselle	卡塞莱
+Cassano-Sibari	卡萨诺-西巴里
+Castletown	卡斯尔敦
+Castrovillari	卡斯特罗维拉里
+Catterick	卡特里克
 Cecina	切奇纳	t
-Cerignola	切里尼奥拉	t
-Cerveteri	切尔韦泰里	t
-Chaplynka	恰普林卡	t
-Chedburgh	切德堡	t
-Chelveston	切尔韦斯顿	t
-Cherbourg	瑟堡	t
-Cherepovets	切列波韦茨	t
-Cherlena	切尔莱纳	t
-Chernovtsy	切尔诺夫策	t
-Chertkov	切尔托夫	t
-Chistyakovo	奇斯佳科沃	t
-Chivenor	奇弗纳	t
-Chuguev	丘古耶夫	t
+Cerignola	切里尼奥拉
+Cerveteri	切尔韦泰里
+Chaplynka	恰普林卡
+Chedburgh	切德堡
+Chelveston	切尔韦斯顿
+Cherbourg	瑟堡
+Cherepovets	切列波韦茨
+Cherlena	切尔莱纳
+Chernovtsy	切尔诺夫策
+Chertkov	切尔托夫
+Chistyakovo	奇斯佳科沃
+Chivenor	奇弗纳
+Chuguev	丘古耶夫
 Cirava	齐拉瓦	t
-Clausewitz	克劳塞维茨	t
-Clifton	克利夫顿	t
+Clausewitz	克劳塞维茨
+Clifton	克利夫顿
 Cluj	克卢日	t
-Colerne	科勒恩	t
-Coltishall	科尔蒂肖尔	t
-Coningsby	科宁斯比	t
-Coolham	库勒姆	t
-Cottesmore	科茨莫尔	t
-Cremona'	克雷莫纳	t
+Colerne	科勒恩
+Coltishall	科尔蒂肖尔
+Coningsby	科宁斯比
+Coolham	库勒姆
+Cottesmore	科茨莫尔
+Cremona'	克雷莫纳
 Crete	克里特	t
-Croatian	克罗地亚	t
+Croatian	克罗地亚
 Croft	克罗夫特	t
-Crotone	克罗托内	t
+Crotone	克罗托内
 Cuers	屈埃尔	t
 Cuniow	库尼奥夫	t
-Dallachy	达拉赫	t
-Daugavpils	陶格夫匹尔斯	t
-Deanland	迪恩兰	t
+Dallachy	达拉赫
+Daugavpils	陶格夫匹尔斯
+Deanland	迪恩兰
 Debden	德布登	t
-Debrecen	德布勒森	t
-Decimomannu	德奇莫曼努	t
-Demidov	杰米多夫	t
+Debrecen	德布勒森
+Decimomannu	德奇莫曼努
+Demidov	杰米多夫
 Derna	德尔纳	t
-Detling	德特林	t
+Detling	德特林
 Digby	迪格比	t
-Dishforth	迪什福斯	t
+Dishforth	迪什福斯
 Dno	德诺	t
-Dokudovo	多库多沃	t
-Dolubowo	多卢博沃	t
-Domanovichi	多马诺维奇	t
-Doncaster	唐克斯特	t
+Dokudovo	多库多沃
+Dolubowo	多卢博沃
+Domanovichi	多马诺维奇
+Doncaster	唐克斯特
 Drem	德雷姆	t
-Driffeld	德里菲尔德	t
-Drogobych	德罗戈贝奇	t
+Driffeld	德里菲尔德
+Drogobych	德罗戈贝奇
 Dubno	杜布诺	t
-Dubrovka	杜布罗夫卡	t
+Dubrovka	杜布罗夫卡
 Dugino	杜吉诺	t
-Dunkirk	敦刻尔克	t
-Dunsfold	邓斯福尔德	t
-Duxford	达克斯福德	t
-Dybaltsevo	迪巴利采沃	t
+Dunkirk	敦刻尔克
+Dunsfold	邓斯福尔德
+Duxford	达克斯福德
+Dybaltsevo	迪巴利采沃
 Dyce	戴斯	t
-Dammartin-en-Goele	达马尔坦昂戈埃勒	t
-Darmstadt	达姆施塔特	t
+Dammartin-en-Goele	达马尔坦昂戈埃勒
+Darmstadt	达姆施塔特
 Deblin	登布林	t
-Dedelstorf	德德尔施托夫	t
-Delmenhorst	代尔门霍斯特	t
+Dedelstorf	德德尔施托夫
+Delmenhorst	代尔门霍斯特
 Demmin	德明	t
 Deneke	德内克	t
-Detmold	代特莫尔德	t
-Diepholz	迪普霍尔茨	t
+Detmold	代特莫尔德
+Diepholz	迪普霍尔茨
 Dijon	第戎	t
 Dinant	迪南	t
-Doberitz	多贝里茨	t
-Doeberitz	德贝里茨	t
+Doberitz	多贝里茨
+Doeberitz	德贝里茨
 Dole	多尔	t
-Donaueschingen	多瑙艾辛根	t
-Dortmund	多特蒙德	t
+Donaueschingen	多瑙艾辛根
+Dortmund	多特蒙德
 Dreux	德勒	t
 Drope	德罗佩	t
 Edrovo	埃德罗沃	t
-Elvington	埃尔文顿	t
-Enfidaville	恩菲达维尔	t
+Elvington	埃尔文顿
+Enfidaville	恩菲达维尔
 Eye	艾伊	t
 Eysk	叶伊斯克	t
 Eger	埃格尔	t
-Eindhoven	埃因霍温	t
-Eleusis	埃莱夫西斯	t
-Esbjerg	埃斯比约	t
-Etampes	埃唐普	t
-Etricourt-Manancourt	埃特里库尔-马南库尔	t
+Eindhoven	埃因霍温
+Eleusis	埃莱夫西斯
+Esbjerg	埃斯比约
+Etampes	埃唐普
+Etricourt-Manancourt	埃特里库尔-马南库尔
 Evreux	埃夫勒	t
-Feltwell	费尔特韦尔	t
-Folgore'	闪电	t
-Folkingham	福金厄姆	t
+Feltwell	费尔特韦尔
+Folgore'	闪电
+Folkingham	福金厄姆
 Ford	福德	t
-Foulsham	福尔沙姆	t
-Frankfurt	法兰克福	t
-Friedrichshain	腓特烈斯海因	t
-Friuli'	弗留利	t
-Frolovo	弗罗洛沃	t
-Ferschweiler	费尔施魏勒	t
-Finsterwalde-Schacksdorf	芬斯特瓦尔德-沙克斯多夫	t
-Flensburg	弗伦斯堡	t
-Florennes	弗洛雷讷	t
-Floridsdorf	弗洛里茨多夫	t
-Focsani	福克沙尼	t
+Foulsham	福尔沙姆
+Frankfurt	法兰克福
+Friedrichshain	腓特烈斯海因
+Friuli'	弗留利
+Frolovo	弗罗洛沃
+Ferschweiler	费尔施魏勒
+Finsterwalde-Schacksdorf	芬斯特瓦尔德-沙克斯多夫
+Flensburg	弗伦斯堡
+Florennes	弗洛雷讷
+Floridsdorf	弗洛里茨多夫
+Focsani	福克沙尼
 Foggia	福贾	t
-Fontenay-le-Comte	丰特奈勒孔特	t
-Francheville	弗朗什维尔	t
-Freiburg	弗赖堡	t
-Freiwaldau	弗赖瓦尔多	t
-Friedrichshafen	腓特烈港	t
-Fritzlar	弗里茨拉尔	t
-Frosinone	弗罗西诺内	t
-Fuerstenau	菲尔斯滕瑙	t
-Fuerstenfeldbruck	菲尔斯滕费尔德布鲁克	t
-Fuerstenwalde	菲尔斯滕瓦尔德	t
+Fontenay-le-Comte	丰特奈勒孔特
+Francheville	弗朗什维尔
+Freiburg	弗赖堡
+Freiwaldau	弗赖瓦尔多
+Friedrichshafen	腓特烈港
+Fritzlar	弗里茨拉尔
+Frosinone	弗罗西诺内
+Fuerstenau	菲尔斯滕瑙
+Fuerstenfeldbruck	菲尔斯滕费尔德布鲁克
+Fuerstenwalde	菲尔斯滕瓦尔德
 Fuerth	菲尔特	t
-Gatwick	盖特威克	t
-Genichesk	格尼切斯克	t
-Gerbini	杰尔比尼	t
+Gatwick	盖特威克
+Genichesk	格尼切斯克
+Gerbini	杰尔比尼
 Ghedi	盖迪	t
 Gigant	巨人	t
-Globitzy	格洛比齐	t
-Glubkoe	格卢布科耶	t
+Globitzy	格洛比齐
+Glubkoe	格卢布科耶
 Gomel	戈梅利	t
-Gorelovo	戈列洛沃	t
-Gorizia	戈里齐亚	t
-Goubrine	古布林	t
+Gorelovo	戈列洛沃
+Gorizia	戈里齐亚
+Goubrine	古布林
 Graiba	格赖巴	t
-Grangemouth	格兰杰默斯	t
-Graveley	格雷夫利	t
-Grazzanise	格拉扎尼塞	t
-Grigoriopol	格里戈里奥波尔	t
+Grangemouth	格兰杰默斯
+Graveley	格雷夫利
+Grazzanise	格拉扎尼塞
+Grigoriopol	格里戈里奥波尔
 Grodno	格罗德诺	t
-Grosseto	格罗塞托	t
-Gruzdziai	格鲁兹贾伊	t
-Guidonia	圭多尼亚	t
-Gyomaendrod	焦马恩德勒德	t
+Grosseto	格罗塞托
+Gruzdziai	格鲁兹贾伊
+Guidonia	圭多尼亚
+Gyomaendrod	焦马恩德勒德
 Gyor	杰尔	t
-Gablingen	加布林根	t
+Gablingen	加布林根
 Gael	加埃尔	t
 Gahro	加罗	t
 Galati	加拉茨	t
-Gardelegen	加尔德莱根	t
+Gardelegen	加尔德莱根
 Garz	加尔茨	t
 Gdynia	格丁尼亚	t
-Gerdauen	格道恩	t
-Germersheim	盖默斯海姆	t
-Gerstungen	格斯通根	t
+Gerdauen	格道恩
+Germersheim	盖默斯海姆
+Gerstungen	格斯通根
 Ghent	根特	t
-Giebelstadt	吉贝尔施塔特	t
-Giessen	吉森	t
-Gluecksburg	格吕克斯堡	t
-Gniezno	格涅兹诺	t
-Goetsenhoven	戈岑霍芬	t
-Goetzendorf	格岑多夫	t
+Giebelstadt	吉贝尔施塔特
+Giessen	吉森
+Gluecksburg	格吕克斯堡
+Gniezno	格涅兹诺
+Goetsenhoven	戈岑霍芬
+Goetzendorf	格岑多夫
 Gorzew	戈热夫	t
 Gotha	哥达	t
-Grandvilliers	格朗维利耶	t
+Grandvilliers	格朗维利耶
 Graz	格拉茨	t
-Greifswald	格赖夫斯瓦尔德	t
+Greifswald	格赖夫斯瓦尔德
 Greven	格雷文	t
 Grojec	格罗耶茨	t
-Groningen	格罗宁根	t
-Grossachsenheim	大阿赫森海姆	t
-Grossenbrode	格罗森布罗德	t
-Grossenhain	格罗森海因	t
-Grottaglie	格罗塔列	t
+Groningen	格罗宁根
+Grossachsenheim	大阿赫森海姆
+Grossenbrode	格罗森布罗德
+Grossenhain	格罗森海因
+Grottaglie	格罗塔列
 Grove	格罗夫	t
 Guben	古本	t
-Guestrow	居斯特罗	t
-Guetersloh	居特斯洛	t
-Gymnich	吉姆尼希	t
+Guestrow	居斯特罗
+Guetersloh	居特斯洛
+Gymnich	吉姆尼希
 Hajdúszoboszló	豪伊杜索博斯洛
-Halesworth	黑尔斯沃思	t
+Halesworth	黑尔斯沃思
 Hani	哈尼	t
 Hapsal	哈普萨卢	t
-Hardwick	哈德威克	t
-Harrowbeer	哈罗比尔	t
+Hardwick	哈德威克
+Harrowbeer	哈罗比尔
 Hauck	豪克	t
-Hawkinge	霍金奇	t
-Heathfield	希思菲尔德	t
-Heiligengeistfeld	海利根盖斯特费尔德	t
-Hemswell	赫姆斯韦尔	t
+Hawkinge	霍金奇
+Heathfield	希思菲尔德
+Heiligengeistfeld	海利根盖斯特费尔德
+Hemswell	赫姆斯韦尔
 Henlow	亨洛	t
-Hergala	赫尔加拉	t
+Hergala	赫尔加拉
 Hethel	赫瑟尔	t
-Honington	霍宁顿	t
-Hornchurch	霍恩彻奇	t
+Honington	霍宁顿
+Hornchurch	霍恩彻奇
 Horne	霍恩	t
-Hranivka	赫拉尼夫卡	t
-Humboldthain	洪堡海因	t
-Hummel'	胡梅尔	t
-Hunsdon	汉斯登	t
+Hranivka	赫拉尼夫卡
+Humboldthain	洪堡海因
+Hummel'	胡梅尔
+Hunsdon	汉斯登
 Hurn	赫恩	t
-Haamstede	哈姆斯泰德	t
-Hagenow	哈格诺	t
-Haguenau	阿格诺	t
-Haidmuehle	海德米勒	t
-Hailfingen	海尔芬根	t
-Halberstadt	哈尔伯施塔特	t
-Hangelar	汉格拉尔	t
+Haamstede	哈姆斯泰德
+Hagenow	哈格诺
+Haguenau	阿格诺
+Haidmuehle	海德米勒
+Hailfingen	海尔芬根
+Halberstadt	哈尔伯施塔特
+Hangelar	汉格拉尔
 Hateg	哈采格	t
-Heiligenbeil	海利根拜尔	t
-Helmstedt	黑尔姆施泰特	t
+Heiligenbeil	海利根拜尔
+Helmstedt	黑尔姆施泰特
 Hennef	亨内夫	t
-Herzogenaurach	黑措根奥拉赫	t
-Hildesheim	希尔德斯海姆	t
-Hoersching	赫尔兴	t
-Hohenmauth	霍恩毛特	t
-Holstein	荷尔斯泰因	t
-Hopsten	霍普斯滕	t
+Herzogenaurach	黑措根奥拉赫
+Hildesheim	希尔德斯海姆
+Hoersching	赫尔兴
+Hohenmauth	霍恩毛特
+Holstein	荷尔斯泰因
+Hopsten	霍普斯滕
 Horn	霍恩	t
-Hostynne	霍斯廷内	t
+Hostynne	霍斯廷内
 Hoya	霍亚	t
 Husi	胡希	t
 Husum	胡苏姆	t
 Ibsely	伊布塞利	t
-Idritsa	伊德里察	t
+Idritsa	伊德里察
 Iesi	耶西	t
-Inchiapparo'	因基亚帕罗	t
+Inchiapparo'	因基亚帕罗
 Ingham	英厄姆	t
-Ivangorod	伊万哥罗德	t
-Ivanovo	伊万诺沃	t
-Iwanowka	伊万诺夫卡	t
-Izyaslavl	伊贾斯拉夫尔	t
+Ivangorod	伊万哥罗德
+Ivanovo	伊万诺沃
+Iwanowka	伊万诺夫卡
+Izyaslavl	伊贾斯拉夫尔
 Ianca	扬卡	t
 Iasi	雅西	t
-Illesheim	伊勒斯海姆	t
+Illesheim	伊勒斯海姆
 Imely	伊梅利	t
 Immola	伊莫拉	t
-Imotski	伊莫茨基	t
-Ingolstadt	英戈尔施塔特	t
-Inowroclaw	伊诺弗罗茨瓦夫	t
-Insterburg	因斯特堡	t
-Istres-le-Tube	伊斯特尔勒蒂布	t
+Imotski	伊莫茨基
+Ingolstadt	英戈尔施塔特
+Inowroclaw	伊诺弗罗茨瓦夫
+Insterburg	因斯特堡
+Istres-le-Tube	伊斯特尔勒蒂布
 Ivalo	伊瓦洛	t
-Jekabpils	叶卡布皮尔斯	t
-Jelgava	叶尔加瓦	t
-Jermolino	叶尔莫利诺	t
+Jekabpils	叶卡布皮尔斯
+Jelgava	叶尔加瓦
+Jermolino	叶尔莫利诺
 Jewish	犹太	t
-Jaroslawice	雅罗斯瓦维采	t
+Jaroslawice	雅罗斯瓦维采
 Jaslo	亚斯沃	t
 Jena	耶拿	t
 Jever	耶弗尔	t
-Joroinen	约罗伊宁	t
-Jueterbog	于特博格	t
-Juterborg	于特博格	t
-Juvincourt	瑞万库尔	t
+Joroinen	约罗伊宁
+Jueterbog	于特博格
+Juterborg	于特博格
+Juvincourt	瑞万库尔
 Kacha	卡恰	t
-Kairouan	凯鲁万	t
-Kakhovka	卡霍夫卡	t
+Kairouan	凯鲁万
+Kakhovka	卡霍夫卡
 Kaluga	卡卢加	t
 Kamary	卡马里	t
-Kamenets-Podolsky	卡缅涅茨-波多利斯基	t
+Kamenets-Podolsky	卡缅涅茨-波多利斯基
 Kannas	坎纳斯	t
-Kaposvar	考波什堡	t
-Karachev	卡拉切夫	t
+Kaposvar	考波什堡
+Karachev	卡拉切夫
 Karl	卡尔	t
-Karmaleva	卡尔马莱瓦	t
+Karmaleva	卡尔马莱瓦
 Kassa	考绍	t
 Kaunas	考纳斯	t
-Kecskemet	凯奇凯梅特	t
-Kedainai	凯代尼艾	t
+Kecskemet	凯奇凯梅特
+Kedainai	凯代尼艾
 Keevil	基维尔	t
-Keksholm	凯克斯霍尔姆	t
-Kelibia	凯利比耶	t
+Keksholm	凯克斯霍尔姆
+Kelibia	凯利比耶
 Kenley	肯利	t
-Kenyeri	凯涅里	t
+Kenyeri	凯涅里
 Kerch	刻赤	t
-Kestenga	凯斯滕加	t
-Khrolyn	赫罗林	t
-Kiestinki	基斯廷基	t
-Kikeritsy	基克里齐	t
-Kimbolton	金博尔顿	t
-Kirmington	基明顿	t
-Kirovobad	基洛沃巴德	t
-Kirovograd	基洛沃格勒	t
-Kishinev	基希讷乌	t
+Kestenga	凯斯滕加
+Khrolyn	赫罗林
+Kiestinki	基斯廷基
+Kikeritsy	基克里齐
+Kimbolton	金博尔顿
+Kirmington	基明顿
+Kirovobad	基洛沃巴德
+Kirovograd	基洛沃格勒
+Kishinev	基希讷乌
 Klin	克林	t
 Kneiss	克奈斯	t
 Kobrin	科布林	t
-Kolomyia	科洛梅亚	t
-Kolosovka	科洛索夫卡	t
-Komarno	科马尔诺	t
-Konotop	科诺托普	t
-Konstantonovka	康斯坦丁诺夫卡	t
+Kolomyia	科洛梅亚
+Kolosovka	科洛索夫卡
+Komarno	科马尔诺
+Konotop	科诺托普
+Konstantonovka	康斯坦丁诺夫卡
 Kotly	科特雷	t
-Kotovsk	科托夫斯克	t
+Kotovsk	科托夫斯克
 Kovel	科韦利	t
-Kramatorskaya	克拉马托尔斯克	t
-Krasnoarmeyskoe	红军村	t
-Kremenchug	克列缅丘格	t
-Krestcy	克列斯齐	t
-Kroszewo	克罗舍沃	t
-Krymskaya	克雷姆斯卡亚	t
-Kubinka	库宾卡	t
+Kramatorskaya	克拉马托尔斯克
+Krasnoarmeyskoe	红军村
+Kremenchug	克列缅丘格
+Krestcy	克列斯齐
+Kroszewo	克罗舍沃
+Krymskaya	克雷姆斯卡亚
+Kubinka	库宾卡
 Kubler	库布勒	t
-Kulevcha	库列夫恰	t
-Kulevichi	库列维奇	t
+Kulevcha	库列夫恰
+Kulevichi	库列维奇
 Kuplya	库普利亚	t
-Kurovichi	库罗维奇	t
-Kuusiku	库西库	t
-Kaamanen	卡马宁	t
-Kaltenkirchen	卡尔滕基兴	t
-Karlsbad	卡尔斯巴德	t
+Kurovichi	库罗维奇
+Kuusiku	库西库
+Kaamanen	卡马宁
+Kaltenkirchen	卡尔滕基兴
+Karlsbad	卡尔斯巴德
 Kassel	卡塞尔	t
-Kaufbeuren	考夫博伊伦	t
+Kaufbeuren	考夫博伊伦
 Kemi	凯米	t
 Kemijärvi	凯米耶尔维
 Kiel	基尔	t
 Kielce	凯尔采	t
-Kirkenes	希尔克内斯	t
-Kirrlach	基尔拉赫	t
-Kitzingen	基青根	t
-Klattau	克拉陶	t
-Klotzsche	克洛切	t
-Koblenz	科布伦茨	t
-Koeniggraetz	柯尼希格雷茨	t
-Kolleda	克勒达	t
-Kortrijk	科特赖克	t
+Kirkenes	希尔克内斯
+Kirrlach	基尔拉赫
+Kitzingen	基青根
+Klattau	克拉陶
+Klotzsche	克洛切
+Koblenz	科布伦茨
+Koeniggraetz	柯尼希格雷茨
+Kolleda	克勒达
+Kortrijk	科特赖克
 Koslin	科斯林	t
-Kotelnikovo	科捷尔尼科沃	t
-Kralupy	克拉卢皮	t
-Krefeld	克雷费尔德	t
+Kotelnikovo	科捷尔尼科沃
+Kralupy	克拉卢皮
+Krefeld	克雷费尔德
 Krosno	克罗斯诺	t
-Krzewica	克热维察	t
+Krzewica	克热维察
 Kucove	库乔韦	t
-Kurmark	库尔马克	t
-Lagnasco	拉尼亚斯科	t
-Lakenheath	莱肯希思	t
+Kurmark	库尔马克
+Lagnasco	拉尼亚斯科
+Lakenheath	莱肯希思
 Langar	兰加	t
 Lapy	拉佩	t
 Lasham	拉沙姆	t
-Lavariano	拉瓦里亚诺	t
-Lebedin	列别金	t
+Lavariano	拉瓦里亚诺
+Lebedin	列别金
 Lecce	莱切	t
-Leconfield	莱肯菲尔德	t
-Leeming	利明	t
-Legnano'	莱尼亚诺	t
+Leconfield	莱肯菲尔德
+Leeming	利明
+Legnano'	莱尼亚诺
 Lepel	列佩利	t
-Leuchars	卢赫斯	t
-Levaldigi	莱瓦迪吉	t
-Liberazione	解放	t
+Leuchars	卢赫斯
+Levaldigi	莱瓦迪吉
+Liberazione	解放
 Licata	利卡塔	t
 Lida	利达	t
-Liepaja	利耶帕亚	t
-Linguaglossa'	林瓜格洛萨	t
-Linton-on-Ouse	林顿昂乌斯	t
+Liepaja	利耶帕亚
+Linguaglossa'	林瓜格洛萨
+Linton-on-Ouse	林顿昂乌斯
 Lipovo	利波沃	t
-Lissett	利塞特	t
-Littoria	利托里亚	t
-Ljubljana	卢布尔雅那	t
-Lofoten	罗弗敦	t
-Lorient	洛里昂	t
+Lissett	利塞特
+Littoria	利托里亚
+Ljubljana	卢布尔雅那
+Lofoten	罗弗敦
+Lorient	洛里昂
 Lucca	卢卡	t
 Lucera	卢切拉	t
 Lutsk	卢茨克	t
-Lyakhovichi	利亚霍维奇	t
+Lyakhovichi	利亚霍维奇
 Lympne	利姆	t
-Lysyatychi	利夏蒂奇	t
+Lysyatychi	利夏蒂奇
 Lyuban	柳班	t
-Lyubertsy	柳别尔齐	t
+Lyubertsy	柳别尔齐
 Labiau	拉比奥	t
-Lachen-Speyerdorf	拉亨-施派尔多夫	t
+Lachen-Speyerdorf	拉亨-施派尔多夫
 Landau	兰道	t
-Landes-des-Bussac	朗德代比萨克	t
-Landsberg	兰茨贝格	t
-Langenau	朗格瑙	t
-Langendiebach	朗根迪巴赫	t
-Langenhagen	朗根哈根	t
+Landes-des-Bussac	朗德代比萨克
+Landsberg	兰茨贝格
+Langenau	朗格瑙
+Langendiebach	朗根迪巴赫
+Langenhagen	朗根哈根
 Larisa	拉里萨	t
-Laupheim	劳普海姆	t
+Laupheim	劳普海姆
 Laval	拉瓦勒	t
-Lechfeld	莱希费尔德	t
-Leeuwarden	吕伐登	t
-Leipheim	莱普海姆	t
+Lechfeld	莱希费尔德
+Leeuwarden	吕伐登
+Leipheim	莱普海姆
 Lessay	莱赛	t
-Leverano	莱韦拉诺	t
+Leverano	莱韦拉诺
 Lille	里尔	t
-Limburg	林堡	t
-Lindenthal	林登塔尔	t
+Limburg	林堡
+Lindenthal	林登塔尔
 Lingen	林根	t
-Lipperode	利佩罗德	t
-Lippspringe	利普施普林格	t
-Lippstadt	利普施塔特	t
+Lipperode	利佩罗德
+Lippspringe	利普施普林格
+Lippstadt	利普施塔特
 Lobau	洛鲍	t
-Loebnitz	勒布尼茨	t
-Longuenesse	隆格内斯	t
-Loyettes	洛耶特	t
-Luebben	吕本	t
-Lueneburg	吕讷堡	t
-Luonetjarvi	卢奥内耶尔维	t
+Loebnitz	勒布尼茨
+Longuenesse	隆格内斯
+Loyettes	洛耶特
+Luebben	吕本
+Lueneburg	吕讷堡
+Luonetjarvi	卢奥内耶尔维
 Lupo'	卢波	t
-Luxembourg	卢森堡	t
+Luxembourg	卢森堡
 Lyck	吕克	t
 Lyon	里昂	t
-Makeevka	马克耶夫卡	t
-Makhathkala	马哈特卡拉	t
-Maloyaroslavets	小雅罗斯拉韦茨	t
-Manduria	曼杜里亚	t
-Maniago	马尼亚戈	t
-Manston	曼斯顿	t
-Mantova'	曼托瓦	t
-Manushkino	马努什基诺	t
-Marcigliana	马尔奇利亚纳	t
+Makeevka	马克耶夫卡
+Makhathkala	马哈特卡拉
+Maloyaroslavets	小雅罗斯拉韦茨
+Manduria	曼杜里亚
+Maniago	马尼亚戈
+Manston	曼斯顿
+Mantova'	曼托瓦
+Manushkino	马努什基诺
+Marcigliana	马尔奇利亚纳
 Marham	马勒姆	t
-Marseille	马赛	t
-Massicault	马西科	t
+Marseille	马赛
+Massicault	马西科
 Mateur	马特尔	t
-Melbourne	墨尔本	t
-Melitopol	梅利托波尔	t
-Merryfield	梅里菲尔德	t
-Merston	默斯顿	t
+Melbourne	墨尔本
+Melitopol	梅利托波尔
+Merryfield	梅里菲尔德
+Merston	默斯顿
 Metato	梅塔托	t
-Metfield	梅特菲尔德	t
+Metfield	梅特菲尔德
 Meyer'	迈耶	t
 Mga	姆加	t
-Mildenhall	米尔登霍尔	t
-Millerovo	米列罗沃	t
-Miskolc	米什科尔茨	t
-Misurata	米苏拉塔	t
+Mildenhall	米尔登霍尔
+Millerovo	米列罗沃
+Miskolc	米什科尔茨
+Misurata	米苏拉塔
 Mobile	莫比尔	t
-Mogilev	莫吉廖夫	t
-Molesworth	莫尔斯沃思	t
-Monserrato	蒙塞拉托	t
-Morozovskaya	莫罗佐夫斯卡亚	t
-Muksalma	穆克萨尔马	t
-Munkacs	蒙卡奇	t
-Murmansk	摩尔曼斯克	t
-Murmashi	穆尔马希	t
+Mogilev	莫吉廖夫
+Molesworth	莫尔斯沃思
+Monserrato	蒙塞拉托
+Morozovskaya	莫罗佐夫斯卡亚
+Muksalma	穆克萨尔马
+Munkacs	蒙卡奇
+Murmansk	摩尔曼斯克
+Murmashi	穆尔马希
 Murom	穆罗姆	t
-Magdeburg	马格德堡	t
+Magdeburg	马格德堡
 Mainz	美因茨	t
-Malacky	马拉茨基	t
-Maldegem	马尔德海姆	t
-Malmsheim	马尔姆斯海姆	t
+Malacky	马拉茨基
+Maldegem	马尔德海姆
+Malmsheim	马尔姆斯海姆
 Malta	马耳他	t
-Marienbad	玛丽亚温泉市	t
-Marolles	马罗勒	t
-Marseille-Marignane	马赛-马里尼亚讷	t
+Marienbad	玛丽亚温泉市
+Marolles	马罗勒
+Marseille-Marignane	马赛-马里尼亚讷
 Marx	马克思	t
-Matterstock	马特施托克	t
-Maupertus	莫佩尔蒂	t
-Meaulte	莫尔特	t
+Matterstock	马特施托克
+Maupertus	莫佩尔蒂
+Meaulte	莫尔特
 Medias	梅迪亚什	t
 Medit.	地中海	t
 Melun	默伦	t
 Memel	梅梅尔	t
-Memmingen	梅明根	t
+Memmingen	梅明根
 Mendig	门迪希	t
-Merignac	梅里尼亚克	t
+Merignac	梅里尼亚克
 Metz	梅斯	t
-Middelburg	米德尔堡	t
+Middelburg	米德尔堡
 Mielec	梅莱茨	t
-Miesbach	米斯巴赫	t
-Mikkeli	米凯利	t
+Miesbach	米斯巴赫
+Mikkeli	米凯利
 Milis	米利斯	t
-Milowitz	米洛维茨	t
+Milowitz	米洛维茨
 Mimon	米蒙	t
 Mizil	米济尔	t
 Modlin	莫德林	t
-Moenchen-Gladbach	门兴格拉德巴赫	t
+Moenchen-Gladbach	门兴格拉德巴赫
 Mohrin	莫林	t
-Monchy-Breton	蒙希布勒东	t
-Mondesir	蒙代西尔	t
-Mont-de-Marsan	蒙德马桑	t
-Montdidier	蒙迪迪耶	t
-Montecorvino	蒙特科尔维诺	t
+Monchy-Breton	蒙希布勒东
+Mondesir	蒙代西尔
+Mont-de-Marsan	蒙德马桑
+Montdidier	蒙迪迪耶
+Montecorvino	蒙特科尔维诺
 Mostar	莫斯塔尔	t
-Muehldorf	米尔多夫	t
-Muenchendorf	明兴多夫	t
-Muenster	明斯特	t
-Muncheberg	明谢贝格	t
+Muehldorf	米尔多夫
+Muenchendorf	明兴多夫
+Muenster	明斯特
+Muncheberg	明谢贝格
 Nabeul	纳布勒	t
-Nadlymanske	纳德利曼斯克	t
-Nasosnaya	纳索斯纳亚	t
-Navarin	纳瓦林	t
-Nelidovo	涅利多沃	t
-Netheravon	内瑟拉文	t
-Newchurch	纽彻奇	t
-Newtownards	纽敦纳兹	t
-Nikolaev	尼古拉耶夫	t
-Northolt	诺霍尔特	t
-Novgorod-Volynsky	沃伦斯基新城	t
-Novgorord	诺夫哥罗德	t
-Novocherkassk	新切尔卡斯克	t
-Nuthampstead	纳特姆普斯特德	t
-Nyiregyhasa	尼赖吉哈佐	t
+Nadlymanske	纳德利曼斯克
+Nasosnaya	纳索斯纳亚
+Navarin	纳瓦林
+Nelidovo	涅利多沃
+Netheravon	内瑟拉文
+Newchurch	纽彻奇
+Newtownards	纽敦纳兹
+Nikolaev	尼古拉耶夫
+Northolt	诺霍尔特
+Novgorod-Volynsky	沃伦斯基新城
+Novgorord	诺夫哥罗德
+Novocherkassk	新切尔卡斯克
+Nuthampstead	纳特姆普斯特德
+Nyiregyhasa	尼赖吉哈佐
 Nancy	南锡	t
 Nantes	南特	t
 Narvik	纳尔维克	t
 Nautsi	纳乌齐	t
-Neubiberg	诺伊比贝格	t
-Neubrandenburg	新勃兰登堡	t
-Neuhardenberg	诺伊哈登贝格	t
-Neuhausen	诺伊豪森	t
-Neumuenster	新明斯特	t
-Neuruppin	诺伊鲁平	t
-Neusiedel	诺伊西德尔	t
-Neustadt-Glewe	诺伊施塔特-格莱沃	t
+Neubiberg	诺伊比贝格
+Neubrandenburg	新勃兰登堡
+Neuhardenberg	诺伊哈登贝格
+Neuhausen	诺伊豪森
+Neumuenster	新明斯特
+Neuruppin	诺伊鲁平
+Neusiedel	诺伊西德尔
+Neustadt-Glewe	诺伊施塔特-格莱沃
 Nice	尼斯	t
 Nidda	尼达	t
-Niebuell	尼比尔	t
+Niebuell	尼比尔
 Nis	尼什	t
-Nivelles	尼韦勒	t
-Nogent-le-Roi	诺让勒鲁瓦	t
-Nordholtz	诺德霍尔茨	t
-Oakington	奥金顿	t
-Oblivskaya	奥布利夫斯卡亚	t
+Nivelles	尼韦勒
+Nogent-le-Roi	诺让勒鲁瓦
+Nordholtz	诺德霍尔茨
+Oakington	奥金顿
+Oblivskaya	奥布利夫斯卡亚
 Oboyan	奥博扬	t
-Ochakov	奥恰科夫	t
+Ochakov	奥恰科夫
 Odiham	奥迪厄姆	t
 Olbia	奥尔比亚	t
-Olchowka	奥尔霍夫卡	t
-Oleggio	奥莱焦	t
-Olshanka	奥尔尚卡	t
-Olszanica	奥尔沙尼察	t
-Oristano	奥里斯塔诺	t
+Olchowka	奥尔霍夫卡
+Oleggio	奥莱焦
+Olshanka	奥尔尚卡
+Olszanica	奥尔沙尼察
+Oristano	奥里斯塔诺
 Orsha	奥尔沙	t
-Orvieto	奥尔维耶托	t
+Orvieto	奥尔维耶托
 Ostrov	奥斯特罗夫	t
 Oujda	乌季达	t
 Ouston	乌斯顿	t
 Ovruch	奥夫鲁奇	t
-Oedheim	厄德海姆	t
-Oettingen	厄廷根	t
-Offenbach	奥芬巴赫	t
-Oldenburg	奥尔登堡	t
-Olomouc	奥洛穆茨	t
+Oedheim	厄德海姆
+Oettingen	厄廷根
+Offenbach	奥芬巴赫
+Oldenburg	奥尔登堡
+Olomouc	奥洛穆茨
 Onega	奥涅加	t
 Orange	奥朗日	t
-Orconte	奥尔孔特	t
-Orleans	奥尔良	t
-Ortelsburg	奥特尔斯堡	t
-Oschatz	奥沙茨	t
+Orconte	奥尔孔特
+Orleans	奥尔良
+Ortelsburg	奥特尔斯堡
+Oschatz	奥沙茨
 Ostend	奥斯坦德	t
-Ostrava	俄斯特拉发	t
-Otopeni	奥托佩尼	t
-Otrokowitz	奥特罗科维茨	t
+Ostrava	俄斯特拉发
+Otopeni	奥托佩尼
+Otrokowitz	奥特罗科维茨
 Ottana	奥塔纳	t
-Oysonville	瓦松维尔	t
+Oysonville	瓦松维尔
 Ozieri	奥齐耶里	t
-Pachino	帕基诺	t
-Panevezys	帕涅韦日斯	t
-Pantelleria	潘泰莱里亚	t
+Pachino	帕基诺
+Panevezys	帕涅韦日斯
+Pantelleria	潘泰莱里亚
 Papa	帕帕	t
-Parafjanowo	帕拉菲亚诺沃	t
+Parafjanowo	帕拉菲亚诺沃
 Parnu	派尔努	t
-Parsagat	帕尔萨加特	t
-Pavlograd	巴甫洛格勒	t
-Pavolovo	帕沃洛沃	t
+Parsagat	帕尔萨加特
+Pavlograd	巴甫洛格勒
+Pavolovo	帕沃洛沃
 Pecs	佩奇	t
-Pembroke	彭布罗克	t
+Pembroke	彭布罗克
 Penza	片扎	t
 Per	佩尔	t
-Perregaux	佩雷戈	t
-Perugia	佩鲁贾	t
-Pervomaysk	五一城	t
-Peterhead	彼得黑德	t
-Philippeville	菲利普维尔	t
-Piceno'	皮切诺	t
+Perregaux	佩雷戈
+Perugia	佩鲁贾
+Pervomaysk	五一城
+Peterhead	彼得黑德
+Philippeville	菲利普维尔
+Piceno'	皮切诺
 Pinsk	平斯克	t
 Pisa	比萨	t
-Pitomnik	皮托姆尼克	t
-Pochinok	波奇诺克	t
-Podington	波丁顿	t
-Podolsk	波多利斯克	t
-Polebrook	波尔布鲁克	t
-Polonnoe	波隆诺耶	t
-Polotsk	波洛茨克	t
-Poltava	波尔塔瓦	t
-Pontedera	蓬泰代拉	t
+Pitomnik	皮托姆尼克
+Pochinok	波奇诺克
+Podington	波丁顿
+Podolsk	波多利斯克
+Polebrook	波尔布鲁克
+Polonnoe	波隆诺耶
+Polotsk	波洛茨克
+Poltava	波尔塔瓦
+Pontedera	蓬泰代拉
 Poole	普尔	t
-Poretta	波雷塔	t
-Portreath	波特里思	t
-Povoletto	波沃莱托	t
-Predannack	普雷达纳克	t
-Prokhladny	普罗赫拉德内	t
-Proskurov	普罗斯库罗夫	t
-Protville	普罗维尔	t
-Provisional	临时	t
-Pruzhany	普鲁扎内	t
-Przemysl	普热梅希尔	t
-Pukhovichi	普霍维奇	t
-Pummanki	普曼基	t
-Pushkin	普希金	t
-Pyaozersky	皮亚奥泽尔斯基	t
-Paderborn	帕德博恩	t
-Parchim	帕尔希姆	t
-Pardubitz	帕尔杜比采	t
+Poretta	波雷塔
+Portreath	波特里思
+Povoletto	波沃莱托
+Predannack	普雷达纳克
+Prokhladny	普罗赫拉德内
+Proskurov	普罗斯库罗夫
+Protville	普罗维尔
+Provisional	临时
+Pruzhany	普鲁扎内
+Przemysl	普热梅希尔
+Pukhovichi	普霍维奇
+Pummanki	普曼基
+Pushkin	普希金
+Pyaozersky	皮亚奥泽尔斯基
+Paderborn	帕德博恩
+Parchim	帕尔希姆
+Pardubitz	帕尔杜比采
 Parma	帕尔马	t
-Parndorf	帕恩多夫	t
-Pasewalk	帕塞瓦尔克	t
+Parndorf	帕恩多夫
+Pasewalk	帕塞瓦尔克
 Pau	波城	t
 Pavia	帕维亚	t
-Perleberg	佩勒贝格	t
-Peronne	佩罗讷	t
-Petsamo	佩察莫	t
-Piacenza	皮亚琴察	t
-Pieksamaki	皮耶克赛迈基	t
-Piest'any	皮耶什佳尼	t
+Perleberg	佩勒贝格
+Peronne	佩罗讷
+Petsamo	佩察莫
+Piacenza	皮亚琴察
+Pieksamaki	皮耶克赛迈基
+Piest'any	皮耶什佳尼
 Pilsen	比尔森	t
 Pinnow	平诺	t
-Plattling	普拉特灵	t
-Ploujean-Morlaix	普卢让-莫尔莱	t
-Pocking	波金	t
+Plattling	普拉特灵
+Ploujean-Morlaix	普卢让-莫尔莱
+Pocking	波金
 Poissy	普瓦西	t
-Poix-Nord	普瓦北	t
-Pomezia	波梅齐亚	t
-Pommernland	波美拉尼亚	t
-Pomssen	波姆森	t
-Pontoise	蓬图瓦兹	t
+Poix-Nord	普瓦北
+Pomezia	波梅齐亚
+Pommernland	波美拉尼亚
+Pomssen	波姆森
+Pontoise	蓬图瓦兹
 Pori	波里	t
-Potsdam	波茨坦	t
-Prenzlau	普伦茨劳	t
+Potsdam	波茨坦
+Prenzlau	普伦茨劳
 Prerau	普热罗夫	t
-Prossnitz	普罗斯捷约夫	t
-Provence	普罗旺斯	t
-Przasnysz	普扎斯内什	t
+Prossnitz	普罗斯捷约夫
+Provence	普罗旺斯
+Przasnysz	普扎斯内什
 PsD'	PsD	t
-Puettnitz	皮特尼茨	t
-Puumala	普马拉	t
-Pyrzowice	皮尔佐维采	t
-Quakenbrueck	夸肯布吕克	t
-Rackheath	拉克希思	t
-Ramsbury	拉姆斯伯里	t
-Reghaia	雷加亚	t
+Puettnitz	皮特尼茨
+Puumala	普马拉
+Pyrzowice	皮尔佐维采
+Quakenbrueck	夸肯布吕克
+Rackheath	拉克希思
+Ramsbury	拉姆斯伯里
+Reghaia	雷加亚
 Reghin	雷京	t
 Rieti	列蒂	t
-Roborough	罗伯勒	t
+Roborough	罗伯勒
 Ronchi	龙基	t
 Ropsha	罗普沙	t
-Roslaval	罗斯拉夫尔	t
+Roslaval	罗斯拉夫尔
 Ross	罗斯	t
-Rossosh	罗索什	t
+Rossosh	罗索什
 Rovno	罗夫诺	t
 Ruza	鲁扎	t
-Rybinsk	雷宾斯克	t
+Rybinsk	雷宾斯克
 Raab	拉布	t
-Radczki	拉德奇基	t
+Radczki	拉德奇基
 Radom	拉多姆	t
-Raegner	雷格纳	t
-Rambouillet	朗布依埃	t
-Rathenow	拉特诺	t
-Rechlin	雷希林	t
+Raegner	雷格纳
+Rambouillet	朗布依埃
+Rathenow	拉特诺
+Rechlin	雷希林
 Redlin	雷德林	t
-Regensburg	雷根斯堡	t
-Reichenberg	赖兴贝格	t
+Regensburg	雷根斯堡
+Reichenberg	赖兴贝格
 Reims	兰斯	t
-Reinfeld	赖恩费尔德	t
-Reinsehlen	赖恩塞伦	t
+Reinfeld	赖恩费尔德
+Reinsehlen	赖恩塞伦
 Rennes	雷恩	t
 Rerik	雷里克	t
-Rhein-Main	莱茵-美因	t
+Rhein-Main	莱茵-美因
 Rheine	赖讷	t
-Richtenberg	里希滕贝格	t
+Richtenberg	里希滕贝格
 Riesa	里萨	t
-Riihimaki	里希迈基	t
+Riihimaki	里希迈基
 Rochau	罗豪	t
-Rogozno	罗戈兹诺	t
+Rogozno	罗戈兹诺
 Roman	罗曼	t
-Romilly-sur-Seine	塞纳河畔罗米伊	t
-Romorantin-Pruniers	罗莫朗坦-普吕尼耶	t
-Rosieres-en-Santerre	桑泰尔地区罗西耶尔	t
-Rosiorii	罗希奥里	t
-Rotenburg	罗滕堡	t
-Rothwesten	罗特韦斯滕	t
-Rovaniemi	罗瓦涅米	t
-Roye-Amy	鲁瓦阿米	t
+Romilly-sur-Seine	塞纳河畔罗米伊
+Romorantin-Pruniers	罗莫朗坦-普吕尼耶
+Rosieres-en-Santerre	桑泰尔地区罗西耶尔
+Rosiorii	罗希奥里
+Rotenburg	罗滕堡
+Rothwesten	罗特韦斯滕
+Rovaniemi	罗瓦涅米
+Roye-Amy	鲁瓦阿米
 Ruzyn	鲁津	t
-Rzeszow	热舒夫	t
+Rzeszow	热舒夫
 Saki	萨基	t
-Salsola	萨尔索拉	t
+Salsola	萨尔索拉
 Sambor	桑博尔	t
-Sardinia	撒丁岛	t
-Sawbridgeworth	索布里奇沃思	t
-Scalabrino'	斯卡拉布里诺	t
+Sardinia	撒丁岛
+Sawbridgeworth	索布里奇沃思
+Scalabrino'	斯卡拉布里诺
 Scalea	斯卡莱亚	t
-Scampton	斯坎普顿	t
-Schigry	希格雷	t
-Schuchin	舒钦	t
-Scorton	斯科顿	t
-Seething	西辛	t
-Seregelyes	塞雷盖耶什	t
-Serraggia	塞拉贾	t
+Scampton	斯坎普顿
+Schigry	希格雷
+Schuchin	舒钦
+Scorton	斯科顿
+Seething	西辛
+Seregelyes	塞雷盖耶什
+Serraggia	塞拉贾
 Setif	塞提夫	t
-Severomorsk	北莫尔斯克	t
+Severomorsk	北莫尔斯克
 Sfax	斯法克斯	t
-Shakhty	沙赫特	t
-Shepetovka	舍佩托夫卡	t
-Siauliai	希奥利艾	t
-Simonwniki	西蒙夫尼基	t
+Shakhty	沙赫特
+Shepetovka	舍佩托夫卡
+Siauliai	希奥利艾
+Simonwniki	西蒙夫尼基
 Sirte	苏尔特	t
-Siversky	西韦尔斯基	t
-Skeabrae	斯基布雷	t
-Skidzyel	斯基杰利	t
+Siversky	西韦尔斯基
+Skeabrae	斯基布雷
+Skidzyel	斯基杰利
 Snaith	斯奈思	t
 Soltsy	索利齐	t
-Southend	绍森德	t
-Southwestern	西南	t
-St.Eval	圣埃瓦尔	t
+Southend	绍森德
+Southwestern	西南
+St.Eval	圣埃瓦尔
 Stabna	斯塔布纳	t
-Stanislav	斯坦尼斯拉夫	t
-Staritsa	斯塔里察	t
-Starokonstantinov	旧康斯坦丁诺夫	t
-Starzawa	斯塔扎瓦	t
-Stavropol	斯塔夫罗波尔	t
-Stiftskaserne	施蒂夫特兵营	t
-Strigovo	斯特里戈沃	t
+Stanislav	斯坦尼斯拉夫
+Staritsa	斯塔里察
+Starokonstantinov	旧康斯坦丁诺夫
+Starzawa	斯塔扎瓦
+Stavropol	斯塔夫罗波尔
+Stiftskaserne	施蒂夫特兵营
+Strigovo	斯特里戈沃
 Stryi	斯特雷	t
 Sud'	Sud	t
-Sudbury	萨德伯里	t
-Sukhumi	苏呼米	t
-Swannington	斯旺宁顿	t
-Swinderby	斯温德比	t
-Syerston	赛尔斯顿	t
+Sudbury	萨德伯里
+Sukhumi	苏呼米
+Swannington	斯旺宁顿
+Swinderby	斯温德比
+Syerston	赛尔斯顿
 Sylt	叙尔特	t
 Szeged	塞格德	t
-Szekesfehervar	塞克什白堡	t
-Szolnok	索尔诺克	t
-Szombathely	松博特海伊	t
-Saalbach	萨尔巴赫	t
-Saaristomeri	群岛海	t
+Szekesfehervar	塞克什白堡
+Szolnok	索尔诺克
+Szombathely	松博特海伊
+Saalbach	萨尔巴赫
+Saaristomeri	群岛海
 Saatz	萨茨	t
 Sachau	萨豪	t
-Saint-Jean-d'Angely	圣让当热利	t
-Salmijarvi	萨尔米耶尔维	t
-Salon-de-Provence	普罗旺斯地区萨隆	t
-Salzburg	萨尔茨堡	t
-Salzgitter	萨尔茨吉特	t
-Salzwedel	萨尔茨韦德尔	t
-Sandhofen	桑德霍芬	t
-Schaffen	沙芬	t
-Schafstaedt	沙夫施泰特	t
-Scheppern	谢珀恩	t
-Schippenbeil	希彭拜尔	t
-Schleissheim	施莱斯海姆	t
-Schlesien	西里西亚	t
-Schleswig	石勒苏益格	t
-Schmalz	施马尔茨	t
-Schoenefeld	舍讷费尔德	t
-Schoenwalde	舍恩瓦尔德	t
-Schongau	雄高	t
-Schwaebischall	施韦比施哈尔	t
-Schwaighofen	施魏格霍芬	t
-Schwechat	施韦夏特	t
-Schweinfurt	施韦因富特	t
-Schwerin	什未林	t
-Sculeni	斯库莱尼	t
-Selanpaa	塞兰帕	t
-Sibenik	希贝尼克	t
-Siberia	西伯利亚	t
+Saint-Jean-d'Angely	圣让当热利
+Salmijarvi	萨尔米耶尔维
+Salon-de-Provence	普罗旺斯地区萨隆
+Salzburg	萨尔茨堡
+Salzgitter	萨尔茨吉特
+Salzwedel	萨尔茨韦德尔
+Sandhofen	桑德霍芬
+Schaffen	沙芬
+Schafstaedt	沙夫施泰特
+Scheppern	谢珀恩
+Schippenbeil	希彭拜尔
+Schleissheim	施莱斯海姆
+Schlesien	西里西亚
+Schleswig	石勒苏益格
+Schmalz	施马尔茨
+Schoenefeld	舍讷费尔德
+Schoenwalde	舍恩瓦尔德
+Schongau	雄高
+Schwaebischall	施韦比施哈尔
+Schwaighofen	施魏格霍芬
+Schwechat	施韦夏特
+Schweinfurt	施韦因富特
+Schwerin	什未林
+Sculeni	斯库莱尼
+Selanpaa	塞兰帕
+Sibenik	希贝尼克
+Siberia	西伯利亚
 Sibiu	锡比乌	t
 Sicilian	西西里
-Siedlce	谢德尔采	t
-Siikakangas	西卡坎加斯	t
+Siedlce	谢德尔采
+Siikakangas	西卡坎加斯
 Skopje	斯科普里	t
-Skrydstrup	斯克里德斯楚普	t
-Skutsch	斯库奇	t
+Skrydstrup	斯克里德斯楚普
+Skutsch	斯库奇
 Sorau	索劳	t
-Soucelles	苏塞勒	t
+Soucelles	苏塞勒
 Speyer	施派尔	t
-St-Andre-de-l'Eure	圣安德烈德勒尔	t
-St-Valery-en-Caux	科地区圣瓦勒里	t
-Staaken	施塔肯	t
+St-Andre-de-l'Eure	圣安德烈德勒尔
+St-Valery-en-Caux	科地区圣瓦勒里
+Staaken	施塔肯
 Stade	施塔德	t
-Starawies	斯塔拉维斯	t
-Stargard	施塔尔加德	t
-Steenwijk	斯滕韦克	t
-Stefanesti	什特凡内什蒂	t
-Stendal	施滕达尔	t
-Stoermede	施特尔梅德	t
-Straubing	施特劳宾	t
-Strausberg	施特劳斯贝格	t
-Strehla	施特雷拉	t
-Suwalki	苏瓦乌基	t
-Tabarka	塔巴尔卡	t
-Taganrog	塔甘罗格	t
-Tamanskaya	塔曼斯卡亚	t
-Tanakajd	陶纳卡伊德	t
-Tangmere	坦米尔	t
-Tarnopol	塔尔诺波尔	t
-Tarquinia	塔尔奎尼亚	t
+Starawies	斯塔拉维斯
+Stargard	施塔尔加德
+Steenwijk	斯滕韦克
+Stefanesti	什特凡内什蒂
+Stendal	施滕达尔
+Stoermede	施特尔梅德
+Straubing	施特劳宾
+Strausberg	施特劳斯贝格
+Strehla	施特雷拉
+Suwalki	苏瓦乌基
+Tabarka	塔巴尔卡
+Taganrog	塔甘罗格
+Tamanskaya	塔曼斯卡亚
+Tanakajd	陶纳卡伊德
+Tangmere	坦米尔
+Tarnopol	塔尔诺波尔
+Tarquinia	塔尔奎尼亚
 Tartu	塔尔图	t
-Tatsinskaya	塔钦斯卡亚	t
-Tempsford	坦普斯福德	t
+Tatsinskaya	塔钦斯卡亚
+Tempsford	坦普斯福德
 Tenes	特内斯	t
 Teplik	捷普利克	t
-Terijoki	捷里约基	t
-Termini	特尔米尼	t
-Thruxton	思拉克斯顿	t
-Tiemcen	提姆森	t
-Tikshozero	季克绍泽罗	t
-Tiraspol	蒂拉斯波尔	t
+Terijoki	捷里约基
+Termini	特尔米尼
+Thruxton	思拉克斯顿
+Tiemcen	提姆森
+Tikshozero	季克绍泽罗
+Tiraspol	蒂拉斯波尔
 Tokol	托科尔	t
-Tolemaide	托勒迈德	t
-Torrazzo	托拉佐	t
+Tolemaide	托勒迈德
+Torrazzo	托拉佐
 Toulon	土伦	t
-Transbaikal	外贝加尔	t
+Transbaikal	外贝加尔
 Travo	特拉沃	t
-Trembovlya	特伦博夫利亚	t
-Treviso	特雷维索	t
-Tricesimo	特里切西莫	t
-Tripoli	的黎波里	t
-Tuddenham	塔登纳姆	t
+Trembovlya	特伦博夫利亚
+Treviso	特雷维索
+Tricesimo	特里切西莫
+Tripoli	的黎波里
+Tuddenham	塔登纳姆
 Tukums	图库姆斯	t
-Tuleblya	图列布利亚	t
-Turnhouse	特恩豪斯	t
-Taivalkoski	泰瓦尔科斯基	t
-Tandarei	坦达雷	t
+Tuleblya	图列布利亚
+Turnhouse	特恩豪斯
+Taivalkoski	泰瓦尔科斯基
+Tandarei	坦达雷
 Tatra	塔特拉	t
 Tecuci	泰库奇	t
-Tescani	泰斯坎	t
-Thessalonki	塞萨洛尼基	t
-Tilburg	蒂尔堡	t
+Tescani	泰斯坎
+Thessalonki	塞萨洛尼基
+Tilburg	蒂尔堡
 Tille	蒂耶	t
 Tilsit	蒂尔西特	t
-Timisoara	蒂米什瓦拉	t
+Timisoara	蒂米什瓦拉
 Tirane	地拉那	t
-Tonndorf	通多夫	t
+Tonndorf	通多夫
 Torn	托伦	t
 Torun	托伦	t
 Toul	图勒	t
-Toulouse	图卢兹	t
+Toulouse	图卢兹
 Tours	图尔	t
-Trencin	特伦钦	t
-Treuenbrietzen	特罗伊恩布里岑	t
-Tricqueville	特里屈维尔	t
+Trencin	特伦钦
+Treuenbrietzen	特罗伊恩布里岑
+Tricqueville	特里屈维尔
 Trier	特里尔	t
-Tripolis	的黎波里	t
+Tripolis	的黎波里
 Tromso	特罗姆瑟	t
 Tudora	图多拉	t
 Tulln	图尔恩	t
@@ -7916,407 +7916,407 @@ Uman	乌曼	t
 Ungvar	翁格瓦尔	t
 Upwood	阿普伍德	t
 Uzyn	乌津	t
-Uetersen	于特森	t
-Unterschlauersbach	下施劳尔斯巴赫	t
+Uetersen	于特森
+Unterschlauersbach	下施劳尔斯巴赫
 Urals	乌拉尔	t
 Ursel	于尔塞尔	t
-Utrecht	乌得勒支	t
+Utrecht	乌得勒支
 Utti	乌蒂	t
-Uusimaa	新地	t
-Valletta	瓦莱塔	t
+Uusimaa	新地
+Valletta	瓦莱塔
 Valley	瓦利	t
-Valmera	瓦尔梅拉	t
+Valmera	瓦尔梅拉
 Varena	瓦雷纳	t
-Varvarivka	瓦尔瓦里夫卡	t
-Vasilkov	瓦西里科夫	t
-Vaziani	瓦济阿尼	t
-Venegono	韦内戈诺	t
-Ventspils	文茨皮尔斯	t
+Varvarivka	瓦尔瓦里夫卡
+Vasilkov	瓦西里科夫
+Vaziani	瓦济阿尼
+Venegono	韦内戈诺
+Ventspils	文茨皮尔斯
 Verona	维罗纳	t
 Vesces	韦斯采斯	t
-Veszprem	维斯普雷姆	t
-Victoria	维多利亚	t
-Villaorba	维拉奥尔巴	t
-Vinnitsa	文尼察	t
-Vitebsk	维捷布斯克	t
-Vnukovo	伏努科沃	t
-Volchansk	沃尔昌斯克	t
-Voroshilovgrav	伏罗希洛夫格勒	t
-Voznesensk	沃兹涅先斯克	t
+Veszprem	维斯普雷姆
+Victoria	维多利亚
+Villaorba	维拉奥尔巴
+Vinnitsa	文尼察
+Vitebsk	维捷布斯克
+Vnukovo	伏努科沃
+Volchansk	沃尔昌斯克
+Voroshilovgrav	伏罗希洛夫格勒
+Voznesensk	沃兹涅先斯克
 Vyazma	维亚济马	t
 Vyborg	维堡	t
 Várpalota	瓦尔帕洛塔
-Vailly-sur-Aisne	艾讷河畔瓦伊	t
-Valence	瓦朗斯	t
-Valenciennes	瓦朗谢讷	t
-Valkenburg	法尔肯堡	t
+Vailly-sur-Aisne	艾讷河畔瓦伊
+Valence	瓦朗斯
+Valenciennes	瓦朗谢讷
+Valkenburg	法尔肯堡
 Vandel	万德尔	t
 Vannes	瓦讷	t
-Varades	瓦拉德	t
-Varrelbusch	法雷尔布施	t
+Varades	瓦拉德
+Varrelbusch	法雷尔布施
 Vechta	费希塔	t
 Venlo	芬洛	t
 Verden	费尔登	t
-Versailles	凡尔赛	t
-Vesivehmaa	韦西韦赫马	t
-Villacidro	维拉奇德罗	t
-Villacoublay	维拉库布莱	t
-Villeneuve	维勒讷沃	t
-Viterbo	维泰博	t
-Vitry-en-Artois	阿图瓦地区维特里	t
-Voerden	弗尔登	t
-Vogelsang	福格尔桑	t
+Versailles	凡尔赛
+Vesivehmaa	韦西韦赫马
+Villacidro	维拉奇德罗
+Villacoublay	维拉库布莱
+Villeneuve	维勒讷沃
+Viterbo	维泰博
+Vitry-en-Artois	阿图瓦地区维特里
+Voerden	弗尔登
+Vogelsang	福格尔桑
 Volkel	福尔克尔	t
 Vuotso	武奥措	t
-Waddington	沃丁顿	t
-Warmwell	沃姆韦尔	t
-Wattisham	沃蒂舍姆	t
+Waddington	沃丁顿
+Warmwell	沃姆韦尔
+Wattisham	沃蒂舍姆
 Watton	沃顿	t
-Wendling	温德灵	t
-Westhampnett	韦斯特汉普内特	t
+Wendling	温德灵
+Westhampnett	韦斯特汉普内特
 Wick	威克	t
-Wickenby	威肯比	t
-Wilhelmsburg	威廉斯堡	t
-Wilhelmshaven	威廉港	t
-Witchford	维奇福德	t
-Wittering	维特灵	t
-Witthoft	维特霍夫特	t
-Wrexham	雷克瑟姆	t
+Wickenby	威肯比
+Wilhelmsburg	威廉斯堡
+Wilhelmshaven	威廉港
+Witchford	维奇福德
+Wittering	维特灵
+Witthoft	维特霍夫特
+Wrexham	雷克瑟姆
 Wyton	怀顿	t
-Waasmunster	瓦斯蒙斯特	t
-Wadowice	瓦多维采	t
+Waasmunster	瓦斯蒙斯特
+Wadowice	瓦多维采
 Wels	韦尔斯	t
 Welzow	韦尔措	t
 Werl	韦尔	t
-Werneuchen	韦尔诺伊兴	t
-Wesendorf	韦森多夫	t
-Wiesbaden	威斯巴登	t
-Wischau	维绍	t
-Wittenweier	维滕魏尔	t
-Wittstock	维特施托克	t
-Woensdrecht	翁斯德雷赫特	t
-Wolferbach	沃尔费尔巴赫	t
-Wolkersdorf	沃尔克斯多夫	t
-Wormditt	沃尔姆迪特	t
-Wuerzburg	维尔茨堡	t
-Wunstorf	文斯托夫	t
-Yarmolnitsy	亚尔莫尔尼齐	t
-Yerevan	埃里温	t
-Yukhnov	尤赫诺夫	t
-Zabludow	扎布卢多夫	t
-Zambrow	赞布鲁夫	t
-Zhitomir	日托米尔	t
-Zhodzina	若季诺	t
+Werneuchen	韦尔诺伊兴
+Wesendorf	韦森多夫
+Wiesbaden	威斯巴登
+Wischau	维绍
+Wittenweier	维滕魏尔
+Wittstock	维特施托克
+Woensdrecht	翁斯德雷赫特
+Wolferbach	沃尔费尔巴赫
+Wolkersdorf	沃尔克斯多夫
+Wormditt	沃尔姆迪特
+Wuerzburg	维尔茨堡
+Wunstorf	文斯托夫
+Yarmolnitsy	亚尔莫尔尼齐
+Yerevan	埃里温
+Yukhnov	尤赫诺夫
+Zabludow	扎布卢多夫
+Zambrow	赞布鲁夫
+Zhitomir	日托米尔
+Zhodzina	若季诺
 Zubovo	祖博沃	t
 Zvody	兹沃德	t
 Ypres	伊普尔	t
 Zamosc	扎莫希奇	t
 Zeist	宰斯特	t
-Zellhausen	采尔豪森	t
+Zellhausen	采尔豪森
 Zerbst	采尔布斯特	t
-Ziegenhain	齐根海因	t
+Ziegenhain	齐根海因
 Zilina	日利纳	t
-Zilistea	齐利什泰亚	t
+Zilistea	齐利什泰亚
 Zvolen	兹沃伦	t
-Zwischenahn	茨维申纳	t
+Zwischenahn	茨维申纳
 USSTAF	USSTAF	t
 SHAEF	SHAEF	t
 STAVKA	STAVKA	t
 OKW	OKW	t
 RAP	RAP	t
 MG-Ski	机枪滑雪营	t
-Reggio Calabria	雷焦卡拉布里亚	t
-Al Khums	胡姆斯	t
-Arlena di Castro	阿尔莱纳迪卡斯特罗	t
-Baglio Rizzo	巴利奥里佐	t
-Belaya Tserkov	白采尔科维	t
-Bely Kolodes	别雷科洛杰兹	t
-Biggin Hill	比金山	t
-Bolshiye Shiraki	大希拉基	t
-Bury St Edmunds	贝里圣埃德蒙兹	t
-Castiglione del Lago	卡斯蒂廖内德尔拉戈	t
-Castle Archdale	阿奇代尔堡	t
-Castle Camps	坎普斯堡	t
-Causeway LG	堤道 LG	t
-Chipping Ongar	奇平昂加	t
-Church Fenton	彻奇芬顿	t
-Cisterna di Littoria	奇斯泰尔纳迪利托里亚	t
-Down Ampney	唐安普尼	t
-Earls Colne	厄尔斯科恩	t
-El Djem	杰姆	t
-Fabrica di Roma	罗马法布里卡	t
-Foiana della Chiana	基亚纳河畔福亚纳	t
-Fort Douaumont	杜奥蒙堡	t
-Fort Kronprinz	皇储堡	t
-Fort de Koeningsmacker	柯尼希斯马克堡	t
-Gioia del Colle	焦亚德尔科莱	t
-Grafton Underwood	格拉夫顿安德伍德	t
-Great Massingham	大马辛厄姆	t
-Hadju Boszormeny	豪伊杜博瑟尔梅尼	t
-Hartford Bridge	哈特福德桥	t
-High Ercall	海厄考尔	t
-Hutton Cranswick	赫顿克兰斯威克	t
-King's Lynn	金斯林	t
-Kirton-in Lindsey	林齐地区柯顿	t
-Korovye Selo	科罗维耶村	t
-Krivoi Rog	克里沃伊罗格	t
-La Marsa	拉马尔萨	t
-La Rochelle	拉罗谢尔	t
-La Sebala	拉塞巴拉	t
-Le Havre	勒阿弗尔	t
-Lido di Roma	罗马海滨	t
-Lonate Pozzolo	洛纳泰波佐洛	t
-Maison Blanche	白屋	t
-Mala Vyska	小维斯卡	t
-Mers el Kebir	凯比尔港	t
-Middle Wallop	中沃洛普	t
-Middleton St. George	米德尔顿圣乔治	t
-Mineralnye Vody	矿水城	t
-Needs Oar Point	尼兹奥尔角	t
-North Coates	北科茨	t
-North Creake	北克里克	t
-North Weald	北韦尔德	t
-Ouvrage Hackenberg	哈肯贝格工事	t
-Piazzolla di Nola	诺拉皮亚佐拉	t
-Poggio Renatico	波焦雷纳蒂科	t
-Ponte Olivo	橄榄桥	t
-Porto Vecchio	韦基奥港	t
-Reggio Emilia	雷焦艾米利亚	t
-Sa Zeppara	萨泽帕拉	t
-Settore Librazhd	利布拉日地段	t
-Souk el Arba	苏克阿尔巴	t
-Souk el Khemis	苏克赫米斯	t
-St. Laszlo	圣拉斯洛	t
-St. Nazaire	圣纳泽尔	t
-Staraya Russa	旧鲁萨	t
-Stary Oskol	旧奥斯科尔	t
-Swanton Morley	斯旺顿莫利	t
-Tarrant Rushton	塔伦特勒什顿	t
-Thorney Island	索尼岛	t
-Tizi Ouzou	提济乌祖	t
-Upper Heyford	上海福德	t
-West Malling	西莫灵	t
-West Raynham	西雷纳姆	t
-Weston Zoyland	韦斯顿佐伊兰	t
-Aulnay sous Bois	欧奈苏布瓦	t
-Bad Duerrheim	巴德迪尔海姆	t
-Bad Langensalza	巴德朗根萨尔察	t
-Bad Woerishofen	巴德韦里斯霍芬	t
-Beauvechain/Le Culot	博沃尚/勒屈洛	t
-Biala Podlaska	比亚瓦波德拉斯卡	t
-Bryas Sud	南布里亚	t
-Den Helder	登海尔德	t
-Deutsch Brod	德意志布罗德	t
-Ft. Rouge	鲁日堡	t
-La Fere	拉费尔	t
-La Jasse	拉雅斯	t
-Le Mans	勒芒	t
-Neuberg an der Donau	多瑙河畔诺伊堡	t
-Neuhausen ob Eck	埃克河畔诺伊豪森	t
-Nicolae Balcescu	尼古拉伯尔切斯库	t
-Nova Ves	新村	t
-Palermo 'N'	巴勒莫 N	t
-Popesti Leordeni	波佩什蒂莱奥尔代尼	t
-Prien am Chiemsee	基姆湖畔普林	t
-Radzyn Podlaski	拉曾波德拉斯基	t
-Ramnicu Sarat	勒姆尼库瑟拉特	t
-San Severo	圣塞韦罗	t
-San Vito Dei Normanni	圣维托德伊诺尔曼尼	t
-Sint Niklas	圣尼克拉斯	t
-St Brieuc	圣布里厄	t
-St Dizier	圣迪济耶	t
-St. Martin	圣马丁	t
-St. Trond	圣特龙	t
-Targu Frumos	特尔古弗鲁莫斯	t
-The Hague	海牙	t
-Tomaszow Lubelski	托马舒夫卢贝尔斯基	t
-Vibo Valentia	维博瓦伦蒂亚	t
-French Volunteer	法国志愿兵	t
-Fuhrer Begleit	元首护卫队	t
-Fuhrer Grenadier	元首掷弹兵	t
-Groupe d'Afrique	非洲集群	t
-Hermann Goering	赫尔曼·戈林	t
-II 'Folgore'	第二「闪电」	t
-III 'Azzurro'	第三「蓝色」	t
-Lovat Scouts	洛瓦特侦察队	t
-Naval 'San Marco'	海军「圣马可」	t
-Princess Irene	伊雷妮公主	t
-Regia Aeronautica	皇家空军	t
-de Choc	突击	t
-de France	法兰西	t
-Group de Canoniers-Marins	海军炮手集群	t
-Inns of Court	律师学院	t
-Ital. Southeast	意大利东南	t
-Ligurian (Zangen)	利古里亚（灿根）	t
-Luftwaffen. Mitte	空军中部	t
-OB Southeast	东南战区司令部	t
-RAF HQ	皇家空军司令部	t
-Rome Defense	罗马防御	t
-Svenska FB	瑞典志愿军	t
-UK Home Forces HQ	英国本土部队司令部	t
-WMBef. Belgium	西线指挥部比利时	t
-WMBef. France	西线指挥部法国	t
-WMBef. Holland	西线指挥部荷兰	t
-Luftflotte 3	第3航空队	t
-Luftflotte 5	第5航空队	t
-LW Kdo Kirkenes	空军希尔克内斯指挥部	t
-No. 6 Group RCAF	加拿大皇家空军第6联队	t
-No. 8 (PFF) Group RAF	皇家空军第8（探路）联队	t
-No. 216 Air Tpt & Ferry Group RAF	皇家空军第216空运与渡运联队	t
-13th 'Re'	第13「Re」	t
-1st CA-	第1 CA-	t
-zbV 40th	特设第40	t
-zbV 66th	特设第66	t
-zbV 752nd	特设第752	t
-Steinbauer Georg.	施泰因鲍尔·格奥尔格	t
-von Werthern	冯·韦特恩	t
-Abbeville	阿布维尔	t
+Reggio Calabria	雷焦卡拉布里亚
+Al Khums	胡姆斯
+Arlena di Castro	阿尔莱纳迪卡斯特罗
+Baglio Rizzo	巴利奥里佐
+Belaya Tserkov	白采尔科维
+Bely Kolodes	别雷科洛杰兹
+Biggin Hill	比金山
+Bolshiye Shiraki	大希拉基
+Bury St Edmunds	贝里圣埃德蒙兹
+Castiglione del Lago	卡斯蒂廖内德尔拉戈
+Castle Archdale	阿奇代尔堡
+Castle Camps	坎普斯堡
+Causeway LG	堤道 LG
+Chipping Ongar	奇平昂加
+Church Fenton	彻奇芬顿
+Cisterna di Littoria	奇斯泰尔纳迪利托里亚
+Down Ampney	唐安普尼
+Earls Colne	厄尔斯科恩
+El Djem	杰姆
+Fabrica di Roma	罗马法布里卡
+Foiana della Chiana	基亚纳河畔福亚纳
+Fort Douaumont	杜奥蒙堡
+Fort Kronprinz	皇储堡
+Fort de Koeningsmacker	柯尼希斯马克堡
+Gioia del Colle	焦亚德尔科莱
+Grafton Underwood	格拉夫顿安德伍德
+Great Massingham	大马辛厄姆
+Hadju Boszormeny	豪伊杜博瑟尔梅尼
+Hartford Bridge	哈特福德桥
+High Ercall	海厄考尔
+Hutton Cranswick	赫顿克兰斯威克
+King's Lynn	金斯林
+Kirton-in Lindsey	林齐地区柯顿
+Korovye Selo	科罗维耶村
+Krivoi Rog	克里沃伊罗格
+La Marsa	拉马尔萨
+La Rochelle	拉罗谢尔
+La Sebala	拉塞巴拉
+Le Havre	勒阿弗尔
+Lido di Roma	罗马海滨
+Lonate Pozzolo	洛纳泰波佐洛
+Maison Blanche	白屋
+Mala Vyska	小维斯卡
+Mers el Kebir	凯比尔港
+Middle Wallop	中沃洛普
+Middleton St. George	米德尔顿圣乔治
+Mineralnye Vody	矿水城
+Needs Oar Point	尼兹奥尔角
+North Coates	北科茨
+North Creake	北克里克
+North Weald	北韦尔德
+Ouvrage Hackenberg	哈肯贝格工事
+Piazzolla di Nola	诺拉皮亚佐拉
+Poggio Renatico	波焦雷纳蒂科
+Ponte Olivo	橄榄桥
+Porto Vecchio	韦基奥港
+Reggio Emilia	雷焦艾米利亚
+Sa Zeppara	萨泽帕拉
+Settore Librazhd	利布拉日地段
+Souk el Arba	苏克阿尔巴
+Souk el Khemis	苏克赫米斯
+St. Laszlo	圣拉斯洛
+St. Nazaire	圣纳泽尔
+Staraya Russa	旧鲁萨
+Stary Oskol	旧奥斯科尔
+Swanton Morley	斯旺顿莫利
+Tarrant Rushton	塔伦特勒什顿
+Thorney Island	索尼岛
+Tizi Ouzou	提济乌祖
+Upper Heyford	上海福德
+West Malling	西莫灵
+West Raynham	西雷纳姆
+Weston Zoyland	韦斯顿佐伊兰
+Aulnay sous Bois	欧奈苏布瓦
+Bad Duerrheim	巴德迪尔海姆
+Bad Langensalza	巴德朗根萨尔察
+Bad Woerishofen	巴德韦里斯霍芬
+Beauvechain/Le Culot	博沃尚/勒屈洛
+Biala Podlaska	比亚瓦波德拉斯卡
+Bryas Sud	南布里亚
+Den Helder	登海尔德
+Deutsch Brod	德意志布罗德
+Ft. Rouge	鲁日堡
+La Fere	拉费尔
+La Jasse	拉雅斯
+Le Mans	勒芒
+Neuberg an der Donau	多瑙河畔诺伊堡
+Neuhausen ob Eck	埃克河畔诺伊豪森
+Nicolae Balcescu	尼古拉伯尔切斯库
+Nova Ves	新村
+Palermo 'N'	巴勒莫 N
+Popesti Leordeni	波佩什蒂莱奥尔代尼
+Prien am Chiemsee	基姆湖畔普林
+Radzyn Podlaski	拉曾波德拉斯基
+Ramnicu Sarat	勒姆尼库瑟拉特
+San Severo	圣塞韦罗
+San Vito Dei Normanni	圣维托德伊诺尔曼尼
+Sint Niklas	圣尼克拉斯
+St Brieuc	圣布里厄
+St Dizier	圣迪济耶
+St. Martin	圣马丁
+St. Trond	圣特龙
+Targu Frumos	特尔古弗鲁莫斯
+The Hague	海牙
+Tomaszow Lubelski	托马舒夫卢贝尔斯基
+Vibo Valentia	维博瓦伦蒂亚
+French Volunteer	法国志愿兵
+Fuhrer Begleit	元首护卫队
+Fuhrer Grenadier	元首掷弹兵
+Groupe d'Afrique	非洲集群
+Hermann Goering	赫尔曼·戈林
+II 'Folgore'	第二「闪电」
+III 'Azzurro'	第三「蓝色」
+Lovat Scouts	洛瓦特侦察队
+Naval 'San Marco'	海军「圣马可」
+Princess Irene	伊雷妮公主
+Regia Aeronautica	皇家空军
+de Choc	突击
+de France	法兰西
+Group de Canoniers-Marins	海军炮手集群
+Inns of Court	律师学院
+Ital. Southeast	意大利东南
+Ligurian (Zangen)	利古里亚（灿根）
+Luftwaffen. Mitte	空军中部
+OB Southeast	东南战区司令部
+RAF HQ	皇家空军司令部
+Rome Defense	罗马防御
+Svenska FB	瑞典志愿军
+UK Home Forces HQ	英国本土部队司令部
+WMBef. Belgium	西线指挥部比利时
+WMBef. France	西线指挥部法国
+WMBef. Holland	西线指挥部荷兰
+Luftflotte 3	第3航空队
+Luftflotte 5	第5航空队
+LW Kdo Kirkenes	空军希尔克内斯指挥部
+No. 6 Group RCAF	加拿大皇家空军第6联队
+No. 8 (PFF) Group RAF	皇家空军第8（探路）联队
+No. 216 Air Tpt & Ferry Group RAF	皇家空军第216空运与渡运联队
+13th 'Re'	第13「Re」
+1st CA-	第1 CA-
+zbV 40th	特设第40
+zbV 66th	特设第66
+zbV 752nd	特设第752
+Steinbauer Georg.	施泰因鲍尔·格奥尔格
+von Werthern	冯·韦特恩
+Abbeville	阿布维尔
 Achiet	阿希耶	t
 Achmer	阿赫默	t
-Ahlhorn	阿尔霍恩	t
-Ailertchen	艾勒特兴	t
-Airasca	艾拉斯卡	t
-Aix-Les-Milles	艾克斯莱米勒	t
-Alencon	阿朗松	t
-Alkmaar	阿尔克马尔	t
-Allenstein	阿伦施泰因	t
-Alperstedt	阿尔珀施泰特	t
-Altenburg	阿尔滕堡	t
-Altenstadt	阿尔滕施塔特	t
+Ahlhorn	阿尔霍恩
+Ailertchen	艾勒特兴
+Airasca	艾拉斯卡
+Aix-Les-Milles	艾克斯莱米勒
+Alencon	阿朗松
+Alkmaar	阿尔克马尔
+Allenstein	阿伦施泰因
+Alperstedt	阿尔珀施泰特
+Altenburg	阿尔滕堡
+Altenstadt	阿尔滕施塔特
 Aquino	阿基诺	t
 Arad	阿拉德	t
 Araxos	阿拉克索斯	t
 Argos	阿尔戈斯	t
-Arkhangelsk	阿尔汉格尔斯克	t
+Arkhangelsk	阿尔汉格尔斯克
 Arnhem	阿纳姆	t
 Arys	阿里斯	t
-Aschaffenburg	阿沙芬堡	t
+Aschaffenburg	阿沙芬堡
 Athies	阿蒂	t
-Audembert	奥当贝尔	t
-Aulnay-aux-Planches	欧奈欧普朗什	t
-Avignon	阿维尼翁	t
+Audembert	奥当贝尔
+Aulnay-aux-Planches	欧奈欧普朗什
+Avignon	阿维尼翁
 Avord	阿沃尔	t
 Bacau	巴克乌	t
 Balice	巴利采	t
-Ballancourt-sur-Esonne	埃松河畔巴朗库尔	t
+Ballancourt-sur-Esonne	埃松河畔巴朗库尔
 Banak	巴纳克	t
-Barbarigo'	巴尔巴里戈	t
+Barbarigo'	巴尔巴里戈
 Barbo	巴尔博	t
-Bardufoss	巴杜福斯	t
+Bardufoss	巴杜福斯
 Barlad	伯尔拉德	t
-Beaumont	博蒙	t
+Beaumont	博蒙
 Beille	贝耶	t
-Beneschau	贝内绍夫	t
-Berck-sur-Mer	滨海贝尔克	t
-Bethune	贝蒂讷	t
-Billefjord	比勒峡湾	t
-Bircham Newton	伯彻姆牛顿	t
+Beneschau	贝内绍夫
+Berck-sur-Mer	滨海贝尔克
+Bethune	贝蒂讷
+Billefjord	比勒峡湾
+Bircham Newton	伯彻姆牛顿
 Bissel	比塞尔	t
 Blaj	布拉日	t
-Blumenfeld	布卢门费尔德	t
+Blumenfeld	布卢门费尔德
 Bodo	博德	t
-Boeblingen	伯布林根	t
-Boenninghardt	伯宁哈特	t
-Boguslaw	博古斯瓦夫	t
-Bolt Head	博尔特角	t
-Borkheide	博尔克海德	t
+Boeblingen	伯布林根
+Boenninghardt	伯宁哈特
+Boguslaw	博古斯瓦夫
+Bolt Head	博尔特角
+Borkheide	博尔克海德
 Boteni	博泰尼	t
-Botosani	博托沙尼	t
-Bottrop	博特罗普	t
-Bradwell Bay	布拉德韦尔湾	t
-Brandis	布兰迪斯	t
+Botosani	博托沙尼
+Bottrop	博特罗普
+Bradwell Bay	布拉德韦尔湾
+Brandis	布兰迪斯
 Brasov	布拉索夫	t
 Breda	布雷达	t
-Breitscheid	布赖特沙伊德	t
-Bretigny	布勒蒂尼	t
+Breitscheid	布赖特沙伊德
+Bretigny	布勒蒂尼
 Bruges	布鲁日	t
 Brunn	布吕恩	t
 Brux	布鲁克斯	t
-Budweis	布德韦斯	t
+Budweis	布德韦斯
 Buer	布尔	t
-Burbach	布尔巴赫	t
+Burbach	布尔巴赫
 Burg	堡	t
-Butzweilerhof	布茨魏勒霍夫	t
+Butzweilerhof	布茨魏勒霍夫
 Buzau	布泽乌	t
 Caen	卡昂	t
-Calarasi	克勒拉希	t
+Calarasi	克勒拉希
 Calden	卡尔登	t
 Calvi	卡尔维	t
-Cambrai	康布雷	t
-Campina	坎皮纳	t
-Caracal	卡拉卡尔	t
-Carmito'	卡尔米托	t
-Casabianda	卡萨比安达	t
+Cambrai	康布雷
+Campina	坎皮纳
+Caracal	卡拉卡尔
+Carmito'	卡尔米托
+Casabianda	卡萨比安达
 Cazaux	卡佐	t
 Celle	策勒	t
-Cerfontaines	塞尔方丹	t
-Chalon-sur-Saone	索恩河畔沙隆	t
-Champagne	香槟	t
-Charleroi	沙勒罗瓦	t
-Charleville	沙勒维尔	t
-Charmy Down	查米丘陵	t
-Chartres	沙特尔	t
-ChateauBernard	贝尔纳堡	t
-Chateaudun	沙托丹	t
-Chaumont	肖蒙	t
-Chievres	希耶夫尔	t
-Ciampino	钱皮诺	t
-Ciechanow	切哈努夫	t
-Clastres	克拉斯特尔	t
-Clermont-Ferrand	克莱蒙费朗	t
-Cogolin	科戈兰	t
-Cologne	科隆	t
+Cerfontaines	塞尔方丹
+Chalon-sur-Saone	索恩河畔沙隆
+Champagne	香槟
+Charleroi	沙勒罗瓦
+Charleville	沙勒维尔
+Charmy Down	查米丘陵
+Chartres	沙特尔
+ChateauBernard	贝尔纳堡
+Chateaudun	沙托丹
+Chaumont	肖蒙
+Chievres	希耶夫尔
+Ciampino	钱皮诺
+Ciechanow	切哈努夫
+Clastres	克拉斯特尔
+Clermont-Ferrand	克莱蒙费朗
+Cogolin	科戈兰
+Cologne	科隆
 Comiso	科米索	t
-Compiegne	贡比涅	t
-Conches	孔什	t
-Connantre	科南特尔	t
-Constanta	康斯坦察	t
-Corme-Ecluse	科尔姆埃克吕斯	t
-Cottbus	科特布斯	t
-Coulommiers	库洛米耶	t
-Couvron	库夫龙	t
+Compiegne	贡比涅
+Conches	孔什
+Connantre	科南特尔
+Constanta	康斯坦察
+Corme-Ecluse	科尔姆埃克吕斯
+Cottbus	科特布斯
+Coulommiers	库洛米耶
+Couvron	库夫龙
 Coxyde	科克西德	t
-Craiova	克拉约瓦	t
-Cramont	克拉蒙	t
+Craiova	克拉约瓦
+Cramont	克拉蒙
 Creil	克雷伊	t
-Deopham Green	迪普汉格林	t
-Elsham Wolds	埃尔舍姆丘陵	t
-Fairwood Common	费尔伍德公地	t
-Holme on Spalding Moor	斯波尔丁沼泽霍尔姆	t
-Holmsley South	南霍姆斯利	t
-Martlesham Heath	马特尔斯舍姆希思	t
-Snetterton Heath	斯内特顿希思	t
-Fort Chaberton/Vallo Alpino	沙贝通堡/阿尔卑斯防线	t
-Fort Jafferau/Vallo Alpino	雅弗罗堡/阿尔卑斯防线	t
-Freikorps Denmark	丹麦自由军团	t
-Italian Luftwaffe Command	意大利空军指挥部	t
-LW Kdo South East	空军东南指挥部	t
-LW Kommando West	空军西部指挥部	t
-Landstorm Nederland' SS	荷兰国民风暴党卫军	t
-Licata-Ravanusa' CCNN	利卡塔-拉瓦努萨黑衫军	t
-Long Range	远程	t
-Mediterranean Allied Air Force	地中海盟军空军	t
-Nederland SS	荷兰党卫军	t
-Netherlands SS	荷兰党卫军	t
-Neva OpGr	涅瓦河作战群	t
-Piazza Naval	皮亚扎海军	t
-Polizei SS	警察党卫军	t
+Deopham Green	迪普汉格林
+Elsham Wolds	埃尔舍姆丘陵
+Fairwood Common	费尔伍德公地
+Holme on Spalding Moor	斯波尔丁沼泽霍尔姆
+Holmsley South	南霍姆斯利
+Martlesham Heath	马特尔斯舍姆希思
+Snetterton Heath	斯内特顿希思
+Fort Chaberton/Vallo Alpino	沙贝通堡/阿尔卑斯防线
+Fort Jafferau/Vallo Alpino	雅弗罗堡/阿尔卑斯防线
+Freikorps Denmark	丹麦自由军团
+Italian Luftwaffe Command	意大利空军指挥部
+LW Kdo South East	空军东南指挥部
+LW Kommando West	空军西部指挥部
+Landstorm Nederland' SS	荷兰国民风暴党卫军
+Licata-Ravanusa' CCNN	利卡塔-拉瓦努萨黑衫军
+Long Range	远程
+Mediterranean Allied Air Force	地中海盟军空军
+Nederland SS	荷兰党卫军
+Netherlands SS	荷兰党卫军
+Neva OpGr	涅瓦河作战群
+Piazza Naval	皮亚扎海军
+Polizei SS	警察党卫军
 Rum. Combat	罗马尼亚战斗
-Schmidt Turkistani	施密特突厥斯坦	t
-Suippes School	叙普学校	t
-Vosendorf Alarm	福森多夫应急	t
-Wallonian SS	瓦隆党卫军	t
-XI LW Flieger	第11空军航空军	t
-CSIR Italian Air Bde	意大利远征军航空旅	t
-1 BAK	第1 BAK	t
-2 BAK	第2 BAK	t
-3 BAK	第3 BAK	t
-4 BAK	第4 BAK	t
-15th (AAI)	第15（AAI）	t
-503rd (FHH)	第503（FHH）	t
+Schmidt Turkistani	施密特突厥斯坦
+Suippes School	叙普学校
+Vosendorf Alarm	福森多夫应急
+Wallonian SS	瓦隆党卫军
+XI LW Flieger	第11空军航空军
+CSIR Italian Air Bde	意大利远征军航空旅
+1 BAK	第1 BAK
+2 BAK	第2 BAK
+3 BAK	第3 BAK
+4 BAK	第4 BAK
+15th (AAI)	第15（AAI）
+503rd (FHH)	第503（FHH）
 CARS	CARS	t
 CSIR	CSIR	t
-Andrews	安德鲁斯	t
+Andrews	安德鲁斯
 Angers	昂热	t
 Arenberg	阿伦贝格
 Autun	欧坦	t
@@ -8327,15 +8327,15 @@ Flieger	航空
 Tpt	运输	t
 Ferry	渡运	t
 &	与
-I/1st Sturm (266th)	I/第1突击（第266）	t
-I/2nd Sturm (I/20th)	I/第2突击（I/第20）	t
-II/1st Sturm (497th)	II/第1突击（第497）	t
-II/2nd Sturm (II/52nd)	II/第2突击（II/第52）	t
-II/3rd Sturm (II/22nd)	II/第3突击（II/第22）	t
-II/3rd Sturm (II/64th)	II/第3突击（II/第64）	t
-III/1st Sturm (90th)	III/第1突击（第90）	t
-III/2nd Sturm (80th)	III/第2突击（第80）	t
-III/3rd Sturm (84th)	III/第3突击（第84）	t
+I/1st Sturm (266th)	I/第1突击（第266）
+I/2nd Sturm (I/20th)	I/第2突击（I/第20）
+II/1st Sturm (497th)	II/第1突击（第497）
+II/2nd Sturm (II/52nd)	II/第2突击（II/第52）
+II/3rd Sturm (II/22nd)	II/第3突击（II/第22）
+II/3rd Sturm (II/64th)	II/第3突击（II/第64）
+III/1st Sturm (90th)	III/第1突击（第90）
+III/2nd Sturm (80th)	III/第2突击（第80）
+III/3rd Sturm (84th)	III/第3突击（第84）
 Mnt Div	山地师
 Mnt Division	山地师
 Mtn Div	山地师
@@ -9190,191 +9190,191 @@ BR Railway Const. Grp.	英国铁路建设群
 US Arm. Div	美国装甲师
 US Tank Destroyer Bn	美国坦克歼击营
 IT Cav Rgt	意大利骑兵团
-Belgium	比利时	t
-Netherlands	荷兰	t
+Belgium	比利时
+Netherlands	荷兰
 Poland	波兰	t
 USA	美国	t
-America	美国	t
-Britain	英国	t
+America	美国
+Britain	英国
 Canada	加拿大	t
 India	印度	t
-Australia	澳大利亚	t
-Free French	自由法国	t
-South Africa	南非	t
-WA Italy	西方盟国意大利	t
+Australia	澳大利亚
+Free French	自由法国
+South Africa	南非
+WA Italy	西方盟国意大利
 Brazil	巴西	t
-Commonwealth	英联邦	t
+Commonwealth	英联邦
 France	法国	t
-New Zealand	新西兰	t
-Morocco	摩洛哥	t
-Axis Generic	轴心通用	t
-Vichy France	维希法国	t
+New Zealand	新西兰
+Morocco	摩洛哥
+Axis Generic	轴心通用
+Vichy France	维希法国
 Sweden	瑞典	t
-Ireland	爱尔兰	t
-Iceland	冰岛	t
-Switzerland	瑞士	t
-Andorra	安道尔	t
-Albania	阿尔巴尼亚	t
+Ireland	爱尔兰
+Iceland	冰岛
+Switzerland	瑞士
+Andorra	安道尔
+Albania	阿尔巴尼亚
 Turkey	土耳其	t
-Portugal	葡萄牙	t
+Portugal	葡萄牙
 Spain	西班牙	t
 Iraq	伊拉克	t
-Algeria	阿尔及利亚	t
-Tunisia	突尼斯	t
+Algeria	阿尔及利亚
+Tunisia	突尼斯
 Lybia	利比亚	t
 Egypt	埃及	t
 Syria	叙利亚	t
-Lebanon	黎巴嫩	t
-Transjordan	外约旦	t
-Palestine	巴勒斯坦	t
-Saudi Arabia	沙特阿拉伯	t
+Lebanon	黎巴嫩
+Transjordan	外约旦
+Palestine	巴勒斯坦
+Saudi Arabia	沙特阿拉伯
 Kuwait	科威特	t
 Iran	伊朗	t
 Cyprus	塞浦路斯	t
-Infantry-AT	步兵反坦克组	t
-Cavalry Squad	骑兵班	t
+Infantry-AT	步兵反坦克组
+Cavalry Squad	骑兵班
 Mortar	迫击炮	t
-Mech-Inf Squad	机械化步兵班	t
-Medium Flak	中型高射炮	t
-Artillery	火炮	t
-Naval Gun	舰炮	t
-Armored Car	装甲车	t
-Light Tank	轻型坦克	t
-Medium Tank	中型坦克	t
-Heavy Tank	重型坦克	t
-CS Tank	近战支援坦克	t
-Motor-Inf Squad	摩托化步兵班	t
-Flame Tank	喷火坦克	t
-Assault Gun	突击炮	t
-Mech-Engr Squad	机械化工兵班	t
-Engineer Squad	工兵班	t
-SP Flak	自行高射炮	t
-HT AT-Gun	半履带反坦克炮	t
-Mech MG Section	机械化机枪组	t
-HT CS-Howitzer	半履带近战支援榴弹炮	t
-Special Forces	特种部队	t
-Marine Commando	海军陆战突击队	t
-Airborne Engineer	空降工兵	t
-SP AAMG	自行高射机枪	t
+Mech-Inf Squad	机械化步兵班
+Medium Flak	中型高射炮
+Artillery	火炮
+Naval Gun	舰炮
+Armored Car	装甲车
+Light Tank	轻型坦克
+Medium Tank	中型坦克
+Heavy Tank	重型坦克
+CS Tank	近战支援坦克
+Motor-Inf Squad	摩托化步兵班
+Flame Tank	喷火坦克
+Assault Gun	突击炮
+Mech-Engr Squad	机械化工兵班
+Engineer Squad	工兵班
+SP Flak	自行高射炮
+HT AT-Gun	半履带反坦克炮
+Mech MG Section	机械化机枪组
+HT CS-Howitzer	半履带近战支援榴弹炮
+Special Forces	特种部队
+Marine Commando	海军陆战突击队
+Airborne Engineer	空降工兵
+SP AAMG	自行高射机枪
 AAMG	高射机枪	t
 Rocket	火箭炮	t
-Heavy Artillery	重型火炮	t
-Light Flak	轻型高射炮	t
-Heavy Flak	重型高射炮	t
-Amphibious Tank	两栖坦克	t
-MSW Tank	扫雷坦克	t
-Engineer Tank	工兵坦克	t
-Airborne Squad	空降班	t
-SP Inf-Gun	自行步兵炮	t
-SMG Squad	冲锋枪班	t
-Carrier-Inf Squad	运输车步兵班	t
-Air Landing Section	机降分队	t
-Heavy AT Gun	重型反坦克炮	t
-Light AT Gun	轻型反坦克炮	t
-Heavy Infantry Gun	重型步兵炮	t
-Light Artillery	轻型火炮	t
-Airborne Tank	空降坦克	t
-Recon Jeep	侦察吉普	t
-Motorcycle Squad	摩托车班	t
-Ski Squad	滑雪班	t
-Security Squad	警备班	t
-Partisan Squad	游击队班	t
-Naval Rifle Squad	海军步枪班	t
-Labor Squad	劳工班	t
-Medium Field Gun	中型野战炮	t
-SP Rocket Launcher	自行火箭炮	t
-Light Mortar	轻型迫击炮	t
-Heavy Mortar	重型迫击炮	t
-SP AT Gun	自行反坦克炮	t
-Tank Destroyer	坦克歼击车	t
-Hvy Tank Destroyer	重型坦克歼击车	t
-Infantry Gun	步兵炮	t
-Infantry Tank	步兵坦克	t
-Cavalry Tank	骑兵坦克	t
-Hvy Cavalry Tank	重型骑兵坦克	t
-Hvy Assault Gun	重型突击炮	t
-Lt Tank Destroyer	轻型坦克歼击车	t
-CS Cavalry Tank	近战支援骑兵坦克	t
-CS Infantry Tank	近战支援步兵坦克	t
-Light Armored Car	轻型装甲车	t
-GE Generic	德国通用	t
-GE S-E Fighter	德国单发战斗机	t
-GE Light Bomber	德国轻型轰炸机	t
-GE Medium Bomber	德国中型轰炸机	t
-GE Tac Recon	德国战术侦察机	t
-GE Transport	德国运输机	t
-GE Strat Recon	德国战略侦察机	t
-GE M-E Fighter	德国双发战斗机	t
-GE Biplane Bomber	德国双翼轰炸机	t
-IT Generic	意大利通用	t
-IT Fighter	意大利战斗机	t
-IT Bomber/Tpt	意大利轰炸/运输机	t
-IT Recon	意大利侦察机	t
-FI Fighter	芬兰战斗机	t
-FI Bomber	芬兰轰炸机	t
-FI Recon	芬兰侦察机	t
-CW Generic	英联邦通用	t
-CW Heavy Bomber	英联邦重型轰炸机	t
-CW Fighter	英联邦战斗机	t
-CW Transport	英联邦运输机	t
-CW Bomber Tpt	英联邦轰炸运输机	t
-CW L/M Bomber	英联邦轻中型轰炸机	t
-CW NFighter/Recce	英联邦夜间战斗/侦察机	t
-CW Patrol	英联邦巡逻机	t
-CW Flying Boat	英联邦水上飞机	t
-CW Strat Recce	英联邦战略侦察机	t
-US Generic	美国通用	t
-US Fighter	美国战斗机	t
-US Light Bomber	美国轻型轰炸机	t
-US Medium Bomber	美国中型轰炸机	t
-US Heavy Bomber	美国重型轰炸机	t
-US Troop Carrier	美国运兵机	t
-US Tac Recon	美国战术侦察机	t
-US Photo Recon	美国照相侦察机	t
-US Combat Mapping	美国战斗测绘机	t
-US Night Fighter	美国夜间战斗机	t
-US Dive Bomber	美国俯冲轰炸机	t
-US Patrol	美国巡逻机	t
-US Very Heavy Bomber	美国超重型轰炸机	t
-RU Fighter	苏联战斗机	t
-RU Bomber	苏联轰炸机	t
-RU Attack/DB	苏联攻击/俯冲轰炸机	t
-RU Recon	苏联侦察机	t
-RU Transport	苏联运输机	t
-RU Seaplane	苏联水上飞机	t
-BU Fighter	保加利亚战斗机	t
-BU Bomber	保加利亚轰炸机	t
-BU Recon	保加利亚侦察机	t
-HU Fighter	匈牙利战斗机	t
-HU Bomber	匈牙利轰炸机	t
-HU Recon	匈牙利侦察机	t
-HU Transport	匈牙利运输机	t
-SL Fighter	斯洛伐克战斗机	t
-SL Bomber	斯洛伐克轰炸机	t
-SL Recon	斯洛伐克侦察机	t
-SOV Generic	苏联通用	t
-SOV Fighter	苏联战斗机	t
-SOV Bomber	苏联轰炸机	t
-SOV Ground Attack	苏联对地攻击机	t
-SOV Long-Range Bomber	苏联远程轰炸机	t
-SOV Biplane Bomber	苏联双翼轰炸机	t
-SOV Biplane Recon	苏联双翼侦察机	t
-SOV Biplane Transport	苏联双翼运输机	t
-SOV Transport	苏联运输机	t
-SOV Naval	苏联海军航空兵	t
-SOV Strat Recon	苏联战略侦察机	t
-SOV Tac Recon	苏联战术侦察机	t
-Assault Squad	突击班	t
-Assault Tank	突击坦克	t
-Cargo Ship	货船	t
-Flame APC	喷火装甲输送车	t
-Fuel Dump	燃料库	t
-Recon Halftrack	侦察半履带车	t
-Recon Tank	侦察坦克	t
-Supply Dump	补给库	t
-Troop Ship	运兵船	t
-V-Weapons Launcher	V型武器发射架	t
-ITA Attack/DB	意大利攻击/俯冲轰炸机	t
+Heavy Artillery	重型火炮
+Light Flak	轻型高射炮
+Heavy Flak	重型高射炮
+Amphibious Tank	两栖坦克
+MSW Tank	扫雷坦克
+Engineer Tank	工兵坦克
+Airborne Squad	空降班
+SP Inf-Gun	自行步兵炮
+SMG Squad	冲锋枪班
+Carrier-Inf Squad	运输车步兵班
+Air Landing Section	机降分队
+Heavy AT Gun	重型反坦克炮
+Light AT Gun	轻型反坦克炮
+Heavy Infantry Gun	重型步兵炮
+Light Artillery	轻型火炮
+Airborne Tank	空降坦克
+Recon Jeep	侦察吉普
+Motorcycle Squad	摩托车班
+Ski Squad	滑雪班
+Security Squad	警备班
+Partisan Squad	游击队班
+Naval Rifle Squad	海军步枪班
+Labor Squad	劳工班
+Medium Field Gun	中型野战炮
+SP Rocket Launcher	自行火箭炮
+Light Mortar	轻型迫击炮
+Heavy Mortar	重型迫击炮
+SP AT Gun	自行反坦克炮
+Tank Destroyer	坦克歼击车
+Hvy Tank Destroyer	重型坦克歼击车
+Infantry Gun	步兵炮
+Infantry Tank	步兵坦克
+Cavalry Tank	骑兵坦克
+Hvy Cavalry Tank	重型骑兵坦克
+Hvy Assault Gun	重型突击炮
+Lt Tank Destroyer	轻型坦克歼击车
+CS Cavalry Tank	近战支援骑兵坦克
+CS Infantry Tank	近战支援步兵坦克
+Light Armored Car	轻型装甲车
+GE Generic	德国通用
+GE S-E Fighter	德国单发战斗机
+GE Light Bomber	德国轻型轰炸机
+GE Medium Bomber	德国中型轰炸机
+GE Tac Recon	德国战术侦察机
+GE Transport	德国运输机
+GE Strat Recon	德国战略侦察机
+GE M-E Fighter	德国双发战斗机
+GE Biplane Bomber	德国双翼轰炸机
+IT Generic	意大利通用
+IT Fighter	意大利战斗机
+IT Bomber/Tpt	意大利轰炸/运输机
+IT Recon	意大利侦察机
+FI Fighter	芬兰战斗机
+FI Bomber	芬兰轰炸机
+FI Recon	芬兰侦察机
+CW Generic	英联邦通用
+CW Heavy Bomber	英联邦重型轰炸机
+CW Fighter	英联邦战斗机
+CW Transport	英联邦运输机
+CW Bomber Tpt	英联邦轰炸运输机
+CW L/M Bomber	英联邦轻中型轰炸机
+CW NFighter/Recce	英联邦夜间战斗/侦察机
+CW Patrol	英联邦巡逻机
+CW Flying Boat	英联邦水上飞机
+CW Strat Recce	英联邦战略侦察机
+US Generic	美国通用
+US Fighter	美国战斗机
+US Light Bomber	美国轻型轰炸机
+US Medium Bomber	美国中型轰炸机
+US Heavy Bomber	美国重型轰炸机
+US Troop Carrier	美国运兵机
+US Tac Recon	美国战术侦察机
+US Photo Recon	美国照相侦察机
+US Combat Mapping	美国战斗测绘机
+US Night Fighter	美国夜间战斗机
+US Dive Bomber	美国俯冲轰炸机
+US Patrol	美国巡逻机
+US Very Heavy Bomber	美国超重型轰炸机
+RU Fighter	苏联战斗机
+RU Bomber	苏联轰炸机
+RU Attack/DB	苏联攻击/俯冲轰炸机
+RU Recon	苏联侦察机
+RU Transport	苏联运输机
+RU Seaplane	苏联水上飞机
+BU Fighter	保加利亚战斗机
+BU Bomber	保加利亚轰炸机
+BU Recon	保加利亚侦察机
+HU Fighter	匈牙利战斗机
+HU Bomber	匈牙利轰炸机
+HU Recon	匈牙利侦察机
+HU Transport	匈牙利运输机
+SL Fighter	斯洛伐克战斗机
+SL Bomber	斯洛伐克轰炸机
+SL Recon	斯洛伐克侦察机
+SOV Generic	苏联通用
+SOV Fighter	苏联战斗机
+SOV Bomber	苏联轰炸机
+SOV Ground Attack	苏联对地攻击机
+SOV Long-Range Bomber	苏联远程轰炸机
+SOV Biplane Bomber	苏联双翼轰炸机
+SOV Biplane Recon	苏联双翼侦察机
+SOV Biplane Transport	苏联双翼运输机
+SOV Transport	苏联运输机
+SOV Naval	苏联海军航空兵
+SOV Strat Recon	苏联战略侦察机
+SOV Tac Recon	苏联战术侦察机
+Assault Squad	突击班
+Assault Tank	突击坦克
+Cargo Ship	货船
+Flame APC	喷火装甲输送车
+Fuel Dump	燃料库
+Recon Halftrack	侦察半履带车
+Recon Tank	侦察坦克
+Supply Dump	补给库
+Troop Ship	运兵船
+V-Weapons Launcher	V型武器发射架
+ITA Attack/DB	意大利攻击/俯冲轰炸机
 Cr	军	t
 Cps	军	t
 Div	师	t
@@ -9581,14 +9581,14 @@ Principe	普林西比
 Spedizione	远征
 Librazhd	利布拉日
 Labor	劳工	t
-Squadriglia	中队	t
+Squadriglia	中队
 Bicycle	自行车
 Parachute	伞兵
 Observation	观测
 Luftwaffe	空军
 Siege	攻城	t
 Amedeo	阿梅代奥	t
-Antonescu	安东内斯库	t
+Antonescu	安东内斯库
 MC.200 Saetta	MC.200 箭式
 Royal	皇家	t
 North Ukraine	北乌克兰
@@ -9737,7 +9737,7 @@ Lieutenant General	中将
 Major General	少将
 Marshal	元帅
 Air Marshal	空军元帅
-Sandomierz	桑多梅日	t
+Sandomierz	桑多梅日
 Kutno	库特诺	t
 Mlawa	姆瓦瓦	t
 East Prussia	东普鲁士

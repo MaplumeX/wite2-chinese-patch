@@ -1,0 +1,84 @@
+# drawOnly 保留名单：这些串**绝不**改内存，只走绘制层。
+#
+# 两类：
+# 1. 程序查找键。游戏按名字查表，改了查不到，返回 NULL 再解引用就崩。
+# 2. 全大写短串，在 .rdata 里可能是枚举/资源名，改了撞到会破坏渲染。
+#
+# 其余一律原地改写。原地改写是必要的：补丁时机在 DllMain，游戏读到的
+# 就是中文，测量、排版、换行全按中文算。降级成绘制层就意味着游戏按
+# 英文宽度量、画的时候换中文 —— 表格列会错位。
+
+# ---- CSV 列名（游戏按列名定位字段）----
+Air
+Ammo
+Capacity
+Ceiling
+Class
+Climb
+Color
+Crew
+Damage
+Delay
+Effect
+Endurance
+Engines
+Freight
+Front
+Frozen
+Fuel
+Guards
+Initiative
+Leader
+Lost
+Maneuver
+Men
+Month
+Morale
+Motorized
+Nation
+Naval
+Penetration
+Player
+Political
+Pool
+ROF
+Range
+Reliability
+Reserve
+Size
+Speed
+Suffix
+Symbol
+Target
+Type
+Unit
+Upgrade
+Withdraw
+Year
+delay
+nat
+player
+
+# ---- JSON 字段名（Steam 登录响应解析）----
+Message
+
+# ---- 原始全大写短串：按钮状态 / 资源名 / 枚举 ----
+ACTIVE
+AIR LOSSES
+CHANGING TYPE
+CITY
+E
+LOW RES
+MAP
+N
+NO RES
+RES
+S
+W
+
+# ---- 数据文件 Name 列里的非 ASCII 地名 ----
+# 上一版 demote 脚本用 isascii() 过滤，把这几条漏掉了。
+Bátaszék
+Hajdúszoboszló
+Várpalota
+Kemijärvi
