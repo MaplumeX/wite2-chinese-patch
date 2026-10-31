@@ -47,6 +47,16 @@ static unsigned int crc32_calc(const unsigned char *buf, size_t len)
     return c ^ 0xFFFFFFFFu;
 }
 
+/* 增量 CRC32：流式写出时不能一次性算整块 */
+unsigned int crc32_update(unsigned int crc, const unsigned char *buf, size_t len)
+{
+    size_t i;
+    if (!g_crcReady) crc_init();
+    for (i = 0; i < len; i++)
+        crc = g_crcTable[(crc ^ buf[i]) & 0xFF] ^ (crc >> 8);
+    return crc;
+}
+
 /* ---------------- 位读取（LSB 优先） ---------------- */
 
 typedef struct {

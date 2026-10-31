@@ -2156,6 +2156,8 @@ static void log_open(const char *path)
     for (q = path; q + 7 <= path + n; q++) {
         if (_strnicmp(q, "gendata", 7) == 0) { isGenData = 1; break; }
     }
+    if (!isGenData && n >= 4 && _stricmp(path + n - 4, ".scn") == 0)
+        isGenData = 1;        /* 剧本同样重要，别被配额吃掉 */
     if (!isGenData) {
         if (g_openCount > 2000) return;
         g_openCount++;
@@ -2174,7 +2176,8 @@ static HANDLE WINAPI hook_CreateFileA(LPCSTR name, DWORD access, DWORD share,
             if (patched) {
                 HANDLE h = g_origCreateFileA(patched, access, share, sa,
                                              disp, flags, tmpl);
-                remove(patched);
+                /* 不删临时文件：同一个源文件可能被重复打开，留着给
+                 * dat_materialize 的缓存命中，省掉重解 104 MB 剧本 */
                 free(patched);
                 return h;
             }
@@ -2203,11 +2206,9 @@ static HANDLE WINAPI hook_CreateFileW(LPCWSTR wname, DWORD access, DWORD share,
                                             MAX_PATH) > 0) {
                         HANDLE h = g_origCreateFileW(wpatched, access, share, sa,
                                                      disp, flags, tmpl);
-                        remove(patched);
                         free(patched);
                         return h;
                     }
-                    remove(patched);
                     free(patched);
                 }
             }
@@ -2273,13 +2274,21 @@ static int install_dat_hooks(HMODULE exe)
      *   (b) 游戏压根没打开这个文件。
      * 只在开了 openlog 时做，正常游玩零开销。 */
     if (g_openLog) {
-        char *t = dat_materialize("Dat\\GenData\\w_gameEvent.dat");
+        /* 两个都要测。实测 w_gameEvent.dat 运行时根本不被打开，
+         * 事件正文存在剧本 .scn 里，所以 .scn 才是真正要盯的。 */
+        char *t = dat_materialize("Dat\\Scen\\1941 Campaign.scn");
         if (t) {
-            logfmt("[dat] 自检 OK：链路可用，临时文件 %s\n", t);
-            remove(t);
+            logfmt("[dat] 自检 OK(.scn)：链路可用，临时文件 %s\n", t);
             free(t);
         } else {
-            logfmt("[dat] 自检失败：上面一行说明了卡在哪一步\n");
+            logfmt("[dat] 自检失败(.scn)：上一行说明卡在哪一步\n");
+        }
+        t = dat_materialize("Dat\\GenData\\w_gameEvent.dat");
+        if (t) {
+            logfmt("[dat] 自检 OK(.dat)：链路可用，临时文件 %s\n", t);
+            free(t);
+        } else {
+            logfmt("[dat] 自检失败(.dat)：上一行说明卡在哪一步\n");
         }
     }
     return 1;

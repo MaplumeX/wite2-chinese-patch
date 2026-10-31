@@ -89,7 +89,9 @@ def main():
 
     # 哪些 .dat 有映射：运行时先比这个清单，不在清单里的文件直接放行，
     # 不做解密/解压。否则每次启动都要把 52 MB 全部解一遍。
-    targets = sorted({n + ".dat" for n in by_file})
+    # dat_trans/*.json 是 w_gameEvent 的；事件正文实际来自剧本 .scn，
+    # 所以再把所有 .scn 也纳入（同一段文本在多个剧本里重复出现）
+    targets = sorted({n + ".dat" for n in by_file}) + ["*.scn"]
 
     with io.open(args.out, "w", encoding="utf-8", newline="\n") as f:
         f.write("# 数据层翻译表（.dat 明文等长替换）\n")

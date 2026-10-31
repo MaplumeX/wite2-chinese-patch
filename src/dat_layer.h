@@ -32,14 +32,6 @@ int dat_apply(unsigned char *plain, unsigned long len);
 /* 把打过补丁的 .dat 写成临时文件，返回路径（调用者 free）。NULL = 未接管。 */
 char *dat_materialize(const char *path);
 
-/* 完整重定向：读 path -> 解密 -> 解压 -> 替换 -> 压缩 -> 加密 -> tmpfile。
- * impl 是游戏原生的 fopen 实现（path, -1, mode）。
- * 返回 NULL 表示未接管（无映射 / 路径不匹配 / 任何一步失败），
- * 调用者应回退到原生 fopen，行为零变化。
- */
-FILE *dat_redirect(const char *path,
-                   FILE *(*impl)(const char *, int, const char *));
-
 /* 释放映射表 */
 void dat_free_map(void);
 
