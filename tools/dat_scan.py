@@ -46,32 +46,59 @@ def _ok_cp(c):
             or 0xff00 <= c <= 0xffef)            # 全角
 
 
-def find_utf16_strings(plain, min_chars=3):
-    """返回 [(offset, text)]。从偶数偏移起扫，严格码点校验。"""
+def find_utf16_strings(plain, min_chars=3, ascii_only=False):
+    """扫描 UTF-16LE 字符串，**奇偶两种对齐都扫**。
+
+    为什么必须扫两种对齐
+    --------------------
+    `.dat` 里的字符串多在偶数偏移，但 `.scn` 里很多在奇数偏移
+    （实测 "Situation Report" 在 0x634B7FD）。只扫偶数偏移会得到
+    "0 处命中"，看起来像词典没对上，其实一个字符串都没看见。
+
+    但两种对齐都扫会带来一个问题：把一段真字符串按**错位**读，字节
+    反序后落进中日韩码点范围（例如 "continuation" 反读成
+    '漀渀琀椀渀甀愀琀椀漀渀'），看起来也是"合法字符串"。
+
+    所以加了 `ascii_only` 开关：只要纯 ASCII 的候选（即真正的英文
+    原文），反序乱码会被自然滤掉。
+    """
     out = []
     n = len(plain)
-    i = HEADER_LEN
-    if i % 2:
-        i += 1
-    while i + 3 < n:
-        ch = []
-        j = i
-        while j + 1 < n:
-            c = plain[j] | (plain[j + 1] << 8)
-            if c == 0:
-                break
-            if not _ok_cp(c):
-                break
-            ch.append(chr(c))
-            j += 2
-        if len(ch) >= min_chars:
-            s = "".join(ch)
-            if any(x.isalpha() for x in s):
-                out.append((i, s))
-            i = j if j > i else i + 2
-        else:
-            i += 2
-    return out
+    for parity in (0, 1):
+        i = HEADER_LEN + parity
+        if i % 2 != parity:
+            i += 1
+        while i + 3 < n:
+            ch = []
+            j = i
+            while j + 1 < n:
+                c = plain[j] | (plain[j + 1] << 8)
+                if c == 0:
+                    break
+                if not _ok_cp(c):
+                    break
+                ch.append(chr(c))
+                j += 2
+            if len(ch) >= min_chars:
+                t = "".join(ch)
+                if any(x.isalpha() for x in t):
+                    if ascii_only and not all(32 <= ord(x) < 127 for x in t):
+                        pass
+                    else:
+                        out.append((i, t))
+                i = j if j > i else i + 2
+            else:
+                i += 2
+    # 去重（同一位置只保留一次），按偏移排序
+    seen = set()
+    uniq = []
+    for off, t in out:
+        if (off, t) in seen:
+            continue
+        seen.add((off, t))
+        uniq.append((off, t))
+    uniq.sort()
+    return uniq
 
 
 def load_dat(name):
@@ -93,6 +120,8 @@ def main():
     ap.add_argument("--json", default=None, help="导出到 JSON")
     ap.add_argument("--todo", action="store_true",
                     help="只列还没进 dat_trans 的条目")
+    ap.add_argument("--ascii-only", action="store_true",
+                    help="只要纯 ASCII 串（滤掉错位反读的乱码）")
     args = ap.parse_args()
 
     names = ([args.name] if args.name else
@@ -104,7 +133,7 @@ def main():
         total = 0
         for n in names:
             plain = load_dat(n)
-            strs = find_utf16_strings(plain, args.min)
+            strs = find_utf16_strings(plain, args.min, args.ascii_only)
             total += len(strs)
             longest = max((len(s) for _, s in strs), default=0)
             print("%-22s %8d %8d  %d" % (n + ".dat", len(plain), len(strs),
@@ -113,7 +142,7 @@ def main():
         return 0
 
     plain = load_dat(args.name)
-    strs = find_utf16_strings(plain, args.min)
+    strs = find_utf16_strings(plain, args.min, args.ascii_only)
 
     done = {}
     tp = os.path.join(ROOT, "dat_trans", args.name + ".json")
