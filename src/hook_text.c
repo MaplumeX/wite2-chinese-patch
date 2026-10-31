@@ -193,6 +193,7 @@ static int g_patched = 0, g_tooLong = 0, g_notFound = 0;
  *
  * 改写明细写到 wite2_patch.txt，崩溃后能对照到底哪条被改了。 */
 static int g_patchRdata = 1;
+static int g_drawHook = 1;   /* 0 = 不装绘制层 hook */
 static int g_patchData = 1;
 static FILE *g_patLog = NULL;
 
@@ -3101,11 +3102,13 @@ static void patch_early(void)
         if (f) { fclose(f); g_patchRdata = 0; }
         f = fopen("wite2_nodata.ini", "rb");
         if (f) { fclose(f); g_patchData = 0; }
+        f = fopen("wite2_nodraw.ini", "rb");
+        if (f) { fclose(f); g_drawHook = 0; }
     }
 
     logfmt("=== WITE2 中文化 v4 (内存改写) ===\n词典: %d 条 (.data 专用 %d 条)\n"
-           "[patch] rdata=%d data=%d\n",
-           g_ndic, g_nDataOnly, g_patchRdata, g_patchData);
+           "[patch] rdata=%d data=%d draw=%d\n",
+           g_ndic, g_nDataOnly, g_patchRdata, g_patchData, g_drawHook);
 
     HMODULE exe = GetModuleHandleA(NULL);
     if (!exe) { logfmt("[fail] 无 exe 句柄\n"); return; }
@@ -3155,7 +3158,11 @@ static DWORD WINAPI init_thread(LPVOID param)
             CreateThread(NULL, 0, collect_writer, NULL, 0, NULL);
         }
     }
-    install_drawtext_hook(exe, 0x45CE60);
+    if (g_drawHook) {
+        install_drawtext_hook(exe, 0x45CE60);
+    } else {
+        logfmt("[draw] 已禁用（wite2_nodraw.ini）\n");
+    }
 
     /* 布局诊断: 需要游戏目录有 wite2_layout.ini 才启用 */
     {
