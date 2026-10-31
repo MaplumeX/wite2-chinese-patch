@@ -35,6 +35,11 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+/* IMAGE_IMPORT_DESCRIPTOR / IMAGE_THUNK_DATA：窗口头里已有，
+ * 但 IMAGE_DIRECTORY_ENTRY_IMPORT 的两个常量在某些 SDK 配置下仍需确认 */
+#ifndef IMAGE_DIRECTORY_ENTRY_IMPORT
+#define IMAGE_DIRECTORY_ENTRY_IMPORT 1
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -109,12 +114,57 @@ static void dict_load(void)
     FILE *f = fopen("wite2_zh.tsv", "rb");
     if (!f) return;
     char line[8192];
+    char un[8192];
     while (fgets(line, sizeof(line), f) && g_ndic < MAXENT) {
+        /* 行首标记
+         *   '#' 注释行
+         *   '@' 转义行：后跟"转义过的 key + 真 TAB + 译文"。
+         *       用于 key 本身以 '#' 开头（否则会被当注释丢掉），
+         *       或 key 内含 TAB（否则会把列分隔弄乱）的条目。
+         *       转义规则：\\t = TAB，\\\\ = 反斜杠。
+         * 实例：`### ERROR : game failed to save ###` 和
+         * 带制表符对齐的选项说明段，都只能走 '@' 行。 */
         if (line[0] == '#') continue;
-        char *t = strchr(line, '\t');
+
+        const char *src = line;
+        int esc = 0;
+        if (line[0] == '@') { src = line + 1; esc = 1; }
+
+        char *t = strchr((char *)src, '\t');
         if (!t) continue;
         *t = 0;
-        char *en = line, *zh = t + 1;
+        char *en = (char *)src, *zh = t + 1;
+
+        if (esc) {
+            /* 反转义 key（只动 key，译文另处理） */
+            int o = 0;
+            for (char *p = en; *p && o < (int)sizeof(un) - 2; p++) {
+                if (*p == '\\' && p[1]) {
+                    p++;
+                    if (*p == 't') un[o++] = '\t';
+                    else if (*p == 'n') un[o++] = '\n';
+                    else if (*p == '\\') un[o++] = '\\';
+                    else { un[o++] = '\\'; un[o++] = *p; }
+                } else un[o++] = *p;
+            }
+            un[o] = 0;
+            en = un;
+            /* 译文也要反转义：那几段选项说明的译文保留了制表符对齐 */
+            int o2 = 0;
+            char unzh[8192];
+            for (char *p = zh; *p && o2 < (int)sizeof(unzh) - 2; p++) {
+                if (*p == '\\' && p[1]) {
+                    p++;
+                    if (*p == 't') unzh[o2++] = '\t';
+                    else if (*p == 'n') unzh[o2++] = '\n';
+                    else if (*p == '\\') unzh[o2++] = '\\';
+                    else { unzh[o2++] = '\\'; unzh[o2++] = *p; }
+                } else unzh[o2++] = *p;
+            }
+            unzh[o2] = 0;
+            zh = unzh;
+        }
+
         size_t zl = strlen(zh);
         while (zl && (zh[zl-1] == '\n' || zh[zl-1] == '\r')) zh[--zl] = 0;
 
@@ -803,6 +853,52 @@ static int match_ph(const wchar_t *t, int len, wchar_t conv,
     return n;
 }
 
+/* 模板能把出的最短文本长度。
+ *
+ * 为什么需要
+ * ----------
+ * 格式串循环前面本来有个剪枝 `if (e->klen > len) continue;`，
+ * 理由“模板至少要比实际串短”。这个假设是错的：
+ *
+ *     key  "%d turns"   klen = 8
+ *     text "3 turns"    len  = 7          ← 8 > 7，被剪掉
+ *
+ * `%d` 占 2 个字符，但最小只输出 1 位数字。于是**所有单数字**都翻不了：
+ * `Turn 5`、`3 HQs`、`3 turns`、`%d x %s` 里的 1 位数……
+ * 实测：`12 turns` 命中、`3 turns` 不命中，就是这个剪枝造成的。
+ *
+ * 正确做法是按占位符的最小宽度算，而不是拿 key 长度当估计。
+ */
+static int fmt_minlen(const char *key)
+{
+    int n = 0;
+    for (int i = 0; key[i]; ) {
+        if (key[i] != '%') { n++; i++; continue; }
+        int j = i + 1;
+        while (key[j] && !is_conv((wchar_t)(unsigned char)key[j])) j++;
+        if (!key[j]) { n++; i++; continue; }   /* 裸 %，当字面量 */
+        char conv = key[j];
+        /* 解析宽度: flags(-+ #0) 后、小数点前的数字 */
+        int width = 0, k = i + 1;
+        while (key[k] && strchr("-+ #0", key[k])) k++;
+        while (key[k] >= '0' && key[k] <= '9') {
+            width = width * 10 + (key[k] - '0');
+            k++;
+        }
+        if (conv == '%') {
+            n += 1;
+        } else if (width > 0) {
+            n += width;                        /* %20s / %3d 至少有宽度那么长 */
+        } else if (conv == 's') {
+            n += 0;                            /* 空串是合法值 */
+        } else {
+            n += 1;                            /* %d/%u/%x/%c 至少一位 */
+        }
+        i = j + 1;
+    }
+    return n;
+}
+
 
 /* 精确查词（整串、大小写不敏感）。给格式串的 %s 回填用：
  * "Difficulty: %s" + "IMPOSSIBLE" 需要把 IMPOSSIBLE 也翻掉，
@@ -1366,8 +1462,9 @@ static wchar_t *dt_check_body(wchar_t *text)
      * 放在精确匹配之后、其余策略之前：字面量最多，误匹配风险最小。 */
     for (int f = 0; f < g_nfmt; f++) {
         ZhEntry *e = &g_zh[g_fmt[f]];
-        /* 快速剪枝: 模板至少要比实际串短（占位符吃掉至少 1 个） */
-        if (e->klen > len) continue;
+        /* 剪枝: 用模板能吐出的最短长度，不能用 key 长度
+         * （%d 占 2 字符但只输出 1 位数字，见 fmt_minlen）。 */
+        if (fmt_minlen(e->key) > len) continue;
         slot = (int)(InterlockedIncrement(&g_poolIdx) % POOL);
         if (!fmt_match(e->key, e->wtext, text, len, g_pool[slot], 250))
             continue;
@@ -1779,6 +1876,180 @@ static BOOL WINAPI hook_GetTextExtent(HDC hdc, LPCWSTR s, int n, LPSIZE sz)
     return r;
 }
 
+/* ================= MessageBox 钩子 =================
+
+/*
+ * 为什么要这个
+ * ------------
+ * 绘制钩子 0x85CE60 的第 4 个栈参数是 wchar_t*，只覆盖游戏自己画的文本。
+ * 但一批玩家真能看到的报错走的是 Windows 消息框：
+ *
+ *     import:  MessageBoxA  YES      MessageBoxW  no
+ *     .rdata: 'Can't play this game!'  'Unable to contact server!'
+ *             'Can't upload to server [E1]' …
+ *
+ * MessageBoxA 收的是 **ANSI** 字符串，跟 wchar_t* 完全两条路，
+ * 所以加再多词条也不会生效。这里直接钩导入表：
+ *
+ *   A 版：ANSI → UTF-8 → 查词 → UTF-8 → UTF-16，用 W 版弹
+ *   W 版：直接过 dt_check_body（和绘制层同一套匹配）
+ *
+ * 为什么 A 版不试图改字符串内容：MessageBoxA 的转换由两层完成，
+ * 我们只拿到 ANSI 指针，不知道底层代码页，所以统一转 UTF-8 再查表，
+ * 命中就改用 MessageBoxW 直接传宽字符 —— 这样中文不依赖 CP_ACP。
+ * 没命中就原样转回去调原来的 A 版，行为零变化。
+ */
+typedef int (WINAPI *pMessageBoxA)(HWND, LPCSTR, LPCSTR, UINT);
+typedef int (WINAPI *pMessageBoxW)(HWND, LPCWSTR, LPCWSTR, UINT);
+static pMessageBoxA g_origMsgBoxA = NULL;
+static pMessageBoxW g_origMsgBoxW = NULL;
+
+/* 前置声明：install_messagebox_hooks 定义在 install_iat_hook 之前，
+ * 而后者在文件更下方（绘制钩子那一带）。 */
+static void install_iat_hook(HMODULE exe, DWORD iatRva, void *repl,
+                             void **orig);
+
+/* ANSI → UTF-16。
+ *
+ * 必须用 CP_ACP：MessageBoxA 收到的 `text` 是 **ANSI**，不是 UTF-8。
+ * 纯 ASCII 串两者恰好一样（我们的报错文案都是 ASCII），但带重音字符的
+ * 文本（地名、将领名）用 CP_UTF8 会解码失败 —— 返回 0，调用者回退到
+ * 原版 A 处理，不会出错。改对了才能后续支持非 ASCII 文案。
+ */
+static int ansi_to_w(const char *s, wchar_t *out, int cap)
+{
+    int n = MultiByteToWideChar(CP_ACP, 0, s, -1, out, cap);
+    return n > 0 ? n - 1 : 0;
+}
+
+/* 把一个宽字符串过一遍词典（不改内存，返回是否命中 + 译文） */
+static int translate_w(const wchar_t *src, wchar_t *dst, int cap)
+{
+    int len = 0;
+    while (len < 1000 && src[len]) len++;
+    if (len < 2 || len >= 1000) return 0;
+
+    /* 先整串精确 */
+    if (lookup_exact(src, len, dst, cap)) return 1;
+
+    /* 再格式串模板 */
+    for (int f = 0; f < g_nfmt; f++) {
+        ZhEntry *e = &g_zh[g_fmt[f]];
+        if (fmt_minlen(e->key) > len) continue;
+        if (fmt_match(e->key, e->wtext, src, len, dst, cap - 1)) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/* 惰性解析 MessageBoxW。
+ *
+ * 为什么必须要这一步
+ * ------------------
+ * 这个 exe 的 USER32 静态导入表里有 41 个函数，**包括 MessageBoxA，
+ * 但没有 MessageBoxW**：
+ *
+ *   34  MessageBoxA  IAT VA=0x90c350   ← 有
+ *       MessageBoxW                   ← 没有
+ *
+ * 所以 g_origMsgBoxW 永远是 NULL，A 钩子拿不到 W 版可调，
+ * 中文根本发不出去（只能退化成原样输出英文）。
+ *
+ * user32 已经因为其他导入项被加载了，直接 GetProcAddress 拿来用，
+ * 不增加任何新的 DLL 依赖。拿不到就返回 NULL，调用者回退。
+ */
+static pMessageBoxW resolve_msgbox_w(void)
+{
+    HMODULE u = GetModuleHandleA("user32.dll");
+    if (!u) u = LoadLibraryA("user32.dll");
+    if (!u) return NULL;
+    return (pMessageBoxW)GetProcAddress(u, "MessageBoxW");
+}
+
+static int WINAPI hook_MessageBoxA(HWND h, LPCSTR text, LPCSTR cap,
+                                   UINT type)
+{
+    /* 用栈缓冲而不是 static：两个钩子都可能被重入（消息框嵌套），
+     * static 会让内层把外层的结果覆盖掉。1024 wchar = 4 KB，安全。 */
+    wchar_t wtext[1024], wcap[1024], zh[1024];
+
+    if (text) {
+        pMessageBoxW w = g_origMsgBoxW;
+        if (!w) w = g_origMsgBoxW = resolve_msgbox_w();
+        if (w && ansi_to_w(text, wtext, 1024) > 0 &&
+            translate_w(wtext, zh, 1024)) {
+            int haveCap = cap && ansi_to_w(cap, wcap, 1024) > 0;
+            return w(h, zh, haveCap ? wcap : NULL, type);
+        }
+    }
+    if (g_origMsgBoxA) return g_origMsgBoxA(h, text, cap, type);
+    return 0;
+}
+
+static int WINAPI hook_MessageBoxW(HWND h, LPCWSTR text, LPCWSTR cap,
+                                   UINT type)
+{
+    wchar_t zh[1024];
+    if (!g_origMsgBoxW) return 0;
+    if (text && translate_w(text, zh, 1024))
+        return g_origMsgBoxW(h, zh, cap, type);
+    return g_origMsgBoxW(h, text, cap, type);
+}
+
+/* 钩 user32!MessageBoxA/W。走导入表，不碰函数体，比改 exe 代码安全。
+ * 两种情况可能失败（都只记日志，不影响游戏）：
+ *   - exe 没静态导入这两个函数（那时得另找方式）
+ *   - 延迟加载（GetProcAddress 运行时解析），导入表里当时是空的 */
+static void install_messagebox_hooks(HMODULE exe)
+{
+    IMAGE_DOS_HEADER *dos = (IMAGE_DOS_HEADER *)exe;
+    if (dos->e_magic != IMAGE_DOS_SIGNATURE) return;
+    IMAGE_NT_HEADERS *nt = (IMAGE_NT_HEADERS *)((BYTE *)exe + dos->e_lfanew);
+    if (nt->Signature != IMAGE_NT_SIGNATURE) return;
+
+    DWORD impRva = nt->OptionalHeader.DataDirectory
+                       [IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
+    if (!impRva) { logfmt("[msgbox] 无导入表\n"); return; }
+
+    IMAGE_IMPORT_DESCRIPTOR *imp =
+        (IMAGE_IMPORT_DESCRIPTOR *)((BYTE *)exe + impRva);
+    int hookedA = 0, hookedW = 0;
+
+    for (; imp->Name; imp++) {
+        const char *dll = (const char *)exe + imp->Name;
+        /* user32 的常见写法 */
+        if (_stricmp(dll, "user32.dll") != 0) continue;
+        if (!imp->OriginalFirstThunk || !imp->FirstThunk) continue;
+
+        IMAGE_THUNK_DATA *oft =
+            (IMAGE_THUNK_DATA *)((BYTE *)exe + imp->OriginalFirstThunk);
+        DWORD *iat = (DWORD *)((BYTE *)exe + imp->FirstThunk);
+
+        for (; oft->u1.AddressOfData; oft++, iat++) {
+            if (oft->u1.Ordinal & IMAGE_ORDINAL_FLAG) continue;
+            IMAGE_IMPORT_BY_NAME *ibn =
+                (IMAGE_IMPORT_BY_NAME *)((BYTE *)exe + oft->u1.AddressOfData);
+            if (strcmp((const char *)ibn->Name, "MessageBoxA") == 0) {
+                install_iat_hook(exe, (DWORD)((BYTE *)iat - (BYTE *)exe),
+                                 (void *)hook_MessageBoxA,
+                                 (void **)&g_origMsgBoxA);
+                hookedA = 1;
+            } else if (strcmp((const char *)ibn->Name, "MessageBoxW") == 0) {
+                install_iat_hook(exe, (DWORD)((BYTE *)iat - (BYTE *)exe),
+                                 (void *)hook_MessageBoxW,
+                                 (void **)&g_origMsgBoxW);
+                hookedW = 1;
+            }
+        }
+        break;
+    }
+    logfmt("[msgbox] MessageBoxA=%s MessageBoxW=%s%s\n",
+           hookedA ? "hooked" : "not-imported",
+           hookedW ? "hooked" : "not-imported",
+           (!hookedW && hookedA) ? " (W 走 GetProcAddress 惰性解析)" : "");
+}
+
 static void install_iat_hook(HMODULE exe, DWORD iatRva, void *repl, void **orig)
 {
     BYTE *p = (BYTE *)exe + iatRva;
@@ -2033,6 +2304,12 @@ static DWORD WINAPI init_thread(LPVOID param)
     }
     if (g_drawHook) {
         install_drawtext_hook(exe, 0x45CE60);
+        /* 消息框走 Windows API，不经绘制层，单独钩导入表。
+         * 关掉的方式：游戏目录放 wite2_nomsgbox.ini */
+        if (GetFileAttributesA("wite2_nomsgbox.ini") == INVALID_FILE_ATTRIBUTES)
+            install_messagebox_hooks(exe);
+        else
+            logfmt("[msgbox] 已禁用（wite2_nomsgbox.ini）\n");
     } else {
         logfmt("[draw] 已禁用（wite2_nodraw.ini）\n");
     }

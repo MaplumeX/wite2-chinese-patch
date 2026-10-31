@@ -126,7 +126,11 @@ def build_tsv():
     # 在 .rdata 里可能是别的含义，改内存风险大于收益）
     draw_only = set(raw.get("_drawOnly", []))
     zh = {k: v for k, v in raw.items()
-          if not k.startswith("_") and not str(v).startswith("----")}
+          if not k.startswith("_")
+          # 原为 "and not str(v).startswith('----')"，会把「---- 轴心 ----」
+          # 这类真译文一起滤掉。真正的占位标记就是恰好 4 个短横（分区标题），
+          # 而那些本来就以 '_' 开头，已被上一行排除。
+          and str(v).strip() != "----"}
     lines = ["# WITE2 中英对照表  UTF-8  TAB 分隔",
              "# 英文<TAB>中文[<TAB>d|r|b|t]  d=只改.data r=只改.rdata "
              "b=两段都改 t=只绘制层"]
@@ -144,7 +148,25 @@ def build_tsv():
             scope = "\tt"
         else:
             scope = ""
-        lines.append("%s\t%s%s" % (k, v, scope))
+        # 这些 key / 译文不能直接写：
+        #   以 '#' 开头  → 会被 dict_load 当注释行丢掉
+        #   以 '@' 开头  → 会被当成转义标记
+        #   含真实 TAB  → 会把 TSV 的列分隔弄乱（整行解析偏位）
+        # 实例：`### ERROR : game failed to save ###`、`@City Detail`、
+        # 带制表符对齐的选项说明段（两栖登陆规则 / 将领死亡…）。
+        # 都走 '@' 转义行，规则在 hook_text.c 的 dict_load 里。
+        need_esc = (k.startswith(("#", "@")) or "\t" in k or "\n" in k
+                    or "\t" in str(v) or "\n" in str(v))
+        if need_esc:
+            ek = (k.replace("\\", "\\\\")
+                   .replace("\t", "\\t")
+                   .replace("\n", "\\n"))
+            ev = (str(v).replace("\\", "\\\\")
+                       .replace("\t", "\\t")
+                       .replace("\n", "\\n"))
+            lines.append("@%s\t%s%s" % (ek, ev, scope))
+        else:
+            lines.append("%s\t%s%s" % (k, v, scope))
     with open(TSV, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     # selftest.exe 在 build/ 下运行，读的是相对路径 wite2_zh.tsv。
@@ -172,10 +194,27 @@ def verify_tsv():
             line = raw.rstrip(b"\r\n")
             if not line or line.startswith(b"#"):
                 continue
-            if b"\t" not in line:
+            esc = line.startswith(b"@")
+            body = line[1:] if esc else line
+            if b"\t" not in body:
                 continue
             n += 1
-            en, rest = line.split(b"\t", 1)
+            en, rest = body.split(b"\t", 1)
+            if esc:
+                # 转义行的 key 不应再含真实 tab（否则说明转义没做全）
+                if b"\t" in en:
+                    bad.append((en.decode("utf-8", "replace"),
+                                "转义行的 key 仍含真实 tab"))
+                # 反转义后应当能还原出非空 key
+                try:
+                    back = (en.replace(b"\\\\", b"\x00")
+                              .replace(b"\\t", b"\t")
+                              .replace(b"\\n", b"\n")
+                              .replace(b"\x00", b"\\"))
+                    if not back:
+                        bad.append((en.decode("utf-8", "replace"), "转义后为空"))
+                except Exception:
+                    bad.append((en.decode("utf-8", "replace"), "反转义失败"))
             cols = rest.split(b"\t")
             if len(cols) > 2:
                 bad.append((en.decode("utf-8", "replace"), "列数 %d" % len(cols)))
@@ -184,8 +223,11 @@ def verify_tsv():
             if len(cols) == 2 and cols[1] not in (b"d", b"r", b"b", b"t"):
                 bad.append((en.decode("utf-8", "replace"),
                             "作用域标记 %r" % cols[1]))
+            # '@' 行的译文经转义，不应再含真实 tab；普通行也不应有
             if b"\t" in zh:
                 bad.append((en.decode("utf-8", "replace"), "译文含 tab"))
+            if b"\n" in zh:
+                bad.append((en.decode("utf-8", "replace"), "译文含换行"))
     if bad:
         print("TSV 列解析异常 %d 条：" % len(bad))
         for en, why in bad[:10]:
