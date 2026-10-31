@@ -604,6 +604,9 @@ VerQueryValueA / GetFileVersionInfoA / GetFileVersionInfoSizeA
 
 ```
 src/hook_text.c          注入 DLL 源码（代理 + .rdata 改写 + 绘制层 hook）
+src/dat_layer.c          .dat 数据层：RC4 + gzip + 等长替换（可离线测试）
+src/dat_layer.h          dat_layer 的接口
+src/inflate.c            gzip 解压 + gzip(stored) 打包 + CRC32（不依赖 zlib）
 src/version.def          17 个导出转发
 tools/build_assets.py    生成翻译表 + 字体子集（统一入口）
 tools/review.py          翻译校对工具（导出/导入/覆盖率/待译清单）
@@ -623,8 +626,9 @@ tools/align_spaces.py    按像素宽度重算译文空格（修表格列错位�
 tools/fit_check.py       译文/原文宽度比（找会溢出原位的条目）
 tools/restore_game.py    从备份还原游戏 .dat 和 CSV
 tools/dat_crypto.py      .dat 解包/重打包（RC4+MD5 密钥 + gzip）
-tools/dat_patch.py       .dat 等长替换改字（含备份/回退）
 tools/dat_scan.py        扫 .dat 明文里的 UTF-16 字符串
+tools/build_dat_tsv.py   dat_trans/*.json -> wite2_dat.tsv（运行时映射表）
+tools/dat_patch.py       直接改磁盘 .dat（已弃用，保留作对照/应急）
 tools/add_unit_labels*.py 部队详情/指挥官报告标签（四批）
 tools/fix_case_drift.py  修同一词大小写变体的译文漂移
 tools/save_sections.py   存档段名表定位（这些不能翻）
@@ -819,7 +823,7 @@ python tools/dat_crypto.py verify         # 往返自检，20/20 通过
 ```
 
 改长度会移动后面所有字节，而文件里还有记录偏移/计数字段，一移就可能
-整体错位。所以 `tools/dat_patch.py` 只做**等长替换**：
+整体错位。所以只做**等长替换**：
 
 ```
 译文 + 空格补齐到原字符数
@@ -829,14 +833,122 @@ python tools/dat_crypto.py verify         # 往返自检，20/20 通过
 文件字节数、所有偏移、所有长度前缀全不变。补空格而不是补别的，
 是因为游戏按空格分词排版，尾部空格会被正常吸收。
 
-```bash
-echo '{"Situation Report": "战况报告"}' > dat_trans/w_gameEvent.json
-python tools/dat_patch.py --dry-run --verbose w_gameEvent
-python tools/dat_patch.py --deploy w_gameEvent
-python tools/dat_patch.py --restore w_gameEvent     # 回退
+#### 但**不要直接改磁盘上的 `.dat`**
+
+三个理由：
+
+1. **Steam 更新会覆盖**，补丁失效
+2. **「验证文件完整性」会判为损坏**并重新下载
+3. 某次更新改了 `.dat` 内部结构时，改过的文件可能让游戏直接崩
+
+所以最终采用的是**运行时拦截**：原文件一个字节不碰，`fopen` 打开
+`GenData\*.dat` 时现场解密、替换、重新打包，用 `tmpfile()` 返回一个
+匿名临时文件。游戏拿到的是普通 `FILE*`，`fread`/`fclose` 全部照常，
+它看不出区别。
+
+效果对比：
+
+| | 原 `.dat` | Steam 校验 | 游戏更新后 |
+|---|---|---|---|
+| 直接改文件 | 被改 | ❌ 判篡改 | 失效 |
+| **运行时拦截** | **不碰** | ✅ 通过 | **自动生效** |
+
+更新后原文件是最新的，我们的映射表还在，匹配得上的条目自动生效，
+匹配不上的退回英文 —— 最坏情况只是不翻译，不会崩。
+
+#### 拦截点：`fopen`
+
+`fopen` 在 RVA `0x45F5F0`，整个 exe 里只有 **3 个调用点**：
+
+```
+0x5BA573 / 0x5BA9B1 / 0x5BAB23
 ```
 
-首次修改前自动把原始密文备份到 `build/dat_orig/`。
+全在 `0x5BA4xx` 那个 `.dat` 加载器里。函数体只有 23 字节：
+
+```
+push ebp; mov ebp,esp; push [ebp+0xc]; push -1; push [ebp+8]
+call 0x85F280; add esp,0xc; pop ebp; ret 8
+```
+
+也就是说 `fopen(path,mode)` 实际就是 `impl(path, -1, mode)`。所以 5 字节
+JMP 直接盖住序言即可，**不需要 trampoline** —— 未命中时直接调 `0x85F280`。
+
+##### 两个必须小心的点
+
+**1. 调用约定必须对上。** 原函数以 `ret 8` 结尾 = `__stdcall`（被调方清
+栈），而它内部调用的 `0x85F280` 后面跟 `add esp,0xc` = `__cdecl`。
+钩子写成 `__cdecl` 就少清 8 字节栈，**游戏启动就崩**。
+
+**2. 不要白解 52 MB。** 没有映射的 `.dat` 如果也解密+解压一遍，启动要
+白卡 1~2 秒。所以映射表第一行写文件清单：
+
+```
+#@files w_gameEvent.dat
+```
+
+不在清单里的文件直接放行，零成本。
+
+#### 代码结构
+
+纯逻辑拆到 `src/dat_layer.c`，因为它要能**离线测试**（钩子安装没法测，
+需要真实游戏进程，但解密/解压/查表/替换/打包全是纯函数）：
+
+```
+src/inflate.c      gzip 解压 + gzip(stored) 打包 + CRC32（不依赖 zlib）
+src/dat_layer.c    RC4 + TSV 载入 + 匹配 + 等长替换 + 重定向
+src/hook_text.c    只负责把 dat_layer 挂到 fopen 上
+```
+
+`gz_compress_stored` 用 deflate 的 stored 块（BTYPE=00）原样存放，
+不真压缩 —— 体积略大但完全合法，游戏照样能读。这样就不必引入 zlib：
+DLL 只依赖 KERNEL32，而 VS 和 Windows SDK 里都没有 zlib。
+
+RC4 密钥直接硬编码 `MD5("W17VVI$G0ODG4M3")` = `aa5c3f…`，省掉一份 MD5。
+
+#### 离线验证
+
+`build/dattest.exe` 跑**真实的 C 代码**（不是 Python 复刻），验证结果：
+
+```
+映射表载入 2 条
+路径匹配 -> w_gameEvent.dat
+明文 239541 字节
+dat_apply 命中 2 处
+```
+
+逐字节核对：
+
+```
+原始明文 239541 字节 / C 打补丁后 239541 字节
+长度一致（等长约束）: ✅
+中文汉字数: 35725
+'1941年6月22日' 位置 0x4b6，<cr> 数量 4
+英文原句 'invasion of the Soviet Union began' 已替换
+差异字节 1683 个，区间 0x48a..0x1098（正好覆盖被替换的两段）
+差异区之外完全一致: ✅
+```
+
+另外 `build/inftest.exe` 单独验证 inflate：20 个 `.dat` 全部解压成功，
+明文与 Python `zlib` **逐字节一致**，包含 12 MB 的 `w_unit.dat`。
+
+#### 翻译怎么写
+
+```bash
+# 1. 扫描某个 .dat 里的字符串
+python tools/dat_scan.py w_gameEvent --min 300
+
+# 2. 写映射（dat_trans/<文件名>.json，原文 -> 译文）
+#    等长约束：译文不能比原文长，脚本会校验
+
+# 3. 生成运行时映射表
+python tools/build_dat_tsv.py
+
+# 4. 离线验证替换结果（不碰游戏）
+build\dattest.exe build\dat_orig\w_gameEvent.dat wite2_dat.tsv build\out.bin
+```
+
+部署时只需拷 `wite2_dat.tsv`（2.7 KB），**不动任何游戏文件**。
 
 #### 为什么这条通道重要
 

@@ -29,6 +29,8 @@ FONT_FILE = "wite2_zh.ttf"
 COPIES = [
     (os.path.join(ROOT, "build", "version.dll"), "version.dll"),
     (os.path.join(ROOT, "wite2_zh.tsv"), "wite2_zh.tsv"),
+    # 数据层映射表（.dat 整句翻译）。不存在也能跑，只是数据层不生效。
+    (os.path.join(ROOT, "wite2_dat.tsv"), "wite2_dat.tsv"),
     (os.path.join(ROOT, "Dat", "Fonts", FONT_FILE),
      os.path.join("Dat", "Fonts", FONT_FILE)),
 ]

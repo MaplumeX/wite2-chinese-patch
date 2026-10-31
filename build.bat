@@ -92,8 +92,10 @@ if errorlevel 1 (
 if not exist build mkdir build
 cl /nologo /LD /MT /O2 /W3 /GS- /D_CRT_SECURE_NO_WARNINGS /utf-8 ^
    src\hook_text.c ^
+   src\inflate.c ^
+   src\dat_layer.c ^
    /Fe:build\version.dll ^
-   /Fo:build\hook.obj ^
+   /Fo:build\ ^
    /link /DEF:src\version.def /MACHINE:X86 /SUBSYSTEM:WINDOWS
 if errorlevel 1 (
     echo [FAILED] compile error
@@ -114,8 +116,10 @@ if errorlevel 1 (
 if not exist build mkdir build
 cl /nologo /MT /O2 /W3 /GS- /D_CRT_SECURE_NO_WARNINGS /DZH_SELFTEST /utf-8 ^
    src\hook_text.c ^
+   src\inflate.c ^
+   src\dat_layer.c ^
    /Fe:build\selftest.exe ^
-   /Fo:build\selftest.obj ^
+   /Fo:build\ ^
    /link /MACHINE:X86 /SUBSYSTEM:CONSOLE
 if errorlevel 1 (
     echo [FAILED] compile error
@@ -128,6 +132,8 @@ exit /b 0
 echo.
 echo === Generating translation table and font ===
 python tools\build_assets.py
+if errorlevel 1 exit /b 1
+python tools\build_dat_tsv.py
 if errorlevel 1 exit /b 1
 exit /b 0
 

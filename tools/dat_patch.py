@@ -144,17 +144,24 @@ def main():
         print("已恢复 %s" % game_path)
         return 0
 
-    blob = open(game_path, "rb").read()
-    plain = dat_decrypt(blob)
-
-    # 首次修改前留一份原始密文备份
-    if not os.path.exists(backup):
+    # 输入必须是**原始密文**，不是当前游戏文件。
+    #
+    # 否则重复运行会累加：第二次读到的已经是「译文+补空格」的文件，
+    # 原文键再也匹配不上（实测“Situation Report”第二次就变成未命中），
+    # 而空格会一直长。用备份做输入才是幂等的。
+    if os.path.exists(backup):
+        blob = open(backup, "rb").read()
+        src_desc = "原始备份"
+    else:
+        blob = open(game_path, "rb").read()
         with open(backup, "wb") as f:
             f.write(blob)
-        print("已备份原文件 -> %s" % backup)
+        src_desc = "游戏文件（已备份）"
+    plain = dat_decrypt(blob)
 
     mapping = load_map(name)
-    print("%s: 明文 %d 字节，映射表 %d 条" % (fname, len(plain), len(mapping)))
+    print("%s: 输入=%s，明文 %d 字节，映射表 %d 条"
+          % (fname, src_desc, len(plain), len(mapping)))
     if not mapping:
         print("  没有 dat_trans/%s.json，无事可做" % name)
         return 1

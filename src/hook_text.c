@@ -45,6 +45,17 @@
 #include <string.h>
 #include <wchar.h>
 
+/* gzip 解压 / 打包（src/inflate.c）。
+ * 自己写而不是用 zlib：DLL 只依赖 KERNEL32，而 SDK 里没有 zlib。 */
+int gz_decompress(const unsigned char *in, size_t inlen,
+                  unsigned char **out, size_t *outlen);
+int gz_compress_stored(const unsigned char *in, size_t inlen,
+                       unsigned char **out, size_t *outlen);
+
+/* .dat 数据层的纯逻辑（解密/解压/查表/替换/打包），可离线测试 */
+#include "dat_layer.h"
+
+
 /* ================= version.dll 转发 ================= */
 static HMODULE g_sysVersion = NULL;
 static FARPROC sysproc(const char *name)
@@ -2093,6 +2104,88 @@ static int install_drawtext_hook(HMODULE exe, DWORD rva)
     return 1;
 }
 
+/* ================= .dat 数据层钩子 =================
+ *
+ * 纯逻辑（解密/解压/查表/替换/打包）在 src/dat_layer.c，那边能离线测试。
+ * 这里只负责把它挂到游戏的 fopen 上。
+ *
+ * 为什么不直接改游戏目录的 .dat
+ * ------------------------------
+ * 直接改文件有三个问题：
+ *
+ *   1. Steam 更新会覆盖，补丁失效
+ *   2. 「验证文件完整性」会把改过的 .dat 判为损坏并重新下载
+ *   3. 一旦某次更新改了 .dat 内部结构，改过的文件可能让游戏直接崩
+ *
+ * 所以改成**运行时拦截**：原文件一个字节不碰，fopen 打开 GenData\*.dat
+ * 时现场解密、替换、重新打包，用 tmpfile() 返回匿名临时文件。
+ * 游戏拿到的是普通 FILE*，fread/fclose 全部照常，它看不出区别。
+ *
+ * 拦截点
+ * ------
+ * `fopen` 在 RVA 0x45F5F0，整个 exe 里只有 3 个调用点：
+ *
+ *   0x5BA573 / 0x5BA9B1 / 0x5BAB23
+ *
+ * 全在 0x5BA4xx 那个 .dat 加载器里。函数体只有 23 字节：
+ *
+ *   push ebp; mov ebp,esp; push [ebp+0xc]; push -1; push [ebp+8]
+ *   call 0x85F280; add esp,0xc; pop ebp; ret 8
+ *
+ * 也就是说 fopen(path,mode) 实际就是 impl(path, -1, mode)。所以 5 字节
+ * JMP 直接盖住序言即可，**不需要 trampoline** —— 未命中时直接调 0x85F280。
+ */
+
+typedef FILE *(__cdecl *pFopenImpl)(const char *path, int flag,
+                                    const char *mode);
+static pFopenImpl g_fopenImpl = NULL;
+
+/* 把 hook_text.c 的日志桥接给 dat_layer.c */
+static void dat_log_bridge(const char *msg) { logfmt("%s", msg); }
+
+/* 调用约定必须和原函数一致：
+ *
+ *   0x45F5F0  ... ret 8       -> __stdcall（被调方清 8 字节）
+ *   0x85F280  ... add esp,0xc -> __cdecl（调方清 12 字节）
+ *
+ * 钩子用 __cdecl 就少清 8 字节栈，**游戏启动就会崩**。
+ */
+static FILE *__stdcall hook_fopen(const char *path, const char *mode)
+{
+    FILE *r = dat_redirect(path, g_fopenImpl);
+    if (r) return r;
+    /* 未命中：完全按原逻辑走 impl(path, -1, mode) */
+    return g_fopenImpl(path, -1, mode);
+}
+
+static int install_fopen_hook(HMODULE exe)
+{
+    BYTE *fn = (BYTE *)exe + 0x45F5F0;
+    /* 55 8B EC FF 75 0C = push ebp / mov ebp,esp / push [ebp+0xc] */
+    const BYTE sig[6] = { 0x55, 0x8B, 0xEC, 0xFF, 0x75, 0x0C };
+    DWORD oldProt, jrel;
+
+    g_fopenImpl = (pFopenImpl)(void *)((BYTE *)exe + 0x85F280);
+    dat_set_logger(dat_log_bridge);
+    /* 映射表用相对路径：游戏工作目录就是游戏根目录 */
+    dat_load_map("wite2_dat.tsv");
+
+    if (memcmp(fn, sig, 6) != 0) {
+        logfmt("[dat] fopen sig mismatch: %02X %02X %02X %02X %02X %02X\n",
+               fn[0], fn[1], fn[2], fn[3], fn[4], fn[5]);
+        return 0;
+    }
+    if (!VirtualProtect(fn, 16, PAGE_EXECUTE_READWRITE, &oldProt)) return 0;
+    jrel = (DWORD)((BYTE *)hook_fopen - (fn + 5));
+    fn[0] = 0xE9;
+    memcpy(fn + 1, &jrel, 4);
+    VirtualProtect(fn, 16, oldProt, &oldProt);
+    FlushInstructionCache(GetCurrentProcess(), fn, 5);
+
+    logfmt("[dat] fopen hooked at %p (impl=%p)\n", fn, g_fopenImpl);
+    return 1;
+}
+
 /* ================= 入口 ================= */
 /* ===== 补丁时机 =====
  *
@@ -2310,6 +2403,13 @@ static DWORD WINAPI init_thread(LPVOID param)
             install_messagebox_hooks(exe);
         else
             logfmt("[msgbox] 已禁用（wite2_nomsgbox.ini）\n");
+        /* 数据层：.dat 里的整句文本（事件正文等）在绘制层是逐词绘制的，
+         * 钩子永远拿不到整句，只能在这里拦 fopen 现场替换。
+         * 关掉的方式：游戏目录放 wite2_nodat.ini */
+        if (GetFileAttributesA("wite2_nodat.ini") == INVALID_FILE_ATTRIBUTES)
+            install_fopen_hook(exe);
+        else
+            logfmt("[dat] 已禁用（wite2_nodat.ini）\n");
     } else {
         logfmt("[draw] 已禁用（wite2_nodraw.ini）\n");
     }
