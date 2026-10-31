@@ -174,6 +174,28 @@ static void logfmt(const char *fmt, ...)
 /* ================= .rdata 原地改写 ================= */
 static int g_patched = 0, g_tooLong = 0, g_notFound = 0;
 
+/* 改写开关。游戏目录放对应的 ini 文件就能关掉一段，用来二分定位崩溃。
+ *
+ * 为什么需要
+ * ----------
+ * 绘制层换指针永远不会弄崩游戏 —— 它只影响这一次绘制用什么字符串。
+ * 崩一定来自 .rdata / .data 的原地改写：游戏用那些串做查找键，
+ * 改成中文后查不到，拿到 NULL 再解引用。
+ *
+ * 实例：Message 改成"消息"，点"通讯报告"必崩。它在 exe 里紧挨着
+ * ErrorCode / DebugMessage / Password / Login /
+ * authentication/steam/login/anonymous，是 Steam 登录响应的 JSON
+ * 字段名表。short_class() 只拦 6 字符以内的串，7 字符刚好吃漏。
+ *
+ *   wite2_nopatch.ini  两段都不改（纯绘制层）
+ *   wite2_nordata.ini  不改 .rdata
+ *   wite2_nodata.ini   不改 .data
+ *
+ * 改写明细写到 wite2_patch.txt，崩溃后能对照到底哪条被改了。 */
+static int g_patchRdata = 1;
+static int g_patchData = 1;
+static FILE *g_patLog = NULL;
+
 /* 收集 buf 里所有完整 UTF-16 字符串匹配的偏移 */
 static int wfind_all(const BYTE *buf, DWORD size, const wchar_t *key, int klen,
                      DWORD *outs, int maxOut)
@@ -263,6 +285,25 @@ static void patch_section(BYTE *base, DWORD size, const char *secName, int secId
             memset(p + vlen, 0, (klen - vlen + 1) * sizeof(wchar_t));
             cnt++;
             g_patched++;
+            /* 明细入日志：崩溃后靠它对照哪个串被改错了。
+             * 只记前 4000 条，避免日志比扫描还慢。 */
+            if (g_patLog && g_patched <= 4000) {
+                char kb[300], vb[600];
+                int x = 0;
+                for (const char *q = k; *q && x < 290; q++)
+                    kb[x++] = (*q >= 0x20 && *q < 0x7f) ? *q : '?';
+                kb[x] = 0;
+                x = 0;
+                for (const wchar_t *q = v; *q && x < 300; q++) {
+                    if ((unsigned)*q < 0x7f) vb[x++] = (char)*q;
+                    else x += _snprintf(vb + x, 8, "\\u%04X",
+                                        (unsigned)*q);
+                    if (x > 560) break;
+                }
+                vb[x] = 0;
+                fprintf(g_patLog, "%s@%08X\t%s\t%s\n",
+                        secName, (unsigned)off, kb, vb);
+            }
         }
     }
     free(offs);
@@ -289,6 +330,16 @@ static void patch_all(HMODULE exe)
         if (strcmp(nm, ".rdata") == 0) secId = 1;
         else if (strcmp(nm, ".data") == 0) secId = 2;
         else continue;
+
+        /* 二分开关：关掉某段就完全不碰它。 */
+        if (secId == 1 && !g_patchRdata) {
+            logfmt("[patch] %s 已禁用（wite2_nordata.ini）\n", nm);
+            continue;
+        }
+        if (secId == 2 && !g_patchData) {
+            logfmt("[patch] %s 已禁用（wite2_nodata.ini）\n", nm);
+            continue;
+        }
 
         /* 必须取 VirtualSize 和 SizeOfRawData 的较小值。
          * .data 的 VirtualSize 是 0x5AF1FAC（90 MB），因为未初始化的
@@ -2918,7 +2969,19 @@ static DWORD WINAPI init_thread(LPVOID param)
     /* 安全网: 早期补丁万一没生效（比如游戏自己重新加载了段），
      * 这里再补一次。patch_section 只匹配原文，已是中文的不会再改，
      * 所以重复调用是幂等的。 */
+    {
+        FILE *f;
+        f = fopen("wite2_nopatch.ini", "rb");
+        if (f) { fclose(f); g_patchRdata = 0; g_patchData = 0; }
+        f = fopen("wite2_nordata.ini", "rb");
+        if (f) { fclose(f); g_patchRdata = 0; }
+        f = fopen("wite2_nodata.ini", "rb");
+        if (f) { fclose(f); g_patchData = 0; }
+        g_patLog = fopen("wite2_patch.txt", "wb");
+        logfmt("[patch] rdata=%d data=%d\n", g_patchRdata, g_patchData);
+    }
     patch_all(exe);
+    if (g_patLog) { fclose(g_patLog); g_patLog = NULL; }
 
 
     /* 阶段2: 绘制层替换文本指针 */

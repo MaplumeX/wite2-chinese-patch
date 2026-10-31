@@ -159,7 +159,12 @@ def build_tsv():
              "# 英文<TAB>中文[<TAB>d|r|b|t|x]  d=只改.data r=只改.rdata "
              "b=两段都改 t=只绘制层 x=封印(永不翻译)"]
     for k, v in zh.items():
-        if k in both:
+        if k in draw_only:
+            # 最优先。_drawOnly 曾经只是维护在 zh_dict.json 里、却从没
+            # 参与过作用域计算 —— 标了等于没标，照样写进 .rdata。
+            # Message 标了却还在写内存，就是 "通讯报告" 崩溃的原因。
+            scope = "\tt"
+        elif k in both:
             scope = "\tb"
         elif k in data_only:
             scope = "\td"

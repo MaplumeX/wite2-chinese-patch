@@ -389,7 +389,7 @@ Show Metrics Screen	显示统计界面
 HQ UNIT	司令部
 SUPPORT UNIT	支援单位
 At City	在城市
-Withdraw	撤离
+Withdraw	撤离	t
 Transport Cost	运输消耗
 Construction Value	建设值
 Vehicles/Need	车辆/需求
@@ -403,7 +403,7 @@ Size	规模	t
 Speed	速度	t
 Ready	就绪	t
 Traveled	已行进
-Reliability	可靠性
+Reliability	可靠性	t
 Build Cost	建造成本
 Fuel Use	燃料消耗
 Ammo Use	弹药消耗
@@ -416,8 +416,8 @@ Side Armor	侧装甲
 Top Armor	顶装甲
 Front Armor	前装甲
 Stacking 	堆叠 
-Upgrade	升级
-Capacity	容量
+Upgrade	升级	t
+Capacity	容量	t
 Detail	详情	t
 Damaged	受损
 Lost	损失	t
@@ -1145,7 +1145,7 @@ Resource Movement: city to city	资源流动：城市间
 Pool to City	储备到城市
 City to Pool	城市到储备
 Resource Movement: moving from pools	资源流动：从储备运出
-Freight	货运
+Freight	货运	t
 Truck Use	卡车使用
 Supplying Units: lowest priority	补给部队：最低优先
 Supplying Units: low priority	补给部队：低优先
@@ -1598,7 +1598,7 @@ Switch to new editor	切换到新编辑器
 Allowed	允许
 Icons	图标	t
 Warning	警告
-Message	消息
+Message	消息	t
 Messages	消息
 GENERIC	通用
 editor	编辑器	t
@@ -2177,7 +2177,7 @@ Bold	粗体	t
 Koluft Center	中央空军联络
 Koluft North	北方空军联络
 Koluft South	南方空军联络
-Maneuver	机动
+Maneuver	机动	t
 Maneuver:	机动：
 Manuever:	机动：
 METRIC	公制	t
@@ -4813,12 +4813,12 @@ Missions	任务
 Modified	已修改
 Schedule	日程
 Historical	历史
-Initiative	主动性
+Initiative	主动性	t
 Destination	目的地
 Amphib	两栖	t
 Airbase	航空基地
 Airdrop	空投
-Ceiling	升限
+Ceiling	升限	t
 Delayed	延迟
 Mission	任务
 Found	已找到	t
@@ -5176,7 +5176,7 @@ Result	结果	t
 Sub To	隶属于
 Suffix	后缀	t
 Armored Cars	装甲车
-Engines	发动机
+Engines	发动机	t
 Loadout	挂载
 Conflict	冲突
 Damage  	损伤  
@@ -5186,9 +5186,9 @@ In Trans	转移中
 Observed	已观测
 Buildable	可建造
 Disrupted	被扰乱
-Endurance	续航
+Endurance	续航	t
 Estimated	预计
-Political	政治
+Political	政治	t
 Deactivate	停用
 Surrender 	投降 
 SURRENDERED 	已投降 
@@ -5345,7 +5345,7 @@ Machinegun Battalion	机枪营
 Flak Battalion	高炮营
 Tank Battalion	坦克营
 Flotilla	支队
-Penetration	穿透
+Penetration	穿透	t
 Scouted	已侦察
 Const	建设	t
 Login	登录	t
@@ -6470,11 +6470,11 @@ Separate	独立
 Independent	独立
 Independant	独立
 Replacement	补充
-Reserve	预备
+Reserve	预备	t
 Light	轻装	t
 Super	超级	t
 Mot.	摩托化	t
-Motorized	摩托化
+Motorized	摩托化	t
 Alpine	山地	t
 Alpini	阿尔卑斯山地兵	t
 Alps Mountain	阿尔卑斯山地
@@ -9745,16 +9745,16 @@ Kowel	科韦利	t
 Spahis	北非骑兵	t
 CONSUMED	已消耗
 AVAIL	可用	t
-LOW RES	低储备
-NO RES	无储备
+LOW RES	低储备	t
+NO RES	无储备	t
 RES	储备	t
 FATIGUE	疲劳
 CITY	城市	t
 MAP	地图	t
 LOSSES	损失	t
-AIR LOSSES	空战损失
+AIR LOSSES	空战损失	t
 CHANGE	变更	t
-CHANGING TYPE	变更类型
+CHANGING TYPE	变更类型	t
 RESIZING	调整大小
 RED	红	t
 GREEN	绿	t
