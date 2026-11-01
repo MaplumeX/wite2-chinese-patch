@@ -307,52 +307,98 @@ int dat_load_map(const char *tsv_path)
  * 中文比英文短，补空格绰绰有余；补 L' ' 而不是 memset(' ')，
  * 否则会写出 U+2020 而不是 U+0020。
  */
+/* 读一个 4 字节小端值。前缀可能落在奇数偏移（.scn 里字符串就是），
+ * 所以不能用指针强转 —— 未对齐读在 x86 上虽然能跑，但会误导后续维护。 */
+static unsigned long rd32(const unsigned char *p)
+{
+    return (unsigned long)p[0]
+         | ((unsigned long)p[1] << 8)
+         | ((unsigned long)p[2] << 16)
+         | ((unsigned long)p[3] << 24);
+}
+
+/* 一条记录最多多少字符。事件正文最长约 1500 字符，给足余量但挡住
+ * 随机 4 字节值当成"长度"。 */
+#define DAT_MAX_CHARS 40000UL
+
+/* 在明文里做等长替换。返回命中数。
+ *
+ * 两种对齐都要扫：.dat 里的字符串落在偶数偏移，.scn 里是**奇数偏移**
+ * （实测 "Situation Report" 在 0x634B7FD）。只扫偶数会得到 0 处命中，
+ * 而且看起来像"链路正常但原文没对上"，很容易误判成词典问题。
+ *
+ * 匹配必须锚在记录边界上
+ * --------------------
+ * 明文的字符串是 `[4字节字符数][UTF-16 正文]`，所以记录起点前面 4 字节
+ * 一定等于这条字符串的字符数。
+ *
+ * 一开始的做法是"从某处开始扫，直到遇见非法码点为止"，然后把扫到的
+ * 整段拿去查表。这在真实数据上会出两种错：
+ *
+ *   1. 记录结束后紧跟的是下一条记录的字段字节，往往也是"合法码点"，
+ *      于是扫出来的字符串尾部多带一个字符（`...current date` 变成
+ *      `...current datey`）。这样的键永远匹配不上，等于白翻。
+ *   2. 更要命的是**前缀误伤**：'Italian Campaign' 是 'Italian Campaign
+ *      Advances' 的前缀，只要正文里出现后者，前者就会命中并改写它的
+ *      前 16 个字符，留下 '意大利战役' + 8 个空格 + 'dvances'。
+ *      这条名字随后按名字去查表就查不到 —— 游戏抛 std::out_of_range，
+ *      在 MSVC 上就是未捕获 C++ 异常 E06D7363，表现为"进入剧本报
+ *      runtime error"。
+ *
+ * 所以改成**前缀驱动**：只看"当前位置往前 4 字节"这个数字，把它当作
+ * 长度 L，然后精确比对 L 个字符、并跳过 L 个字符。长度不符的位置一律
+ * 不碰，前缀重合的问题自然消失。
+ *
+ * 等长依然成立：中文比英文短，补空格绰绰有余；补 L' ' 而不是 memset，
+ * 否则会写出 U+2020 而不是 U+0020。 */
 int dat_apply(unsigned char *plain, unsigned long len)
 {
     int hits = 0;
     int parity;
 
-    /* 必须两种对齐都扫。
-     *
-     * .dat 里的字符串全部落在偶数偏移，但 .scn 里是**奇数偏移**
-     * （实测 "Situation Report" 在 0x634B7FD、"<cr>On the 22nd" 在
-     * 0x634B821）。只按偶数扫会得到 0 处命中 —— 而且看起来像是
-     * "链路正常但原文没对上"，很容易误判成词典问题。
-     *
-     * 错位扫描产生的乱码几乎不可能同时满足码点白名单和长度相等，
-     * 所以两种都扫不会带来误伤。 */
     for (parity = 0; parity < 2; parity++) {
-        size_t i = (size_t)parity;
-        while (i + 3 < len) {
-            size_t j = i;
-            int nch = 0;
-            while (j + 1 < len) {
-                unsigned int c = (unsigned int)plain[j]
-                               | ((unsigned int)plain[j + 1] << 8);
-                if (c == 0 || !dat_cp_ok(c)) break;
-                nch++; j += 2;
-            }
-            if (nch >= 3) {
-                int k;
-                for (k = 0; k < g_datN; k++) {
-                    if (g_dat[k].klen != nch) continue;
-                    if (memcmp(plain + i, g_dat[k].wkey,
-                               (size_t)nch * sizeof(wchar_t)) != 0) continue;
-                    if (g_dat[k].vlen > nch) break;   /* 过长，跳过 */
-                    {
-                        wchar_t *dst = (wchar_t *)(void *)(plain + i);
-                        int z;
-                        memcpy(dst, g_dat[k].wval,
-                               (size_t)g_dat[k].vlen * sizeof(wchar_t));
-                        for (z = g_dat[k].vlen; z < nch; z++) dst[z] = L' ';
-                    }
-                    hits++;
-                    break;
-                }
-                i = (j > i) ? j : i + 2;
-            } else {
+        unsigned long i = 4UL + (unsigned long)parity;
+
+        while (i + 4 < len) {
+            unsigned long L = rd32(plain + i - 4);
+            int k;
+
+            if (L < 1 || L > DAT_MAX_CHARS || i + L * 2 > len) {
                 i += 2;
+                continue;
             }
+
+            /* 内容粗检：L 个字符都得是白名单码点。这一步纯属额外保险，
+             * 真正起作用的是长度精确比对。 */
+            {
+                unsigned long t;
+                int bad = 0;
+                for (t = 0; t < L; t++) {
+                    unsigned int c = (unsigned int)plain[i + t * 2]
+                                   | ((unsigned int)plain[i + t * 2 + 1] << 8);
+                    if (c == 0 || !dat_cp_ok(c)) { bad = 1; break; }
+                }
+                if (bad) { i += 2; continue; }
+            }
+
+            for (k = 0; k < g_datN; k++) {
+                if ((unsigned long)g_dat[k].klen != L) continue;
+                if (memcmp(plain + i, g_dat[k].wkey,
+                           (size_t)L * sizeof(wchar_t)) != 0) continue;
+                if ((unsigned long)g_dat[k].vlen > L) break;  /* 过长，跳过 */
+                {
+                    wchar_t *dst = (wchar_t *)(void *)(plain + i);
+                    int z;
+                    memcpy(dst, g_dat[k].wval,
+                           (size_t)g_dat[k].vlen * sizeof(wchar_t));
+                    for (z = g_dat[k].vlen; z < (int)L; z++) dst[z] = L' ';
+                }
+                hits++;
+                break;
+            }
+
+            /* 整条记录跳过：它内部不可能还有独立的记录起点 */
+            i += L * 2;
         }
     }
     return hits;
