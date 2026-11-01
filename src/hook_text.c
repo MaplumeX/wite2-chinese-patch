@@ -657,6 +657,140 @@ static int region_enc(char *out, int room, const wchar_t *s)
 
 /* 每次绘制写一行。不去重 —— 同一个文本在不同控件上要分别统计，
  * 这正是上下文翻译要的数据。 */
+/* ================= 未翻译文本日志 =================
+ *
+ * 静态估算覆盖率（43.6%）只能告诉你"还有多少串没进词典"，不能告诉你
+ * **玩家实际看到的哪些字还在英文**。要回答这个问题只能靠运行时实测：
+ * 在绘制层把"没命中词典的串"全部记下来。
+ *
+ * 为什么按次数排序就够了
+ * --------------------
+ * 事件正文是**逐词绘制**的（一句话被拆成几十个单词，每个词单独调用
+ * 绘制），所以正文里的词每次都只出现一次。而界面标签（按钮、表头、
+ * 状态栏）是每帧都画的。所以按次数降序一摆，界面漏翻的项自己就浮到
+ * 最上面，正文单词沉在下面，不需要任何分类器。
+ *
+ * 落盘策略：每新增 64 个不重复串就整份重写一次（按次数降序，取前
+ * 1500）。不给 DLL 卸载时机加钩子 —— 游戏崩溃或强杀时也要能留下东西。
+ */
+#define MISS_N 8192
+#define MISS_KEEP 1500
+
+typedef struct {
+    unsigned hash;
+    wchar_t *text;
+    unsigned count;
+} MissEnt;
+
+static MissEnt g_miss[MISS_N];
+static int g_missOn = 0;
+static int g_missDistinct = 0;
+static int g_missDirty = 0;
+static unsigned g_missDraws = 0;
+
+static unsigned miss_hash(const wchar_t *s, int n)
+{
+    unsigned h = 2166136261u;
+    int i;
+    for (i = 0; i < n; i++) {
+        h ^= (unsigned)(s[i] & 0xFF);
+        h *= 16777619u;
+        h ^= (unsigned)((s[i] >> 8) & 0xFF);
+        h *= 16777619u;
+    }
+    return h;
+}
+
+static int miss_want(const wchar_t *t, int n)
+{
+    int i, hasAlpha = 0;
+    if (n < 2 || n > 200) return 0;
+    for (i = 0; i < n; i++) {
+        unsigned c = (unsigned)t[i];
+        /* 已经是中文了，说明要么翻过、要么本来就是中文数据 */
+        if (c >= 0x4e00 && c <= 0x9fff) return 0;
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) hasAlpha = 1;
+    }
+    return hasAlpha;
+}
+
+static int miss_cmp(const void *a, const void *b)
+{
+    const MissEnt *x = (const MissEnt *)a, *y = (const MissEnt *)b;
+    if (x->count != y->count) return (x->count < y->count) ? 1 : -1;
+    return 0;
+}
+
+static void miss_flush(void)
+{
+    MissEnt tmp[MISS_KEEP];
+    int i, k = 0;
+    FILE *f;
+
+    if (!g_missDirty) return;
+    g_missDirty = 0;
+
+    for (i = 0; i < MISS_N && k < MISS_KEEP; i++)
+        if (g_miss[i].text && g_miss[i].count) tmp[k++] = g_miss[i];
+    if (k <= 0) return;
+    qsort(tmp, (size_t)k, sizeof(tmp[0]), miss_cmp);
+
+    f = fopen("wite2_miss.tsv", "wb");
+    if (!f) return;
+    fprintf(f, "# 运行时实测：绘制过但没命中词典的串（按绘制次数降序）\n");
+    fprintf(f, "# count<TAB>原文\t\t非重复 %d 条\n", g_missDistinct);
+    for (i = 0; i < k; i++) {
+        char u8[1024];
+        int m = WideCharToMultiByte(CP_UTF8, 0, tmp[i].text, -1, u8,
+                                    sizeof(u8) - 1, NULL, NULL);
+        if (m <= 0) continue;
+        u8[m - 1] = 0;
+        fprintf(f, "%u\t%s\n", tmp[i].count, u8);
+    }
+    fclose(f);
+    logfmt("[miss] 已写入 wite2_miss.tsv，非重复 %d 条\n", g_missDistinct);
+}
+
+static void miss_note(const wchar_t *t)
+{
+    int n = 0, slot;
+    unsigned h;
+
+    if (!g_missOn || !t) return;
+    while (n < 200 && t[n]) n++;
+    if (!miss_want(t, n)) return;
+
+    /* 光逛菜单时不会有新条目，但次数一直在涨；不按绘制次数也触发一次
+     * 写盘，否则这种最典型的"查界面漏翻"场景反而什么都不产出。 */
+    g_missDraws++;
+    if ((g_missDraws & 4095) == 0) miss_flush();
+
+    h = miss_hash(t, n);
+    slot = (int)(h % MISS_N);
+    for (;;) {
+        MissEnt *e = &g_miss[slot];
+        if (!e->text) {                       /* 空位 -> 新条目 */
+            wchar_t *cp = (wchar_t *)malloc(((size_t)n + 1) * sizeof(wchar_t));
+            if (!cp) return;
+            memcpy(cp, t, (size_t)n * sizeof(wchar_t));
+            cp[n] = 0;
+            e->hash = h;
+            e->text = cp;
+            e->count = 1;
+            g_missDistinct++;
+            g_missDirty = 1;
+            if ((g_missDistinct & 63) == 0) miss_flush();
+            return;
+        }
+        if (e->hash == h && wcscmp(e->text, t) == 0) {
+            e->count++;
+            g_missDirty = 1;
+            return;
+        }
+        slot = (slot + 1) % MISS_N;
+    }
+}
+
 static void region_write(const wchar_t *text, const wchar_t *dst, DWORD *stk)
 {
     if (!g_regions || !g_regFile || !text || !stk) return;
@@ -1727,6 +1861,9 @@ static wchar_t *dt_check2(wchar_t *text, DWORD *stk)
     wchar_t *r = dt_check(text);
     if (!text || !stk) return r;
 
+    /* 没命中词典才记 —— 命中说明已经翻了，不关心 */
+    if (g_missOn && r == text) miss_note(text);
+
     /* 区域采集: 读控件管理器，记下这次绘制挂在哪一个控件上。
      * 必须在 layout 开关判断之前 —— 两个诊断可以分开用。 */
     region_write(text, r, stk);
@@ -2551,6 +2688,20 @@ static DWORD WINAPI init_thread(LPVOID param)
                        "text=%08X-%08X\n",
                        (unsigned)g_textLo, (unsigned)g_textHi);
             }
+        }
+    }
+
+    /* 未翻译文本日志: 放一个空的 wite2_miss.ini 就开。
+     * 跟 capture / regions 分开开关 —— capture 记的是全部绘制的串（有
+     * 几万个，主要用来查区域），miss 记的是"没命中词典"的（直接对应
+     * 玩家看到的英文残留）。两者目的不同，混在一起反而不好看。 */
+    {
+        FILE *mf = fopen("wite2_miss.ini", "rb");
+        if (mf) {
+            fclose(mf);
+            remove("wite2_miss.tsv");
+            g_missOn = 1;
+            logfmt("[miss] 未翻译文本日志开启 -> wite2_miss.tsv\n");
         }
     }
 
