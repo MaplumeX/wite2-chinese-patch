@@ -50,6 +50,7 @@ if errorlevel 1 goto fail
 call :do_assets
 if errorlevel 1 goto fail
 call :do_check
+call :do_datanchor
 if errorlevel 1 goto fail
 call :do_deploy
 if errorlevel 1 goto fail
@@ -153,6 +154,20 @@ if errorlevel 1 (
 python tools\build_assets.py --check
 if errorlevel 1 (
     echo [FAILED] font glyph check
+    exit /b 1
+)
+exit /b 0
+
+:do_datanchor
+echo.
+echo === Verifying data-layer anchoring ===
+if not exist build\dattest.exe (
+    echo [SKIP] build\dattest.exe missing - run build\t2.bat to enable
+    exit /b 0
+)
+python tools\test_dat_anchor.py
+if errorlevel 1 (
+    echo [FAILED] data-layer prefix anchoring
     exit /b 1
 )
 exit /b 0
